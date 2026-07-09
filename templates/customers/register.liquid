@@ -1,0 +1,33 @@
+<div class="utility-page">
+  <span class="eyebrow eyebrow--accent">Join the house</span>
+  <h1>Create an account</h1>
+
+  <div class="customer-form">
+    {% form 'create_customer' %}
+      {% if form.errors %}
+        <div class="errors">{{ form.errors | default_errors }}</div>
+      {% endif %}
+      <div class="field">
+        <label for="FirstName">First name</label>
+        <input type="text" id="FirstName" name="customer[first_name]" autocomplete="given-name">
+      </div>
+      <div class="field">
+        <label for="LastName">Last name</label>
+        <input type="text" id="LastName" name="customer[last_name]" autocomplete="family-name">
+      </div>
+      <div class="field">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="customer[email]" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="customer[password]" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn btn--solid btn--full">Create account</button>
+    {% endform %}
+
+    <div class="form-links">
+      <a href="{{ routes.account_login_url }}">Already one of the house? Sign in</a>
+    </div>
+  </div>
+</div>

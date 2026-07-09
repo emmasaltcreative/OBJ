@@ -1,0 +1,61 @@
+<section class="newsletter section">
+  <div class="page-width narrow">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+    <h2>{{ section.settings.heading }}</h2>
+    <p style="color: var(--ink-soft);">{{ section.settings.text }}</p>
+
+    {% form 'customer' %}
+      {% if form.posted_successfully? %}
+        <p class="newsletter__note">Wonderful. The first letter is on its way.</p>
+      {% else %}
+        {% if form.errors %}
+          <div class="errors">{{ form.errors | default_errors }}</div>
+        {% endif %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="newsletter__form">
+          <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required>
+          <button type="submit" class="btn btn--solid">Subscribe</button>
+        </div>
+      {% endif %}
+    {% endform %}
+
+    <p class="newsletter__note">{{ section.settings.note }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Correspondence"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Letters from the maison"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "New editions announced first, by letter. No hype, no hurry — we write when there is something worth writing about."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

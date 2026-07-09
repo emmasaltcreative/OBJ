@@ -1,0 +1,24 @@
+<section class="section">
+  <div class="page-width" style="max-width: 60rem;">
+    <span class="eyebrow eyebrow--accent">From your history</span>
+    <h1>Order {{ order.name }}</h1>
+    <p class="cart-line__meta">Placed {{ order.created_at | date: '%B %-d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+
+    {% for line_item in order.line_items %}
+      <div class="cart-line" style="grid-template-columns: 1fr auto;">
+        <div>
+          <div class="cart-line__title">{{ line_item.title }}</div>
+          <div class="cart-line__meta">Qty {{ line_item.quantity }}</div>
+        </div>
+        <div style="font-family: var(--font-sans); font-size: 0.9rem;">{{ line_item.final_line_price | money }}</div>
+      </div>
+    {% endfor %}
+
+    <div class="cart-footer__total" style="margin-top: 2rem;">
+      <span>Total</span>
+      <span>{{ order.total_price | money }}</span>
+    </div>
+
+    <a href="{{ routes.account_url }}" class="link-arrow">Back to your account</a>
+  </div>
+</section>

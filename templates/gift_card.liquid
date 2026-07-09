@@ -1,0 +1,36 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gift card · {{ shop.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@400;500&family=Lora:wght@400&display=swap" rel="stylesheet">
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+</head>
+<body>
+  <div class="utility-page">
+    <span class="eyebrow eyebrow--accent">A gift from the maison</span>
+    <h1>{{ shop.name }}</h1>
+    <p style="font-style: italic; color: var(--ink-soft);">Someone thinks you deserve the good things. They are correct.</p>
+
+    <div style="background: var(--color-paper); border: 1px solid var(--line); padding: 2.5rem; margin-block: 2rem;">
+      <p class="eyebrow" style="margin-bottom: 0.6rem;">Gift card value</p>
+      <p style="font-family: var(--font-display); font-size: 2.6rem; margin: 0;">{{ gift_card.initial_value | money }}</p>
+      <hr class="rule" style="margin-block: 1.5rem;">
+      <p class="eyebrow" style="margin-bottom: 0.6rem;">Your code</p>
+      <p style="font-family: var(--font-sans); letter-spacing: 0.25em; font-size: 1.1rem; margin: 0;">{{ gift_card.code | format_code }}</p>
+      {% if gift_card.expired %}
+        <p style="color: var(--color-accent); margin-top: 1rem;">This card has expired.</p>
+      {% elsif gift_card.balance != gift_card.initial_value %}
+        <p style="margin-top: 1rem; color: var(--ink-soft);">Remaining balance: {{ gift_card.balance | money }}</p>
+      {% endif %}
+    </div>
+
+    <a href="{{ shop.url }}" class="btn btn--solid">Use the good things</a>
+  </div>
+</body>
+</html>

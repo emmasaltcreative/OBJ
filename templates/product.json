@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "making": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The making",
+            "content": "<p>Made to order, one at a time, and numbered to the edition. Printed, bound, or poured when you claim it — allow 3–5 days before shipping.</p>"
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>It ships the moment it's finished, and it took the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+          }
+        }
+      },
+      "block_order": ["making", "shipping"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

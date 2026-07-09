@@ -1,0 +1,71 @@
+<section class="section">
+  <div class="page-width" style="max-width: 60rem;">
+    <span class="eyebrow eyebrow--accent">Nearly yours</span>
+    <h1>Your parcel</h1>
+
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" id="cart">
+        {% for item in cart.items %}
+          <div class="cart-line">
+            <a href="{{ item.url }}">
+              {% if item.image %}
+                {{ item.image | image_url: width: 192 | image_tag: loading: 'lazy', alt: item.title }}
+              {% endif %}
+            </a>
+            <div>
+              <div class="cart-line__title"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+              {% unless item.product.has_only_default_variant %}
+                <div class="cart-line__meta">{{ item.variant.title }}</div>
+              {% endunless %}
+              <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+              <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+            <div style="text-align: right;">
+              <div class="quantity" style="margin-bottom: 0.6rem;">
+                <button type="button" data-qty-change="-1" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity" onchange="this.form.submit()">
+                <button type="button" data-qty-change="1" aria-label="Increase quantity">+</button>
+              </div>
+              <div style="font-family: var(--font-sans); font-size: 0.9rem; letter-spacing: 0.1em;">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="cart-footer">
+          <div>
+            <div class="field">
+              <label for="CartNote">A note to the house</label>
+              <textarea id="CartNote" name="note" rows="3" placeholder="A gift? A request? Tell us.">{{ cart.note }}</textarea>
+            </div>
+          </div>
+          <div>
+            <div class="cart-footer__total">
+              <span>Subtotal</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            <p style="font-style: italic; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.4rem;">
+              Taxes and shipping settled at checkout. Your pieces begin their making the moment you do.
+            </p>
+            <button type="submit" name="update" class="btn btn--full" style="margin-bottom: 0.8rem;">Update parcel</button>
+            <button type="submit" name="checkout" class="btn btn--solid btn--full">Check out</button>
+          </div>
+        </div>
+      </form>
+    {% else %}
+      <div class="cart-empty">
+        <h2 style="font-style: italic;">Empty — for now.</h2>
+        <p style="color: var(--ink-soft);">Nothing waits in a warehouse, and nothing waits in here either.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="link-arrow" style="margin-top: 1rem; display: inline-block;">Browse the edition</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

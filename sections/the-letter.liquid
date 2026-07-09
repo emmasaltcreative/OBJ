@@ -1,0 +1,58 @@
+<section class="letter section">
+  <div class="page-width">
+    <div class="letter__inner">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <div class="letter__body prose">
+        <div class="drop-cap">{{ section.settings.body }}</div>
+      </div>
+      <div class="letter__footer">
+        <span class="signature">{{ section.settings.signature }}</span>
+        {% if section.settings.link_label != blank %}
+          <a href="{{ section.settings.link }}" class="link-arrow">{{ section.settings.link_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The letter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "A letter from the maison"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Letter excerpt",
+      "default": "<p>I was named for two women called Betty. One kept her paperbacks the way other people keep secrets — spines cracked, corners turned down, margins full of arguments she was winning with the author. The other believed that if a thing was worth doing, it was worth doing with the good glass, the fresh flowers, and absolutely no rush whatsoever.</p><p>Betty Jaletti is the house I built to keep their opinion alive.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature",
+      "default": "— B."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Read the whole letter"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "The letter"
+    }
+  ]
+}
+{% endschema %}

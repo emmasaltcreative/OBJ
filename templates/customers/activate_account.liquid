@@ -1,0 +1,22 @@
+<div class="utility-page">
+  <span class="eyebrow eyebrow--accent">Almost there</span>
+  <h1>Activate your account</h1>
+
+  <div class="customer-form">
+    {% form 'activate_customer_password' %}
+      {% if form.errors %}
+        <div class="errors">{{ form.errors | default_errors }}</div>
+      {% endif %}
+      <div class="field">
+        <label for="ActivatePassword">Password</label>
+        <input type="password" id="ActivatePassword" name="customer[password]" autocomplete="new-password" required>
+      </div>
+      <div class="field">
+        <label for="ActivatePasswordConfirm">Confirm password</label>
+        <input type="password" id="ActivatePasswordConfirm" name="customer[password_confirmation]" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn btn--solid btn--full">Activate account</button>
+      <button type="submit" name="decline" class="btn btn--full" style="margin-top: 0.8rem;">Decline invitation</button>
+    {% endform %}
+  </div>
+</div>

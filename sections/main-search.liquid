@@ -1,0 +1,53 @@
+<section class="section">
+  <div class="page-width">
+    <div class="utility-page" style="padding-block: 0 3rem;">
+      <span class="eyebrow eyebrow--accent">Looking for something?</span>
+      <h1>Search the maison</h1>
+      <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search" aria-label="Search">
+        <button type="submit" class="btn btn--solid">Search</button>
+      </form>
+    </div>
+
+    {% if search.performed %}
+      {% paginate search.results by 12 %}
+        {% if search.results.size > 0 %}
+          <p style="text-align: center; font-style: italic; color: var(--ink-soft); margin-bottom: 2.5rem;">
+            {{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} for &ldquo;{{ search.terms }}&rdquo;
+          </p>
+          <div class="product-grid">
+            {% for item in search.results %}
+              {% if item.object_type == 'product' %}
+                {% render 'product-card', product: item %}
+              {% else %}
+                <div class="product-card">
+                  <h3 class="product-card__title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                  <p class="product-card__type">{{ item.object_type | capitalize }}</p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="utility-page">
+            <p style="font-style: italic; color: var(--ink-soft);">Nothing by that name in the house — yet. Try another word, or browse the edition.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="link-arrow">Browse the edition</a>
+          </div>
+        {% endif %}
+
+        {% if paginate.pages > 1 %}
+          <nav class="pagination" aria-label="Pagination">
+            {% if paginate.previous %}<a href="{{ paginate.previous.url }}">&larr; Previous</a>{% endif %}
+            {% if paginate.next %}<a href="{{ paginate.next.url }}">Next &rarr;</a>{% endif %}
+          </nav>
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

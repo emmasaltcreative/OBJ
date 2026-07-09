@@ -1,0 +1,84 @@
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="section">
+  <div class="page-width">
+    <div class="section-header">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      {% if section.settings.intro != blank %}
+        <p>{{ section.settings.intro }}</p>
+      {% endif %}
+    </div>
+
+    <div class="product-grid">
+      {% if collection != blank and collection.products.size > 0 %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product, number: forloop.index %}
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="product-card">
+            <div class="product-card__no">No. {{ i }}</div>
+            <div class="product-card__media">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <h3 class="product-card__title">Object {{ i }}</h3>
+            <p class="product-card__type">Select a collection to feature</p>
+            <div class="product-card__price">$0</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if collection != blank %}
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="{{ collection.url }}" class="link-arrow">See the whole edition</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Edition grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Opening Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The First Edition"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Four objects for one perfect hour — the reading kind. Each piece is made to order and numbered to this edition. When it's gone, we print something new and never look back."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Edition grid"
+    }
+  ]
+}
+{% endschema %}

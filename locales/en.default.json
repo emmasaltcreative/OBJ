@@ -1,0 +1,17 @@
+{
+  "general": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "This page took the long way and got lost."
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search the maison"
+    },
+    "cart": {
+      "title": "Your parcel",
+      "empty": "Your parcel is empty — for now.",
+      "checkout": "Check out"
+    }
+  }
+}

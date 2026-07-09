@@ -1,0 +1,63 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Oh Betty Jaletti",
+    "theme_version": "1.0.0",
+    "theme_author": "Maison Betty Jaletti",
+    "theme_documentation_url": "https://shopify.dev/themes",
+    "theme_support_url": "https://shopify.dev/themes"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background (cream)",
+        "default": "#F6F1E7"
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Paper (cards & panels)",
+        "default": "#FCF9F1"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink (text)",
+        "default": "#26221B"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (bordeaux)",
+        "default": "#7E2F2A"
+      },
+      {
+        "type": "color",
+        "id": "color_stripe",
+        "label": "Ticking stripe (blue)",
+        "default": "#3D4E6E"
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Tagline",
+        "default": "petits plaisirs, faits exprès"
+      },
+      {
+        "type": "text",
+        "id": "fulfillment_line",
+        "label": "Fulfillment promise",
+        "default": "Made when you order it. Allow 3–5 days before shipping — nothing here waits in a warehouse.",
+        "info": "Shown on every product page."
+      }
+    ]
+  }
+]

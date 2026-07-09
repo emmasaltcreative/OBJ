@@ -1,0 +1,30 @@
+<section class="section">
+  <div class="page-width" style="max-width: 60rem;">
+    <span class="eyebrow eyebrow--accent">Your account</span>
+    <h1>Hello, {{ customer.first_name | default: 'friend' }}.</h1>
+    <p><a href="{{ routes.account_logout_url }}" class="link-arrow">Sign out</a></p>
+
+    <h3 style="margin-top: 3rem;">Order history</h3>
+    {% paginate customer.orders by 10 %}
+      {% if customer.orders.size > 0 %}
+        {% for order in customer.orders %}
+          <div class="cart-line" style="grid-template-columns: 1fr auto;">
+            <div>
+              <div class="cart-line__title"><a href="{{ order.customer_url }}">Order {{ order.name }}</a></div>
+              <div class="cart-line__meta">{{ order.created_at | date: '%B %-d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</div>
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.9rem;">{{ order.total_price | money }}</div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p style="font-style: italic; color: var(--ink-soft);">No orders yet — the first edition awaits.</p>
+      {% endif %}
+    {% endpaginate %}
+
+    <h3 style="margin-top: 3rem;">Default address</h3>
+    {% if customer.default_address %}
+      <p>{{ customer.default_address | format_address }}</p>
+    {% endif %}
+    <a href="{{ routes.account_addresses_url }}" class="link-arrow">Manage addresses</a>
+  </div>
+</section>

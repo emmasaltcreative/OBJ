@@ -1,0 +1,163 @@
+<section class="section">
+  <div class="page-width">
+    <div class="product" data-product-form data-money-format="{{ shop.money_format | strip_html | escape }}">
+
+      <div class="product__gallery">
+        {% if product.media.size > 0 %}
+          {% for media in product.media %}
+            {% if media.media_type == 'image' %}
+              {% if forloop.first %}
+                {{ media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
+              {% else %}
+                {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+
+      <div class="product__info">
+        {%- assign edition = product.metafields.custom.edition_number.value -%}
+        <span class="eyebrow eyebrow--accent">
+          {{ section.settings.collection_eyebrow }}{% if edition %} · No. {{ edition }}{% endif %}
+        </span>
+
+        <h1 class="product__title">{{ product.title }}</h1>
+
+        {% if product.type != blank %}
+          <p class="product__type">{{ product.type }}</p>
+        {% endif %}
+
+        <div class="product__price">
+          <span data-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+          <span class="price--compare" data-compare-price
+            {% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}hidden{% endunless %}>
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+          </span>
+        </div>
+
+        <div class="product__description prose">
+          {{ product.description }}
+        </div>
+
+        <div class="fulfillment-line">
+          {{ settings.fulfillment_line }}
+        </div>
+
+        {% form 'product', product %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="field">
+                <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                <select id="Option-{{ section.id }}-{{ forloop.index0 }}" data-option-select>
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                      {{ value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <div class="field">
+            <label for="Quantity-{{ section.id }}">Quantity</label>
+            <div class="quantity">
+              <button type="button" data-qty-change="-1" aria-label="Decrease quantity">&minus;</button>
+              <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
+              <button type="button" data-qty-change="1" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          {%- assign cta = product.metafields.custom.cta_label.value | default: section.settings.default_cta -%}
+          <button
+            type="submit"
+            name="add"
+            class="btn btn--solid btn--full"
+            data-buy-button
+            data-label-default="{{ cta | escape }}"
+            data-label-sold-out="{{ section.settings.sold_out_label | escape }}"
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          >
+            {% if product.selected_or_first_available_variant.available %}
+              {{ cta }}
+            {% else %}
+              {{ section.settings.sold_out_label }}
+            {% endif %}
+          </button>
+        {% endform %}
+
+        <div class="product__accordions">
+          {% for block in section.blocks %}
+            {% if block.settings.heading != blank and block.settings.content != blank %}
+              <details {{ block.shopify_attributes }}>
+                <summary>{{ block.settings.heading }}</summary>
+                <div class="accordion-content prose">{{ block.settings.content }}</div>
+              </details>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <script type="application/json" data-variants-json>
+          {{ product.variants | json }}
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection_eyebrow",
+      "label": "Eyebrow",
+      "default": "The First Edition"
+    },
+    {
+      "type": "text",
+      "id": "default_cta",
+      "label": "Default add-to-cart label",
+      "default": "Add to my parcel →",
+      "info": "Overridden per product with the custom.cta_label metafield (e.g. \"Escort my paperback →\")."
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Between editions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The making"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Made to order, one at a time, and numbered to the edition. Allow 3–5 days before shipping.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product"
+    }
+  ]
+}
+{% endschema %}

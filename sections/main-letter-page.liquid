@@ -1,0 +1,51 @@
+<section class="letter section">
+  <div class="page-width">
+    <div class="letter__inner">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h1 style="margin-bottom: 2rem;">{{ section.settings.heading }}</h1>
+      <div class="letter__body prose">
+        {% if page.content != blank %}
+          <div class="drop-cap">{{ page.content }}</div>
+        {% else %}
+          <div class="drop-cap">{{ section.settings.body }}</div>
+        {% endif %}
+      </div>
+      <div class="letter__footer">
+        <span class="signature">{{ section.settings.signature }}</span>
+        <span class="letter__tagline">{{ settings.brand_tagline }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Letter page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "A letter from the maison"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our why"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Letter (used if the page has no content)",
+      "default": "<p>I was named for two women called Betty.</p><p>One kept her paperbacks the way other people keep secrets — spines cracked, corners turned down, margins full of arguments she was winning with the author. The other believed that if a thing was worth doing, it was worth doing with the good glass, the fresh flowers, and absolutely no rush whatsoever. Neither of them would have called any of this an <em>aesthetic</em>. It was simply how a day was meant to be treated: like it deserved you.</p><p>Betty Jaletti is the house I built to keep their opinion alive.</p><p>We make small, useful, unreasonably pretty things for the ones who still do it the long way on purpose. Who make the coffee themselves because they have the cup for it. Who highlight in ink, without apology. Who buy the bouquet for a Tuesday.</p><p>Everything here is made when you order it — printed, bound, poured, and packed for you, one at a time. This is not the fast way. That's rather the point. A few days from your order to your door, the way a good letter takes a few days: because it's yours, and it wasn't sitting in a warehouse waiting to be anyone's.</p><p>Take the long way home.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature",
+      "default": "— B."
+    }
+  ]
+}
+{% endschema %}

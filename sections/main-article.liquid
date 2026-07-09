@@ -1,0 +1,26 @@
+<article class="section">
+  <div class="page-width article-body">
+    <span class="eyebrow eyebrow--accent">{{ blog.title }}</span>
+    <h1>{{ article.title }}</h1>
+    <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}" style="font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft);">
+      {{ article.published_at | date: '%B %-d, %Y' }}
+    </time>
+
+    {% if article.image %}
+      <div style="margin-block: 2rem;">
+        {{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', alt: article.title }}
+      </div>
+    {% endif %}
+
+    <div class="prose" style="margin-top: 2rem;">
+      {{ article.content }}
+    </div>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

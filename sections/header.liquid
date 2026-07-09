@@ -1,0 +1,42 @@
+<header class="site-header">
+  <div class="page-width site-header__inner">
+    <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">Menu</button>
+
+    <nav class="site-header__nav" aria-label="Main navigation">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      Oh Betty <em>Jaletti</em>
+    </a>
+
+    <div class="site-header__utils">
+      <a href="{{ routes.search_url }}">Search</a>
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}">Account</a>
+      {% endif %}
+      <a href="{{ routes.cart_url }}">
+        Parcel
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">({{ cart.item_count }})</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,81 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__grid">
+      <div>
+        <a href="{{ routes.root_url }}" class="site-footer__wordmark">Oh Betty <em>Jaletti</em></a>
+        <p class="site-footer__tagline">{{ settings.brand_tagline }}</p>
+        <p style="font-size: 0.95rem; color: var(--ink-soft); max-width: 30rem;">
+          {{ section.settings.blurb }}
+        </p>
+      </div>
+
+      <div>
+        <h4>{{ section.settings.menu_heading }}</h4>
+        <ul class="site-footer__menu">
+          {% for link in section.settings.menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div>
+        <h4>{{ section.settings.newsletter_heading }}</h4>
+        <p style="font-size: 0.95rem; color: var(--ink-soft);">{{ section.settings.newsletter_text }}</p>
+        {% form 'customer' %}
+          {% if form.posted_successfully? %}
+            <p class="newsletter__note">Wonderful. The first letter is on its way.</p>
+          {% else %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div style="display: flex;">
+              <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required style="border-right: 0;">
+              <button type="submit" class="btn btn--solid" style="flex-shrink: 0;">Join</button>
+            </div>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} Maison Betty Jaletti</span>
+      <span>Take the long way home.</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "Blurb",
+      "default": "Small, useful, unreasonably pretty things — printed, bound, poured, and packed for you, one at a time."
+    },
+    {
+      "type": "text",
+      "id": "menu_heading",
+      "label": "Menu heading",
+      "default": "The House"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Letters from the maison"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "New editions, first. Written like a letter, never like a promotion."
+    }
+  ]
+}
+{% endschema %}
