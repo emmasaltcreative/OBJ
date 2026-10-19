@@ -5,8 +5,21 @@
   - number: {Integer} optional edition number ("No. 1")
 {% endcomment %}
 
+{%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
+{%- assign is_preorder = false -%}
+{%- if preorder_flag contains 'true' -%}
+  {%- assign is_preorder = true -%}
+{%- endif -%}
+{%- assign edition = product.metafields.custom.edition_number.value -%}
+{%- if edition == blank -%}
+  {%- if product.handle == 'the-chaperone' -%}
+    {%- assign edition = 1 -%}
+  {%- else -%}
+    {%- assign edition = number -%}
+  {%- endif -%}
+{%- endif -%}
+
 <div class="product-card">
-  {%- assign edition = product.metafields.custom.edition_number.value | default: number -%}
   {% if edition %}
     <div class="product-card__no">No. {{ edition }}</div>
   {% endif %}
@@ -29,8 +42,14 @@
 
   <div class="product-card__price">
     {% render 'price', product: product %}
-    {% unless product.available %}
-      <span class="badge" style="margin-left: 0.7em;">Between editions</span>
-    {% endunless %}
+    {% if is_preorder %}
+      {% if product.available %}
+        <span class="badge badge--preorder">Preorder</span>
+      {% else %}
+        <span class="badge badge--preorder">Preorder closed</span>
+      {% endif %}
+    {% elsif product.available == false %}
+      <span class="badge">Between editions</span>
+    {% endif %}
   </div>
 </div>

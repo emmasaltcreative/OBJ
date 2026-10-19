@@ -1,7 +1,11 @@
 {% if section.settings.text != blank %}
+  {%- assign announcement_href = section.settings.link -%}
+  {%- if announcement_href == blank and section.settings.text contains 'Chaperone' -%}
+    {%- assign announcement_href = '/products/the-chaperone' -%}
+  {%- endif -%}
   <div class="announcement-bar">
-    {% if section.settings.link != blank %}
-      <a href="{{ section.settings.link }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
+    {% if announcement_href != blank %}
+      <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
     {% else %}
       {{ section.settings.text }}
     {% endif %}
@@ -16,7 +20,7 @@
       "type": "text",
       "id": "text",
       "label": "Text",
-      "default": "Everything is made when you order it — allow 3–5 days. Nothing waits in a warehouse."
+      "default": "Preorder The Chaperone · $79 · a coat for the paperback"
     },
     {
       "type": "url",

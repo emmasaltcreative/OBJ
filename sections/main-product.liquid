@@ -1,6 +1,48 @@
 <section class="section">
   <div class="page-width">
-    <div class="product" data-product-form data-money-format="{{ shop.money_format | strip_html | escape }}">
+    {%- assign variant = product.selected_or_first_available_variant -%}
+    {%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
+    {%- assign is_preorder = false -%}
+    {%- if preorder_flag contains 'true' or section.settings.preorder_mode -%}
+      {%- assign is_preorder = true -%}
+    {%- endif -%}
+
+    {%- assign edition = product.metafields.custom.edition_number.value -%}
+    {%- if edition == blank and product.handle == 'the-chaperone' -%}
+      {%- assign edition = 1 -%}
+    {%- endif -%}
+
+    {%- assign price_label = variant.price | money -%}
+    {%- if section.settings.preorder_fulfillment != blank -%}
+      {%- assign preorder_promise = section.settings.preorder_fulfillment | replace: '[price]', price_label -%}
+    {%- elsif product.handle == 'the-chaperone' -%}
+      {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. The Chaperone is cut when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
+    {%- else -%}
+      {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. Made when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
+    {%- endif -%}
+
+    {%- if product.metafields.custom.cta_label.value != blank -%}
+      {%- assign cta = product.metafields.custom.cta_label.value -%}
+    {%- elsif is_preorder and product.handle == 'the-chaperone' -%}
+      {%- assign cta = section.settings.chaperone_cta -%}
+    {%- elsif is_preorder -%}
+      {%- assign cta = section.settings.preorder_cta -%}
+    {%- else -%}
+      {%- assign cta = section.settings.default_cta -%}
+    {%- endif -%}
+
+    {%- assign ships = section.settings.preorder_ships | default: 'With the first edition' -%}
+    {%- assign sold_out_label = section.settings.sold_out_label -%}
+    {%- if is_preorder and sold_out_label == 'Between editions' -%}
+      {%- assign sold_out_label = 'Preorder closed' -%}
+    {%- endif -%}
+
+    <div
+      class="product{% if is_preorder %} product--preorder{% endif %}"
+      data-product-form
+      data-money-format="{{ shop.money_format | strip_html | escape }}"
+      {% if is_preorder %}data-preorder="true"{% endif %}
+    >
 
       <div class="product__gallery">
         {% if product.media.size > 0 %}
@@ -19,9 +61,13 @@
       </div>
 
       <div class="product__info">
-        {%- assign edition = product.metafields.custom.edition_number.value -%}
         <span class="eyebrow eyebrow--accent">
-          {{ section.settings.collection_eyebrow }}{% if edition %} · No. {{ edition }}{% endif %}
+          {% if is_preorder %}
+            {{ section.settings.preorder_eyebrow }}
+          {% else %}
+            {{ section.settings.collection_eyebrow }}
+          {% endif %}
+          {% if edition %} · No. {{ edition }}{% endif %}
         </span>
 
         <h1 class="product__title">{{ product.title }}</h1>
@@ -31,10 +77,16 @@
         {% endif %}
 
         <div class="product__price">
-          <span data-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+          {% if is_preorder %}
+            <div class="product__price-kicker">Preorder price</div>
+          {% endif %}
+          {% if request.design_mode and product.handle == 'the-chaperone' and variant.price != 7900 %}
+            <div class="errors">The Chaperone preorder is $79. This variant is {{ price_label }}. Set the price to $79.00.</div>
+          {% endif %}
+          <span data-price>{{ price_label }}</span>
           <span class="price--compare" data-compare-price
-            {% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}hidden{% endunless %}>
-            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+            {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>
+            {{ variant.compare_at_price | money }}
           </span>
         </div>
 
@@ -43,11 +95,19 @@
         </div>
 
         <div class="fulfillment-line">
-          {{ settings.fulfillment_line }}
+          {% if is_preorder %}
+            {{ preorder_promise }}
+          {% else %}
+            {{ settings.fulfillment_line }}
+          {% endif %}
         </div>
 
         {% form 'product', product %}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {{ form.errors | default_errors }}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          {% if is_preorder %}
+            {% render 'preorder-properties', ships: ships %}
+          {% endif %}
 
           {% unless product.has_only_default_variant %}
             {% for option in product.options_with_values %}
@@ -73,20 +133,19 @@
             </div>
           </div>
 
-          {%- assign cta = product.metafields.custom.cta_label.value | default: section.settings.default_cta -%}
           <button
             type="submit"
             name="add"
             class="btn btn--solid btn--full"
             data-buy-button
             data-label-default="{{ cta | escape }}"
-            data-label-sold-out="{{ section.settings.sold_out_label | escape }}"
-            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+            data-label-sold-out="{{ sold_out_label | escape }}"
+            {% unless variant.available %}disabled{% endunless %}
           >
-            {% if product.selected_or_first_available_variant.available %}
+            {% if variant.available %}
               {{ cta }}
             {% else %}
-              {{ section.settings.sold_out_label }}
+              {{ sold_out_label }}
             {% endif %}
           </button>
         {% endform %}
@@ -94,9 +153,17 @@
         <div class="product__accordions">
           {% for block in section.blocks %}
             {% if block.settings.heading != blank and block.settings.content != blank %}
+              {%- assign heading = block.settings.heading -%}
+              {%- assign content = block.settings.content -%}
+              {%- if is_preorder and product.template_suffix != 'preorder' and heading == 'The making' -%}
+                {%- assign heading = 'The preorder' -%}
+                {%- assign content = section.settings.preorder_terms -%}
+              {%- elsif is_preorder and product.template_suffix != 'preorder' and heading == 'Shipping & returns' -%}
+                {%- assign content = section.settings.preorder_shipping -%}
+              {%- endif -%}
               <details {{ block.shopify_attributes }}>
-                <summary>{{ block.settings.heading }}</summary>
-                <div class="accordion-content prose">{{ block.settings.content }}</div>
+                <summary>{{ heading }}</summary>
+                <div class="accordion-content prose">{{ content }}</div>
               </details>
             {% endif %}
           {% endfor %}
@@ -121,6 +188,19 @@
       "default": "The First Edition"
     },
     {
+      "type": "checkbox",
+      "id": "preorder_mode",
+      "label": "Preorder template",
+      "default": false,
+      "info": "Treat every product on this template as a preorder. The Chaperone, products tagged preorder, and the preorder template sell as preorders either way."
+    },
+    {
+      "type": "text",
+      "id": "preorder_eyebrow",
+      "label": "Preorder eyebrow",
+      "default": "Preorder · The First Edition"
+    },
+    {
       "type": "text",
       "id": "default_cta",
       "label": "Default add-to-cart label",
@@ -129,9 +209,47 @@
     },
     {
       "type": "text",
+      "id": "preorder_cta",
+      "label": "Preorder button",
+      "default": "Preorder →"
+    },
+    {
+      "type": "text",
+      "id": "chaperone_cta",
+      "label": "The Chaperone button",
+      "default": "Preorder — escort my paperback →",
+      "info": "Used for The Chaperone unless custom.cta_label is set."
+    },
+    {
+      "type": "text",
       "id": "sold_out_label",
       "label": "Sold out label",
       "default": "Between editions"
+    },
+    {
+      "type": "text",
+      "id": "preorder_ships",
+      "label": "Preorder ship note",
+      "default": "With the first edition",
+      "info": "Saved on the order as the Ships line-item property."
+    },
+    {
+      "type": "textarea",
+      "id": "preorder_fulfillment",
+      "label": "Preorder promise",
+      "info": "Replaces the fulfillment line on a preorder. Leave blank for the house sentence. Use [price] for the variant price."
+    },
+    {
+      "type": "richtext",
+      "id": "preorder_terms",
+      "label": "Preorder terms",
+      "default": "<p>You are charged today, at the preorder price. The piece does not exist until you claim it. We make it when the first edition opens, number it, and ship it with the edition. If the edition cannot be made, the house refunds the preorder in full.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "preorder_shipping",
+      "label": "Preorder shipping note",
+      "default": "<p>Preorders leave with the first edition, and they take the long way on purpose. After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
     }
   ],
   "blocks": [

@@ -5,7 +5,8 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Everything is made when you order it — allow 3–5 days. Nothing waits in a warehouse."
+        "text": "Preorder The Chaperone · $79 · a coat for the paperback",
+        "link": "/products/the-chaperone"
       }
     },
     "header": {

@@ -6,12 +6,27 @@
         "eyebrow": "Maison Betty Jaletti",
         "heading": "Small, useful, <em>unreasonably pretty</em> things.",
         "subheading": "For the ones who still do it the long way on purpose. Printed, bound, poured, and packed for you — one at a time.",
-        "button_label": "Browse the First Edition"
+        "button_label": "Preorder The Chaperone",
+        "button_link": "/products/the-chaperone"
       }
     },
     "marquee": {
       "type": "marquee",
       "settings": {}
+    },
+    "chaperone": {
+      "type": "preorder-chaperone",
+      "settings": {
+        "eyebrow": "Preorder · No. 1",
+        "heading": "The Chaperone",
+        "dek": "A coat for the paperback.",
+        "text": "Linen and paper, cut to the common paperback and stamped by the house. It does not exist yet. Claim it at the first-edition price and we will make yours when the edition opens.",
+        "product_handle": "the-chaperone",
+        "fallback_price": "$79",
+        "cta": "Preorder — escort my paperback →",
+        "ships": "With the first edition",
+        "promise": "Charged today. Numbered to the edition, then sent the long way."
+      }
     },
     "edition": {
       "type": "edition-grid",
@@ -69,5 +84,5 @@
       "settings": {}
     }
   },
-  "order": ["hero", "marquee", "edition", "ritual", "letter", "newsletter"]
+  "order": ["hero", "marquee", "chaperone", "edition", "ritual", "letter", "newsletter"]
 }

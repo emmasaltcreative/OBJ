@@ -9,6 +9,11 @@
         <div>
           <div class="cart-line__title">{{ line_item.title }}</div>
           <div class="cart-line__meta">Qty {{ line_item.quantity }}</div>
+          {% if line_item.properties.Preorder != blank %}
+            <div class="cart-line__meta">
+              Preorder{% if line_item.properties.Ships != blank %} · ships {{ line_item.properties.Ships | downcase }}{% endif %}
+            </div>
+          {% endif %}
         </div>
         <div style="font-family: var(--font-sans); font-size: 0.9rem;">{{ line_item.final_line_price | money }}</div>
       </div>
