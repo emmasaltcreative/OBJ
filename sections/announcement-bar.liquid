@@ -1,7 +1,11 @@
 {% if section.settings.text != blank %}
   {%- assign announcement_href = section.settings.link -%}
-  {%- if announcement_href == blank and section.settings.text contains 'Chaperone' -%}
-    {%- assign announcement_href = '/products/the-chaperone' -%}
+  {%- if announcement_href == blank -%}
+    {%- if section.settings.text contains 'Chaperone' -%}
+      {%- assign announcement_href = '/products/the-chaperone' -%}
+    {%- elsif section.settings.text contains 'Purse' or section.settings.text contains 'Brownstone' -%}
+      {%- assign announcement_href = '/#brownstone-tote' -%}
+    {%- endif -%}
   {%- endif -%}
   <div class="announcement-bar">
     {% if announcement_href != blank %}
@@ -20,7 +24,7 @@
       "type": "text",
       "id": "text",
       "label": "Text",
-      "default": "Preorder The Chaperone · $79 · a coat for the paperback"
+      "default": "The debut — In Her Purse. The Brownstone Tote by Betty."
     },
     {
       "type": "url",

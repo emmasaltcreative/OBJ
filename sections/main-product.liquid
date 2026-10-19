@@ -8,8 +8,12 @@
     {%- endif -%}
 
     {%- assign edition = product.metafields.custom.edition_number.value -%}
-    {%- if edition == blank and product.handle == 'the-chaperone' -%}
+    {%- if edition == blank and product.handle == 'the-chaperone' or edition == blank and product.handle == 'the-brownstone-tote' -%}
       {%- assign edition = 1 -%}
+    {%- endif -%}
+    {%- assign eyebrow = section.settings.collection_eyebrow -%}
+    {%- if product.handle == 'the-brownstone-tote' and eyebrow == 'The First Edition' -%}
+      {%- assign eyebrow = 'In Her Purse' -%}
     {%- endif -%}
 
     {%- assign price_label = variant.price | money -%}
@@ -55,6 +59,8 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+        {% elsif product.handle == 'the-brownstone-tote' %}
+          {% render 'brownstone-image', loading: 'eager', alt: product.title %}
         {% else %}
           {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {% endif %}
@@ -65,7 +71,7 @@
           {% if is_preorder %}
             {{ section.settings.preorder_eyebrow }}
           {% else %}
-            {{ section.settings.collection_eyebrow }}
+            {{ eyebrow }}
           {% endif %}
           {% if edition %} · No. {{ edition }}{% endif %}
         </span>

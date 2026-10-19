@@ -1,4 +1,4 @@
-<section class="newsletter section">
+<section class="newsletter section"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | handle }}"{% endif %}>
   <div class="page-width narrow">
     <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
     <h2>{{ section.settings.heading }}</h2>
@@ -11,10 +11,10 @@
         {% if form.errors %}
           <div class="errors">{{ form.errors | default_errors }}</div>
         {% endif %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | default: 'newsletter' | escape }}">
         <div class="newsletter__form">
           <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required>
-          <button type="submit" class="btn btn--solid">Subscribe</button>
+          <button type="submit" class="btn btn--solid">{{ section.settings.button_label | default: 'Subscribe' }}</button>
         </div>
       {% endif %}
     {% endform %}
@@ -50,6 +50,24 @@
       "id": "note",
       "label": "Note",
       "default": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "tags",
+      "label": "Customer tags",
+      "default": "newsletter"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor",
+      "info": "Optional id so other sections can link here."
     }
   ],
   "presets": [

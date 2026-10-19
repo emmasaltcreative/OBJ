@@ -13,6 +13,9 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | Where | What |
 |---|---|
 | `sections/hero.liquid` | Editorial homepage hero |
+| `sections/purse-hero.liquid` | In Her Purse debut landing hero |
+| `sections/purse-tote.liquid` | The Brownstone Tote, No. 1 of the debut |
+| `templates/page.in-her-purse.json` | Landing page template for the debut |
 | `sections/edition-grid.liquid` | "The First Edition" numbered product grid (No. 1–4) |
 | `sections/the-letter.liquid` | Letter-from-the-maison excerpt with drop cap & signature |
 | `sections/ritual.liquid` | I / II / III made-to-order value props |
@@ -41,6 +44,16 @@ shopify theme push --unpublished --theme "Oh Betty Jaletti"
 ```
 
 Or zip the folder and upload via **Online Store → Themes → Add theme → Upload zip file**.
+
+## Landing page: In Her Purse
+
+The homepage is the debut landing for **In Her Purse**. The first piece is **The Brownstone Tote by Betty** — brown suede, a flowered scarf knotted at the handle, No. 1. The photograph ships with the theme at `assets/brownstone-tote.jpg`.
+
+The same landing is the `page.in-her-purse` template. Create a page with handle `in-her-purse` and assign that template if you want the debut at its own address as well.
+
+Until a product with handle `the-brownstone-tote` exists, the page asks for an address and tags the customer `in-her-purse`. Once that product is published, the landing sells it at the variant price and the button reads "Claim the tote →". Assign the **brownstone** product template so the product page carries the suede, scarf, and shipping notes. No price is invented here — set it on the variant.
+
+The Chaperone preorder stays at `/products/the-chaperone`, and the landing links to it.
 
 ## Preorder: The Chaperone at $79
 
