@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "suede": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The suede",
+            "content": "<p>Brown, cut full, and soft enough to take the shape of a day. It will mark where your life marks it.</p>"
+          }
+        },
+        "scarf": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The scarf",
+            "content": "<p>A flowered scarf, knotted at the handle, with a small tag hanging from the knot. It is the bag's piece of jewelry.</p>"
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Made when you claim it, then sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+          }
+        }
+      },
+      "block_order": ["suede", "scarf", "shipping"],
+      "settings": {
+        "collection_eyebrow": "In Her Purse",
+        "default_cta": "Claim the tote →"
+      }
+    }
+  },
+  "order": ["main"]
+}

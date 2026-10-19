@@ -1,0 +1,16 @@
+{%- comment -%}
+  The Brownstone Tote photograph shipped with the theme.
+  Accepts:
+  - loading {String} eager or lazy. Default: lazy
+  - alt {String}
+  - class {String}
+{%- endcomment -%}
+<img
+  src="{{ 'brownstone-tote.jpg' | asset_url }}"
+  alt="{{ alt | default: 'The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle' | escape }}"
+  width="1239"
+  height="1270"
+  loading="{{ loading | default: 'lazy' }}"
+  {% if loading == 'eager' %}fetchpriority="high"{% endif %}
+  {% if class != blank %}class="{{ class }}"{% endif %}
+>

@@ -1,56 +1,100 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero",
+    "purse-hero": {
+      "type": "purse-hero",
       "settings": {
-        "eyebrow": "Maison Betty Jaletti",
-        "heading": "Small, useful, <em>unreasonably pretty</em> things.",
-        "subheading": "For the ones who still do it the long way on purpose. Printed, bound, poured, and packed for you — one at a time.",
-        "button_label": "Browse the First Edition"
+        "eyebrow": "The debut collection",
+        "heading": "In <em>Her</em> Purse",
+        "subheading": "A debut of bags, beginning with one. The Brownstone Tote by Betty.",
+        "button_label": "The Brownstone Tote",
+        "image_alt": "The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle",
+        "caption_left": "No. 1",
+        "caption_right": "The Brownstone Tote by Betty"
       }
     },
     "marquee": {
       "type": "marquee",
-      "settings": {}
-    },
-    "edition": {
-      "type": "edition-grid",
       "settings": {
-        "eyebrow": "The Opening Collection",
-        "heading": "The First Edition",
-        "intro": "Four objects for one perfect hour — the reading kind. A coat for the paperback, a book for the lines worth keeping, a candle to declare the hour open, and the good glass, because you know better than to use a mug.",
-        "products_to_show": 4
+        "phrase_1": "in her purse",
+        "phrase_2": "the brownstone tote, by betty",
+        "phrase_3": "one bag, then the next"
+      }
+    },
+    "tote": {
+      "type": "purse-tote",
+      "blocks": {
+        "suede": {
+          "type": "fact",
+          "settings": {
+            "label": "Suede",
+            "value": "Brown, full, and soft"
+          }
+        },
+        "scarf": {
+          "type": "fact",
+          "settings": {
+            "label": "Scarf",
+            "value": "Flowered, knotted at the handle"
+          }
+        },
+        "clasp": {
+          "type": "fact",
+          "settings": {
+            "label": "Clasp",
+            "value": "A slim strap across the front"
+          }
+        },
+        "place": {
+          "type": "fact",
+          "settings": {
+            "label": "Place",
+            "value": "No. 1 in In Her Purse"
+          }
+        }
+      },
+      "block_order": ["suede", "scarf", "clasp", "place"],
+      "settings": {
+        "eyebrow": "No. 1 · In Her Purse",
+        "heading": "The Brownstone Tote",
+        "byline": "by Betty",
+        "product_handle": "the-brownstone-tote",
+        "cta": "Claim the tote →",
+        "promise": "Made when you claim it, then sent the long way.",
+        "waitlist": "The debut is announced first by letter. Leave an address and the house will write when you may carry it.",
+        "waitlist_label": "Tell me when I may carry it",
+        "also_label": "Also from the house — The Chaperone is open for preorder",
+        "also_link": "/products/the-chaperone"
       }
     },
     "ritual": {
       "type": "ritual",
       "settings": {
-        "eyebrow": "How the house works",
-        "heading": "The long way, on purpose"
+        "eyebrow": "What she carries",
+        "heading": "The tote, in three parts"
       },
       "blocks": {
         "step-1": {
           "type": "step",
           "settings": {
             "numeral": "I.",
-            "heading": "You claim it",
-            "text": "Nothing here waits in a warehouse. Your piece doesn't exist until you decide it should."
+            "heading": "The suede",
+            "text": "Brown, and soft enough to take the shape of what goes inside. It will mark where a life marks it."
           }
         },
         "step-2": {
           "type": "step",
           "settings": {
             "numeral": "II.",
-            "heading": "We make it",
-            "text": "Printed, bound, or poured — one at a time, over a few unhurried days. Good things, etc."
+            "heading": "The scarf",
+            "text": "Knotted on, not tucked away. Small flowers on a brown ground. A bag should have one piece of jewelry."
           }
         },
         "step-3": {
           "type": "step",
           "settings": {
             "numeral": "III.",
-            "heading": "It takes the long way",
-            "text": "Packed for you, signed off by the house, and sent the way a good letter travels: to you, and no one else."
+            "heading": "The day",
+            "text": "The book, the letter, the lipstick, the keys. Room for all of it, and for the walk home."
           }
         }
       },
@@ -59,15 +103,24 @@
     "letter": {
       "type": "the-letter",
       "settings": {
-        "eyebrow": "A letter from the maison",
+        "eyebrow": "A note on the debut",
+        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote. Brown suede, a scarf I would not take off, and enough room to leave the house without a plan.</p>",
         "signature": "— B.",
-        "link_label": "Read the whole letter"
+        "link_label": ""
       }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "anchor": "purse-list",
+        "eyebrow": "Correspondence",
+        "heading": "When you may carry it",
+        "text": "The Brownstone Tote opens the debut. Leave an address and the house will write when it is ready — and when the next piece of In Her Purse appears.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "tags": "newsletter, in-her-purse",
+        "button_label": "Write to me"
+      }
     }
   },
-  "order": ["hero", "marquee", "edition", "ritual", "letter", "newsletter"]
+  "order": ["purse-hero", "marquee", "tote", "ritual", "letter", "newsletter"]
 }

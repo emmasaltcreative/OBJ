@@ -4,8 +4,15 @@
     <h1>Your parcel</h1>
 
     {% if cart.item_count > 0 %}
+      {%- assign cart_has_preorder = false -%}
       <form action="{{ routes.cart_url }}" method="post" id="cart">
         {% for item in cart.items %}
+          {%- capture preorder_flag -%}{%- render 'is-preorder', product: item.product -%}{%- endcapture -%}
+          {%- assign line_preorder = false -%}
+          {%- if preorder_flag contains 'true' or item.properties.Preorder != blank -%}
+            {%- assign line_preorder = true -%}
+            {%- assign cart_has_preorder = true -%}
+          {%- endif -%}
           <div class="cart-line">
             <a href="{{ item.url }}">
               {% if item.image %}
@@ -17,7 +24,12 @@
               {% unless item.product.has_only_default_variant %}
                 <div class="cart-line__meta">{{ item.variant.title }}</div>
               {% endunless %}
-              <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+              {% if line_preorder %}
+                {%- assign ships = item.properties.Ships | default: 'With the first edition' -%}
+                <div class="cart-line__meta">Preorder · charged today · ships {{ ships | downcase }}</div>
+              {% else %}
+                <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+              {% endif %}
               <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
             </div>
             <div style="text-align: right;">
@@ -46,7 +58,11 @@
               <span>{{ cart.total_price | money }}</span>
             </div>
             <p style="font-style: italic; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.4rem;">
-              Taxes and shipping settled at checkout. Your pieces begin their making the moment you do.
+              {% if cart_has_preorder %}
+                Taxes and shipping settled at checkout. Preorders are charged today, then made when the edition opens.
+              {% else %}
+                Taxes and shipping settled at checkout. Your pieces begin their making the moment you do.
+              {% endif %}
             </p>
             <button type="submit" name="update" class="btn btn--full" style="margin-bottom: 0.8rem;">Update parcel</button>
             <button type="submit" name="checkout" class="btn btn--solid btn--full">Check out</button>

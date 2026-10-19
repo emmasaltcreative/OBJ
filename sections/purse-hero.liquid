@@ -1,0 +1,91 @@
+<section class="purse-hero">
+  <div class="page-width purse-hero__intro">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+    <h1>{{ section.settings.heading }}</h1>
+    <p class="hero__sub">{{ section.settings.subheading }}</p>
+    {% if section.settings.button_label != blank %}
+      <a href="{{ section.settings.button_link | default: '#brownstone-tote' }}" class="link-arrow">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+
+  <figure class="purse-hero__figure">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'eager', class: 'purse-hero__img', widths: '600, 900, 1400, 2000', alt: section.settings.image.alt | default: section.settings.image_alt }}
+    {% else %}
+      {% render 'brownstone-image', loading: 'eager', alt: section.settings.image_alt, class: 'purse-hero__img' %}
+    {% endif %}
+    <figcaption class="purse-hero__caption">
+      <span>{{ section.settings.caption_left }}</span>
+      <span>{{ section.settings.caption_right }}</span>
+    </figcaption>
+  </figure>
+</section>
+<div class="ticking" aria-hidden="true"></div>
+
+{% schema %}
+{
+  "name": "Purse hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The debut collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "In <em>Her</em> Purse"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A debut of bags, beginning with one. The Brownstone Tote by Betty."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "The Brownstone Tote"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Leave empty to use the Brownstone Tote photograph shipped with the theme."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image description",
+      "default": "The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle"
+    },
+    {
+      "type": "text",
+      "id": "caption_left",
+      "label": "Caption left",
+      "default": "No. 1"
+    },
+    {
+      "type": "text",
+      "id": "caption_right",
+      "label": "Caption right",
+      "default": "The Brownstone Tote by Betty"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purse hero"
+    }
+  ]
+}
+{% endschema %}

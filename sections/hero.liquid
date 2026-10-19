@@ -4,7 +4,11 @@
     <h1>{{ section.settings.heading }}</h1>
     <p class="hero__sub">{{ section.settings.subheading }}</p>
     {% if section.settings.button_label != blank %}
-      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="link-arrow">
+      {%- assign hero_href = section.settings.button_link -%}
+      {%- if hero_href == blank and section.settings.button_label contains 'Chaperone' -%}
+        {%- assign hero_href = '/products/the-chaperone' -%}
+      {%- endif -%}
+      <a href="{{ hero_href | default: routes.all_products_collection_url }}" class="link-arrow">
         {{ section.settings.button_label }}
       </a>
     {% endif %}

@@ -1,0 +1,8 @@
+{%- comment -%}
+  Hidden line-item properties so the parcel, checkout, and order
+  remember this was a preorder.
+  Accepts:
+  - ships: {String} when the piece leaves the house
+{%- endcomment -%}
+<input type="hidden" name="properties[Preorder]" value="Yes">
+<input type="hidden" name="properties[Ships]" value="{{ ships | default: 'With the first edition' | escape }}">

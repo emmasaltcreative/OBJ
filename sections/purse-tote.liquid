@@ -1,0 +1,193 @@
+{%- liquid
+  assign tote = section.settings.product
+  if tote == blank
+    assign handle = section.settings.product_handle | default: 'the-brownstone-tote'
+    assign tote = all_products[handle]
+  endif
+
+  assign variant = blank
+  assign has_variant = false
+  if tote != blank
+    assign variant = tote.selected_or_first_available_variant
+    if variant != blank
+      assign has_variant = true
+    endif
+  endif
+-%}
+
+<section class="section purse-tote" id="brownstone-tote">
+  <div class="page-width purse-tote__grid">
+    <div>
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p class="purse-tote__byline">{{ section.settings.byline }}</p>
+
+      <ul class="purse-facts">
+        {% for block in section.blocks %}
+          <li {{ block.shopify_attributes }}>
+            <span>{{ block.settings.label }}</span>
+            <div>{{ block.settings.value }}</div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <div class="prose">
+        {% if tote.description != blank %}
+          {{ tote.description }}
+        {% else %}
+          {{ section.settings.text }}
+        {% endif %}
+      </div>
+
+      {% if has_variant %}
+        <p class="purse-tote__price">{{ variant.price | money }}</p>
+        <p class="purse-tote__promise">{{ section.settings.promise }}</p>
+        {% form 'product', tote %}
+          {{ form.errors | default_errors }}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" name="add" class="btn btn--solid" {% unless variant.available %}disabled{% endunless %}>
+            {% if variant.available %}
+              {{ section.settings.cta }}
+            {% else %}
+              {{ section.settings.closed_label }}
+            {% endif %}
+          </button>
+        {% endform %}
+        <a class="link-arrow purse-tote__more" href="{{ tote.url }}">The particulars</a>
+      {% else %}
+        <p class="purse-tote__promise">{{ section.settings.waitlist }}</p>
+        <a class="btn btn--solid" href="{{ section.settings.waitlist_link | default: '#purse-list' }}">{{ section.settings.waitlist_label }}</a>
+      {% endif %}
+
+      {% if section.settings.also_label != blank %}
+        <p class="purse-tote__also">
+          <a href="{{ section.settings.also_link | default: '/products/the-chaperone' }}">{{ section.settings.also_label }}</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brownstone tote",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "No. 1 · In Her Purse"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Brownstone Tote"
+    },
+    {
+      "type": "text",
+      "id": "byline",
+      "label": "Byline",
+      "default": "by Betty"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Brown suede, cut full enough for a day that changes its mind. The handles are long. A flowered scarf is knotted at one of them — small blossoms on a brown ground — and a little tag hangs from the knot, so you can find it without announcing yourself. A slim strap crosses the front and closes with a small clasp.</p><p>It is the first piece of In Her Purse. The collection will grow the way the house does everything else: one thing at a time, and never in a hurry.</p>"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product handle",
+      "default": "the-brownstone-tote",
+      "info": "When this product exists, the landing page sells it at the variant price. Until then, the page invites a letter."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to parcel label",
+      "default": "Claim the tote →"
+    },
+    {
+      "type": "text",
+      "id": "closed_label",
+      "label": "Unavailable label",
+      "default": "Between editions"
+    },
+    {
+      "type": "text",
+      "id": "promise",
+      "label": "Promise",
+      "default": "Made when you claim it, then sent the long way."
+    },
+    {
+      "type": "textarea",
+      "id": "waitlist",
+      "label": "Before the product is published",
+      "default": "The debut is announced first by letter. Leave an address and the house will write when you may carry it."
+    },
+    {
+      "type": "text",
+      "id": "waitlist_label",
+      "label": "Letter button",
+      "default": "Tell me when I may carry it"
+    },
+    {
+      "type": "url",
+      "id": "waitlist_link",
+      "label": "Letter button link"
+    },
+    {
+      "type": "text",
+      "id": "also_label",
+      "label": "Also link label",
+      "default": "Also from the house — The Chaperone is open for preorder"
+    },
+    {
+      "type": "url",
+      "id": "also_link",
+      "label": "Also link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Suede"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "Brown, full, and soft"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brownstone tote",
+      "blocks": [
+        { "type": "fact", "settings": { "label": "Suede", "value": "Brown, full, and soft" } },
+        { "type": "fact", "settings": { "label": "Scarf", "value": "Flowered, knotted at the handle" } },
+        { "type": "fact", "settings": { "label": "Clasp", "value": "A slim strap across the front" } },
+        { "type": "fact", "settings": { "label": "Place", "value": "No. 1 in In Her Purse" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

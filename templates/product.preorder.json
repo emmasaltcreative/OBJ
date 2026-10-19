@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "preorder": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The preorder",
+            "content": "<p>You are charged today, at the preorder price of $79. The Chaperone does not exist until you claim it. We cut yours when the first edition opens, number it, and ship it with the edition. If the edition cannot be made, the house refunds the preorder in full.</p>"
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Preorders leave with the first edition, and they take the long way on purpose. After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
+          }
+        }
+      },
+      "block_order": ["preorder", "shipping"],
+      "settings": {
+        "collection_eyebrow": "The First Edition",
+        "preorder_mode": true,
+        "preorder_eyebrow": "Preorder · The First Edition",
+        "preorder_cta": "Preorder →",
+        "chaperone_cta": "Preorder — escort my paperback →",
+        "sold_out_label": "Preorder closed",
+        "preorder_ships": "With the first edition"
+      }
+    }
+  },
+  "order": ["main"]
+}

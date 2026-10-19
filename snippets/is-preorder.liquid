@@ -1,0 +1,21 @@
+{%- comment -%}
+  Outputs "true" when the product should sell as a preorder.
+  Accepts:
+  - product: {Object}
+
+  A product is a preorder when any of these are true:
+  - template suffix is "preorder"
+  - handle is "the-chaperone"
+  - tagged "preorder"
+  - metafield custom.preorder is true
+{%- endcomment -%}
+{%- liquid
+  assign preorder = false
+  if product != blank
+    assign preorder_meta = product.metafields.custom.preorder.value
+    if product.template_suffix == 'preorder' or product.handle == 'the-chaperone' or product.tags contains 'preorder' or product.tags contains 'Preorder' or preorder_meta == true or preorder_meta == 'true'
+      assign preorder = true
+    endif
+  endif
+-%}
+{%- if preorder -%}true{%- endif -%}
