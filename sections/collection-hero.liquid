@@ -1,0 +1,114 @@
+{%- comment -%}
+  Editorial hero for a collection landing page.
+  Falls back to the collection's own image, then its first product's photo,
+  so the page is never left with an empty frame.
+{%- endcomment -%}
+
+{%- assign hero_image = section.settings.image -%}
+{%- if hero_image == blank -%}
+  {%- assign hero_image = collection.image -%}
+{%- endif -%}
+{%- if hero_image == blank -%}
+  {%- assign hero_image = collection.products.first.featured_image -%}
+{%- endif -%}
+
+{%- assign heading = section.settings.heading | default: collection.title -%}
+{%- assign intro = section.settings.intro -%}
+{%- if intro == blank -%}
+  {%- assign intro = collection.description | strip_html -%}
+{%- endif -%}
+
+<section class="collection-hero">
+  <div class="page-width">
+    <div class="collection-hero__inner">
+      <div class="collection-hero__text">
+        <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+        <h1>{{ heading }}</h1>
+
+        {% if intro != blank %}
+          <p class="collection-hero__intro">{{ intro }}</p>
+        {% endif %}
+
+        {% if section.settings.note != blank %}
+          <p class="collection-hero__note">{{ section.settings.note }}</p>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          <a href="{{ section.settings.button_link | default: '#the-inventory' }}" class="link-arrow">
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      <figure class="collection-hero__figure">
+        {% if hero_image != blank %}
+          {{ hero_image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '500, 800, 1100, 1400', alt: hero_image.alt | default: heading }}
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+        {% if section.settings.caption != blank %}
+          <figcaption>{{ section.settings.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  </div>
+  <div class="ticking"></div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "An ongoing collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use the collection title."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "info": "Leave blank to use the collection description."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Small note"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Link label",
+      "default": "See what's inside"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Falls back to the collection image, then the first product's photo."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Image caption"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection hero"
+    }
+  ]
+}
+{% endschema %}

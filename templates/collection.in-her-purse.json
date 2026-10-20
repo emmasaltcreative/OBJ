@@ -1,0 +1,105 @@
+{
+  "sections": {
+    "hero": {
+      "type": "collection-hero",
+      "settings": {
+        "eyebrow": "An ongoing collection",
+        "heading": "In Her <em>Purse</em>",
+        "intro": "What she carries, and what she carries it in. Bags cut generous enough for a hardback, small leather things that keep the loose ends in order, and the odd object that earns its place at the bottom.",
+        "note": "Nothing here waits in a warehouse. Each piece is cut and finished after you claim it.",
+        "button_label": "See what's inside",
+        "button_link": "#the-inventory",
+        "caption": "No. 1 — The Brownstone Tote, in deep cocoa suede."
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "petits plaisirs, faits exprès",
+        "phrase_2": "a bag that can't carry a book is a decoration",
+        "phrase_3": "take the long way home"
+      }
+    },
+    "inventory": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "The inventory",
+        "heading": "Turned out on the table",
+        "intro": "Everything currently in her purse, and the purse itself. Made to order, one at a time, over a few unhurried days.",
+        "products_to_show": 8,
+        "columns": "2",
+        "anchor": "the-inventory",
+        "show_coming_card": true,
+        "coming_numeral": "&c.",
+        "coming_heading": "The rest is still being cut",
+        "coming_text": "The collection fills slowly, on purpose. A card case, a longer strap, the little pouch that keeps loose things from becoming a situation — each one gets its turn on the table.",
+        "coming_link_label": "Hear about the next one",
+        "coming_link": "#shopify-section-newsletter"
+      }
+    },
+    "notes": {
+      "type": "house-notes",
+      "settings": {
+        "eyebrow": "House rules",
+        "heading": "The rule of the purse",
+        "intro": "Four opinions the house holds firmly, and will not be talked out of.",
+        "footnote": "Opinions subject to revision only by the other Betty."
+      },
+      "blocks": {
+        "note-1": {
+          "type": "note",
+          "settings": {
+            "numeral": "I.",
+            "heading": "It must hold a hardback",
+            "text": "A bag that cannot carry a book is a decoration. Ours are cut to take a hardback, a cardigan you'll regret not wearing, and whatever you picked up on the way home."
+          }
+        },
+        "note-2": {
+          "type": "note",
+          "settings": {
+            "numeral": "II.",
+            "heading": "It should slouch",
+            "text": "Structure is for luggage. Suede that softens with handling, a shape that gives, and a strap across the front for the days it is genuinely full."
+          }
+        },
+        "note-3": {
+          "type": "note",
+          "settings": {
+            "numeral": "III.",
+            "heading": "It arrives wearing something",
+            "text": "The house scarf comes knotted at the handle. Leave it there, wear it elsewhere, or keep it in the drawer with the good ribbon — we don't mind."
+          }
+        },
+        "note-4": {
+          "type": "note",
+          "settings": {
+            "numeral": "IV.",
+            "heading": "It is made after you ask",
+            "text": "Nothing sits in a warehouse getting creased. Yours is cut, finished, and signed off by the house once you claim it. Allow 3–5 days before it ships."
+          }
+        }
+      },
+      "block_order": ["note-1", "note-2", "note-3", "note-4"]
+    },
+    "letter": {
+      "type": "the-letter",
+      "settings": {
+        "eyebrow": "A note on the collection",
+        "body": "<p>My grandmother's purse was an archive and a crime scene at once. A paperback with the spine long gone, a lipstick with no lid, three pens that did not work and one that did, a pressed flower from a wedding she had opinions about, and — always — something for me, produced at exactly the right moment.</p><p>I have never once wanted a tidy bag. I wanted a beautiful one, and large enough to be interesting.</p>",
+        "signature": "— B.",
+        "link_label": "Read the whole letter",
+        "link": "/pages/the-letter"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "The next one, by letter",
+        "text": "New pieces for the purse are announced first, by letter. No hype, no hurry — we write when there is something worth writing about.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings."
+      }
+    }
+  },
+  "order": ["hero", "marquee", "inventory", "notes", "letter", "newsletter"]
+}

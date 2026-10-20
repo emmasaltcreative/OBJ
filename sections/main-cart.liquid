@@ -17,7 +17,13 @@
               {% unless item.product.has_only_default_variant %}
                 <div class="cart-line__meta">{{ item.variant.title }}</div>
               {% endunless %}
-              <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+              {%- assign line_preorder = item.product.metafields.custom.preorder.value -%}
+              {%- assign line_window = item.product.metafields.custom.preorder_ship_window.value -%}
+              {% if line_preorder %}
+                <div class="cart-line__meta">Preorder{% if line_window != blank %} · {{ line_window }}{% endif %}</div>
+              {% else %}
+                <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+              {% endif %}
               <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
             </div>
             <div style="text-align: right;">

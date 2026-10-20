@@ -1,3 +1,7 @@
+{%- assign is_preorder = product.metafields.custom.preorder.value -%}
+{%- assign preorder_window = product.metafields.custom.preorder_ship_window.value -%}
+{%- assign preorder_note = product.metafields.custom.preorder_note.value -%}
+
 <section class="section">
   <div class="page-width">
     <div class="product" data-product-form data-money-format="{{ shop.money_format | strip_html | escape }}">
@@ -20,9 +24,14 @@
 
       <div class="product__info">
         {%- assign edition = product.metafields.custom.edition_number.value -%}
-        <span class="eyebrow eyebrow--accent">
-          {{ section.settings.collection_eyebrow }}{% if edition %} · No. {{ edition }}{% endif %}
-        </span>
+        <div class="product__eyebrow-row">
+          <span class="eyebrow eyebrow--accent">
+            {{ section.settings.collection_eyebrow }}{% if edition %} · No. {{ edition }}{% endif %}
+          </span>
+          {% if is_preorder %}
+            <span class="badge badge--preorder">{{ section.settings.preorder_badge }}</span>
+          {% endif %}
+        </div>
 
         <h1 class="product__title">{{ product.title }}</h1>
 
@@ -42,12 +51,30 @@
           {{ product.description }}
         </div>
 
-        <div class="fulfillment-line">
-          {{ settings.fulfillment_line }}
-        </div>
+        {% if is_preorder %}
+          <div class="preorder-panel">
+            <div class="preorder-panel__head">
+              <span class="badge badge--preorder">{{ section.settings.preorder_badge }}</span>
+              {% if preorder_window != blank %}
+                <span class="preorder-panel__window">{{ preorder_window }}</span>
+              {% endif %}
+            </div>
+            {% if preorder_note != blank %}
+              <div class="preorder-panel__note">{{ preorder_note | newline_to_br }}</div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="fulfillment-line">
+            {{ settings.fulfillment_line }}
+          </div>
+        {% endif %}
 
         {% form 'product', product %}
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {% if is_preorder %}
+            <input type="hidden" name="properties[Preorder]" value="{{ preorder_window | default: section.settings.preorder_badge | escape }}">
+          {% endif %}
 
           {% unless product.has_only_default_variant %}
             {% for option in product.options_with_values %}
@@ -73,7 +100,11 @@
             </div>
           </div>
 
-          {%- assign cta = product.metafields.custom.cta_label.value | default: section.settings.default_cta -%}
+          {%- if is_preorder -%}
+            {%- assign cta = product.metafields.custom.cta_label.value | default: section.settings.preorder_cta -%}
+          {%- else -%}
+            {%- assign cta = product.metafields.custom.cta_label.value | default: section.settings.default_cta -%}
+          {%- endif -%}
           <button
             type="submit"
             name="add"
@@ -89,6 +120,10 @@
               {{ section.settings.sold_out_label }}
             {% endif %}
           </button>
+
+          {% if is_preorder and preorder_window != blank %}
+            <p class="product__buy-note">{{ section.settings.preorder_badge }} · {{ preorder_window }}</p>
+          {% endif %}
         {% endform %}
 
         <div class="product__accordions">
@@ -132,6 +167,27 @@
       "id": "sold_out_label",
       "label": "Sold out label",
       "default": "Between editions"
+    },
+    {
+      "type": "header",
+      "content": "Preorder"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shown when a product has custom.preorder switched on. The ship window and terms come from custom.preorder_ship_window and custom.preorder_note."
+    },
+    {
+      "type": "text",
+      "id": "preorder_badge",
+      "label": "Preorder badge",
+      "default": "Preorder"
+    },
+    {
+      "type": "text",
+      "id": "preorder_cta",
+      "label": "Preorder add-to-cart label",
+      "default": "Reserve mine →",
+      "info": "Used for preorder products that have no custom.cta_label of their own."
     }
   ],
   "blocks": [

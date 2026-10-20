@@ -29,8 +29,10 @@
 
   <div class="product-card__price">
     {% render 'price', product: product %}
-    {% unless product.available %}
+    {% if product.metafields.custom.preorder.value %}
+      <span class="badge badge--preorder" style="margin-left: 0.7em;">Preorder</span>
+    {% elsif product.available == false %}
       <span class="badge" style="margin-left: 0.7em;">Between editions</span>
-    {% endunless %}
+    {% endif %}
   </div>
 </div>
