@@ -18,7 +18,10 @@
           }
         }
       },
-      "block_order": ["preorder", "shipping"],
+      "block_order": [
+        "preorder",
+        "shipping"
+      ],
       "settings": {
         "collection_eyebrow": "The First Edition",
         "preorder_mode": true,
@@ -28,7 +31,18 @@
         "sold_out_label": "Preorder closed",
         "preorder_ships": "With the first edition"
       }
+    },
+    "film": {
+      "type": "product-film",
+      "settings": {
+        "eyebrow": "In motion",
+        "heading": "The film",
+        "caption": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "film"
+  ]
 }

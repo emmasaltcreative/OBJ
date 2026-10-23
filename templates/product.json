@@ -18,9 +18,23 @@
           }
         }
       },
-      "block_order": ["making", "shipping"],
+      "block_order": [
+        "making",
+        "shipping"
+      ],
       "settings": {}
+    },
+    "film": {
+      "type": "product-film",
+      "settings": {
+        "eyebrow": "In motion",
+        "heading": "The film",
+        "caption": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "film"
+  ]
 }

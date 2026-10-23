@@ -25,12 +25,27 @@
           }
         }
       },
-      "block_order": ["suede", "scarf", "shipping"],
+      "block_order": [
+        "suede",
+        "scarf",
+        "shipping"
+      ],
       "settings": {
         "collection_eyebrow": "In Her Purse",
         "default_cta": "Claim the tote →"
       }
+    },
+    "film": {
+      "type": "product-film",
+      "settings": {
+        "eyebrow": "In motion",
+        "heading": "The film",
+        "caption": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "film"
+  ]
 }

@@ -22,7 +22,8 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
-| `templates/product.perfume.json` | Product page for the house fragrance (scent, bottle, shipping) |
+| `templates/product.perfume.json` | Product page for the house fragrance (scent, shipping) |
+| `sections/product-film.liquid` | A product's videos; renders nothing when there are none |
 
 ## Product metafields (optional but recommended)
 
@@ -79,6 +80,16 @@ The template is already on the store, staged on an unpublished theme:
 3. **Order matters.** Publish the theme first, then set the product to Active. Reversed, there is a window where the fragrance falls back to the default `product` template and shows the guest book gate instead of a price.
 4. The button reads **Claim the perfume →**; the `custom.cta_label` metafield renders as an italic line beneath it, and `custom.edition_number` is `2`.
 5. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
+
+## The house mark, and product video
+
+**One mark everywhere.** The house quatrefoil — four circles with a punched centre — was already the header lockup (`snippets/icon-floral.liquid`) and the favicon (`assets/obj-floral-mark.svg`). Three other places still carried older marks: the footer rendered `icon-obj-monogram`, the cart drawer's empty state used `obj-monogram-obj.svg`, and `obj-seal.svg` appeared on product pages, the sealed-confirmation page, the collector's ledger and the edition-closed page.
+
+Rather than edit six call sites, the artwork inside those three files was replaced with the quatrefoil. Every call site keeps its own sizing, alt text and CSS class and simply renders the new mark. `obj-seal.svg` and `obj-monogram-obj.svg` are square (`viewBox="0 0 100 100"`), so where they are drawn into a non-square box — 96×64, 120×80, 84×124 — the mark letterboxes and centres rather than stretching.
+
+**Product video.** `sections/main-product.liquid` builds its gallery from `product.media` but only emits `media_type == 'image'`, so a video attached to any product never reached the page. `sections/product-film.liquid` renders a product's videos (and external videos), and is wired into every product template. It returns nothing at all when a product has no video, so it is safe to leave on all of them.
+
+The gallery itself is unchanged. Fixing it there would mean rewriting a 27 KB section through an API that only does whole-file writes, with no way to preview the result from this environment — a bad trade against a section that cannot break a page it doesn't render on. If you want the video sitting inside the gallery rather than below the product block, that is the edit to make, deliberately, with a preview open.
 
 ## Preorder: The Chaperone at $79
 

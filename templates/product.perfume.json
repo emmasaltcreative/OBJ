@@ -29,9 +29,18 @@
         "story_heading": "A small bottle with a long memory",
         "preproduction_copy": ""
       }
+    },
+    "film": {
+      "type": "product-film",
+      "settings": {
+        "eyebrow": "In motion",
+        "heading": "The film",
+        "caption": "Ten millilitres, and nowhere it cannot go."
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "film"
   ]
 }
