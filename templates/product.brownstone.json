@@ -34,20 +34,12 @@
         "collection_eyebrow": "In Her Purse",
         "default_cta": "Claim the tote →",
         "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
-        "preorder_eyebrow": "Preorder · Edition I · In Her Purse"
-      }
-    },
-    "film": {
-      "type": "product-film",
-      "settings": {
-        "eyebrow": "In motion",
-        "heading": "The film",
-        "caption": ""
+        "preorder_eyebrow": "Preorder · Edition I · In Her Purse",
+        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first."
       }
     }
   },
   "order": [
-    "main",
-    "film"
+    "main"
   ]
 }

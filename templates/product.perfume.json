@@ -16,11 +16,59 @@
             "heading": "Shipping &amp; returns",
             "content": "<p>Filled in considered quantities, then sent the long way on purpose. Gracious, calm returns within 30 days on an unopened bottle — write to the house and we'll sort it.</p>"
           }
+        },
+        "note-rose": {
+          "type": "note",
+          "settings": {
+            "name": "Rose",
+            "text": "The one everyone recognises, and nobody tires of."
+          }
+        },
+        "note-jasmine": {
+          "type": "note",
+          "settings": {
+            "name": "Jasmine",
+            "text": "Opens after dark, like the best conversations."
+          }
+        },
+        "note-peony": {
+          "type": "note",
+          "settings": {
+            "name": "Peony",
+            "text": "Extravagant for a Tuesday. Wear it anyway."
+          }
+        },
+        "note-lilac": {
+          "type": "note",
+          "settings": {
+            "name": "Lilac",
+            "text": "A garden you walked past once and never forgot."
+          }
+        },
+        "note-sandalwood": {
+          "type": "note",
+          "settings": {
+            "name": "Sandalwood",
+            "text": "The warmth that stays after the flowers go quiet."
+          }
+        },
+        "note-musk": {
+          "type": "note",
+          "settings": {
+            "name": "Musk",
+            "text": "Not a scent so much as the memory of one."
+          }
         }
       },
       "block_order": [
         "scent",
-        "shipping"
+        "shipping",
+        "note-rose",
+        "note-jasmine",
+        "note-peony",
+        "note-lilac",
+        "note-sandalwood",
+        "note-musk"
       ],
       "settings": {
         "collection_eyebrow": "Edition II · In Her Purse",
@@ -29,20 +77,21 @@
         "story_heading": "A small bottle with a long memory",
         "preproduction_copy": "",
         "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
-        "preorder_eyebrow": "Preorder · Edition II · In Her Purse"
+        "preorder_eyebrow": "Preorder · Edition II · In Her Purse",
+        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first."
       }
     },
-    "film": {
-      "type": "product-film",
+    "marquee": {
+      "type": "marquee",
       "settings": {
-        "eyebrow": "In motion",
-        "heading": "The film",
-        "caption": "Ten millilitres, and nowhere it cannot go."
+        "phrase_1": "ten millilitres, and nowhere it cannot go",
+        "phrase_2": "a woman remembered",
+        "phrase_3": "eau de parfum"
       }
     }
   },
   "order": [
     "main",
-    "film"
+    "marquee"
   ]
 }
