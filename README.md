@@ -83,13 +83,36 @@ The template is already on the store, staged on an unpublished theme:
 
 ## The house mark, and product video
 
-**One mark everywhere.** The house quatrefoil — four circles with a punched centre — was already the header lockup (`snippets/icon-floral.liquid`) and the favicon (`assets/obj-floral-mark.svg`). Three other places still carried older marks: the footer rendered `icon-obj-monogram`, the cart drawer's empty state used `obj-monogram-obj.svg`, and `obj-seal.svg` appeared on product pages, the sealed-confirmation page, the collector's ledger and the edition-closed page.
+**One mark everywhere.** The house quatrefoil appears in five files: `snippets/icon-floral.liquid` (the header lockup), `assets/obj-floral-mark.svg` (favicon and the Organization schema logo), `snippets/icon-obj-monogram.liquid` (the footer), `assets/obj-monogram-obj.svg` (the cart drawer's empty state) and `assets/obj-seal.svg` (product pages, sealed-confirmation, the collector's ledger, edition-closed). The last three used to carry older marks; replacing the artwork inside the files, rather than the six call sites, leaves every call site's sizing, alt text and CSS class untouched.
 
-Rather than edit six call sites, the artwork inside those three files was replaced with the quatrefoil. Every call site keeps its own sizing, alt text and CSS class and simply renders the new mark. `obj-seal.svg` and `obj-monogram-obj.svg` are square (`viewBox="0 0 100 100"`), so where they are drawn into a non-square box — 96×64, 120×80, 84×124 — the mark letterboxes and centres rather than stretching.
+**The geometry is measured, not approximated.** All five are drawn to the brand artwork:
+
+| | |
+|---|---|
+| Petal centres | `50 ± 26.39` |
+| Petal radius | `18.11` |
+| Centre punch | `12.14` |
+| Ink | `#333045` |
+
+Those came from fitting circles to the supplied logo file — 0.27% mismatch against the source bitmap, and the rendered SVG was diffed against it in Chromium to confirm. The earlier values (`d=23.5, R=21, h=14.5`) were a different mark: petals too close together and the punch too large. The outer extent is kept at `44.5` of `50`, the canvas convention the theme already used, so the mark renders at exactly the same size as before and nothing in the layout shifts.
+
+The fill is the literal brand hex rather than `currentColor`, so the mark holds its own colour instead of inheriting the ink. The hex is read from a lossy source file; if there is an authoritative brand value, change it in those five files. The punch is a mask, not a white disc, so the mark sits correctly on the cream background.
+
+The asset SVGs are square, so where they are drawn into a non-square box — 96×64, 120×80, 84×124 — the mark letterboxes and centres rather than stretching.
 
 **Product video.** `sections/main-product.liquid` builds its gallery from `product.media` but only emits `media_type == 'image'`, so a video attached to any product never reached the page. `sections/product-film.liquid` renders a product's videos (and external videos), and is wired into every product template. It returns nothing at all when a product has no video, so it is safe to leave on all of them.
 
 The gallery itself is unchanged. Fixing it there would mean rewriting a 27 KB section through an API that only does whole-file writes, with no way to preview the result from this environment — a bad trade against a section that cannot break a page it doesn't render on. If you want the video sitting inside the gallery rather than below the product block, that is the edit to make, deliberately, with a preview open.
+
+## The preorder promise line
+
+`main-product.liquid` hardcodes a fallback preorder sentence, with a special case for The Chaperone. Both are overridden by the section's `preorder_fulfillment` setting, which every product template now carries, so one sentence covers every preorder on the site:
+
+> A preorder, charged today at `[price]`. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.
+
+`[price]` is substituted with the variant price, already formatted with its currency symbol — so write `[price]`, not `$[price]`.
+
+The homepage Chaperone feature (`sections/preorder-chaperone.liquid`) has a separate, shorter `promise` setting and is not affected by this.
 
 ## Preorder: The Chaperone at $79
 

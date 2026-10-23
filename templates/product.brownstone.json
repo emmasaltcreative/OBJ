@@ -32,7 +32,9 @@
       ],
       "settings": {
         "collection_eyebrow": "In Her Purse",
-        "default_cta": "Claim the tote →"
+        "default_cta": "Claim the tote →",
+        "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
+        "preorder_eyebrow": "Preorder · Edition I · In Her Purse"
       }
     },
     "film": {
