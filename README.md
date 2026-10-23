@@ -72,10 +72,13 @@ if settings.edition_state == 'open' or is_preorder or section.settings.sell_in_p
 
 The doors are shut store-wide, and the fragrance is not a preorder — so without a template of its own it falls to the default `product` template, whose settings are empty, and the page shows the preproduction note and the guest book button instead of a price and a buy button. `templates/product.perfume.json` carries `"sell_in_preproduction": true` for exactly that reason, the same way `product.brownstone.json` does for the tote.
 
-1. Copy `templates/product.perfume.json` into the live theme (Online Store → Themes → ⋯ → Edit code → Templates → Add a new template → product → `perfume`).
-2. Assign it: Products → A Woman Remembered → Theme template → **perfume**.
-3. The button reads **Claim the perfume →**; the `custom.cta_label` metafield renders as an italic line beneath it, and `custom.edition_number` is `2`.
-4. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
+The template is already on the store, staged on an unpublished theme:
+
+1. **`OBJ v5.12 · A Woman Remembered`** is a duplicate of the published `v5.11.3`, identical to it but for one added file — `templates/product.perfume.json`. Publishing it is the step that opens the fragrance.
+2. The product already has its theme template set to **perfume**, so it picks the template up the moment that theme is published.
+3. **Order matters.** Publish the theme first, then set the product to Active. Reversed, there is a window where the fragrance falls back to the default `product` template and shows the guest book gate instead of a price.
+4. The button reads **Claim the perfume →**; the `custom.cta_label` metafield renders as an italic line beneath it, and `custom.edition_number` is `2`.
+5. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
 
 ## Preorder: The Chaperone at $79
 
