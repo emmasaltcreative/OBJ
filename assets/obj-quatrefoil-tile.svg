@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <title>Oh Betty Jaletti quatrefoil wallpaper</title>
+  <defs>
+    <mask id="objTileHole">
+      <rect width="160" height="160" fill="white"/>
+      <circle cx="40" cy="40" r="4.86" fill="black"/>
+      <circle cx="120" cy="120" r="4.86" fill="black"/>
+    </mask>
+  </defs>
+  <g mask="url(#objTileHole)" fill="#333045" fill-opacity="0.3">
+    <circle cx="40" cy="29.44" r="7.24"/>
+    <circle cx="29.44" cy="40" r="7.24"/>
+    <circle cx="50.56" cy="40" r="7.24"/>
+    <circle cx="40" cy="50.56" r="7.24"/>
+    <circle cx="120" cy="109.44" r="7.24"/>
+    <circle cx="109.44" cy="120" r="7.24"/>
+    <circle cx="130.56" cy="120" r="7.24"/>
+    <circle cx="120" cy="130.56" r="7.24"/>
+  </g>
+</svg>

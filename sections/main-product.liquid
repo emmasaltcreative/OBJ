@@ -1,46 +1,145 @@
-<section class="section">
+{%- liquid
+  assign edition_number = product.metafields.custom.edition_number.value
+  assign cta_note = product.metafields.custom.cta_label.value
+  assign fallback_asset = 'product-chaperone.svg'
+  assign fallback_materials = 'The exterior cloth is still being chosen. We are weighing a performance textile against a natural one, judged on whether it survives a handbag, keeps its color, and is still a pleasure in the hand. Lining, interlining and closure will be confirmed with the approved production sample.'
+  assign fallback_fit = 'Designed for trade paperbacks and standard hardcovers. Confirm final fit against the approved production sample.'
+  assign fallback_care = 'Final cleaning guidance will follow the approved production sample.'
+  assign fallback_ritual = 'Slip in the novel already living in your bag and let the cover take the commute personally.'
+  assign fallback_object = 'A structured fabric cover with fold-in flaps, a bookmark pocket, and a tailored clothbound feel.'
+  assign fallback_making = 'Cut, lined, and sewn in considered quantities, then packed and signed off by the house.'
+  assign fallback_suits = 'It is for you if there is a paperback in your bag right now, and you have opinions about the state it is in when it comes out. It is not for you if you read mostly on a screen, or you need it this month.'
+
+  case product.handle
+    when 'the-chaperone'
+      assign edition_number = edition_number | default: '1'
+      assign cta_note = cta_note | default: 'Escort my paperback →'
+    when 'the-good-lines'
+      assign edition_number = edition_number | default: '2'
+      assign cta_note = cta_note | default: 'Start my commonplace →'
+      assign fallback_asset = 'product-good-lines.svg'
+      assign fallback_materials = 'Hardbound cover, lay-flat binding, and heavyweight cream writing pages.'
+      assign fallback_fit = 'Sized for a reading chair, bedside table, or handbag; final production dimensions will follow the approved sample.'
+      assign fallback_care = 'Store closed and dry. A grocery list written beautifully counts as proper use.'
+      assign fallback_ritual = 'Keep it within reach while you read. Copy the line before the page turns.'
+      assign fallback_object = 'A hardbound, lay-flat book with thick cream pages intended to take fountain pen without complaint.'
+      assign fallback_making = 'Bound in considered quantities for the First Edition.'
+      assign fallback_suits = 'It is for you if you underline things and then lose the book. It is not for you if your notes are happier in an app.'
+    when 'one-more-chapter'
+      assign edition_number = edition_number | default: '3'
+      assign cta_note = cta_note | default: 'Declare the hour →'
+      assign fallback_asset = 'product-candle.svg'
+      assign fallback_materials = 'Vegan coconut-soy wax, approved wick, printed glass jar, and fitted lid.'
+      assign fallback_fit = 'The launch vessel and burn time will be confirmed with the approved production sample.'
+      assign fallback_care = 'Trim the wick before lighting, keep the wax pool clear, and never leave a burning candle unattended.'
+      assign fallback_ritual = 'Strike the match before the first page. One more chapter is never one more chapter.'
+      assign fallback_object = 'A coconut-soy reading candle in a printed glass jar with a lid.'
+      assign fallback_making = 'Poured in considered quantities and printed directly onto the glass.'
+      assign fallback_suits = 'It is for you if lighting something is how you tell yourself the evening has started. It is not for you if scent gives you a headache.'
+    when 'the-good-glass'
+      assign edition_number = edition_number | default: '4'
+      assign cta_note = cta_note | default: 'Claim the good glass →'
+      assign fallback_asset = 'product-good-glass.svg'
+      assign fallback_materials = 'Clear drinking glass with direct-printed house artwork.'
+      assign fallback_fit = 'Sized for a proper morning coffee; the final form and capacity will follow the approved production sample.'
+      assign fallback_care = 'Follow final supplier guidance. Hand washing is the cautious choice before launch approval.'
+      assign fallback_ritual = 'Make the coffee properly and use the favorite glass. That is the occasion.'
+      assign fallback_object = 'A generously sized coffee glass printed with the house motif.'
+      assign fallback_making = 'Printed for this edition, in considered quantities. It knows it is the favorite.'
+      assign fallback_suits = 'It is for you if you have been saving the good glass for a day that never comes. It is not for you if it would live in a cupboard.'
+  endcase
+
+  assign materials = product.metafields.custom.materials.value | default: fallback_materials
+  assign fit = product.metafields.custom.fit_dimensions.value | default: fallback_fit
+  assign care = product.metafields.custom.care.value | default: fallback_care
+  assign ritual = product.metafields.custom.ritual_intro.value | default: fallback_ritual
+  assign object_copy = product.metafields.custom.object_copy.value | default: fallback_object
+  assign making = product.metafields.custom.making_note.value | default: fallback_making
+  assign suits = product.metafields.custom.suitability.value | default: fallback_suits
+
+  comment
+    Pre-launch the house speaks for the object, because the product's own
+    description is written for a doors-open store. Once edition_state is
+    "open" the product description takes over again.
+  endcomment
+  assign preproduction = true
+  if settings.edition_state == 'open'
+    assign preproduction = false
+  endif
+-%}
+
+{%- comment -%}
+  A preorder sells while the rest of the house is still in preproduction:
+  the edition_state gate stays shut for every other piece.
+{%- endcomment -%}
+{%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+
+  assign is_preorder = false
+  if preorder_flag contains 'true' or section.settings.preorder_mode
+    assign is_preorder = true
+  endif
+
+  comment
+    The debut pieces sell while the house is still in preproduction. Every
+    other product stays behind the edition_state gate.
+  endcomment
+  assign selling = false
+  if settings.edition_state == 'open' or is_preorder or section.settings.sell_in_preproduction
+    assign selling = true
+  endif
+
+  if is_preorder or section.settings.sell_in_preproduction
+    assign preproduction = false
+  endif
+
+  assign eyebrow = section.settings.collection_eyebrow
+  if is_preorder and section.settings.preorder_eyebrow != blank
+    assign eyebrow = section.settings.preorder_eyebrow
+  endif
+
+  assign price_label = variant.price | money
+  assign ships = section.settings.preorder_ships | default: 'With the first edition'
+
+  assign sold_out_label = section.settings.sold_out_label
+  if is_preorder and sold_out_label == 'Between editions'
+    assign sold_out_label = 'Preorder closed'
+  endif
+
+  if is_preorder and product.handle == 'the-chaperone'
+    assign cta = section.settings.chaperone_cta
+  elsif is_preorder
+    assign cta = section.settings.preorder_cta
+  else
+    assign cta = section.settings.default_cta
+  endif
+
+  assign has_accordion_blocks = false
+  for block in section.blocks
+    if block.type == 'accordion'
+      assign has_accordion_blocks = true
+    endif
+  endfor
+-%}
+{%- if section.settings.preorder_fulfillment != blank -%}
+  {%- assign preorder_promise = section.settings.preorder_fulfillment | replace: '[price]', price_label -%}
+{%- elsif product.handle == 'the-chaperone' -%}
+  {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. The Chaperone is cut when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
+{%- else -%}
+  {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. Made when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
+{%- endif -%}
+
+<nav class="breadcrumbs page-width" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span>
+  {%- if product.collections.first -%}
+    <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a><span aria-hidden="true">/</span>
+  {%- endif -%}
+  <span>{{ product.title }}</span>
+</nav>
+
+<section class="section" style="padding-top: clamp(1.5rem, 3vw, 2.5rem);">
   <div class="page-width">
-    {%- assign variant = product.selected_or_first_available_variant -%}
-    {%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
-    {%- assign is_preorder = false -%}
-    {%- if preorder_flag contains 'true' or section.settings.preorder_mode -%}
-      {%- assign is_preorder = true -%}
-    {%- endif -%}
-
-    {%- assign edition = product.metafields.custom.edition_number.value -%}
-    {%- if edition == blank and product.handle == 'the-chaperone' or edition == blank and product.handle == 'the-brownstone-tote' -%}
-      {%- assign edition = 1 -%}
-    {%- endif -%}
-    {%- assign eyebrow = section.settings.collection_eyebrow -%}
-    {%- if product.handle == 'the-brownstone-tote' and eyebrow == 'The First Edition' -%}
-      {%- assign eyebrow = 'In Her Purse' -%}
-    {%- endif -%}
-
-    {%- assign price_label = variant.price | money -%}
-    {%- if section.settings.preorder_fulfillment != blank -%}
-      {%- assign preorder_promise = section.settings.preorder_fulfillment | replace: '[price]', price_label -%}
-    {%- elsif product.handle == 'the-chaperone' -%}
-      {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. The Chaperone is cut when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
-    {%- else -%}
-      {%- capture preorder_promise -%}A preorder, charged today at {{ price_label }}. Made when the edition opens, numbered, and sent the long way — nothing here waits in a warehouse.{%- endcapture -%}
-    {%- endif -%}
-
-    {%- if product.metafields.custom.cta_label.value != blank -%}
-      {%- assign cta = product.metafields.custom.cta_label.value -%}
-    {%- elsif is_preorder and product.handle == 'the-chaperone' -%}
-      {%- assign cta = section.settings.chaperone_cta -%}
-    {%- elsif is_preorder -%}
-      {%- assign cta = section.settings.preorder_cta -%}
-    {%- else -%}
-      {%- assign cta = section.settings.default_cta -%}
-    {%- endif -%}
-
-    {%- assign ships = section.settings.preorder_ships | default: 'With the first edition' -%}
-    {%- assign sold_out_label = section.settings.sold_out_label -%}
-    {%- if is_preorder and sold_out_label == 'Between editions' -%}
-      {%- assign sold_out_label = 'Preorder closed' -%}
-    {%- endif -%}
-
     <div
       class="product{% if is_preorder %} product--preorder{% endif %}"
       data-product-form
@@ -57,24 +156,38 @@
               {% else %}
                 {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
               {% endif %}
+            {% elsif media.media_type == 'video' %}
+              <div class="product__video">
+                {{ media | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '1400x' }}
+              </div>
+            {% elsif media.media_type == 'external_video' %}
+              <div class="product__video product__video--embed">{{ media | external_video_tag }}</div>
             {% endif %}
           {% endfor %}
         {% elsif product.handle == 'the-brownstone-tote' %}
           {% render 'brownstone-image', loading: 'eager', alt: product.title %}
         {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000">
         {% endif %}
+
+        <div class="edition-certificate">
+          <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="120" height="80" loading="lazy">
+          <div>
+            <span class="eyebrow eyebrow--accent" style="margin-bottom: 0.2rem;">{{ section.settings.collection_eyebrow }}</span>
+            <strong>{{ section.settings.certificate_heading }}</strong>
+            <span>{{ section.settings.certificate_text }}</span>
+          </div>
+        </div>
+
+        {% render 'product-notes', section: section %}
       </div>
 
       <div class="product__info">
-        <span class="eyebrow eyebrow--accent">
-          {% if is_preorder %}
-            {{ section.settings.preorder_eyebrow }}
-          {% else %}
-            {{ eyebrow }}
-          {% endif %}
-          {% if edition %} · No. {{ edition }}{% endif %}
-        </span>
+        {%- comment -%}
+          Edition numbers are internal (assigned by paid-order sequence), so
+          the storefront never prints one.
+        {%- endcomment -%}
+        <span class="eyebrow eyebrow--accent">{{ eyebrow }}</span>
 
         <h1 class="product__title">{{ product.title }}</h1>
 
@@ -82,22 +195,33 @@
           <p class="product__type">{{ product.type }}</p>
         {% endif %}
 
-        <div class="product__price">
-          {% if is_preorder %}
-            <div class="product__price-kicker">Preorder price</div>
-          {% endif %}
-          {% if request.design_mode and product.handle == 'the-chaperone' and variant.price != 7900 %}
-            <div class="errors">The Chaperone preorder is $79. This variant is {{ price_label }}. Set the price to $79.00.</div>
-          {% endif %}
-          <span data-price>{{ price_label }}</span>
-          <span class="price--compare" data-compare-price
-            {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>
-            {{ variant.compare_at_price | money }}
-          </span>
-        </div>
+        {%- comment -%}
+          No price before the doors open: it is not settled yet, and a number
+          we might change is worse than no number at all.
+        {%- endcomment -%}
+        {% unless preproduction %}
+          <div class="product__price">
+            {% if is_preorder %}
+              <div class="product__price-kicker">Preorder price</div>
+            {% endif %}
+            {% if request.design_mode and product.handle == 'the-chaperone' and variant.price != 7900 %}
+              <div class="errors">The Chaperone preorder is $79. This variant is {{ price_label }}. Set the price to $79.00.</div>
+            {% endif %}
+            <span data-price>{{ price_label }}</span>
+            <span class="price--compare" data-compare-price
+              {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>
+              {{ variant.compare_at_price | money }}
+            </span>
+          </div>
+        {% endunless %}
 
         <div class="product__description prose">
-          {{ product.description }}
+          {% if preproduction %}
+            <p>{{ object_copy }}</p>
+            <p>{{ section.settings.preproduction_copy }}</p>
+          {% else %}
+            {{ product.description }}
+          {% endif %}
         </div>
 
         <div class="fulfillment-line">
@@ -108,71 +232,133 @@
           {% endif %}
         </div>
 
-        {% form 'product', product %}
-          {{ form.errors | default_errors }}
-          <input type="hidden" name="id" value="{{ variant.id }}">
-          {% if is_preorder %}
-            {% render 'preorder-properties', ships: ships %}
-          {% endif %}
-
-          {% unless product.has_only_default_variant %}
-            {% for option in product.options_with_values %}
-              <div class="field">
-                <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-                <select id="Option-{{ section.id }}-{{ forloop.index0 }}" data-option-select>
-                  {% for value in option.values %}
-                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
-                      {{ value }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endfor %}
-          {% endunless %}
-
-          <div class="field">
-            <label for="Quantity-{{ section.id }}">Quantity</label>
-            <div class="quantity">
-              <button type="button" data-qty-change="-1" aria-label="Decrease quantity">&minus;</button>
-              <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
-              <button type="button" data-qty-change="1" aria-label="Increase quantity">+</button>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            name="add"
-            class="btn btn--solid btn--full"
-            data-buy-button
-            data-label-default="{{ cta | escape }}"
-            data-label-sold-out="{{ sold_out_label | escape }}"
-            {% unless variant.available %}disabled{% endunless %}
-          >
-            {% if variant.available %}
-              {{ cta }}
-            {% else %}
-              {{ sold_out_label }}
+        {% if selling %}
+          {% form 'product', product %}
+            {{ form.errors | default_errors }}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            {% if is_preorder %}
+              {% render 'preorder-properties', ships: ships %}
             {% endif %}
-          </button>
-        {% endform %}
+
+            {% unless product.has_only_default_variant %}
+              {% for option in product.options_with_values %}
+                <div class="field">
+                  <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                  <select id="Option-{{ section.id }}-{{ forloop.index0 }}" data-option-select>
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                        {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <div class="field">
+              <label for="Quantity-{{ section.id }}">Quantity</label>
+              <div class="quantity">
+                <button type="button" data-qty-change="-1" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
+                <button type="button" data-qty-change="1" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              name="add"
+              class="btn btn--solid btn--full"
+              data-buy-button
+              data-label-default="{{ cta | escape }}"
+              data-label-sold-out="{{ sold_out_label | escape }}"
+              {% unless variant.available %}disabled{% endunless %}
+            >
+              {% if variant.available %}
+                {{ cta }}
+              {% else %}
+                {{ sold_out_label }}
+              {% endif %}
+            </button>
+
+            {%- assign ship_window = product.metafields.custom.preorder_ship_window.value -%}
+            {% if is_preorder and ship_window != blank %}
+              <p class="cta-note cta-note--ships">{{ ship_window }}</p>
+            {% endif %}
+            {% if cta_note != blank and is_preorder == false %}
+              <p class="cta-note">{{ cta_note }}</p>
+            {% endif %}
+            {%- if section.settings.share_note != blank -%}
+              {%- capture share_subject -%}{{ product.title }}, from Oh Betty Jaletti{%- endcapture -%}
+              {%- capture share_body -%}I saw this and thought of you.{%- endcapture -%}
+              {%- assign share_url = request.origin | append: product.url -%}
+              <p class="cta-note cta-note--share">
+                {{ section.settings.share_note }}
+                <a href="mailto:?subject={{ share_subject | url_encode }}&amp;body={{ share_body | url_encode }}%0A%0A{{ share_url | url_encode }}">{{ section.settings.share_label }}</a>
+              </p>
+            {%- endif -%}
+          {% endform %}
+        {% elsif settings.edition_state == 'retired' %}
+          <div class="edition-state-note">
+            <p>{{ settings.retired_text }}</p>
+            <a href="{{ routes.root_url }}" class="link-arrow">Join the next edition's waitlist</a>
+          </div>
+        {% else %}
+          <div class="edition-state-note">
+            <p>{{ settings.doors_text }}</p>
+            <a href="/#claim" class="btn btn--solid btn--full">{{ section.settings.guestbook_cta }}</a>
+            <p class="cta-note">{{ section.settings.guestbook_note }}</p>
+          </div>
+        {% endif %}
 
         <div class="product__accordions">
           {% for block in section.blocks %}
-            {% if block.settings.heading != blank and block.settings.content != blank %}
-              {%- assign heading = block.settings.heading -%}
-              {%- assign content = block.settings.content -%}
-              {%- if is_preorder and product.template_suffix != 'preorder' and heading == 'The making' -%}
-                {%- assign heading = 'The preorder' -%}
-                {%- assign content = section.settings.preorder_terms -%}
-              {%- elsif is_preorder and product.template_suffix != 'preorder' and heading == 'Shipping & returns' -%}
-                {%- assign content = section.settings.preorder_shipping -%}
-              {%- endif -%}
+            {% if block.type == 'accordion' and block.settings.heading != blank and block.settings.content != blank %}
               <details {{ block.shopify_attributes }}>
-                <summary>{{ heading }}</summary>
-                <div class="accordion-content prose">{{ content }}</div>
+                <summary>{{ block.settings.heading }}</summary>
+                <div class="accordion-content prose">{{ block.settings.content }}</div>
               </details>
             {% endif %}
           {% endfor %}
+          {%- liquid
+            assign preorder_body = product.metafields.custom.preorder_note.value
+            if preorder_body == blank
+              assign preorder_body = section.settings.preorder_terms
+            endif
+          -%}
+          {% if is_preorder and preorder_body != blank %}
+            <details open>
+              <summary>The preorder</summary>
+              <div class="accordion-content prose">{{ preorder_body }}</div>
+            </details>
+          {% endif %}
+          <details{% unless is_preorder %} open{% endunless %}>
+            <summary>Materials</summary>
+            <div class="accordion-content prose">{{ materials }}</div>
+          </details>
+          <details>
+            <summary>Fit &amp; dimensions</summary>
+            <div class="accordion-content prose">{{ fit }}</div>
+          </details>
+          <details>
+            <summary>Is it for you?</summary>
+            <div class="accordion-content prose">{{ suits }}</div>
+          </details>
+          {% if preproduction %}
+            <details>
+              <summary>Where it is right now</summary>
+              <div class="accordion-content prose">{{ section.settings.preproduction_status }}</div>
+            </details>
+          {% endif %}
+          <details>
+            <summary>Care</summary>
+            <div class="accordion-content prose">{{ care }}</div>
+          </details>
+          {% unless has_accordion_blocks %}
+            <details>
+              <summary>If it isn&rsquo;t right</summary>
+              <div class="accordion-content prose">{% if is_preorder %}{{ section.settings.preorder_shipping }}{% else %}{{ section.settings.shipping_text }}{% endif %}</div>
+            </details>
+          {% endunless %}
         </div>
 
         <script type="application/json" data-variants-json>
@@ -183,6 +369,107 @@
   </div>
 </section>
 
+<section class="letter section">
+  <div class="page-width">
+    <div class="section-header">
+      <span class="eyebrow eyebrow--accent">Ritual first, object second</span>
+      <h2>{{ section.settings.story_heading }}</h2>
+    </div>
+    <div class="ritual__grid">
+      <div class="ritual__item">
+        <span class="ritual__numeral">I.</span>
+        <h3>The ritual</h3>
+        <p>{{ ritual }}</p>
+      </div>
+      <div class="ritual__item">
+        <span class="ritual__numeral">II.</span>
+        <h3>The object</h3>
+        <p>{{ object_copy }}</p>
+      </div>
+      <div class="ritual__item">
+        <span class="ritual__numeral">III.</span>
+        <h3>The making</h3>
+        <p>{{ making }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- assign related_collection = product.collections.first -%}
+{%- if related_collection != blank and related_collection.products.size > 1 -%}
+  <section class="section">
+    <div class="page-width">
+      <div class="section-header">
+        <span class="eyebrow eyebrow--accent">Continue the hour</span>
+        <h2>The rest of the edition</h2>
+      </div>
+      <div class="product-grid product-grid--related">
+        {%- assign related_count = 0 -%}
+        {%- for related_product in related_collection.products -%}
+          {%- if related_product.id != product.id and related_count < 3 -%}
+            {%- assign related_count = related_count | plus: 1 -%}
+            {% render 'product-card', product: related_product, number: forloop.index %}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%}
+          The edition fills up slowly on purpose, so the grid is usually
+          short. Rather than leave the row empty, the house says so.
+        {%- endcomment -%}
+        {%- if related_count < 3 -%}
+          <div class="product-card product-card--more">
+            <span class="product-card__no">&amp;c.</span>
+            <h3 class="product-card__title">More to come</h3>
+            <p class="product-card__coming-text">{{ section.settings.more_text }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ request.origin | append: product.url | json }},
+  {% if product.featured_image %}"image": [{{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+  "description": {% if preproduction %}{{ object_copy | strip_html | json }}{% else %}{{ product.description | strip_html | json }}{% endif %},
+  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  "brand": { "@type": "Brand", "name": "Oh Betty Jaletti" }
+  {%- comment -%}
+    No offer before the doors open: the price is not settled, and structured
+    data should not publish a number the page itself is withholding.
+  {%- endcomment -%}
+  {%- unless preproduction -%}
+  ,"offers": {
+    "@type": "Offer",
+    "url": {{ request.origin | append: product.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/Discontinued{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+  {%- endunless -%}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ request.origin | json }} }
+    {%- if product.collections.first -%}
+    ,{ "@type": "ListItem", "position": 2, "name": {{ product.collections.first.title | json }}, "item": {{ request.origin | append: product.collections.first.url | json }} }
+    ,{ "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": {{ request.origin | append: product.url | json }} }
+    {%- else -%}
+    ,{ "@type": "ListItem", "position": 2, "name": {{ product.title | json }}, "item": {{ request.origin | append: product.url | json }} }
+    {%- endif -%}
+  ]
+}
+</script>
+
 {% schema %}
 {
   "name": "Product",
@@ -191,7 +478,7 @@
       "type": "text",
       "id": "collection_eyebrow",
       "label": "Eyebrow",
-      "default": "The First Edition"
+      "default": "The First Edition · The Reading Hour"
     },
     {
       "type": "checkbox",
@@ -207,11 +494,18 @@
       "default": "Preorder · The First Edition"
     },
     {
+      "type": "checkbox",
+      "id": "sell_in_preproduction",
+      "label": "Sell while the house is in preproduction",
+      "default": false,
+      "info": "Sells this template in full while the rest of the house stays pre-launch: the real description, the price and the buy button. Preorders open on their own."
+    },
+    {
       "type": "text",
       "id": "default_cta",
-      "label": "Default add-to-cart label",
-      "default": "Add to my parcel →",
-      "info": "Overridden per product with the custom.cta_label metafield (e.g. \"Escort my paperback →\")."
+      "label": "Add to cart label",
+      "default": "Add to bag",
+      "info": "Kept clear on purpose. The product's custom.cta_label metafield renders as an italic house line beneath the button."
     },
     {
       "type": "text",
@@ -256,6 +550,86 @@
       "id": "preorder_shipping",
       "label": "Preorder shipping note",
       "default": "<p>Preorders leave with the first edition, and they take the long way on purpose. After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "share_note",
+      "label": "Share prompt",
+      "info": "Italic line under the buy button. Leave blank to hide it. The link is built for the product automatically."
+    },
+    {
+      "type": "text",
+      "id": "share_label",
+      "label": "Share link label",
+      "default": "Send it along \u2192"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "A useful thing with a little ceremony"
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_text",
+      "label": "If it isn't right",
+      "default": "Parcels leave the house the unhurried way, packed and signed off by hand. If something arrives damaged, or it simply is not what you hoped for, write to hello@ohbettyjaletti.com and we will make it right. Full shipping and returns terms will be published here before the doors open.",
+      "info": "The store has no published refund or shipping policy yet. Confirm the real terms before launch and state them here."
+    },
+    {
+      "type": "textarea",
+      "id": "preproduction_copy",
+      "label": "Preproduction note (replaces the description pre-launch)",
+      "default": "This piece is in preproduction. What you see here is the developing vision: samples are in hand, and the final materials and details may still change. Guest book members hear each decision as it is made."
+    },
+    {
+      "type": "textarea",
+      "id": "preproduction_status",
+      "label": "Where it is right now",
+      "default": "Samples are in hand and the details are still being settled. What is not decided yet is the final colorways and how many we make. We would rather tell you that plainly than invent a number for you."
+    },
+    {
+      "type": "text",
+      "id": "guestbook_cta",
+      "label": "Pre-launch button label",
+      "default": "Enter Betty's guest book"
+    },
+    {
+      "type": "text",
+      "id": "guestbook_note",
+      "label": "Pre-launch button note",
+      "default": "No charge and no obligation. Just the first invitation when Edition One is ready."
+    },
+    {
+      "type": "textarea",
+      "id": "more_text",
+      "label": "\"More to come\" text",
+      "default": "The edition fills up slowly, on purpose. The letter tells you first."
+    },
+    {
+      "type": "text",
+      "id": "notes_eyebrow",
+      "label": "Notes eyebrow",
+      "default": "What it is made of"
+    },
+    {
+      "type": "text",
+      "id": "notes_heading",
+      "label": "Notes heading",
+      "default": "The notes",
+      "info": "Leave blank to hide the heading. The board shows only when the template has Fragrance note blocks."
+    },
+    {
+      "type": "text",
+      "id": "certificate_heading",
+      "label": "Certificate heading",
+      "default": "Made with intention"
+    },
+    {
+      "type": "text",
+      "id": "certificate_text",
+      "label": "Certificate text",
+      "default": "Produced in considered quantities, packed and signed off by the house."
     }
   ],
   "blocks": [
@@ -263,18 +637,17 @@
       "type": "accordion",
       "name": "Accordion",
       "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "The making"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Content",
-          "default": "<p>Made to order, one at a time, and numbered to the edition. Allow 3–5 days before shipping.</p>"
-        }
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "content", "label": "Content" }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Fragrance note",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Note", "default": "Rose" },
+        { "type": "text", "id": "text", "label": "Line beneath" },
+        { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Optional. Without one the note sets as a typographic plate." }
       ]
     }
   ],
@@ -285,3 +658,56 @@
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+.product__video { margin-top: 1rem; border: 1px solid var(--line); background: var(--color-paper); }
+.product__video video { display: block; width: 100%; height: auto; }
+.product__video--embed iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+
+.note-board { margin-top: clamp(2rem, 4vw, 3rem); }
+.note-board__head { margin-bottom: 1.4rem; }
+.note-board__head h2 { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.note-board__grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+@media (max-width: 620px) { .note-board__grid { grid-template-columns: repeat(2, 1fr); } }
+.note-card { margin: 0; text-align: center; }
+.note-card__media {
+  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
+  border: 1px solid var(--line); background: var(--color-paper); margin-bottom: 0.7rem;
+}
+.note-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.note-card__plate {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(2.4rem, 5vw, 3.4rem); color: var(--color-accent); opacity: 0.55;
+}
+.note-card__name {
+  display: block; font-family: var(--font-sans);
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.note-card__text {
+  display: block; margin-top: 0.25rem; font-style: italic;
+  font-size: 0.86rem; color: var(--ink-soft);
+}
+.cta-note--ships { font-style: normal; }
+
+.product-card--more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(2rem, 4vw, 3rem);
+  background-color: var(--color-background);
+  background-image: url({{ 'obj-quatrefoil-tile.svg' | asset_url }});
+  background-size: 112px 112px;
+  background-repeat: repeat;
+}
+.product-card--more .product-card__no { font-style: italic; color: var(--color-accent); margin-bottom: 0.6rem; }
+.product-card--more .product-card__title { font-style: italic; margin-bottom: 0.6rem; }
+.product-card--more .product-card__coming-text {
+  color: var(--ink-soft); font-size: 0.98rem; margin: 0; max-width: 22rem;
+}
+{% endstylesheet %}
