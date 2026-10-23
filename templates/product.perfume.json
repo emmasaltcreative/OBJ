@@ -7,14 +7,7 @@
           "type": "accordion",
           "settings": {
             "heading": "The scent",
-            "content": "<p>Rose, jasmine, peony, and lilac in the opening, settling into warm sandalwood and soft musk. Familiar, but never predictable.</p>"
-          }
-        },
-        "bottle": {
-          "type": "accordion",
-          "settings": {
-            "heading": "The bottle",
-            "content": "<p>One 10 mL travel bottle in amber glass and gold. An atomised spray at one end, a rollerball at the other — a mist for the room, a roll for the wrist.</p>"
+            "content": "<p>Rose, jasmine, peony, and lilac in the opening, settling into warm sandalwood and soft musk. A little nostalgic, decidedly feminine, and entirely her own.</p>"
           }
         },
         "shipping": {
@@ -25,12 +18,20 @@
           }
         }
       },
-      "block_order": ["scent", "bottle", "shipping"],
+      "block_order": [
+        "scent",
+        "shipping"
+      ],
       "settings": {
-        "collection_eyebrow": "In Her Purse",
-        "default_cta": "Tuck it into my purse →"
+        "collection_eyebrow": "Edition II · In Her Purse",
+        "sell_in_preproduction": true,
+        "default_cta": "Claim the perfume →",
+        "story_heading": "A small bottle with a long memory",
+        "preproduction_copy": ""
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

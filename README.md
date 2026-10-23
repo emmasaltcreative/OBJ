@@ -62,9 +62,20 @@ The house fragrance, **A Woman Remembered**, is an Eau de Parfum sold as a **10 
 
 It ships from the catalog, not the theme: the product, its photograph, and its PDP video are already on the store. The theme carries the page it renders on.
 
-1. Push this theme, then assign the **perfume** product template to **A Woman Remembered** (Products → A Woman Remembered → Theme template). It sets the `In Her Purse` eyebrow and the accordions for the scent, the bottle, and shipping.
-2. The button reads **Tuck it into my purse →** from the `custom.cta_label` metafield; `custom.edition_number` is `2`.
-3. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
+> **Do not `shopify theme push` this repo over the live theme.** The published theme has drifted well past this repo — it carries `collection.in-her-purse.json`, `page.waitlist.json`, `page.sealed.json`, `page.ledger.json`, `page.contact.json`, a `service-strip` section, and the `edition_state` gate, none of which exist here. A wholesale push deletes them. Copy individual files across instead.
+
+**Why the template matters.** The live `main-product` section sells a product only when one of three things is true:
+
+```liquid
+if settings.edition_state == 'open' or is_preorder or section.settings.sell_in_preproduction
+```
+
+The doors are shut store-wide, and the fragrance is not a preorder — so without a template of its own it falls to the default `product` template, whose settings are empty, and the page shows the preproduction note and the guest book button instead of a price and a buy button. `templates/product.perfume.json` carries `"sell_in_preproduction": true` for exactly that reason, the same way `product.brownstone.json` does for the tote.
+
+1. Copy `templates/product.perfume.json` into the live theme (Online Store → Themes → ⋯ → Edit code → Templates → Add a new template → product → `perfume`).
+2. Assign it: Products → A Woman Remembered → Theme template → **perfume**.
+3. The button reads **Claim the perfume →**; the `custom.cta_label` metafield renders as an italic line beneath it, and `custom.edition_number` is `2`.
+4. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
 
 ## Preorder: The Chaperone at $79
 
