@@ -22,6 +22,7 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
+| `templates/product.perfume.json` | Product page for the house fragrance (scent, bottle, shipping) |
 
 ## Product metafields (optional but recommended)
 
@@ -54,6 +55,16 @@ The same landing is the `page.in-her-purse` template. Create a page with handle 
 Until a product with handle `the-brownstone-tote` exists, the page asks for an address and tags the customer `in-her-purse`. Once that product is published, the landing sells it at the variant price and the button reads "Claim the tote →". Assign the **brownstone** product template so the product page carries the suede, scarf, and shipping notes. No price is invented here — set it on the variant.
 
 The Chaperone preorder stays at `/products/the-chaperone`, and the landing links to it.
+
+## In Her Purse, No. 2: A Woman Remembered
+
+The house fragrance, **A Woman Remembered**, is an Eau de Parfum sold as a **10 mL travel size** — one amber-and-gold bottle with an atomised spray at one end and a rollerball at the other. It lives at `/products/a-woman-remembered` at **$43.00**, tagged `in-her-purse`, and sits in the **In Her Purse** collection as No. 2 behind the tote.
+
+It ships from the catalog, not the theme: the product, its photograph, and its PDP video are already on the store. The theme carries the page it renders on.
+
+1. Push this theme, then assign the **perfume** product template to **A Woman Remembered** (Products → A Woman Remembered → Theme template). It sets the `In Her Purse` eyebrow and the accordions for the scent, the bottle, and shipping.
+2. The button reads **Tuck it into my purse →** from the `custom.cta_label` metafield; `custom.edition_number` is `2`.
+3. Inventory is untracked with policy **continue**, so it sells before any are filled — the same arrangement as the tote.
 
 ## Preorder: The Chaperone at $79
 
