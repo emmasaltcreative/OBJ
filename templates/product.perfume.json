@@ -28,35 +28,40 @@
           "type": "note",
           "settings": {
             "name": "Jasmine",
-            "text": "Opens after dark, like the best conversations."
+            "text": "Opens after dark, like the best conversations.",
+            "image": "shopify://shop_images/awr-note-jasmine.webp"
           }
         },
         "note-peony": {
           "type": "note",
           "settings": {
             "name": "Peony",
-            "text": "Extravagant for a Tuesday. Wear it anyway."
+            "text": "Extravagant for a Tuesday. Wear it anyway.",
+            "image": "shopify://shop_images/awr-note-peony.webp"
           }
         },
         "note-lilac": {
           "type": "note",
           "settings": {
             "name": "Lilac",
-            "text": "A garden you walked past once and never forgot."
+            "text": "A garden you walked past once and never forgot.",
+            "image": "shopify://shop_images/awr-note-lilac.webp"
           }
         },
         "note-sandalwood": {
           "type": "note",
           "settings": {
             "name": "Sandalwood",
-            "text": "The warmth that stays after the flowers go quiet."
+            "text": "The warmth that stays after the flowers go quiet.",
+            "image": "shopify://shop_images/awr-note-sandalwood.webp"
           }
         },
         "note-musk": {
           "type": "note",
           "settings": {
             "name": "Musk",
-            "text": "Not a scent so much as the memory of one."
+            "text": "Not a scent so much as the memory of one.",
+            "image": "shopify://shop_images/awr-note-musk.webp"
           }
         }
       },
