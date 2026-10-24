@@ -21,7 +21,8 @@
           "type": "note",
           "settings": {
             "name": "Rose",
-            "text": "The one everyone recognises, and nobody tires of."
+            "text": "The one everyone recognises, and nobody tires of.",
+            "image": "shopify://shop_images/awr-note-rose.webp"
           }
         },
         "note-jasmine": {
