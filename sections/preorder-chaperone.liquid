@@ -80,6 +80,7 @@
               {{ section.settings.closed_label }}
             {% endif %}
           </button>
+          <p class="cart-status" data-cart-status role="status" aria-live="polite" hidden></p>
         {% endform %}
         <a class="link-arrow preorder-feature__more" href="{{ preorder_product.url }}">The particulars</a>
       {% else %}

@@ -1,0 +1,46 @@
+{%- comment -%}
+  Body for the Shopify Flow "Send HTTP request" action.
+  Paste into the action's Body field. Setup: pixels/README.md.
+
+  This is the purchase event for orders that never touch a browser on the
+  online store — Point of Sale, and checkout that happens inside Facebook,
+  Instagram, Pinterest, or Snapchat. The custom pixel cannot see those, so
+  Flow sends them to GA4 server-side instead.
+
+  client_id and session_id are derived from the order number because there is
+  no browser and so no real GA client. Every one of these orders therefore
+  lands in GA4 as a new user with no campaign attribution. That is inherent to
+  an offline sale, not a bug — the revenue and the items are what you get.
+  affiliation carries the channel name so you can split them out in reports.
+{%- endcomment -%}
+{
+  "client_id": "{{ order.legacyResourceId }}.1",
+  "non_personalized_ads": true,
+  "events": [
+    {
+      "name": "purchase",
+      "params": {
+        "session_id": "{{ order.legacyResourceId }}",
+        "engagement_time_msec": "1",
+        "transaction_id": "{{ order.legacyResourceId }}",
+        "affiliation": {{ order.app.name | default: "Unknown channel" | json }},
+        "currency": "{{ order.totalPriceSet.shopMoney.currencyCode }}",
+        "value": {{ order.totalPriceSet.shopMoney.amount | default: 0 }},
+        "tax": {{ order.totalTaxSet.shopMoney.amount | default: 0 }},
+        "shipping": {{ order.totalShippingPriceSet.shopMoney.amount | default: 0 }},
+        "items": [
+          {%- for lineItem in order.lineItems -%}
+          {
+            "item_id": "{{ lineItem.product.legacyResourceId }}",
+            "item_name": {{ lineItem.title | json }},
+            "item_variant": {{ lineItem.variantTitle | default: "" | json }},
+            "item_brand": {{ lineItem.vendor | default: "" | json }},
+            "price": {{ lineItem.originalUnitPriceSet.shopMoney.amount | default: 0 }},
+            "quantity": {{ lineItem.quantity }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }
+    }
+  ]
+}

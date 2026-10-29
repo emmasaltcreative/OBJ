@@ -55,6 +55,7 @@
               {{ section.settings.closed_label }}
             {% endif %}
           </button>
+          <p class="cart-status" data-cart-status role="status" aria-live="polite" hidden></p>
         {% endform %}
         <a class="link-arrow purse-tote__more" href="{{ tote.url }}">The particulars</a>
       {% else %}

@@ -19,9 +19,7 @@
       {% endif %}
       <a href="{{ routes.cart_url }}">
         Parcel
-        {% if cart.item_count > 0 %}
-          <span class="cart-count">({{ cart.item_count }})</span>
-        {% endif %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>({{ cart.item_count }})</span>
       </a>
     </div>
   </div>

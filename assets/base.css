@@ -1023,6 +1023,23 @@ select {
 }
 .errors ul { margin: 0; padding-left: 1.1rem; }
 
+/* The quiet line under the add-to-parcel button, now that adding
+   no longer reloads the page. */
+.cart-status {
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.cart-status a {
+  font-style: normal;
+  color: var(--color-accent);
+}
+.cart-status--error {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
 /* --------------------------------------------------------------------------
    Blog / article
    -------------------------------------------------------------------------- */

@@ -22,6 +22,8 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
+| `pixels/customer-events.js` | Custom web pixel — add-to-cart & purchase events |
+| `pixels/flow-offline-purchase.liquid` | Shopify Flow body for POS & on-platform orders |
 
 ## Product metafields (optional but recommended)
 
@@ -34,6 +36,26 @@ Create these under **Settings → Custom data → Products**:
 | `custom.preorder` | Boolean | `true` → sell as a preorder |
 
 Without them the theme falls back to grid position for numbering and "Add to my parcel →" for the button.
+
+## Add-to-cart and purchase events
+
+Set up in [`pixels/README.md`](pixels/README.md). The short version:
+
+Adding to the parcel now posts through the Cart Ajax API (`assets/theme.js`)
+rather than reloading the page. That matters beyond the nicer UX: Shopify
+publishes its `product_added_to_cart` customer event from that endpoint, and
+every sales-channel pixel reads add-to-cart from there. The old form POST
+published nothing, so the parcel filled up and no channel heard about it.
+
+From there, `pixels/customer-events.js` is a custom pixel that forwards
+add-to-cart and purchase to Google Tag Manager, GA4, and Klaviyo. Meta,
+Pinterest, and Snapchat are left to their own sales channel apps, which already
+fire both events — the code to fire them from the pixel is included but
+switched off, because running both counts everything twice.
+
+Point of Sale and on-platform checkout (inside Facebook, Instagram, Pinterest,
+Snapchat) never touch a browser on the online store, so no pixel can see them.
+A Shopify Flow workflow reports those purchases server-side instead.
 
 ## Getting it onto Shopify
 
@@ -78,3 +100,4 @@ To close the preorder, track inventory, set the policy to **deny**, and set quan
 2. Create a page with handle `the-letter` using the **page.the-letter** template for the full About letter.
 3. Set the `main-menu` and `footer` navigation menus.
 4. Add the metafields above for per-product CTAs and edition numbers.
+5. Connect the custom pixel and the Flow workflow — see [`pixels/README.md`](pixels/README.md).

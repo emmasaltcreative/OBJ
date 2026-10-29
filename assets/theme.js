@@ -87,4 +87,132 @@
 
     selects.forEach(function (s) { s.addEventListener('change', update); });
   });
+
+  /* ------------------------------------------------------------------
+     Add to parcel
+     ------------------------------------------------------------------
+     Posts through the Cart Ajax API instead of letting the form reload
+     the page. Shopify publishes the product_added_to_cart customer
+     event from that endpoint, and every sales-channel pixel — Meta,
+     Pinterest, Snapchat, and our own custom pixel — reads its
+     add-to-cart from there. A plain form POST publishes nothing, so
+     the parcel filled up and no channel ever heard about it.
+     ------------------------------------------------------------------ */
+  var cartRoot = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+
+  function activeCurrency() {
+    return (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'USD';
+  }
+
+  function setStatus(form, message, isError) {
+    var el = form.querySelector('[data-cart-status]');
+    if (!el) return;
+    el.textContent = message || '';
+    el.hidden = !message;
+    el.classList.toggle('cart-status--error', !!isError);
+  }
+
+  /* Built from nodes rather than a markup string, because the error path
+     puts text straight from Shopify into this same element. */
+  function setAddedStatus(form) {
+    var el = form.querySelector('[data-cart-status]');
+    if (!el) return;
+    setStatus(form, 'Added to your parcel. ');
+    var link = document.createElement('a');
+    link.href = cartRoot + 'cart';
+    link.textContent = 'View the parcel →';
+    el.appendChild(link);
+  }
+
+  function paintCartCount(count) {
+    document.querySelectorAll('[data-cart-count]').forEach(function (el) {
+      el.textContent = '(' + count + ')';
+      el.hidden = count === 0;
+    });
+  }
+
+  function refreshCartCount() {
+    return fetch(cartRoot + 'cart.js', {
+      headers: { Accept: 'application/json' },
+      credentials: 'same-origin'
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (cart) { paintCartCount(cart.item_count); })
+      .catch(function () { /* the count is decoration; never block the add on it */ });
+  }
+
+  /* Only fires when Google Tag Manager is installed in the theme itself.
+     The custom pixel carries its own container, so guarding on an
+     existing dataLayer keeps add_to_cart from being counted twice. */
+  function pushDataLayerAddToCart(line) {
+    if (!window.dataLayer) return;
+    var price = (line.price || 0) / 100;
+    window.dataLayer.push({
+      event: 'add_to_cart',
+      ecommerce: {
+        currency: activeCurrency(),
+        value: price * (line.quantity || 1),
+        items: [{
+          item_id: String(line.product_id || ''),
+          item_name: line.product_title || line.title || '',
+          item_variant: line.variant_title || '',
+          item_brand: line.vendor || '',
+          price: price,
+          quantity: line.quantity || 1
+        }]
+      }
+    });
+  }
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target.closest('form[action*="/cart/add"]');
+    if (!form) return;
+
+    e.preventDefault();
+
+    var button = form.querySelector('button[name="add"]');
+    var restoreLabel = button ? button.textContent : '';
+
+    setStatus(form, '');
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Adding…';
+    }
+
+    fetch(cartRoot + 'cart/add.js', {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+      credentials: 'same-origin'
+    })
+      .then(function (res) {
+        return res.json().then(function (body) {
+          if (res.ok) return body;
+          // Shopify's own wording — "Between editions", a quantity limit —
+          // is better than anything we could write here.
+          var rejection = new Error(body.description || body.message || '');
+          rejection.fromShopify = !!rejection.message;
+          throw rejection;
+        });
+      })
+      .then(function (body) {
+        var line = body.items ? body.items[0] : body;
+        pushDataLayerAddToCart(line);
+        setAddedStatus(form);
+        return refreshCartCount();
+      })
+      .catch(function (err) {
+        // Anything else — a dropped connection, a thrown TypeError — carries a
+        // developer's message. Don't show the customer "offline".
+        var message = (err && err.fromShopify && err.message) ||
+          'That could not be added just now. Please try again.';
+        setStatus(form, message, true);
+      })
+      .then(function () {
+        if (button) {
+          button.disabled = false;
+          button.textContent = restoreLabel;
+        }
+      });
+  });
 })();
