@@ -3,6 +3,9 @@
   Accepts:
   - product: {Object} product
   - number: {Integer} optional edition number ("No. 1")
+  - quick_add: {Boolean} optional — show an add-to-cart on the card
+  - quick_add_label: {String} optional button label
+  - choose_label: {String} optional label when the piece has options to pick
 {% endcomment %}
 
 {%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
@@ -19,7 +22,7 @@
   {%- endif -%}
 {%- endif -%}
 
-<div class="product-card">
+<div class="product-card{% if quick_add %} product-card--shoppable{% endif %}">
   {% if edition %}
     <div class="product-card__no">No. {{ edition }}</div>
   {% endif %}
@@ -54,4 +57,28 @@
       <span class="badge">Between editions</span>
     {% endif %}
   </div>
+
+  {%- if quick_add and product.available -%}
+    {%- assign card_variant = product.selected_or_first_available_variant -%}
+    <div class="product-card__add">
+      {%- if product.has_only_default_variant and card_variant != blank -%}
+        {% form 'product', product %}
+          <input type="hidden" name="id" value="{{ card_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          {%- if is_preorder -%}
+            {% render 'preorder-properties' %}
+          {%- endif -%}
+          <button type="submit" name="add" class="btn btn--full">
+            {%- if is_preorder -%}
+              Preorder
+            {%- else -%}
+              {{ quick_add_label | default: 'Add to my parcel' }}
+            {%- endif -%}
+          </button>
+        {% endform %}
+      {%- else -%}
+        <a class="btn btn--full" href="{{ product.url }}">{{ choose_label | default: 'Choose yours' }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </div>

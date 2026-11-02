@@ -3,56 +3,57 @@
     "purse-hero": {
       "type": "purse-hero",
       "settings": {
+        "product_handle": "the-brownstone-tote",
         "eyebrow": "The debut collection",
         "heading": "In <em>Her</em> Purse",
-        "subheading": "A debut of bags, beginning with one. The Brownstone Tote by Betty.",
-        "button_label": "The Brownstone Tote",
-        "image_alt": "The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle",
+        "subheading": "What she carries, and what she carries it in. Two pieces so far — a faux suede tote and the scent you leave behind in it.",
+        "price_note": "Made to order · ships in 3–5 days",
+        "button_label": "Shop the Brownstone Tote — [price] →",
+        "secondary_label": "See both pieces ↓",
+        "secondary_link": "#the-edition",
+        "image_alt": "The Brownstone Tote by Betty, a Café Noir faux suede tote with a silk scarf knotted at the handle",
         "caption_left": "No. 1",
         "caption_right": "The Brownstone Tote by Betty"
-      }
-    },
-    "marquee": {
-      "type": "marquee",
-      "settings": {
-        "phrase_1": "in her purse",
-        "phrase_2": "the brownstone tote, by betty",
-        "phrase_3": "one bag, then the next"
       }
     },
     "tote": {
       "type": "purse-tote",
       "blocks": {
-        "suede": {
+        "material": {
           "type": "fact",
           "settings": {
-            "label": "Suede",
-            "value": "Brown, full, and soft"
+            "label": "Material",
+            "value": "Café Noir faux suede, lined in polyester"
           }
         },
         "scarf": {
           "type": "fact",
           "settings": {
             "label": "Scarf",
-            "value": "Flowered, knotted at the handle"
+            "value": "100% Mulberry silk, knotted at the handle"
           }
         },
-        "clasp": {
+        "closure": {
           "type": "fact",
           "settings": {
-            "label": "Clasp",
-            "value": "A slim strap across the front"
+            "label": "Closure",
+            "value": "A silent magnetic snap, with quiet front buckles"
           }
         },
-        "place": {
+        "size": {
           "type": "fact",
           "settings": {
-            "label": "Place",
-            "value": "No. 1 in In Her Purse"
+            "label": "Size",
+            "value": "18.9\" × 11.8\", an 11.8\" drop, and 12.35 oz"
           }
         }
       },
-      "block_order": ["suede", "scarf", "clasp", "place"],
+      "block_order": [
+        "material",
+        "scarf",
+        "closure",
+        "size"
+      ],
       "settings": {
         "eyebrow": "No. 1 · In Her Purse",
         "heading": "The Brownstone Tote",
@@ -62,8 +63,28 @@
         "promise": "Made when you claim it, then sent the long way.",
         "waitlist": "The debut is announced first by letter. Leave an address and the house will write when you may carry it.",
         "waitlist_label": "Tell me when I may carry it",
-        "also_label": "Also from the house — The Chaperone is open for preorder",
-        "also_link": "/products/the-chaperone"
+        "also_label": "",
+        "also_link": "/collections/in-her-purse"
+      }
+    },
+    "purse-shop": {
+      "type": "purse-shop",
+      "settings": {
+        "collection_handle": "in-her-purse",
+        "eyebrow": "What's for sale",
+        "heading": "The whole of In Her Purse",
+        "quick_add": true,
+        "quick_add_label": "Add to my parcel",
+        "choose_label": "Choose yours",
+        "anchor": "the-edition"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "in her purse",
+        "phrase_2": "the brownstone tote, by betty",
+        "phrase_3": "one bag, then the next"
       }
     },
     "ritual": {
@@ -78,7 +99,7 @@
           "settings": {
             "numeral": "I.",
             "heading": "The suede",
-            "text": "Brown, and soft enough to take the shape of what goes inside. It will mark where a life marks it."
+            "text": "Faux, and velvety enough to take the shape of what goes inside. Unstructured on purpose — it yields when its work is done."
           }
         },
         "step-2": {
@@ -86,7 +107,7 @@
           "settings": {
             "numeral": "II.",
             "heading": "The scarf",
-            "text": "Knotted on, not tucked away. Small flowers on a brown ground. A bag should have one piece of jewelry."
+            "text": "Mulberry silk, knotted on, not tucked away. A bag should have one piece of jewelry."
           }
         },
         "step-3": {
@@ -98,13 +119,17 @@
           }
         }
       },
-      "block_order": ["step-1", "step-2", "step-3"]
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ]
     },
     "letter": {
       "type": "the-letter",
       "settings": {
         "eyebrow": "A note on the debut",
-        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote. Brown suede, a scarf I would not take off, and enough room to leave the house without a plan.</p>",
+        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote, and the scent you leave behind in it.</p>",
         "signature": "— B.",
         "link_label": ""
       }
@@ -114,13 +139,21 @@
       "settings": {
         "anchor": "purse-list",
         "eyebrow": "Correspondence",
-        "heading": "When you may carry it",
-        "text": "The Brownstone Tote opens the debut. Leave an address and the house will write when it is ready — and when the next piece of In Her Purse appears.",
+        "heading": "When the next piece appears",
+        "text": "In Her Purse grows one piece at a time. Leave an address and the house will write when the next one is ready.",
         "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
         "tags": "newsletter, in-her-purse",
         "button_label": "Write to me"
       }
     }
   },
-  "order": ["purse-hero", "marquee", "tote", "ritual", "letter", "newsletter"]
+  "order": [
+    "purse-hero",
+    "tote",
+    "purse-shop",
+    "marquee",
+    "ritual",
+    "letter",
+    "newsletter"
+  ]
 }

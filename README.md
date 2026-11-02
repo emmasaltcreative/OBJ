@@ -13,7 +13,11 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | Where | What |
 |---|---|
 | `sections/hero.liquid` | Editorial homepage hero |
-| `sections/purse-hero.liquid` | In Her Purse debut landing hero |
+| `sections/purse-hero.liquid` | In Her Purse debut landing hero — carries the price and a buy button |
+| `sections/purse-lead.liquid` | The advertised piece, first: image, price, add-to-cart above the fold |
+| `sections/purse-shop.liquid` | "Shop the edition" — every piece with its price and an add-to-cart |
+| `templates/collection.in-her-purse.json` | Ad landing for the collection, leading with the tote |
+| `templates/collection.purse-scent.json` | Same landing, leading with A Woman Remembered (`?view=purse-scent`) |
 | `sections/purse-tote.liquid` | The Brownstone Tote, No. 1 of the debut |
 | `templates/page.in-her-purse.json` | Landing page template for the debut |
 | `sections/edition-grid.liquid` | "The First Edition" numbered product grid (No. 1–4) |
@@ -45,15 +49,92 @@ shopify theme push --unpublished --theme "Oh Betty Jaletti"
 
 Or zip the folder and upload via **Online Store → Themes → Add theme → Upload zip file**.
 
-## Landing page: In Her Purse
+## Ad landings: In Her Purse
 
-The homepage is the debut landing for **In Her Purse**. The first piece is **The Brownstone Tote by Betty** — brown suede, a flowered scarf knotted at the handle, No. 1. The photograph ships with the theme at `assets/brownstone-tote.jpg`.
+### Why this was rebuilt
 
-The same landing is the `page.in-her-purse` template. Create a page with handle `in-her-purse` and assign that template if you want the debut at its own address as well.
+Store analytics for the 60 days to 2 Nov 2026, grouped by the page the visitor
+arrived on:
 
-Until a product with handle `the-brownstone-tote` exists, the page asks for an address and tags the customer `in-her-purse`. Once that product is published, the landing sells it at the variant price and the button reads "Claim the tote →". Assign the **brownstone** product template so the product page carries the suede, scarf, and shipping notes. No price is invented here — set it on the variant.
+| Landing page | Sessions | Reached checkout |
+|---|---|---|
+| `/collections/in-her-purse` | 150 (123 from social) | **0** |
+| `/products/a-woman-remembered` | 117 (91 from social) | **5** |
+| `/` | 679 (mostly direct) | 1 |
 
-The Chaperone preorder stays at `/products/the-chaperone`, and the landing links to it.
+Ads pointed at the **collection** converted nobody. Ads pointed at a **product
+page** converted at 4.3%. The collection page was the problem, not the traffic:
+it opened with the eyebrow "An edition, not a catalog", a stripped-down
+description, and two cards floating in a four-column grid — no price above the
+fold on a phone, and no way to buy without loading another page.
+
+So the landing now does what the converting product page does: names the piece,
+shows the price, and offers a button, before the house explains itself.
+
+### The two landings
+
+`collection.in-her-purse.json` leads with the Brownstone Tote.
+`collection.purse-scent.json` is the same page leading with A Woman Remembered.
+Both then show the whole edition, and only then the letter.
+
+Assign the first one in Shopify under **Products → Collections → In Her Purse →
+Theme template → in-her-purse**. The second needs no assignment — it is reached
+with `?view=purse-scent`.
+
+### Pointing each ad at its own landing
+
+Give every creative a destination whose first screen is the thing in the
+photograph:
+
+| The ad shows | Send it to |
+|---|---|
+| The Brownstone Tote | `/products/the-brownstone-tote` — or `/collections/in-her-purse` |
+| A Woman Remembered | `/products/a-woman-remembered` — or `/collections/in-her-purse?view=purse-scent` |
+| Both, or the edition itself | `/collections/in-her-purse` |
+
+The product page is the proven destination; the `?view=` landings exist so a
+collection URL can be tested against it without rewriting the creative. Keep
+the ad's own photograph, product name, and offer wording in the section's
+**Image**, **Heading**, and **Offer line** settings so the page the visitor
+reaches looks like the ad they tapped.
+
+### Matching the promise — check these before spending again
+
+- **"Suede" vs faux suede.** The product type in Shopify reads `Suede tote`, and
+  the theme's older copy said "brown suede". The piece is **Café Noir faux
+  suede** — the product description and SEO title say so. Landing copy here has
+  been corrected to "faux suede". If an ad promises suede, the landing now
+  contradicts it; fix the ad, not the page.
+- **Stock language.** The tote and the scent both sell on a *continue* inventory
+  policy with negative quantities, so nothing here claims "in stock". The copy
+  uses the house line — made when you claim it, 3–5 days before shipping.
+- **A second piece exists.** A Woman Remembered is No. 2 in In Her Purse and
+  draws real ad traffic of its own. It now appears on the landing; it used to be
+  absent entirely while the page cross-sold The Chaperone from another line.
+
+### Shopping clarity, section by section
+
+- `purse-hero` resolves a featured product and prints its price under the
+  subheading. `[price]` in the button label is replaced with that price, and the
+  button links to the product. A second, quieter link jumps to the full edition.
+- `purse-lead` is a product page's first screen as a section: image, name,
+  price, variant picker, add-to-cart, promise, and four facts. It resolves its
+  product from the setting, then the handle, then the first available product in
+  the collection being viewed, so it is safe to drop on any collection template.
+- `purse-shop` lists the collection with prices and an add-to-cart on each card,
+  and states the count and price range above the grid. It reads the collection
+  being viewed on a collection template, or `in-her-purse` elsewhere. It shows
+  up to the 50 products Shopify loads without pagination — ample for an edition.
+- The homepage and `page.in-her-purse` now run **hero → tote → shop → marquee →
+  ritual → letter → newsletter**. The marquee and the house's opinions moved
+  below the shopping; nothing was deleted.
+
+### Still true
+
+The Brownstone Tote lives at `/products/the-brownstone-tote` with the
+**brownstone** product template. The Chaperone preorder stays at
+`/products/the-chaperone`. No price is invented in the theme — every figure on
+these pages is read from the variant.
 
 ## Preorder: The Chaperone at $79
 

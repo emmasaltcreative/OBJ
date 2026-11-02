@@ -1,0 +1,88 @@
+{
+  "sections": {
+    "lead": {
+      "type": "purse-lead",
+      "blocks": {
+        "material": {
+          "type": "fact",
+          "settings": {
+            "label": "Material",
+            "value": "Café Noir faux suede, lined in polyester"
+          }
+        },
+        "scarf": {
+          "type": "fact",
+          "settings": {
+            "label": "Scarf",
+            "value": "100% Mulberry silk, knotted at the handle"
+          }
+        },
+        "size": {
+          "type": "fact",
+          "settings": {
+            "label": "Size",
+            "value": "18.9\" × 11.8\", with an 11.8\" shoulder drop"
+          }
+        },
+        "weight": {
+          "type": "fact",
+          "settings": {
+            "label": "Weight",
+            "value": "12.35 oz, and it folds flat"
+          }
+        }
+      },
+      "block_order": ["material", "scarf", "size", "weight"],
+      "settings": {
+        "product_handle": "the-brownstone-tote",
+        "heading_tag": "h1",
+        "eyebrow": "In Her Purse · No. 1",
+        "byline": "by Betty",
+        "subheading": "A large, unstructured tote in Café Noir faux suede, with a silk scarf knotted at the handle.",
+        "offer": "Silk scarf included · folds flat for travel · made when you claim it",
+        "cta": "Claim the tote — [price] →",
+        "sold_out_label": "Between editions",
+        "promise": "Made when you claim it, then sent the long way. Allow 3–5 days before shipping, and gracious returns within 30.",
+        "details_label": "All the particulars",
+        "secondary_label": "Or see both pieces ↓",
+        "secondary_link": "#the-edition",
+        "anchor": "shop"
+      }
+    },
+    "shop": {
+      "type": "purse-shop",
+      "settings": {
+        "collection_handle": "in-her-purse",
+        "eyebrow": "What's for sale",
+        "heading": "The whole of In Her Purse",
+        "quick_add": true,
+        "quick_add_label": "Add to my parcel",
+        "choose_label": "Choose yours",
+        "anchor": "the-edition"
+      }
+    },
+    "letter": {
+      "type": "the-letter",
+      "settings": {
+        "eyebrow": "A note on the debut",
+        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote, and the scent you leave behind in it.</p>",
+        "signature": "— B.",
+        "link_label": "Read the whole letter",
+        "link": "/pages/the-letter"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "anchor": "purse-list",
+        "eyebrow": "Correspondence",
+        "heading": "When the next piece appears",
+        "text": "In Her Purse grows one piece at a time. Leave an address and the house will write when the next one is ready.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "tags": "newsletter, in-her-purse",
+        "button_label": "Write to me"
+      }
+    }
+  },
+  "order": ["lead", "shop", "letter", "newsletter"]
+}

@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "lead": {
+      "type": "purse-lead",
+      "blocks": {
+        "florals": {
+          "type": "fact",
+          "settings": {
+            "label": "Florals",
+            "value": "Rose, jasmine, peony, and lilac"
+          }
+        },
+        "finish": {
+          "type": "fact",
+          "settings": {
+            "label": "Finish",
+            "value": "Sandalwood and soft musk"
+          }
+        },
+        "vessel": {
+          "type": "fact",
+          "settings": {
+            "label": "Vessel",
+            "value": "10 mL amber glass — spray at one end, rollerball at the other"
+          }
+        }
+      },
+      "block_order": ["florals", "finish", "vessel"],
+      "settings": {
+        "product_handle": "a-woman-remembered",
+        "heading_tag": "h1",
+        "eyebrow": "In Her Purse · No. 2",
+        "byline": "by Betty",
+        "subheading": "Eau de Parfum, 10 mL travel size — a spray for the room, a rollerball for the wrist.",
+        "offer": "Spray and rollerball in one bottle · made for the purse · 10 mL travel size",
+        "cta": "Claim the scent — [price] →",
+        "sold_out_label": "Between editions",
+        "promise": "Made when you claim it, then sent the long way. Allow 3–5 days before shipping, and gracious returns within 30.",
+        "details_label": "All the particulars",
+        "secondary_label": "Or see both pieces ↓",
+        "secondary_link": "#the-edition",
+        "anchor": "shop"
+      }
+    },
+    "shop": {
+      "type": "purse-shop",
+      "settings": {
+        "collection_handle": "in-her-purse",
+        "eyebrow": "What's for sale",
+        "heading": "The whole of In Her Purse",
+        "quick_add": true,
+        "quick_add_label": "Add to my parcel",
+        "choose_label": "Choose yours",
+        "anchor": "the-edition"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "anchor": "purse-list",
+        "eyebrow": "Correspondence",
+        "heading": "When the next piece appears",
+        "text": "In Her Purse grows one piece at a time. Leave an address and the house will write when the next one is ready.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "tags": "newsletter, in-her-purse",
+        "button_label": "Write to me"
+      }
+    }
+  },
+  "order": ["lead", "shop", "newsletter"]
+}

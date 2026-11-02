@@ -11,7 +11,12 @@
 <div class="page-width" style="padding-bottom: var(--section-space);">
   {% paginate collection.products by 12 %}
     {% if collection.products.size > 0 %}
-      <div class="product-grid">
+      {%- comment -%} A grid of two or three should not sit in a four-column frame. {%- endcomment -%}
+      {%- assign grid_class = 'product-grid' -%}
+      {%- if collection.products.size < 4 -%}
+        {%- assign grid_class = 'product-grid product-grid--few' -%}
+      {%- endif -%}
+      <div class="{{ grid_class }}">
         {% for product in collection.products %}
           {% render 'product-card', product: product, number: forloop.index %}
         {% endfor %}
