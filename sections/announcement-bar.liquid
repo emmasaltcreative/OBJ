@@ -1,17 +1,48 @@
-{% if section.settings.text != blank %}
-  {%- assign announcement_href = section.settings.link -%}
-  {%- if announcement_href == blank -%}
-    {%- if section.settings.text contains 'Chaperone' -%}
-      {%- assign announcement_href = '/products/the-chaperone' -%}
-    {%- elsif section.settings.text contains 'Purse' or section.settings.text contains 'Brownstone' -%}
-      {%- assign announcement_href = '/#brownstone-tote' -%}
-    {%- endif -%}
-  {%- endif -%}
+{%- liquid
+  assign bar_text = section.settings.text
+  assign announcement_href = section.settings.link
+
+  comment
+    Holiday cutoff. Before the date the bar carries the deadline; after it,
+    the bar falls back to the quieter message so nothing goes stale on its own.
+  endcomment
+  assign cutoff_live = false
+  if section.settings.cutoff_date != blank
+    assign now_stamp = 'now' | date: '%s' | plus: 0
+    assign cutoff_stamp = section.settings.cutoff_date | date: '%s' | plus: 0
+    if cutoff_stamp > now_stamp
+      assign cutoff_live = true
+    endif
+  endif
+
+  if section.settings.cutoff_date != blank and cutoff_live == false and section.settings.after_cutoff_text != blank
+    assign bar_text = section.settings.after_cutoff_text
+  endif
+
+  if announcement_href == blank
+    if bar_text contains 'Chaperone'
+      assign announcement_href = '/products/the-chaperone'
+    elsif bar_text contains 'Purse' or bar_text contains 'Brownstone'
+      assign announcement_href = '/collections/in-her-purse'
+    elsif bar_text contains 'Reading Hour'
+      assign announcement_href = '/collections/the-reading-hour'
+    endif
+  endif
+-%}
+
+{% if bar_text != blank %}
   <div class="announcement-bar">
+    {%- capture bar_inner -%}
+      {{ bar_text }}
+      {%- if cutoff_live and section.settings.cutoff_text != blank %}
+        <span class="announcement-bar__cutoff">{{ section.settings.cutoff_text }}</span>
+      {%- endif -%}
+    {%- endcapture -%}
+
     {% if announcement_href != blank %}
-      <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
+      <a href="{{ announcement_href }}">{{ bar_inner }}</a>
     {% else %}
-      {{ section.settings.text }}
+      {{ bar_inner }}
     {% endif %}
   </div>
 {% endif %}
@@ -24,12 +55,36 @@
       "type": "text",
       "id": "text",
       "label": "Text",
-      "default": "The debut — In Her Purse. The Brownstone Tote by Betty."
+      "default": "Christmas gifts for her · In Her Purse"
     },
     {
       "type": "url",
       "id": "link",
       "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Christmas ordering cutoff"
+    },
+    {
+      "type": "text",
+      "id": "cutoff_date",
+      "label": "Last order date",
+      "info": "Format YYYY-MM-DD, e.g. 2026-12-15. Leave blank for no deadline. The deadline disappears on its own once the date has passed.",
+      "default": "2026-12-15"
+    },
+    {
+      "type": "text",
+      "id": "cutoff_text",
+      "label": "Deadline text",
+      "default": "Order by 15 December to arrive by Christmas"
+    },
+    {
+      "type": "text",
+      "id": "after_cutoff_text",
+      "label": "Text after the deadline",
+      "info": "Shown once the last order date has passed.",
+      "default": "In Her Purse · the gift she will actually carry"
     }
   ]
 }

@@ -5,8 +5,11 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "The debut — In Her Purse. The Brownstone Tote by Betty.",
-        "link": "/#brownstone-tote"
+        "text": "Christmas gifts for her · In Her Purse",
+        "link": "/collections/in-her-purse",
+        "cutoff_date": "2026-12-15",
+        "cutoff_text": "Order by 15 December to arrive by Christmas",
+        "after_cutoff_text": "In Her Purse · the gift she will actually carry"
       }
     },
     "header": {

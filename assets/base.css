@@ -266,6 +266,36 @@ select {
   padding: 0.65rem var(--page-gutter);
 }
 
+.announcement-bar a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.announcement-bar a:hover .announcement-bar__cutoff,
+.announcement-bar a:focus-visible .announcement-bar__cutoff {
+  opacity: 1;
+}
+
+.announcement-bar__cutoff {
+  opacity: 0.72;
+}
+
+.announcement-bar__cutoff::before {
+  content: "\00a0\00b7\00a0";
+  opacity: 0.6;
+}
+
+@media (max-width: 749px) {
+  .announcement-bar__cutoff {
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .announcement-bar__cutoff::before {
+    content: none;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Header
    -------------------------------------------------------------------------- */
