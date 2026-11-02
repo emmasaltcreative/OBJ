@@ -23,7 +23,7 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
 | `sections/christmas-countdown.liquid` | Countdown-to-Christmas hero with a live clock |
-| `sections/christmas-favour.liquid` | The Letter Tray — the Christmas favour |
+| `sections/christmas-favour.liquid` | Under the Tree — the Christmas favour |
 | `sections/christmas-post.liquid` | "The last post" — order-by dates for Christmas |
 | `templates/page.countdown-to-christmas.json` | Landing page template for the countdown |
 
@@ -78,7 +78,7 @@ To close the preorder, track inventory, set the policy to **deny**, and set quan
 
 ## Landing page: Countdown to Christmas
 
-Create a page titled **Countdown to Christmas** (handle `countdown-to-christmas`) and give it the **page.countdown-to-christmas** template. The page runs: the clock, the ribbon, the Letter Tray, the Christmas edition grid, the last post dates, a December letter, and the list sign-up.
+Create a page titled **Countdown to Christmas** (handle `countdown-to-christmas`) and give it the **page.countdown-to-christmas** template. The page runs: the clock, the ribbon of house phrases, the parcels under the tree, the Christmas edition grid, the last post dates, a December letter, and the list sign-up.
 
 ### The clock
 
@@ -89,16 +89,17 @@ Create a page titled **Countdown to Christmas** (handle `countdown-to-christmas`
 - The first numbers are rendered by Liquid, so the clock is never blank before the script runs, and a mistyped date falls back to Christmas rather than to 1970.
 - When it runs out the clock is replaced by **When the clock runs out** — by default, *It is Christmas morning. Put the kettle on and use the good glass.*
 
-### The Letter Tray — the favour
+### Under the Tree — the favour
 
-`sections/christmas-favour.liquid` is the house's answer to a spin wheel: a tray of wax-sealed envelopes. The visitor chooses one, the seal breaks, the letter comes out, and the tray then says what the other envelopes held.
+`sections/christmas-favour.liquid` is the house's answer to a spin wheel: parcels wrapped in the house ticking, each with a hand-tied ribbon. The visitor pulls one, the bow comes undone, the lid lifts, a gift tag rises out — and the tree then says what the other parcels held.
 
-- **One envelope per favour block**, shuffled in the browser, so every favour is equally likely. To make one favour rarer, add the common favour twice — four blocks, three of them the same, is one-in-four odds.
+- **One parcel per favour block**, shuffled in the browser, so every favour is equally likely. To make one favour rarer, add the common favour twice — four blocks, three of them the same, is one-in-four odds.
 - **Each favour takes a discount code.** Create the matching code under **Discounts** first; the theme only hands it over. The apply button sends the visitor to `/discount/CODE?redirect=…`, which applies the code to their parcel and lands them where **Apply button sends them to** points.
 - **A favour may have no code at all** — leave the code empty for something like a hand-written note, and say in the note how to ask for it. The code box and apply button disappear on their own.
-- **One draw, remembered.** The choice is kept in the visitor's browser, so a refresh shows the same envelope and the same code rather than a second roll. Editing the favours or their codes opens the tray again.
-- **The odds are shown afterwards.** *The tray also held: the good wrapping and shipping on the house.* A wheel hides the segments it skipped; this one doesn't.
-- **Optionally ask for an address first.** Turn on **Ask for an address before the tray appears** and the tray arrives only after the visitor subscribes — they are tagged `newsletter, christmas-favour`.
+- **One pull, remembered.** The choice is kept in the visitor's browser, so a refresh shows the same parcel and the same code rather than a second pull. Editing the favours or their codes wraps the parcels again.
+- **The odds are shown afterwards.** *The others held: the good wrapping and shipping on the house.* A wheel hides the segments it skipped; this one doesn't.
+- **Optionally ask for an address first.** Turn on **Ask for an address before the parcels appear** and the tree arrives only after the visitor subscribes — they are tagged `newsletter, christmas-favour`.
+- The ribbon, the bow and the tag are drawn in CSS and inline SVG — no image to commission, and it recolours with **Theme settings → Colors**. Under reduced motion the parcel simply opens, with nothing sliding.
 
 ### The last post
 

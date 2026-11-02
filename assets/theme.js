@@ -148,7 +148,7 @@
   }
 
   /* ------------------------------------------------------------------
-     The Letter Tray — one sealed envelope, chosen once and remembered
+     Under the Tree — one ribbon pulled, once, and remembered
      ------------------------------------------------------------------ */
   function initFavours(scope) {
     scope.querySelectorAll('[data-favour]').forEach(function (root) {
@@ -162,12 +162,12 @@
       try { pool = JSON.parse(poolEl.textContent); } catch (err) { return; }
       if (!pool || !pool.length) return;
 
-      var tray = root.querySelector('[data-favour-envelopes]');
-      var envelopes = Array.prototype.slice.call(root.querySelectorAll('[data-favour-envelope]'));
+      var tray = root.querySelector('[data-favour-parcels]');
+      var parcels = Array.prototype.slice.call(root.querySelectorAll('[data-favour-parcel]'));
       var note = root.querySelector('[data-favour-note]');
       var hint = root.querySelector('[data-favour-hint]');
       var storageKey = root.dataset.storageKey || 'obj-favour';
-      if (!tray || !note || !envelopes.length) return;
+      if (!tray || !note || !parcels.length) return;
 
       var el = {
         chosen: root.querySelector('[data-favour-chosen]'),
@@ -209,9 +209,9 @@
         var favour = pool[order[picked]];
         if (!favour) return;
 
-        envelopes.forEach(function (envelope, i) {
-          envelope.disabled = true;
-          if (i === picked) envelope.classList.add('is-open');
+        parcels.forEach(function (parcel, i) {
+          parcel.disabled = true;
+          if (i === picked) parcel.classList.add('is-open');
         });
         tray.classList.add('is-drawn');
         if (hint) hint.hidden = true;
@@ -238,8 +238,8 @@
 
         if (el.others) {
           var others = [];
-          order.forEach(function (favourIndex, envelopeIndex) {
-            if (envelopeIndex === picked) return;
+          order.forEach(function (favourIndex, parcelIndex) {
+            if (parcelIndex === picked) return;
             var left = pool[favourIndex];
             if (left) others.push(left.aside || left.label || '');
           });
@@ -271,14 +271,14 @@
         && record.order.length === pool.length
         && typeof record.chosen === 'number'
         && record.chosen >= 0
-        && record.chosen < envelopes.length;
+        && record.chosen < parcels.length;
 
       if (remembered) {
         reveal(record.order, record.chosen, true);
       } else {
         var order = shuffle();
-        envelopes.forEach(function (envelope, index) {
-          envelope.addEventListener('click', function () {
+        parcels.forEach(function (parcel, index) {
+          parcel.addEventListener('click', function () {
             if (tray.classList.contains('is-drawn')) return;
             writeRecord({ key: storageKey, order: order, chosen: index, at: Date.now() });
             reveal(order, index, false);

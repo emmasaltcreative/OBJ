@@ -5,7 +5,7 @@
       "settings": {
         "eyebrow": "The Christmas Edition",
         "heading": "Countdown to <em>Christmas</em>",
-        "subheading": "The house is counting, slowly, the way it does everything. A few made-to-order pleasures, the dates of the last post, and one favour sealed with wax until you ask for it.",
+        "subheading": "The house is counting, slowly, the way it does everything. A few made-to-order pleasures, the dates of the last post, and one favour still under the ribbon.",
         "target_time": "00:00",
         "label_days": "Days",
         "label_hours": "Hours",
@@ -13,7 +13,7 @@
         "label_seconds": "Seconds",
         "arrived_text": "It is Christmas morning. Put the kettle on and use the good glass.",
         "note": "Everything here is made when you order it. The last post is further down the page — the house would rather tell you than hurry you.",
-        "button_label": "Open an envelope",
+        "button_label": "Pull a ribbon",
         "button_link": "#the-favour",
         "link_label": "See the Christmas edition",
         "link_link": "#the-christmas-edition",
@@ -24,7 +24,7 @@
       "type": "marquee",
       "settings": {
         "phrase_1": "countdown to christmas",
-        "phrase_2": "sealed with wax, opened in december",
+        "phrase_2": "wrapped at the table, sent the long way",
         "phrase_3": "using the good things is the special occasion"
       }
     },
@@ -66,28 +66,28 @@
       ],
       "settings": {
         "eyebrow": "A favour from the house",
-        "heading": "The Letter Tray",
-        "intro": "No wheel, no whistles. Three envelopes on the hall tray, each sealed with wax, each with something small inside. Choose one and the house will tell you afterwards what the others held.",
-        "hint": "Choose an envelope. The house does not shuffle twice.",
-        "seal": "B",
+        "heading": "Under the Tree",
+        "intro": "No wheel, no whistles. Three parcels wrapped at the table, each with a ribbon left long enough to pull. Choose one, and the house will tell you afterwards what the others held.",
+        "hint": "Pull a ribbon. The house does not tie it twice.",
         "card_kicker": "Your favour",
-        "chosen_label": "You chose No. [n].",
-        "others_label": "The tray also held: [list].",
-        "repeat_text": "This is the envelope you opened. The house keeps a record.",
+        "chosen_label": "You pulled No. [n].",
+        "others_label": "The others held: [list].",
+        "repeat_text": "This is the parcel you opened. The house keeps a record.",
         "copy_label": "Copy",
         "copied_label": "Copied",
         "apply_label": "Carry it to my parcel →",
         "apply_redirect": "/collections/all",
         "terms": "One favour to a household, and one only — the house would notice. Codes last until the last post for Christmas and do not stack.",
-        "noscript_text": "The envelopes need a little JavaScript to open. Leave an address below and the house will send a favour by hand instead.",
+        "noscript_text": "The parcels need a little JavaScript to open. Leave an address below and the house will send a favour by hand instead.",
         "require_email": false,
-        "gate_text": "The tray is brought out for correspondents. Leave an address and it appears.",
-        "gate_button": "Bring me the tray",
+        "gate_text": "The tree is for correspondents. Leave an address and the parcels appear.",
+        "gate_button": "Show me the tree",
         "gate_note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
-        "unlocked_text": "Thank you. The tray is on the table — choose an envelope.",
+        "unlocked_text": "Thank you. They are under the tree — pull a ribbon.",
         "tags": "newsletter, christmas-favour",
-        "envelope_word": "Open envelope",
-        "anchor": "the-favour"
+        "anchor": "the-favour",
+        "monogram": "B",
+        "parcel_word": "Pull the ribbon on parcel"
       }
     },
     "edition": {
