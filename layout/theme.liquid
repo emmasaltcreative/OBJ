@@ -38,23 +38,17 @@
 
   {{ content_for_header }}
 
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '946586624876543');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=946586624876543&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+  {%- comment -%}
+    Meta (Facebook) pixel: do NOT hardcode it here.
+    Pixel 946586624876543 is already served by the official Facebook & Instagram
+    app as a Shopify web pixel (id 2765684789), registered through
+    Settings > Customer events. That integration fires the full funnel,
+    covers checkout and the thank-you page, and attaches a shared eventID
+    so Meta can deduplicate the browser event against the Conversions API
+    server event. Adding the base code to this layout would double-count
+    every event and cannot reach checkout. See also: no Custom Pixel should
+    be created for this same pixel ID, for the same reason.
+  {%- endcomment -%}
 </head>
 
 <body class="template-{{ request.page_type | handle }}">
