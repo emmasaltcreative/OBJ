@@ -1,0 +1,132 @@
+<section class="section last-post"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | handle }}"{% endif %}>
+  <div class="page-width">
+    <div class="section-header">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      {% if section.settings.intro != blank %}
+        <p>{{ section.settings.intro }}</p>
+      {% endif %}
+    </div>
+
+    <dl class="last-post__list">
+      {% for block in section.blocks %}
+        <div class="last-post__row" {{ block.shopify_attributes }}>
+          <dt class="last-post__where">{{ block.settings.where }}</dt>
+          <dd class="last-post__when">
+            <span class="edition-no">{{ block.settings.date }}</span>
+            {% if block.settings.note != blank %}
+              <span class="last-post__note">{{ block.settings.note }}</span>
+            {% endif %}
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+
+    {% if section.settings.closing != blank %}
+      <p class="last-post__closing">{{ section.settings.closing }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The last post",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Before the morning"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The last post"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Nothing here sits in a warehouse waiting to be wanted, so the house posts these dates rather than hurrying you. Order by them and it arrives before the morning."
+    },
+    {
+      "type": "textarea",
+      "id": "closing",
+      "label": "Closing line",
+      "default": "After the last post the house still sends — just not in time. We will write and tell you so before you spend a cent."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor",
+      "default": "the-last-post"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "date",
+      "name": "Date",
+      "settings": [
+        {
+          "type": "text",
+          "id": "where",
+          "label": "Where",
+          "default": "Domestic"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Order by",
+          "default": "Friday 12 December"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note",
+          "default": "Standard post, tracked."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "The last post",
+      "blocks": [
+        {
+          "type": "date",
+          "settings": {
+            "where": "Domestic",
+            "date": "Friday 12 December",
+            "note": "Standard post, tracked."
+          }
+        },
+        {
+          "type": "date",
+          "settings": {
+            "where": "International",
+            "date": "Monday 1 December",
+            "note": "Further afield, and the longer way round."
+          }
+        },
+        {
+          "type": "date",
+          "settings": {
+            "where": "Made to order",
+            "date": "Add three to five days",
+            "note": "Yours is cut after you ask for it. The clock starts then."
+          }
+        },
+        {
+          "type": "date",
+          "settings": {
+            "where": "Preorders",
+            "date": "With the first edition",
+            "note": "The Chaperone ships when the edition opens, not before."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

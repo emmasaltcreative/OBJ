@@ -1,6 +1,6 @@
 {%- assign collection = collections[section.settings.collection] -%}
 
-<section class="section">
+<section class="section"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | handle }}"{% endif %}>
   <div class="page-width">
     <div class="section-header">
       <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
@@ -64,6 +64,12 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor",
+      "info": "Optional id so other sections can link here."
     },
     {
       "type": "range",

@@ -1,0 +1,258 @@
+{%- liquid
+  assign now_ts = 'now' | date: '%s' | plus: 0
+  assign this_year = 'now' | date: '%Y' | plus: 0
+
+  comment
+    Christmas finds itself: this year's until Boxing Day, next year's after it.
+  endcomment
+  assign christmas = this_year | append: '-12-25'
+  assign christmas_ts = christmas | append: 'T00:00:00' | date: '%s' | plus: 0
+  if now_ts > christmas_ts
+    assign next_year = this_year | plus: 1
+    assign christmas = next_year | append: '-12-25'
+  endif
+
+  assign target_date = section.settings.target_date | strip
+  assign target_time = section.settings.target_time | strip | default: '00:00'
+  assign target_iso = target_date | append: 'T' | append: target_time | append: ':00'
+  assign target_ts = target_iso | date: '%s' | plus: 0
+
+  comment
+    A blank or mistyped date falls back to Christmas rather than to midnight in 1970.
+  endcomment
+  if target_date == blank or target_ts <= 0
+    assign target_date = christmas
+    assign target_iso = target_date | append: 'T00:00:00'
+    assign target_ts = target_iso | date: '%s' | plus: 0
+  endif
+
+  comment
+    Normalised from the parsed stamp, so the clock in the browser always reads it.
+  endcomment
+  assign target_iso = target_ts | date: '%Y-%m-%dT%H:%M:%S'
+  assign target_date = target_ts | date: '%Y-%m-%d'
+
+  assign remaining = target_ts | minus: now_ts
+  if remaining < 0
+    assign remaining = 0
+  endif
+
+  assign days = remaining | divided_by: 86400
+  assign after_days = remaining | modulo: 86400
+  assign hours = after_days | divided_by: 3600
+  assign after_hours = after_days | modulo: 3600
+  assign minutes = after_hours | divided_by: 60
+  assign seconds = after_hours | modulo: 60
+
+  assign arrived = false
+  if remaining == 0
+    assign arrived = true
+  endif
+-%}
+<section class="section christmas-hero"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | handle }}"{% endif %}>
+  <div class="page-width christmas-hero__inner">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+    <h1 class="christmas-hero__heading">{{ section.settings.heading }}</h1>
+
+    {% if section.settings.subheading != blank %}
+      <p class="hero__sub christmas-hero__sub">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div
+      class="countdown{% if arrived %} is-arrived{% endif %}"
+      data-countdown
+      data-target="{{ target_iso }}"
+      data-arrived-text="{{ section.settings.arrived_text | escape }}"
+    >
+      <div class="countdown__clock" data-countdown-clock role="timer" aria-live="off"{% if arrived %} hidden{% endif %}>
+        <div class="countdown__unit">
+          <span class="countdown__figure" data-countdown-unit="days">{% if days < 10 %}0{% endif %}{{ days }}</span>
+          <span class="countdown__label">{{ section.settings.label_days }}</span>
+        </div>
+        <div class="countdown__unit">
+          <span class="countdown__figure" data-countdown-unit="hours">{% if hours < 10 %}0{% endif %}{{ hours }}</span>
+          <span class="countdown__label">{{ section.settings.label_hours }}</span>
+        </div>
+        <div class="countdown__unit">
+          <span class="countdown__figure" data-countdown-unit="minutes">{% if minutes < 10 %}0{% endif %}{{ minutes }}</span>
+          <span class="countdown__label">{{ section.settings.label_minutes }}</span>
+        </div>
+        <div class="countdown__unit">
+          <span class="countdown__figure" data-countdown-unit="seconds">{% if seconds < 10 %}0{% endif %}{{ seconds }}</span>
+          <span class="countdown__label">{{ section.settings.label_seconds }}</span>
+        </div>
+      </div>
+
+      <p class="countdown__arrived" data-countdown-arrived{% unless arrived %} hidden{% endunless %}>
+        {{ section.settings.arrived_text }}
+      </p>
+
+      <p class="visually-hidden" data-countdown-summary>
+        {% if arrived %}
+          {{ section.settings.arrived_text }}
+        {% else %}
+          {{ days }} days until {{ target_date | date: '%-d %B %Y' }}.
+        {% endif %}
+      </p>
+    </div>
+
+    {% if section.settings.note != blank %}
+      <p class="countdown__note">{{ section.settings.note }}</p>
+    {% endif %}
+
+    <div class="christmas-hero__actions">
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link | default: '#the-favour' }}" class="btn btn--solid">{{ section.settings.button_label }}</a>
+      {% endif %}
+      {% if section.settings.link_label != blank %}
+        <a href="{{ section.settings.link_link | default: '#the-christmas-edition' }}" class="link-arrow">{{ section.settings.link_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if section.settings.image != blank %}
+    <figure class="christmas-hero__figure">
+      {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'eager', class: 'christmas-hero__img', widths: '600, 900, 1400, 2000', alt: section.settings.image.alt | default: section.settings.image_alt }}
+      {% if section.settings.caption != blank %}
+        <figcaption class="christmas-hero__caption">{{ section.settings.caption }}</figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+</section>
+<div class="ticking" aria-hidden="true"></div>
+
+{% schema %}
+{
+  "name": "Christmas countdown",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Christmas Edition"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Countdown to <em>Christmas</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The house is counting, slowly, the way it does everything. A few made-to-order pleasures, and one favour sealed with wax until you ask for it."
+    },
+    {
+      "type": "header",
+      "content": "The clock"
+    },
+    {
+      "type": "text",
+      "id": "target_date",
+      "label": "Count to this date",
+      "info": "Format yyyy-mm-dd. Leave empty and the clock finds Christmas on its own, then rolls to next year on Boxing Day."
+    },
+    {
+      "type": "text",
+      "id": "target_time",
+      "label": "Count to this time",
+      "default": "00:00",
+      "info": "24-hour, hh:mm. The clock reads Christmas morning in each visitor's own time."
+    },
+    {
+      "type": "text",
+      "id": "label_days",
+      "label": "Days label",
+      "default": "Days"
+    },
+    {
+      "type": "text",
+      "id": "label_hours",
+      "label": "Hours label",
+      "default": "Hours"
+    },
+    {
+      "type": "text",
+      "id": "label_minutes",
+      "label": "Minutes label",
+      "default": "Minutes"
+    },
+    {
+      "type": "text",
+      "id": "label_seconds",
+      "label": "Seconds label",
+      "default": "Seconds"
+    },
+    {
+      "type": "text",
+      "id": "arrived_text",
+      "label": "When the clock runs out",
+      "default": "It is Christmas morning. Put the kettle on and use the good glass."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note under the clock",
+      "default": "Everything here is made when you order it. The last post for Christmas is further down the page — the house would rather tell you than hurry you."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Open an envelope"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Secondary link label",
+      "default": "See the Christmas edition"
+    },
+    {
+      "type": "url",
+      "id": "link_link",
+      "label": "Secondary link"
+    },
+    {
+      "type": "header",
+      "content": "Photograph"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Optional. Left empty, the type carries the page on its own."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image description"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor",
+      "default": "the-countdown"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Christmas countdown"
+    }
+  ]
+}
+{% endschema %}

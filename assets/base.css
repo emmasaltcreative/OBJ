@@ -42,6 +42,9 @@ body {
 
 img { max-width: 100%; height: auto; display: block; }
 
+/* Class-level display rules must never out-rank the hidden attribute. */
+[hidden] { display: none !important; }
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 600;
@@ -1041,3 +1044,486 @@ select {
 }
 
 .article-body { max-width: 42rem; margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   Countdown to Christmas — the clock
+   -------------------------------------------------------------------------- */
+
+.christmas-hero {
+  text-align: center;
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.christmas-hero__inner { max-width: 54rem; margin-inline: auto; }
+.christmas-hero__heading { margin-bottom: 0.35em; }
+.christmas-hero__sub { margin-bottom: 0; }
+
+.countdown { margin-block: clamp(2.25rem, 6vw, 3.75rem); }
+
+.countdown__clock {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.countdown__unit {
+  position: relative;
+  padding-block: clamp(1.3rem, 3vw, 2.1rem);
+}
+
+.countdown__unit + .countdown__unit::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 1px;
+  background: var(--line);
+}
+
+.countdown__figure {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.countdown__unit:last-child .countdown__figure { color: var(--color-accent); }
+
+.countdown__figure.is-ticking { animation: obj-tick 0.55s ease; }
+
+@keyframes obj-tick {
+  0% { opacity: 1; }
+  28% { opacity: 0.42; }
+  100% { opacity: 1; }
+}
+
+.countdown__label {
+  display: block;
+  margin-top: 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.countdown__arrived {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  color: var(--color-accent);
+  margin: 0;
+  padding-block: clamp(1.3rem, 3vw, 2.1rem);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.countdown__note {
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.christmas-hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem 2.5rem;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+
+.christmas-hero__figure {
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+}
+
+.christmas-hero__img { width: 100%; }
+
+.christmas-hero__caption {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 1rem;
+}
+
+@media (max-width: 620px) {
+  .countdown__clock { grid-template-columns: repeat(2, 1fr); }
+  .countdown__unit:nth-child(3)::before { display: none; }
+  .countdown__unit:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
+
+/* --------------------------------------------------------------------------
+   The Letter Tray — a favour from the house
+   -------------------------------------------------------------------------- */
+
+.favour__gate {
+  max-width: 34rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.favour__gate-text { color: var(--ink-soft); }
+.favour__gate-text--done {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.favour__envelopes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  max-width: 54rem;
+  margin-inline: auto;
+}
+
+.favour__envelope {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 8 / 5;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  background: var(--color-paper);
+  cursor: pointer;
+  overflow: hidden;
+  perspective: 900px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s ease;
+}
+
+.favour__envelope:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 24px -18px color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+.favour__envelope:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.favour__lining {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top right,
+      transparent calc(50% - 0.5px),
+      color-mix(in srgb, var(--color-ink) 13%, transparent) 50%,
+      transparent calc(50% + 0.5px)),
+    linear-gradient(to top left,
+      transparent calc(50% - 0.5px),
+      color-mix(in srgb, var(--color-ink) 13%, transparent) 50%,
+      transparent calc(50% + 0.5px)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 11px,
+      color-mix(in srgb, var(--color-stripe) 13%, transparent) 11px 13px,
+      transparent 13px 16px,
+      color-mix(in srgb, var(--color-stripe) 13%, transparent) 16px 17px,
+      transparent 17px 28px
+    );
+}
+
+/* The letter itself, drawn out of the envelope once the seal is broken */
+.favour__envelope::after {
+  content: "";
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  top: 15%;
+  bottom: 23%;
+  z-index: 1;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 10px,
+      color-mix(in srgb, var(--color-ink) 10%, transparent) 10px 11px
+    ) center / 62% 54% no-repeat,
+    var(--color-background);
+  border: 1px solid var(--line);
+  box-shadow: 0 -2px 6px -4px color-mix(in srgb, var(--color-ink) 50%, transparent);
+  opacity: 0;
+  transform: translateY(118%);
+  transition: transform 0.95s cubic-bezier(0.22, 0.8, 0.2, 1) 0.2s, opacity 0.4s ease 0.2s;
+}
+
+.favour__envelope.is-open::after { opacity: 1; transform: translateY(0); }
+
+.favour__flap {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 62%;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-paper) 98%, var(--color-ink)),
+    color-mix(in srgb, var(--color-paper) 88%, var(--color-ink))
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--color-ink) 22%, transparent));
+  transform-origin: top center;
+  backface-visibility: hidden;
+  transition: transform 1s cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+.favour__seal {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  z-index: 3;
+  width: 3rem;
+  height: 3rem;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  border-radius: 48% 52% 51% 49% / 50% 47% 53% 50%;
+  background:
+    radial-gradient(circle at 34% 28%,
+      color-mix(in srgb, var(--color-accent) 72%, #fff) 0%,
+      var(--color-accent) 58%,
+      color-mix(in srgb, var(--color-accent) 70%, var(--color-ink)) 100%);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--color-ink) 45%, transparent);
+  color: var(--color-background);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.45rem;
+  line-height: 1;
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.favour__envelope-no {
+  position: absolute;
+  z-index: 3;
+  bottom: 0.85rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.favour__envelope.is-open .favour__flap { transform: rotateX(177deg); }
+.favour__envelope.is-open .favour__seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.62) rotate(-14deg);
+}
+.favour__envelope.is-open {
+  border-color: var(--color-accent);
+  transform: none;
+  box-shadow: none;
+}
+
+.favour__envelopes.is-drawn .favour__envelope { cursor: default; }
+.favour__envelopes.is-drawn .favour__envelope:not(.is-open) { opacity: 0.32; }
+.favour__envelopes.is-drawn .favour__envelope:not(.is-open):hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.favour__hint {
+  text-align: center;
+  margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.favour__note { margin-top: clamp(2rem, 4vw, 3rem); }
+
+.favour__card {
+  position: relative;
+  max-width: 33rem;
+  margin-inline: auto;
+  padding: clamp(1.9rem, 4vw, 2.9rem);
+  background: var(--color-paper);
+  border: 1px solid var(--line-strong);
+  outline: 1px solid var(--line);
+  outline-offset: 5px;
+  text-align: center;
+  animation: obj-unseal 0.85s cubic-bezier(0.22, 0.8, 0.2, 1) both;
+}
+
+@keyframes obj-unseal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.favour__card .eyebrow { margin-bottom: 1rem; }
+
+.favour__chosen {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+
+.favour__label {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin-bottom: 0.5em;
+}
+
+.favour__text {
+  color: var(--ink-soft);
+  margin-bottom: 1.6em;
+}
+
+.favour__code {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px dashed var(--line-strong);
+  padding: 0.85rem 1.3rem;
+  margin-bottom: 1.6rem;
+  background: var(--color-background);
+}
+
+.favour__code-value {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.favour__copy {
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line-strong);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.favour__copy:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+.favour__apply { display: inline-block; }
+
+.favour__others {
+  margin: 1.8rem 0 0;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--ink-soft);
+}
+
+.favour__repeat {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 680px) {
+  .favour__envelopes {
+    grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+    gap: 0.7rem;
+  }
+  .favour__seal { top: 53%; width: 1.8rem; height: 1.8rem; font-size: 0.9rem; }
+  .favour__envelope-no { bottom: 0.5rem; font-size: 0.56rem; letter-spacing: 0.16em; }
+  .favour__envelope::after { left: 9%; right: 9%; top: 16%; bottom: 26%; }
+  .favour__code { width: 100%; justify-content: center; }
+  .favour__apply { padding-inline: 1.2rem; letter-spacing: 0.16em; }
+}
+
+.favour__terms {
+  max-width: 38rem;
+  margin: clamp(2.2rem, 4vw, 3rem) auto 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   The last post — Christmas dates
+   -------------------------------------------------------------------------- */
+
+.last-post { background: var(--color-paper); border-block: 1px solid var(--line); }
+
+.last-post__list {
+  max-width: 44rem;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+.last-post__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem 2rem;
+  align-items: baseline;
+  padding-block: 1.45rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.last-post__where {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.last-post__when { margin: 0; text-align: right; }
+.last-post__when .edition-no { display: block; font-size: 1.1rem; }
+
+.last-post__note {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.last-post__closing {
+  max-width: 44rem;
+  margin: clamp(2rem, 4vw, 2.6rem) auto 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 560px) {
+  .last-post__row { grid-template-columns: 1fr; }
+  .last-post__when { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown__figure.is-ticking { animation: none; }
+  .favour__flap,
+  .favour__seal,
+  .favour__envelope,
+  .favour__envelope::after { transition: none; }
+  .favour__card { animation: none; }
+}
