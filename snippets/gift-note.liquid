@@ -1,0 +1,45 @@
+{%- comment -%}
+  Gift fields, written onto the line item so the parcel, the checkout,
+  and the packing slip all carry them.
+
+  Shopify drops line-item properties whose value is blank, and an
+  unchecked checkbox is never submitted, so an ordinary order picks up
+  nothing at all from this. No JavaScript involved.
+
+  Accepts:
+  - id: {String} unique suffix, usually section.id
+  - summary: {String} the fold's label
+  - note: {String} small print under the fields
+{%- endcomment -%}
+{%- liquid
+  assign gift_id = id | default: 'gift'
+  assign gift_summary = summary | default: 'Send it as a gift'
+  assign gift_note = note | default: 'We never put a price inside the parcel. The note is written onto the card by hand.'
+-%}
+<details class="gift-note">
+  <summary>{{ gift_summary }}</summary>
+
+  <div class="gift-note__fields">
+    <label class="gift-note__check" for="GiftIs-{{ gift_id }}">
+      <input type="checkbox" id="GiftIs-{{ gift_id }}" name="properties[Gift]" value="Yes">
+      <span>This one is a gift</span>
+    </label>
+
+    <div class="field">
+      <label for="GiftTo-{{ gift_id }}">To</label>
+      <input type="text" id="GiftTo-{{ gift_id }}" name="properties[To]" maxlength="60" autocomplete="off" placeholder="Her name">
+    </div>
+
+    <div class="field">
+      <label for="GiftFrom-{{ gift_id }}">From</label>
+      <input type="text" id="GiftFrom-{{ gift_id }}" name="properties[From]" maxlength="60" autocomplete="off" placeholder="Yours">
+    </div>
+
+    <div class="field">
+      <label for="GiftMessage-{{ gift_id }}">The card</label>
+      <textarea id="GiftMessage-{{ gift_id }}" name="properties[Message]" rows="3" maxlength="300" placeholder="Say the thing you would not say out loud."></textarea>
+    </div>
+
+    <p class="gift-note__fine">{{ gift_note }}</p>
+  </div>
+</details>

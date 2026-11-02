@@ -1,0 +1,361 @@
+{%- liquid
+  assign advent = section.settings.product
+  if advent == blank
+    assign handle = section.settings.product_handle | default: 'the-advent'
+    assign advent = all_products[handle]
+  endif
+
+  assign variant = blank
+  assign has_variant = false
+  if advent != blank
+    assign variant = advent.selected_or_first_available_variant
+    if variant != blank
+      assign has_variant = true
+    endif
+  endif
+
+  comment
+    The house does not invent prices. Until someone sets one on the
+    variant the calendar cannot be added to a parcel, so a free box can
+    never leave by accident.
+  endcomment
+  assign price_set = false
+  if has_variant and variant.price > 0
+    assign price_set = true
+  endif
+
+  assign sellable = false
+  if price_set and variant.available
+    assign sellable = true
+  endif
+
+  assign door_count = section.blocks.size
+
+  assign cutoff_live = false
+  if section.settings.cutoff_date != blank
+    assign now_stamp = 'now' | date: '%s' | plus: 0
+    assign cutoff_stamp = section.settings.cutoff_date | date: '%s' | plus: 0
+    if cutoff_stamp > now_stamp
+      assign cutoff_live = true
+    endif
+  endif
+-%}
+
+<section class="section advent" id="{{ section.settings.anchor | default: 'advent' }}">
+  <div class="page-width">
+
+    <div class="advent__head">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      {% if section.settings.byline != blank %}
+        <p class="advent__byline">{{ section.settings.byline }}</p>
+      {% endif %}
+    </div>
+
+    <div class="advent__grid">
+      <div class="advent__media">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: section.settings.image_alt | default: section.settings.heading }}
+        {% elsif advent.featured_image != blank %}
+          {{ advent.featured_image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: advent.featured_image.alt | default: advent.title }}
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+
+      <div class="advent__copy">
+        <div class="prose">
+          {% if advent.description != blank %}
+            {{ advent.description }}
+          {% else %}
+            {{ section.settings.text }}
+          {% endif %}
+        </div>
+
+        {% if section.settings.for_yourself != blank %}
+          <p class="advent__aside">{{ section.settings.for_yourself }}</p>
+        {% endif %}
+
+        {% if request.design_mode %}
+          {% if advent == blank %}
+            <div class="errors">No product with the handle <strong>{{ section.settings.product_handle | default: 'the-advent' }}</strong> yet. Until there is one, this section invites a letter instead of selling.</div>
+          {% elsif price_set == false %}
+            <div class="errors">The advent calendar has no price. Set one on the variant — until you do, the button is a letter, not a sale.</div>
+          {% endif %}
+        {% endif %}
+
+        {% if sellable %}
+          <p class="advent__price">{{ variant.price | money }}</p>
+          {% if section.settings.promise != blank %}
+            <p class="advent__promise">{{ section.settings.promise }}</p>
+          {% endif %}
+
+          {% form 'product', advent %}
+            {{ form.errors | default_errors }}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            {% if section.settings.ships != blank %}
+              <input type="hidden" name="properties[Ships]" value="{{ section.settings.ships | escape }}">
+            {% endif %}
+
+            {% render 'gift-note',
+              id: section.id,
+              summary: section.settings.gift_summary,
+              note: section.settings.gift_fine
+            %}
+
+            <button type="submit" name="add" class="btn btn--solid btn--full">{{ section.settings.cta }}</button>
+          {% endform %}
+
+          {% if cutoff_live and section.settings.cutoff_text != blank %}
+            <p class="advent__cutoff">{{ section.settings.cutoff_text }}</p>
+          {% endif %}
+
+          <a class="link-arrow advent__more" href="{{ advent.url }}">The particulars</a>
+
+        {% elsif has_variant and price_set and variant.available == false %}
+          <p class="advent__promise">{{ section.settings.closed_text }}</p>
+          <a class="btn btn--solid" href="{{ section.settings.waitlist_link | default: '#purse-list' }}">{{ section.settings.waitlist_label }}</a>
+
+        {% else %}
+          <p class="advent__promise">{{ section.settings.waitlist }}</p>
+          <a class="btn btn--solid" href="{{ section.settings.waitlist_link | default: '#purse-list' }}">{{ section.settings.waitlist_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if door_count > 0 %}
+      <div class="advent__doors-head">
+        <h3>{{ section.settings.doors_heading | replace: '[count]', door_count }}</h3>
+        {% if section.settings.doors_text != blank %}
+          <p>{{ section.settings.doors_text }}</p>
+        {% endif %}
+      </div>
+
+      <ul class="advent-doors" role="list">
+        {% for block in section.blocks %}
+          {%- assign numeral = block.settings.numeral | default: forloop.index -%}
+          <li {{ block.shopify_attributes }}>
+            <details class="advent-door">
+              <summary>
+                <span class="advent-door__no">{{ numeral }}</span>
+                <span class="visually-hidden">Open door {{ numeral }}</span>
+              </summary>
+              <div class="advent-door__inside">
+                {% if block.settings.label != blank %}
+                  <span class="advent-door__label">{{ block.settings.label }}</span>
+                {% endif %}
+                <p>{{ block.settings.hint }}</p>
+              </div>
+            </details>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if section.settings.doors_footnote != blank %}
+        <p class="advent__footnote">{{ section.settings.doors_footnote }}</p>
+      {% endif %}
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Advent calendar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor",
+      "default": "advent"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Christmas · In Her Purse"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Advent"
+    },
+    {
+      "type": "text",
+      "id": "byline",
+      "label": "Byline",
+      "default": "Twelve doors, and something behind each one"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Used until the product exists. Once it does, the product description is shown instead.",
+      "default": "<p>A box of twelve numbered doors, packed by hand at the house. Behind each one is a small thing she can carry, use, wear or read — nothing novelty, nothing that will be in a drawer by February.</p><p>The first door opens on the thirteenth of December and the last on Christmas Eve. The contents are not listed in full, which is rather the point: she should be allowed to be surprised by something.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "The Advent box, twelve numbered doors, tied with ribbon"
+    },
+    {
+      "type": "text",
+      "id": "for_yourself",
+      "label": "Aside",
+      "default": "Bought, more often than the house expected, by women for themselves. We think that is the correct instinct."
+    },
+    {
+      "type": "header",
+      "content": "The product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product handle",
+      "default": "the-advent",
+      "info": "No price is invented here. Until the variant has one, the section asks for a letter instead of selling."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to parcel label",
+      "default": "Send her the twelve days →"
+    },
+    {
+      "type": "text",
+      "id": "promise",
+      "label": "Promise",
+      "default": "Packed by hand when you order it. Allow 3–5 days before it leaves the house."
+    },
+    {
+      "type": "text",
+      "id": "ships",
+      "label": "Ship note",
+      "default": "In time for the first door, 13 December",
+      "info": "Saved on the order as the Ships line-item property."
+    },
+    {
+      "type": "text",
+      "id": "closed_text",
+      "label": "Sold out text",
+      "default": "The Advent is spoken for — only so many boxes can be packed by one pair of hands. Leave an address and the house will write first next year."
+    },
+    {
+      "type": "textarea",
+      "id": "waitlist",
+      "label": "Before the product is ready",
+      "default": "The Advent is announced first by letter. Leave an address and the house will write the moment the boxes are ready."
+    },
+    {
+      "type": "text",
+      "id": "waitlist_label",
+      "label": "Letter button",
+      "default": "Write to me when it opens"
+    },
+    {
+      "type": "url",
+      "id": "waitlist_link",
+      "label": "Letter button link"
+    },
+    {
+      "type": "header",
+      "content": "Gifting"
+    },
+    {
+      "type": "text",
+      "id": "gift_summary",
+      "label": "Gift fold label",
+      "default": "Send it as a gift"
+    },
+    {
+      "type": "text",
+      "id": "gift_fine",
+      "label": "Gift small print",
+      "default": "We never put a price inside the parcel. The note is written onto the card by hand."
+    },
+    {
+      "type": "header",
+      "content": "Christmas ordering cutoff"
+    },
+    {
+      "type": "text",
+      "id": "cutoff_date",
+      "label": "Last order date",
+      "info": "Format YYYY-MM-DD. The note disappears on its own once the date has passed.",
+      "default": "2026-12-08"
+    },
+    {
+      "type": "text",
+      "id": "cutoff_text",
+      "label": "Cutoff note",
+      "default": "Order by 8 December and the box will be at her door before the first one opens."
+    },
+    {
+      "type": "header",
+      "content": "The doors"
+    },
+    {
+      "type": "text",
+      "id": "doors_heading",
+      "label": "Doors heading",
+      "default": "The [count] doors"
+    },
+    {
+      "type": "text",
+      "id": "doors_text",
+      "label": "Doors text",
+      "default": "Open one, if you must. She will not know."
+    },
+    {
+      "type": "text",
+      "id": "doors_footnote",
+      "label": "Doors footnote",
+      "default": "The house reserves the right to swap a door for something better."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "door",
+      "name": "Door",
+      "settings": [
+        {
+          "type": "text",
+          "id": "numeral",
+          "label": "Number",
+          "info": "Leave blank to number the doors in order."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "13 December"
+        },
+        {
+          "type": "textarea",
+          "id": "hint",
+          "label": "Hint",
+          "default": "Something to open the hour with."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advent calendar"
+    }
+  ]
+}
+{% endschema %}

@@ -20,12 +20,12 @@
   endif
 
   if announcement_href == blank
-    if bar_text contains 'Chaperone'
+    if bar_text contains 'Advent'
+      assign announcement_href = '/pages/advent'
+    elsif bar_text contains 'Chaperone'
       assign announcement_href = '/products/the-chaperone'
     elsif bar_text contains 'Purse' or bar_text contains 'Brownstone'
       assign announcement_href = '/collections/in-her-purse'
-    elsif bar_text contains 'Reading Hour'
-      assign announcement_href = '/collections/the-reading-hour'
     endif
   endif
 -%}

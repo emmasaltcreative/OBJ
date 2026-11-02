@@ -30,6 +30,14 @@
               {% else %}
                 <div class="cart-line__meta">Made to order · allow 3–5 days</div>
               {% endif %}
+              {% if item.properties.Gift != blank or item.properties.To != blank %}
+                <div class="cart-line__meta cart-line__gift">
+                  A gift{% if item.properties.To != blank %} for {{ item.properties.To }}{% endif %}{% if item.properties.From != blank %}, from {{ item.properties.From }}{% endif %}.
+                  {% if item.properties.Message != blank %}
+                    <span class="cart-line__card">&ldquo;{{ item.properties.Message }}&rdquo;</span>
+                  {% endif %}
+                </div>
+              {% endif %}
               <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
             </div>
             <div style="text-align: right;">

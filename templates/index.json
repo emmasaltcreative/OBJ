@@ -52,7 +52,12 @@
           }
         }
       },
-      "block_order": ["suede", "scarf", "clasp", "place"],
+      "block_order": [
+        "suede",
+        "scarf",
+        "clasp",
+        "place"
+      ],
       "settings": {
         "eyebrow": "No. 1 · In Her Purse",
         "heading": "The Brownstone Tote",
@@ -98,7 +103,11 @@
           }
         }
       },
-      "block_order": ["step-1", "step-2", "step-3"]
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ]
     },
     "letter": {
       "type": "the-letter",
@@ -120,7 +129,128 @@
         "tags": "newsletter, in-her-purse",
         "button_label": "Write to me"
       }
+    },
+    "advent": {
+      "type": "advent-calendar",
+      "blocks": {
+        "door-01": {
+          "type": "door",
+          "settings": {
+            "label": "13 December",
+            "hint": "Something to open the hour with."
+          }
+        },
+        "door-02": {
+          "type": "door",
+          "settings": {
+            "label": "14 December",
+            "hint": "A small bottle. She will be known by it before she is seen."
+          }
+        },
+        "door-03": {
+          "type": "door",
+          "settings": {
+            "label": "15 December",
+            "hint": "For the corner she would otherwise turn down."
+          }
+        },
+        "door-04": {
+          "type": "door",
+          "settings": {
+            "label": "16 December",
+            "hint": "Something for the wrist, in the house blue."
+          }
+        },
+        "door-05": {
+          "type": "door",
+          "settings": {
+            "label": "17 December",
+            "hint": "A paper thing, for the sentences worth stealing."
+          }
+        },
+        "door-06": {
+          "type": "door",
+          "settings": {
+            "label": "18 December",
+            "hint": "Sweet, and gone by Friday. We are realists."
+          }
+        },
+        "door-07": {
+          "type": "door",
+          "settings": {
+            "label": "19 December",
+            "hint": "For the lipstick that lives loose at the bottom of the bag."
+          }
+        },
+        "door-08": {
+          "type": "door",
+          "settings": {
+            "label": "20 December",
+            "hint": "A letter, already stamped. She need only decide who gets it."
+          }
+        },
+        "door-09": {
+          "type": "door",
+          "settings": {
+            "label": "21 December",
+            "hint": "Warmth, in the smallest format we could manage."
+          }
+        },
+        "door-10": {
+          "type": "door",
+          "settings": {
+            "label": "22 December",
+            "hint": "Something to hang from a handle."
+          }
+        },
+        "door-11": {
+          "type": "door",
+          "settings": {
+            "label": "23 December",
+            "hint": "For the keys she is forever looking for."
+          }
+        },
+        "door-12": {
+          "type": "door",
+          "settings": {
+            "label": "24 December",
+            "hint": "The largest door, and the last. We will say no more than that."
+          }
+        }
+      },
+      "block_order": [
+        "door-01",
+        "door-02",
+        "door-03",
+        "door-04",
+        "door-05",
+        "door-06",
+        "door-07",
+        "door-08",
+        "door-09",
+        "door-10",
+        "door-11",
+        "door-12"
+      ],
+      "settings": {
+        "anchor": "advent",
+        "eyebrow": "Christmas · In Her Purse",
+        "heading": "The Advent",
+        "byline": "Twelve doors, and something behind each one",
+        "image_alt": "The Advent box, twelve numbered doors, tied with ribbon",
+        "product_handle": "the-advent",
+        "cta": "Send her the twelve days →",
+        "doors_heading": "The [count] doors"
+      }
     }
   },
-  "order": ["purse-hero", "marquee", "tote", "ritual", "letter", "newsletter"]
+  "order": [
+    "purse-hero",
+    "marquee",
+    "tote",
+    "advent",
+    "ritual",
+    "letter",
+    "newsletter"
+  ]
 }

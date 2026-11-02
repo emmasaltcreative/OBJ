@@ -115,6 +115,10 @@
             {% render 'preorder-properties', ships: ships %}
           {% endif %}
 
+          {% if section.settings.show_gift_note %}
+            {% render 'gift-note', id: section.id, summary: section.settings.gift_summary %}
+          {% endif %}
+
           {% unless product.has_only_default_variant %}
             {% for option in product.options_with_values %}
               <div class="field">
@@ -225,6 +229,19 @@
       "label": "The Chaperone button",
       "default": "Preorder — escort my paperback →",
       "info": "Used for The Chaperone unless custom.cta_label is set."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_note",
+      "label": "Gift fields",
+      "default": true,
+      "info": "Lets a buyer mark the piece as a gift and write the card. Saved on the order as the Gift, To, From and Message line-item properties."
+    },
+    {
+      "type": "text",
+      "id": "gift_summary",
+      "label": "Gift fold label",
+      "default": "Send it as a gift"
     },
     {
       "type": "text",

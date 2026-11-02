@@ -1071,3 +1071,221 @@ select {
 }
 
 .article-body { max-width: 42rem; margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   Advent calendar
+   -------------------------------------------------------------------------- */
+
+.advent__head {
+  max-width: 44rem;
+  margin-bottom: clamp(2rem, 5vw, 3.4rem);
+}
+
+.advent__byline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  color: var(--color-accent);
+  margin: -0.2rem 0 0;
+}
+
+.advent__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .advent__grid { grid-template-columns: 1fr; }
+}
+
+.advent__media img,
+.advent__media .placeholder-svg {
+  width: 100%;
+  border: 1px solid var(--line);
+}
+
+.advent__aside {
+  font-style: italic;
+  color: var(--ink-soft);
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.1rem;
+  margin: 1.6rem 0;
+}
+
+.advent__price {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  margin: 1.6rem 0 0.7rem;
+}
+
+.advent__promise {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+}
+
+.advent__cutoff {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 1rem 0 0;
+}
+
+.advent__more { display: inline-block; margin-top: 1.3rem; }
+
+.advent__doors-head {
+  margin: clamp(3.4rem, 8vw, 6rem) 0 clamp(1.4rem, 3vw, 2.2rem);
+  text-align: center;
+}
+
+.advent__doors-head p {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.advent-doors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.6vw, 1rem);
+}
+
+@media (max-width: 800px) {
+  .advent-doors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .advent-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.advent-door {
+  background: var(--color-paper);
+  border: 1px solid var(--line-strong);
+  height: 100%;
+}
+
+.advent-door > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.advent-door > summary::-webkit-details-marker { display: none; }
+
+.advent-door > summary:hover,
+.advent-door > summary:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-background);
+}
+
+.advent-door[open] > summary {
+  aspect-ratio: auto;
+  padding: 0.7rem 0 0.2rem;
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.advent-door__no {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1;
+}
+
+.advent-door[open] .advent-door__no {
+  font-size: 1.2rem;
+}
+
+.advent-door__inside {
+  padding: 0 1rem 1.1rem;
+  text-align: center;
+}
+
+.advent-door__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.advent-door__inside p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.advent__footnote {
+  text-align: center;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin: 1.8rem 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Gift note
+   -------------------------------------------------------------------------- */
+
+.gift-note {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin: 1.4rem 0;
+}
+
+.gift-note > summary {
+  cursor: pointer;
+  padding: 0.85rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gift-note__fields {
+  padding-bottom: 1rem;
+}
+
+.gift-note__check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 0.98rem;
+  cursor: pointer;
+}
+
+.gift-note__check input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-accent);
+}
+
+.gift-note__fine {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.cart-line__gift {
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.cart-line__card {
+  display: block;
+  color: var(--ink-soft);
+}
