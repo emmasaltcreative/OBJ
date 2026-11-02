@@ -22,6 +22,9 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
+| `sections/advent-calendar.liquid` | The Advent — twelve numbered doors, sold as one box |
+| `templates/page.advent.json` | Landing page for The Advent |
+| `snippets/gift-note.liquid` | Gift fold — "this is a gift", To, From, the card |
 
 ## Product metafields (optional but recommended)
 
@@ -71,6 +74,30 @@ The Chaperone — a coat for the paperback, No. 1 in the first edition — can b
 A product sells as a preorder when any of these are true: template suffix `preorder`, tag `preorder`, handle `the-chaperone`, or metafield `custom.preorder` is true. Adding it to the parcel writes line-item properties `Preorder: Yes` and `Ships: With the first edition`, which follow the order into checkout.
 
 To close the preorder, track inventory, set the policy to **deny**, and set quantity to 0. The button then reads "Preorder closed."
+
+## Christmas: The Advent
+
+**The Advent** is a boxed calendar of twelve numbered doors — one small thing behind each, opening 13–24 December — sold as a single product. It sits on the homepage between the tote and the ritual, and has its own page at `/pages/advent`.
+
+The product (`the-advent`) and the page both exist in the store already, **both unpublished**, because two things are still yours to decide:
+
+1. **Set a price on the variant.** It is $0.00 today. The section refuses to show a buy button until the price is above zero — it shows the letter invitation instead — so a free box cannot leave the house by accident. The theme editor says so in red.
+2. **Add a photograph** of the box, then set the product Active and publish the page.
+
+Then, in the editor:
+
+- The twelve doors are blocks on the **Advent calendar** section. Each has a number, a date label and a hint. The hints tease; they do not list. Add or remove doors and the heading counts them — `[count]` in "The [count] doors" is replaced with however many blocks there are.
+- **Order by** is a date on the section (default 8 December) with the note beside it. Once the date passes the note disappears on its own.
+
+Boxes are packed by hand, so track inventory on the variant and set the policy to **deny**. The section then reads "The Advent is spoken for" and sends people to the letter instead of 404ing on a sold-out box.
+
+## Gifts
+
+Every product page and the Advent carry a **gift fold**: a checkbox for "this one is a gift", To, From, and the card. These write line-item properties (`Gift`, `To`, `From`, `Message`) that follow the order into checkout and onto the packing slip, and the parcel reads them back so the buyer can check the card before paying.
+
+Shopify discards line-item properties whose value is blank, and a browser never submits an unchecked box, so an ordinary order carries none of this and the fold costs nothing when it is ignored. No JavaScript is involved. Turn it off per template with **Gift fields** on the Product section.
+
+The announcement bar has the same **Christmas ordering cutoff**: a last order date, the deadline shown beside the message, and a quieter message that takes over by itself once the date has passed.
 
 ## After upload
 
