@@ -139,7 +139,15 @@ shopify theme push --only templates/agents.md.liquid
 ```
 
 Or paste it into **Online Store → Themes → … → Edit code → templates → Add a new template**.
-Check it afterwards at `https://ohbettyjaletti.com/agents.md`.
+It is already installed in **OBJ v5.22 · Sales pass** (theme `189422010421`). Check it after that
+theme is published:
+
+```bash
+curl -s https://ohbettyjaletti.com/agents.md | head -40
+```
+
+A theme preview cannot be used to check it — `/agents.md` is served at the bare domain and ignores
+`?preview_theme_id=`, so it returns the published theme's file either way.
 
 ## Shipping and returns, as published
 
@@ -154,9 +162,11 @@ The theme's promises should match the policies, which currently say:
 
 ## Drift from the live theme
 
-The live theme is **OBJ v5.20 · Numbering and ship note**, and **OBJ v5.21 · Agent knowledge
-base** — v5.20 plus `templates/agents.md.liquid` — is staged unpublished, waiting to be published.
-Both carry work that was done in the admin code editor and never came back here, including:
+The theme going live is **OBJ v5.22 · Sales pass**, and it carries
+`templates/agents.md.liquid`. The theme currently published, **OBJ v5.21 · Agent knowledge base**,
+is a duplicate of v5.20 and does *not* carry the file — it is superseded by the sales pass.
+Every one of these themes carries work done in the admin code editor that never came back here,
+including:
 
 - `sections/` — `collection-grid`, `collection-hero`, `collectors-ledger`, `edition-bundle`,
   `edition-closed`, `hero-atelier`, `house-notes`, `house-rules`, `main-contact`, `product-film`,
@@ -172,5 +182,5 @@ Pull it down before making any theme change here, or a push from this repo will 
 admin edits:
 
 ```bash
-shopify theme pull --theme 189421060149
+shopify theme pull --theme 189422010421   # OBJ v5.22 · Sales pass
 ```
