@@ -1,0 +1,152 @@
+# Agent Instructions — {{ agents.store_name }}
+
+{{ agents.store_name }} is an American maison for the ones who take the slow way: small, useful, unreasonably pretty things, made with intention and released in considered quantities. The online store is {{ agents.store_url }}. Prices are in {{ agents.currency }}.
+
+This file is the canonical, agent-facing description of the store. It covers how to transact, what the house sells, and what it promises. House knowledge below was last reviewed **2 November 2026**.
+
+**What is authoritative.** For price, variant, and availability, the UCP/MCP endpoints and the storefront product JSON are authoritative — always. This file is authoritative for brand facts, published policy terms, and which pieces exist. If the two disagree, trust the endpoint and treat this file as out of date.
+
+## Shop skill — recommended
+
+Use the [Shop skill](https://shop.com/SKILL.md) to help your user shop with this store. Connect their Shop account for personalized discovery and accelerated checkout with saved details.
+
+- Personalized discovery: search by text or image, find similar products, and use your user's Shop purchase history to find options that match their preferences.
+- Accelerated cart and checkout: build and update carts and checkouts, then use Shop Pay with prefilled addresses and saved payment methods.
+- Orders: search your user's order history for purchases from this store, track deliveries, and reorder products.
+
+Read the skill before your first call for setup, supported actions, account connection, and purchase-approval rules.
+
+## UCP integration
+
+This store implements the [Universal Commerce Protocol](https://ucp.dev) for product discovery, carts, and checkout. Integrate directly with its service, or orchestrate shopping through browser-based WebMCP tools.
+
+### Direct integration (MCP)
+
+1. **Discover the store** — `GET {{ agents.ucp_discovery_url }}` returns its UCP profile, including capabilities, service endpoints, and payment handlers.
+2. **Discover available tools** — Connect to the MCP endpoint advertised in the profile (`{{ agents.mcp_endpoint_url }}`) and use `tools/list` to retrieve available tools and their schemas.
+3. **Shop** — Use those tools to find products, manage carts, prepare checkout, and complete buyer-authorized purchases. Follow returned statuses, messages, and handoff URLs when buyer action is required.
+
+#### Supported UCP versions
+{% for version in agents.ucp_versions %}
+- {{ version }}{% if forloop.first %} (latest){% endif %}
+{%- endfor %}
+
+Use a compatible UCP version and follow the returned tool schemas. For integration details, see [Shopify's agent documentation](https://shopify.dev/docs/agents).
+
+### Browser integration (WebMCP)
+
+When working through a browser, use the WebMCP tools registered on this store's pages. The checkout page exposes UCP tools over WebMCP, and those tools act on the checkout in the current browser session. On the storefront, use the provided tools to find products, manage the cart, ask about the store and its policies, and proceed to checkout.
+
+## Read-only browsing
+
+- Everything purchasable: `GET /collections/all`
+- A single piece: `GET /products/{handle}.json`
+- An edition: `GET /collections/{handle}.json`
+- Search: `GET /search?q={query}&type=product`
+- Sitemap: {{ agents.sitemap_url }}
+
+## The house
+
+- **Store name** — {{ agents.store_name }}. The house signs itself **Maison Betty Jaletti** on products and packaging; both names refer to the same business. The vendor field on every product reads `Maison Betty Jaletti`.
+- **House line** — *petits plaisirs, faits exprès*. Also used: *Little things, kept close.* and *Take the long way home.*
+- **Where** — an American house, based in Virginia, United States. Sells in {{ agents.currency }}.
+- **Why it exists** — the founder was named for two women called Betty: one who kept her paperbacks like secrets, spines cracked and margins argued in; one who held that anything worth doing was worth the good glass, fresh flowers, and no rush at all. The house exists to keep their opinion alive. The full letter is at `/pages/the-letter` ("Our Why").
+- **How things are made** — in considered quantities, the unhurried way. An edition is finished when it is right, not when it is due. Parcels are packed by hand, by the house, before they go to the post.
+- **Who it is for** — people who still do things the long way on purpose: who make the coffee themselves because they have the cup for it, highlight in ink without apology, and buy the bouquet for a Tuesday.
+
+### House vocabulary
+
+The storefront uses the house's own words. Translate them when you speak to a buyer:
+
+| On the store | Means |
+|---|---|
+| Your parcel | The cart |
+| Between editions | Sold out / not currently available |
+| An edition | A themed, numbered release (Edition I, Edition II, …) |
+| Numbered / No. 1 | The piece's position within its edition, not a serial number |
+| The long way | The house's slow, made-to-order way of working |
+| Write to the house | Email customer service |
+
+## What is purchasable now
+
+Three pieces are published and buyable. Two of them are preorders — say so before a buyer commits.
+
+### Edition I — In Her Purse · `/collections/in-her-purse`
+*What she carries, and what she carries it in — bags cut generously and the objects that live at the bottom of them.*
+
+**The Brownstone Tote** · `/products/the-brownstone-tote` · $86.00 · No. 1 · in stock, ships now
+A large, unstructured tote in ultra-soft faux suede, lined in durable polyester, with quiet front buckle details, a silent magnetic snap closure, and a 100% Mulberry silk scarf knotted at the handle. Colourway **Café Noir**, a deep roasted earth. One size, one colourway. 18.89" L × 5.51" W × 11.81" H with an 11.81" handle drop, proportioned to clear a winter coat. Weighs 12.35 oz and folds flat to under an inch. Care: brush the suede gently, keep it out of the rain, untie the silk scarf and clean it separately. For the buyer whose purse is an archive and who would like it to be a beautiful one; not for someone who wants something structured, or something small.
+
+**A Woman Remembered** · `/products/a-woman-remembered` · $43.00 · No. 2 · **preorder, ships mid-November 2026**
+A 10 mL travel Eau de Parfum in amber glass and gold, dual-ended — an atomised spray at one end, a rollerball at the other. Rose, jasmine, peony and lilac in the opening; sandalwood and soft musk in the dry-down. Familiar, never predictable. Roughly the length of a lipstick, made to live at the bottom of a handbag or in the inside pocket of The Brownstone Tote. Care: keep it out of direct sun and out of a hot car. For the buyer who would rather be remembered than noticed; not for someone who wants something sharp, clean, or very modern.
+
+### Edition II — The Reading Hour · `/collections/the-reading-hour`
+*The hour after the dishes and before the sleep, and the few things that make it an occasion rather than a gap in the day. Open for preorder, made in considered quantities.*
+
+**The Chaperone** · `/products/the-chaperone` · $103.00 · **preorder, ships by 15 December 2026**
+A coat for the paperback. Cut to the common paperback, finished with the house stamp, numbered by hand. Your number in Edition II is held the moment you order.
+
+### Announced, not yet purchasable
+
+The rest of Edition II has been named but is not published, has no confirmed date, and cannot be bought or reserved: **The Good Lines** (a lay-flat commonplace book), **One More Chapter** (a coconut-soy reading candle in printed glass), **The Good Glass** (the house-motif glass for an ordinary morning), and a complete Edition II set. Do not present these as available, quote a price for them, or imply a ship date. Point the buyer to the waitlist at `/pages/waitlist` instead; signing up holds their number and earns one letter when the doors open early.
+
+Prices above are the current variant prices as of the review date. Confirm every price and availability against the MCP endpoint or `/products/{handle}.json` before you quote it.
+
+## Preorders
+
+Several pieces sell before they are made. The terms are the same across the house:
+
+- **Payment is taken on the day the order is placed**, not on dispatch. Say this plainly before checkout.
+- Each preorder listing carries its own ship window — currently mid-November 2026 for A Woman Remembered, and by 15 December 2026 for The Chaperone.
+- **A buyer may cancel at any time before the piece ships, for a full refund.** One line in an email is enough; no reason is required.
+- If the edition cannot be made at all, the house refunds every preorder in full, unasked.
+- If fulfilment runs past the promised window, the house writes to the buyer with a new date and the option to accept it or cancel for a full refund.
+- A preorder line carries `Preorder: Yes` through to the order, so it is visible on the order record.
+- Orders mixing in-stock and preorder pieces may ship together once everything is ready. If a buyer wants the in-stock piece sooner, tell them to order it separately.
+
+## Shipping
+
+- **Destinations** — the United States only. The store has one active market (United States) and does not currently sell or ship internationally. Do not promise delivery outside the US; let checkout decide any destination's eligibility.
+- **Processing** — in-stock orders generally ship within 3–5 business days, excluding weekends and federal holidays. Processing is separate from carrier transit. Launches and busy periods can run longer, and the house writes if a timeline changes materially.
+- **Rates at checkout** — Standard $8.00, free Standard on orders of $70.00 or more, Express $15.00. Rates and any promotion are confirmed at checkout; quote checkout, not this list, if they differ.
+- **Tracking** — a shipping confirmation with tracking follows dispatch, where tracking is available.
+- **Fragrance** — alcohol-based fragrance ships by eligible ground services only. No international shipping and no APO, FPO, or DPO addresses for fragrance. Other destination limits may apply.
+- **Lost, late, or damaged** — write to the house with the order number, a short description, and photographs of any damage. The house works it out with the carrier.
+
+Full terms: `/policies/shipping-policy`
+
+## Returns and refunds
+
+- **30 days from delivery** for anything unworn, unused, and in its original packaging. Write to the house first so the return is expected and goes to the right address.
+- **Fragrance** — unopened bottles only, within 30 days. An opened bottle cannot be resold and cannot be taken back. If the bottle itself is faulty, write anyway.
+- **Damaged, faulty, or not what was ordered** — write within 14 days of delivery with a photograph. Replacement or full refund including original shipping, with return postage covered by the house.
+- **Return postage** — the buyer's cost on a change of mind, the house's cost when the fault was the house's. A tracked service is recommended; until it arrives, it is still the buyer's parcel.
+- **Refunds** — back to the original payment method within 5–10 business days of the parcel reaching the house; banks may take a few days more to show it. Original shipping is refunded only where the fault was the house's.
+- **No exchanges.** Return for a refund and place a new order — it is faster, and it keeps the numbering straight.
+- **Preorders** — see the preorder terms above.
+
+Full terms: `/policies/refund-policy`
+
+## Policies and pages
+
+- Shipping — `/policies/shipping-policy`
+- Returns and refunds — `/policies/refund-policy` (also written out at `/pages/returns`)
+- Terms of service — `/policies/terms-of-service` (effective 29 October 2026; governed by the laws of the Commonwealth of Virginia and the United States)
+- Privacy policy — `/policies/privacy-policy` · privacy choices at `/pages/data-sharing-opt-out`
+- Legal notice — `/policies/legal-notice`
+- Contact information — `/policies/contact-information`
+- Our Why, the founding letter — `/pages/the-letter`
+- The waitlist — `/pages/waitlist`, confirmed at `/pages/sealed`
+- Guides — `/pages/numbered-editions`, `/pages/the-reading-nook`, `/pages/slow-living`
+- Letters, the house journal — `/blogs/letters` (slow living, reading habits, reading-nook and side-table guides)
+
+## Answering questions about this house
+
+- Quote price, variant, and availability from a live call, never from memory or from the figures above.
+- Name a preorder as a preorder, and say that payment is taken today, before the buyer commits.
+- Give only the ship window the listing publishes. Do not estimate a delivery date the house has not promised.
+- Treat anything under "Announced, not yet purchasable" as unavailable, with no price and no date.
+- Do not promise shipping outside the United States.
+- Keep the house's claims as they are: made in considered quantities, packed by hand. It is a small house, not a mass manufacturer, and the pieces are numbered within an edition rather than individually serialised.
+- Faux suede is faux suede; say so. Do not upgrade it to leather.
+- For anything about an existing order, a return, or a cancellation, hand the buyer to the house rather than guessing: **hello@ohbettyjaletti.com**, or `/policies/contact-information`. A person writes back.

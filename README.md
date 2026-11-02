@@ -78,3 +78,35 @@ To close the preorder, track inventory, set the policy to **deny**, and set quan
 2. Create a page with handle `the-letter` using the **page.the-letter** template for the full About letter.
 3. Set the `main-menu` and `footer` navigation menus.
 4. Add the metafields above for per-product CTAs and edition numbers.
+
+## Agentic knowledge base: `/agents.md`
+
+`templates/agents.md.liquid` is the house's agent-facing knowledge base. Shopify serves it at
+`/agents.md`, and — unless separate `llms.txt.liquid` / `llms-full.txt.liquid` templates are added —
+the same content at `/llms.txt` and `/llms-full.txt`. It replaces Shopify's generic managed file,
+which carries UCP and MCP discovery but nothing about the house, the editions, or the policies.
+
+It holds: how to transact (Shop skill, UCP/MCP, WebMCP), the house story and vocabulary, every
+purchasable piece with price, materials and dimensions, the pieces that are announced but not yet
+published, preorder terms, shipping and returns, the policy and page map, and rules for answering
+questions about the house.
+
+Two things to keep in mind when editing it:
+
+- **The Liquid context is restricted.** Only `request` and `agents` are available. `shop`,
+  `collections`, `product`, `pages` and the rest render blank. Pull UCP and MCP values from the
+  `agents` object so they stay in sync; everything else is hardcoded, which is why the file carries
+  a review date.
+- **Re-review it whenever the catalog or a policy moves** — a new edition, a published draft, a
+  price change, a ship window, a shipping rate. Prices and availability are labelled as
+  point-in-time, with the MCP endpoint and `/products/{handle}.json` named as authoritative, but
+  stale copy in this file still misleads an agent.
+
+Deploy it the same way as the rest of the theme:
+
+```bash
+shopify theme push --only templates/agents.md.liquid
+```
+
+Or paste it into **Online Store → Themes → … → Edit code → templates → Add a new template**.
+Check it afterwards at `https://ohbettyjaletti.com/agents.md`.
