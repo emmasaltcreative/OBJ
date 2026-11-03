@@ -1,36 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "blocks": {
-        "suede": {
+        "fabric": {
           "type": "accordion",
           "settings": {
-            "heading": "The suede",
-            "content": "<p>Brown, cut full, and soft enough to take the shape of a day. It will mark where your life marks it.</p>"
+            "heading": "The fabric",
+            "content": "<p>Ultra-soft faux suede with a velvety hand, lined in durable polyester. Cut full, and soft enough to take the shape of a day.</p>"
           }
         },
         "scarf": {
           "type": "accordion",
           "settings": {
             "heading": "The scarf",
-            "content": "<p>A flowered scarf, knotted at the handle, with a small tag hanging from the knot. It is the bag's piece of jewelry.</p>"
+            "content": "<p>A 100% Mulberry Silk scarf, knotted at the handle, with a small tag hanging from the knot. It is the bag's piece of jewelry.</p>"
           }
         },
         "shipping": {
           "type": "accordion",
           "settings": {
-            "heading": "Shipping & returns",
-            "content": "<p>Made when you claim it, then sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+            "heading": "Shipping &amp; returns",
+            "content": "<p>Free US shipping on this one — it is over the $70 threshold. Gracious, calm returns within 30 days: write to the house and we'll sort it.</p>"
           }
         }
       },
-      "block_order": ["suede", "scarf", "shipping"],
+      "block_order": [
+        "fabric",
+        "scarf",
+        "shipping"
+      ],
       "settings": {
-        "collection_eyebrow": "In Her Purse",
-        "default_cta": "Claim the tote →"
+        "collection_eyebrow": "Edition I · In Her Purse",
+        "preorder_eyebrow": "Preorder · Edition I · In Her Purse",
+        "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
+        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
+        "sell_in_preproduction": true,
+        "default_cta": "Claim the tote →",
+        "story_heading": "A bag that holds the whole day",
+        "preproduction_copy": ""
+      }
+    },
+    "promises": {
+      "type": "service-strip",
+      "blocks": {
+        "shipping": {
+          "type": "promise",
+          "settings": {
+            "heading": "Free US shipping",
+            "text": "This one is over the $70 threshold."
+          }
+        },
+        "returns": {
+          "type": "promise",
+          "settings": {
+            "heading": "Thirty days to change your mind",
+            "text": "Write to us and we'll sort it."
+          }
+        },
+        "packed": {
+          "type": "promise",
+          "settings": {
+            "heading": "Packed by the house",
+            "text": "Signed off before it leaves."
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "packed"
+      ],
+      "settings": {}
+    },
+    "sticky": {
+      "type": "sticky-buy",
+      "settings": {
+        "enabled": true
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "promises",
+    "sticky"
+  ]
 }

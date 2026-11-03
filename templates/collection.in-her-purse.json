@@ -1,0 +1,134 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "collection-hero",
+      "settings": {
+        "eyebrow": "Edition I · An ongoing collection",
+        "heading": "In Her <em>Purse</em>",
+        "intro": "She has what the day asks for, and the thing it forgot to mention.",
+        "show_lineup": true,
+        "lineup_limit": 4,
+        "note": "",
+        "button_label": "Shop the collection",
+        "button_link": "#the-inventory",
+        "button_style": "button",
+        "image": "shopify://shop_images/the-brownstone-tote-cafe-noir.webp",
+        "caption": "No. 1 — The Brownstone Tote, in Café Noir."
+      }
+    },
+    "inventory": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "The inventory",
+        "heading": "Turned out on the table",
+        "intro": "Everything currently in her purse, and the purse itself.",
+        "collection": "",
+        "products_to_show": 8,
+        "columns": "2",
+        "anchor": "the-inventory",
+        "show_coming_card": true,
+        "coming_numeral": "&c.",
+        "coming_heading": "The rest is still being cut",
+        "coming_text": "The collection fills slowly, on purpose. A card case, a longer strap, the little pouch that keeps loose things from becoming a situation — each one gets its turn on the table.",
+        "coming_link_label": "Hear about the next one",
+        "coming_link": "#shopify-section-newsletter"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "petits plaisirs, faits exprès",
+        "phrase_2": "a bag that can't carry a book is a decoration",
+        "phrase_3": "take the long way home"
+      }
+    },
+    "notes": {
+      "type": "house-notes",
+      "blocks": {
+        "note-1": {
+          "type": "note",
+          "settings": {
+            "numeral": "I.",
+            "heading": "It must hold a hardback",
+            "text": "A bag that cannot carry a book is a decoration. Ours are cut to take a hardback, a cardigan you'll regret not wearing, and whatever you picked up on the way home."
+          }
+        },
+        "note-2": {
+          "type": "note",
+          "settings": {
+            "numeral": "II.",
+            "heading": "It should slouch",
+            "text": "Structure is for luggage. A fabric that softens with handling, a shape that gives, and a strap across the front for the days it is genuinely full."
+          }
+        },
+        "note-3": {
+          "type": "note",
+          "settings": {
+            "numeral": "III.",
+            "heading": "It arrives wearing something",
+            "text": "A 100% Mulberry Silk scarf comes knotted at the handle. Leave it there, wear it elsewhere, or keep it in the drawer with the good ribbon — we don't mind."
+          }
+        },
+        "note-4": {
+          "type": "note",
+          "settings": {
+            "numeral": "IV.",
+            "heading": "It is made in considered quantities",
+            "text": "Small runs, cut and finished the unhurried way, then packed and signed off by the house. Each card says what is in stock and when it goes to the post."
+          }
+        }
+      },
+      "block_order": [
+        "note-1",
+        "note-2",
+        "note-3",
+        "note-4"
+      ],
+      "settings": {
+        "eyebrow": "House rules",
+        "heading": "The rule of the purse",
+        "intro": "Four opinions the house holds firmly, and will not be talked out of.",
+        "footnote": "Opinions subject to revision only by the other Betty."
+      }
+    },
+    "letter": {
+      "type": "the-letter",
+      "settings": {
+        "eyebrow": "A note on the collection",
+        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote.</p>",
+        "signature": "— B.",
+        "link_label": "Read the whole letter",
+        "link": ""
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "When the next one appears",
+        "text": "New pieces for the purse are announced first, by letter.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "button_label": "Subscribe",
+        "tags": "waitlist,first-edition",
+        "anchor": ""
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "inventory",
+    "marquee",
+    "notes",
+    "letter",
+    "newsletter"
+  ]
+}

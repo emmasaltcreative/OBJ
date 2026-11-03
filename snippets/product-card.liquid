@@ -5,6 +5,18 @@
   - number: {Integer} optional edition number ("No. 1")
 {% endcomment %}
 
+{%- liquid
+  assign fallback_asset = 'product-chaperone.svg'
+  case product.handle
+    when 'the-good-lines'
+      assign fallback_asset = 'product-good-lines.svg'
+    when 'one-more-chapter'
+      assign fallback_asset = 'product-candle.svg'
+    when 'the-good-glass'
+      assign fallback_asset = 'product-good-glass.svg'
+  endcase
+-%}
+
 {%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
 {%- assign is_preorder = false -%}
 {%- if preorder_flag contains 'true' -%}
@@ -19,6 +31,32 @@
   {%- endif -%}
 {%- endif -%}
 
+{%- comment -%}
+  Quick add used to wait for edition_state == 'open', which kept it hidden on
+  every card while the house sold the debut pieces anyway. It now follows the
+  one fact that matters: whether Shopify will actually sell this piece today.
+  A retired edition still hides it.
+{%- endcomment -%}
+{%- assign show_quick_add = false -%}
+{%- if product.available and settings.edition_state != 'retired' -%}
+  {%- assign show_quick_add = true -%}
+{%- endif -%}
+
+{%- comment -%}
+  Availability and dispatch, per piece. A collection cannot promise one way of
+  making things when it holds a tote and a perfume, so each card says its own.
+  Set custom.dispatch_note on a product to publish its exact window — a
+  preorder's ship date, a longer make time — and it wins over the defaults.
+{%- endcomment -%}
+{%- assign dispatch = product.metafields.custom.dispatch_note.value -%}
+{%- if dispatch == blank and product.available -%}
+  {%- if is_preorder -%}
+    {%- assign dispatch = 'Preorder — paid today, ships with its edition' -%}
+  {%- else -%}
+    {%- assign dispatch = 'In stock — ships in 3–5 business days' -%}
+  {%- endif -%}
+{%- endif -%}
+
 <div class="product-card">
   {% if edition %}
     <div class="product-card__no">No. {{ edition }}</div>
@@ -30,8 +68,20 @@
     {% elsif product.handle == 'the-brownstone-tote' %}
       {% render 'brownstone-image', alt: product.title, class: 'brownstone-card-img' %}
     {% else %}
-      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000" loading="lazy">
     {% endif %}
+    {%- if show_quick_add -%}
+    {%- form 'product', product, class: 'quick-add-form' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      {%- if is_preorder -%}
+        {% render 'preorder-properties' %}
+      {%- endif -%}
+      <button class="quick-add" type="submit" aria-label="Add {{ product.title | escape }} to parcel">
+        {% if is_preorder %}Preorder +{% else %}Quick add +{% endif %}
+      </button>
+    {%- endform -%}
+    {%- endif -%}
   </div>
 
   <h3 class="product-card__title">
@@ -54,4 +104,8 @@
       <span class="badge">Between editions</span>
     {% endif %}
   </div>
+
+  {%- if dispatch != blank -%}
+    <p class="product-card__dispatch" style="margin: 0.55rem 0 0; font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.08em; line-height: 1.6; color: var(--ink-soft);">{{ dispatch }}</p>
+  {%- endif -%}
 </div>

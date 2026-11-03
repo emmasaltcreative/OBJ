@@ -2,6 +2,7 @@
   <div class="page-width">
     <div class="site-footer__grid">
       <div>
+        <span class="site-footer__monogram">{% render 'icon-obj-monogram' %}</span>
         <a href="{{ routes.root_url }}" class="site-footer__wordmark">Oh Betty <em>Jaletti</em></a>
         <p class="site-footer__tagline">{{ settings.brand_tagline }}</p>
         <p style="font-size: 0.95rem; color: var(--ink-soft); max-width: 30rem;">
@@ -25,7 +26,8 @@
           {% if form.posted_successfully? %}
             <p class="newsletter__note">Wonderful. The first letter is on its way.</p>
           {% else %}
-            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="hidden" name="contact[tags]" value="waitlist,first-edition">
+            <input type="hidden" name="return_to" value="/pages/sealed">
             <div style="display: flex;">
               <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required style="border-right: 0;">
               <button type="submit" class="btn btn--solid" style="flex-shrink: 0;">Join</button>
@@ -50,7 +52,7 @@
       "type": "textarea",
       "id": "blurb",
       "label": "Blurb",
-      "default": "Small, useful, unreasonably pretty things — printed, bound, poured, and packed for you, one at a time."
+      "default": "Small, useful, unreasonably pretty things, made with intention and packed by the house."
     },
     {
       "type": "text",

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,28 +16,42 @@
           "type": "accordion",
           "settings": {
             "heading": "The preorder",
-            "content": "<p>You are charged today, at the preorder price of $79. The Chaperone does not exist until you claim it. We cut yours when the first edition opens, number it, and ship it with the edition. If the edition cannot be made, the house refunds the preorder in full.</p>"
+            "content": "<p>You are charged today, at the preorder price. The Chaperone does not exist until you claim it. We cut yours when the edition opens, number it, and ship it with the edition. If the edition cannot be made, the house refunds the preorder in full.</p>"
           }
         },
         "shipping": {
           "type": "accordion",
           "settings": {
             "heading": "Shipping & returns",
-            "content": "<p>Preorders leave with the first edition, and they take the long way on purpose. After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
+            "content": "<p>Preorders leave with the edition, and they take the long way on purpose. After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
           }
         }
       },
-      "block_order": ["preorder", "shipping"],
+      "block_order": [
+        "preorder",
+        "shipping"
+      ],
       "settings": {
         "collection_eyebrow": "The First Edition",
         "preorder_mode": true,
         "preorder_eyebrow": "Preorder · The First Edition",
+        "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
+        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
         "preorder_cta": "Preorder →",
         "chaperone_cta": "Preorder — escort my paperback →",
         "sold_out_label": "Preorder closed",
         "preorder_ships": "With the first edition"
       }
+    },
+    "sticky": {
+      "type": "sticky-buy",
+      "settings": {
+        "enabled": true
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "sticky"
+  ]
 }

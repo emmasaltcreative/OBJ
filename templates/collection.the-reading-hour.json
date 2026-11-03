@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "collection-hero",
+      "settings": {
+        "eyebrow": "Edition II · Preorder",
+        "heading": "The Reading <em>Hour</em>",
+        "intro": "One hour, defended. The chair, the book, the light going gold at the edges — and the few small things that make it an occasion rather than a gap in the day.",
+        "note": "Preorder. Your number in the edition is held the moment you order.",
+        "button_label": "See the edition",
+        "button_link": "#the-inventory",
+        "caption": "No. 1 — The Chaperone, a coat for the paperback."
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "petits plaisirs, faits exprès",
+        "phrase_2": "one more chapter",
+        "phrase_3": "using the good things is the special occasion"
+      }
+    },
+    "inventory": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "The edition",
+        "heading": "Open for preorder",
+        "intro": "The Chaperone opens Edition II. The rest of the hour follows, one at a time.",
+        "products_to_show": 8,
+        "columns": "2",
+        "anchor": "the-inventory",
+        "show_coming_card": true,
+        "coming_numeral": "&c.",
+        "coming_heading": "The rest of the hour",
+        "coming_text": "A commonplace book for the sentences worth stealing, a candle to declare the hour open, and the good glass. Each one gets its turn, and the letter will tell you first.",
+        "coming_link_label": "Hear about the next one",
+        "coming_link": "#shopify-section-newsletter"
+      }
+    },
+    "notes": {
+      "type": "house-notes",
+      "settings": {
+        "eyebrow": "The terms",
+        "heading": "How a preorder works here",
+        "intro": "Plainly, so there is nothing to discover later.",
+        "footnote": "Written down because a preorder is a promise, and promises should be legible."
+      },
+      "blocks": {
+        "note-1": {
+          "type": "note",
+          "settings": {
+            "numeral": "I.",
+            "heading": "You are charged today",
+            "text": "Your number in the edition is held the moment you order. Nothing is reserved by intention alone."
+          }
+        },
+        "note-2": {
+          "type": "note",
+          "settings": {
+            "numeral": "II.",
+            "heading": "We cut yours when the edition opens",
+            "text": "Numbered by hand, then packed and signed off by the house, and sent the long way."
+          }
+        },
+        "note-3": {
+          "type": "note",
+          "settings": {
+            "numeral": "III.",
+            "heading": "It ships by the date on the page",
+            "text": "If that date moves, you hear it from us first, by letter — before you hear it from anyone else."
+          }
+        },
+        "note-4": {
+          "type": "note",
+          "settings": {
+            "numeral": "IV.",
+            "heading": "If it cannot be made",
+            "text": "The house refunds the preorder in full. No letter required, and no hard feelings."
+          }
+        }
+      },
+      "block_order": ["note-1", "note-2", "note-3", "note-4"]
+    },
+    "letter": {
+      "type": "the-letter",
+      "settings": {
+        "eyebrow": "A note on the edition",
+        "body": "<p>The reading hour is not a long one. It is the hour after the dishes and before the sleep, and it is the first thing anybody gives away when the day runs over.</p><p>Edition II is four objects whose only job is to make that hour harder to give away. It begins with a coat for the paperback, because the book you actually love is never the one in good condition.</p>",
+        "signature": "— B."
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "The rest of the hour, by letter",
+        "text": "The remaining pieces of Edition II are announced first by letter."
+      }
+    }
+  },
+  "order": ["hero", "marquee", "inventory", "notes", "letter", "newsletter"]
+}

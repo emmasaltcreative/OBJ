@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">The Chaperone book cover</title>
+  <desc id="desc">An oxblood floral cloth book cover holding a cream paperback on a faded rose surface.</desc>
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#26382F" flood-opacity=".25"/>
+    </filter>
+    <pattern id="floral" width="130" height="130" patternUnits="userSpaceOnUse">
+      <rect width="130" height="130" fill="#3A544A"/>
+      <path d="M20 76c18-18 35-21 48-12-7 13-20 20-38 19M76 38c5 19 0 34-14 44-10-12-9-28 1-45" fill="none" stroke="#e7c66c" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="68" cy="69" r="10" fill="#f4e9d8"/>
+      <circle cx="25" cy="25" r="5" fill="#9DB7A8"/>
+      <path d="M100 100c8-10 17-12 25-6-4 8-11 12-21 11" fill="none" stroke="#ADC4B5" stroke-width="3"/>
+    </pattern>
+    <linearGradient id="pages" x1="0" x2="1">
+      <stop offset="0" stop-color="#e6d7c2"/>
+      <stop offset=".14" stop-color="#fffaf0"/>
+      <stop offset=".9" stop-color="#f5eadb"/>
+      <stop offset="1" stop-color="#d8c6ad"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#A8C0B1"/>
+  <path d="M0 810C190 740 360 772 520 828c120 42 214 42 280 13v159H0Z" fill="#9DB7A8" opacity=".55"/>
+  <ellipse cx="410" cy="826" rx="275" ry="70" fill="#2E463D" opacity=".12"/>
+  <g filter="url(#shadow)" transform="translate(148 112) rotate(-4 260 380)">
+    <rect x="36" y="26" width="482" height="738" rx="16" fill="#3b211f"/>
+    <rect x="55" y="15" width="450" height="724" rx="11" fill="url(#floral)"/>
+    <path d="M72 40h58v674H72c-16 0-29-13-29-29V69c0-16 13-29 29-29Z" fill="#334F45" opacity=".72"/>
+    <rect x="128" y="49" width="350" height="648" rx="3" fill="url(#pages)"/>
+    <path d="M141 78h325M141 90h325M141 654h325M141 666h325" stroke="#cdbca4" stroke-width="2" opacity=".65"/>
+    <rect x="78" y="40" width="33" height="674" fill="#2C423A" opacity=".65"/>
+    <path d="M444 49v648" stroke="#bba88e" stroke-width="3" opacity=".55"/>
+    <path d="M429 143h34v405h-34Z" fill="#3A544A" opacity=".92"/>
+    <circle cx="446" cy="578" r="15" fill="#e7c66c"/>
+    <path d="M446 593v74l-14-13-14 13v-74" fill="#3A544A"/>
+  </g>
+  <g transform="translate(570 94) rotate(7)">
+    <circle cx="70" cy="70" r="62" fill="#f7f1e8" opacity=".94"/>
+    <circle cx="70" cy="70" r="51" fill="none" stroke="#3A544A" stroke-width="2"/>
+    <path d="M37 74c14-22 29-30 45-24-2 20-14 33-36 38M80 50c9 13 11 26 5 40" fill="none" stroke="#3A544A" stroke-width="3" stroke-linecap="round"/>
+    <text x="70" y="111" fill="#3A544A" font-family="Georgia,serif" font-size="13" text-anchor="middle" letter-spacing="2">MAISON BJ</text>
+  </g>
+</svg>
