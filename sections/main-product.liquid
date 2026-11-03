@@ -7,6 +7,12 @@
       {%- assign is_preorder = true -%}
     {%- endif -%}
 
+    {%- capture sample_flag -%}{%- render 'has-sample', product: product -%}{%- endcapture -%}
+    {%- assign has_sample = false -%}
+    {%- if sample_flag contains 'true' and section.settings.show_sample -%}
+      {%- assign has_sample = true -%}
+    {%- endif -%}
+
     {%- assign edition = product.metafields.custom.edition_number.value -%}
     {%- if edition == blank and product.handle == 'the-chaperone' or edition == blank and product.handle == 'the-brownstone-tote' -%}
       {%- assign edition = 1 -%}
@@ -156,6 +162,10 @@
           </button>
         {% endform %}
 
+        {% if has_sample %}
+          {% render 'sample-form', product: product %}
+        {% endif %}
+
         <div class="product__accordions">
           {% for block in section.blocks %}
             {% if block.settings.heading != blank and block.settings.content != blank %}
@@ -231,6 +241,13 @@
       "id": "sold_out_label",
       "label": "Sold out label",
       "default": "Between editions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sample",
+      "label": "Offer a free sample",
+      "default": true,
+      "info": "Shown on scented products — tagged fragrance or sample, or with metafield custom.free_sample true. Copy lives in Theme settings → Free samples."
     },
     {
       "type": "text",

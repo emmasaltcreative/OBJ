@@ -562,6 +562,7 @@ select {
 }
 
 .product-card__media {
+  position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--color-background);
@@ -620,6 +621,175 @@ select {
 .badge--preorder {
   color: var(--color-accent);
   border-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Free sample — wax seal sticker on a card, disclosure on a product page
+   -------------------------------------------------------------------------- */
+
+.sample-sticker {
+  position: absolute;
+  z-index: 2;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 6.9rem;
+  height: 6.9rem;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  padding: 0.6rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-background);
+  background: var(--color-accent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--color-background) 45%, transparent),
+    inset 0 0 0 5px var(--color-accent),
+    inset 0 0 0 6px color-mix(in srgb, var(--color-background) 30%, transparent),
+    0 3px 12px color-mix(in srgb, var(--color-ink) 28%, transparent);
+  transform: rotate(-7deg);
+  transition: transform 0.45s ease;
+}
+.sample-sticker:hover,
+.sample-sticker:focus-visible {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.sample-sticker__kicker {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+.sample-sticker__line {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+@media (max-width: 1020px) {
+  .sample-sticker { width: 6rem; height: 6rem; top: 0.6rem; right: 0.6rem; }
+  .sample-sticker__line { font-size: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sample-sticker { transition: none; }
+}
+
+.sample { margin-top: 1.6rem; }
+
+.sample__disclosure {
+  border: 1px solid var(--line-strong);
+  background: var(--color-paper);
+}
+
+.sample__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.sample__summary::-webkit-details-marker { display: none; }
+.sample__summary:hover { color: var(--color-accent); }
+
+.sample__seal {
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-paper) 55%, transparent);
+}
+
+.sample__summary-note {
+  margin-left: auto;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.sample__panel {
+  padding: 0 1.2rem 1.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+}
+
+.sample__heading {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sample__intro {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+}
+
+.sample__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+}
+.sample__grid .field--full { grid-column: 1 / -1; }
+
+.sample__optional {
+  font-family: var(--font-body);
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.sample__check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 1.3rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.sample__check input[type="checkbox"] {
+  width: auto;
+  margin-top: 0.25rem;
+  accent-color: var(--color-accent);
+}
+
+.sample__note {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.sample__sent {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 1rem 1.25rem;
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 600px) {
+  .sample__grid { grid-template-columns: 1fr; }
+  .sample__summary { flex-wrap: wrap; }
+  .sample__summary-note { margin-left: 0; width: 100%; text-align: left; }
 }
 
 /* --------------------------------------------------------------------------
