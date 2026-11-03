@@ -84,6 +84,13 @@
           {% endif %}
         {% endif %}
 
+        {%- liquid
+          assign preview_sale = false
+          if sellable == false and section.settings.preview_sale
+            assign preview_sale = true
+          endif
+        -%}
+
         {% if sellable %}
           <p class="advent__price">{{ variant.price | money }}</p>
           {% if section.settings.promise != blank %}
@@ -112,6 +119,25 @@
           {% endif %}
 
           <a class="link-arrow advent__more" href="{{ advent.url }}">The particulars</a>
+
+        {% elsif preview_sale %}
+          <p class="advent__price">{{ section.settings.fallback_price }}</p>
+          {% if section.settings.promise != blank %}
+            <p class="advent__promise">{{ section.settings.promise }}</p>
+          {% endif %}
+
+          {% render 'gift-note',
+            id: section.id,
+            summary: section.settings.gift_summary,
+            note: section.settings.gift_fine
+          %}
+
+          <button type="button" class="btn btn--solid btn--full" disabled>{{ section.settings.cta }}</button>
+          <p class="advent__preview-note">Preview only — the Advent cannot be bought until the product is published and priced.</p>
+
+          {% if cutoff_live and section.settings.cutoff_text != blank %}
+            <p class="advent__cutoff">{{ section.settings.cutoff_text }}</p>
+          {% endif %}
 
         {% elsif has_variant and price_set and variant.available == false %}
           <p class="advent__promise">{{ section.settings.closed_text }}</p>
@@ -269,6 +295,20 @@
       "type": "url",
       "id": "waitlist_link",
       "label": "Letter button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "preview_sale",
+      "label": "Preview the buy state",
+      "default": false,
+      "info": "Shows the price, the gift fold and a dead button so you can see the finished page before the product is published. The button cannot add anything. Turn it off before the Advent goes on sale."
+    },
+    {
+      "type": "text",
+      "id": "fallback_price",
+      "label": "Preview price",
+      "default": "$165.00",
+      "info": "Shown only while previewing. The real price comes from the variant."
     },
     {
       "type": "header",

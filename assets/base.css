@@ -1289,3 +1289,12 @@ select {
   display: block;
   color: var(--ink-soft);
 }
+
+.advent__preview-note {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0.7rem 0 0;
+}
