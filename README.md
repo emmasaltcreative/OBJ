@@ -2,79 +2,111 @@
 
 A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisirs, faits exprès*.
 
+This repository mirrors the published theme, **OBJ v5.24**. See
+[Keeping this repository and the store in step](#keeping-this-repository-and-the-store-in-step)
+before you change anything here — the store, not this repository, has been the
+working copy, and it is easy to overwrite a day's work in the theme editor.
+
 ## Design language
 
-- **Palette** — cream paper (`#F6F1E7`), warm ink (`#26221B`), bordeaux accent (`#7E2F2A`), ticking-stripe blue (`#3D4E6E`). All editable under **Theme settings → Colors**.
-- **Type** — Cormorant Garamond (display serif), Lora (body), Jost (letterspaced small caps for eyebrows & buttons).
-- **Voice baked in** — "Your parcel" instead of cart, "Between editions" instead of sold out, the fulfillment promise on every product page, the letter on the homepage.
+- **Palette** — cream paper (`#F6F1E7`), warm ink (`#2A2320`), a deep green accent
+  (`#3A544A`), ticking-stripe blue (`#3D4E6E`). Editable under **Theme settings → Colors**.
+  `base.css` adds three tokens the settings don't expose: `--gold` (`#A5834B`),
+  `--wax-dark` (`#273B33`) and `--on-accent` (`#F3E6D2`), used for seals and solid buttons.
+- **Type** — Fraunces (display), Literata (body), Work Sans (letterspaced small caps for
+  eyebrows and buttons). All three are self-hosted `woff2` theme assets declared with
+  `@font-face` in `base.css` and preloaded in the layout — nothing waits on Google Fonts.
+- **The quatrefoil** — the house mark, used only behind the place a shopper commits: the buy
+  box, the drawer checkout, the cart totals. `assets/obj-pattern.css` explains the restraint.
+- **Voice baked in** — "Your parcel" instead of cart, "Between editions" instead of sold out,
+  the fulfillment promise on every product page, the letter on the homepage.
+
+## The edition gate
+
+**Theme settings → Edition → Purchasing state** governs whether the house is selling:
+
+| State | What happens |
+|---|---|
+| `pre_launch` | Buy buttons are replaced by the pre-launch note and the guest-book CTA |
+| `open` | Everything sells normally; product descriptions take over from the house copy |
+| `retired` | Buy buttons are replaced by the retired note; quick add disappears |
+
+Two things cross the gate anyway: a preorder, and any product page whose Product section has
+**Sell during preproduction** ticked (`product.perfume.json` does). The store is currently in
+`pre_launch`.
 
 ## Structure
 
 | Where | What |
 |---|---|
-| `sections/hero.liquid` | Editorial homepage hero |
-| `sections/purse-hero.liquid` | In Her Purse debut landing hero |
-| `sections/purse-tote.liquid` | The Brownstone Tote, No. 1 of the debut |
-| `templates/page.in-her-purse.json` | Landing page template for the debut |
-| `sections/edition-grid.liquid` | "The First Edition" numbered product grid (No. 1–4) |
-| `sections/the-letter.liquid` | Letter-from-the-maison excerpt with drop cap & signature |
-| `sections/ritual.liquid` | I / II / III made-to-order value props |
-| `sections/marquee.liquid` | Scrolling ribbon of house phrases |
-| `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
-| `templates/page.the-letter.json` | Full About / "Our Why" letter page |
+| `layout/theme.liquid` | Head, meta/OG/JSON-LD, font preloads, parcel drawer, toast |
+| `sections/hero-atelier.liquid` | Homepage hero with the guest-book claim |
+| `sections/collection-hero.liquid` | Editorial collection hero with a live lineup line |
+| `sections/collection-grid.liquid` | Collection products with a "more coming" card |
+| `sections/main-product.liquid` | Product page: gallery, notes board, buy box, accordions |
+| `sections/sticky-buy.liquid` | Sticky buy bar |
+| `sections/edition-bundle.liquid` | Buy-the-edition bundle |
+| `sections/edition-closed.liquid` · `waitlist-home.liquid` | Doors-shut states and the waitlist |
+| `sections/collectors-ledger.liquid` | The ledger |
+| `sections/house-notes.liquid` · `house-rules.liquid` · `service-strip.liquid` | House copy blocks |
+| `sections/sealed-confirmation.liquid` | Post-signup confirmation |
+| `snippets/cart-drawer.liquid` | The parcel drawer |
+| `snippets/product-card.liquid` | Product card: edition number, quick add, dispatch note |
+| `snippets/product-notes.liquid` | The fragrance notes board |
+| `templates/agents.md.liquid` | The house knowledge base, served at `/agents.md` |
 
-## Product metafields (optional but recommended)
+## Product metafields
 
-Create these under **Settings → Custom data → Products**:
+All optional; each falls back to house copy. Create them under **Settings → Custom data → Products**.
 
-| Namespace & key | Type | Example |
+| Namespace & key | Type | Effect |
 |---|---|---|
 | `custom.edition_number` | Integer | `1` → renders "No. 1" |
-| `custom.cta_label` | Single line text | `Escort my paperback →` |
+| `custom.cta_label` | Single line text | Microcopy under the buy button |
 | `custom.preorder` | Boolean | `true` → sell as a preorder |
+| `custom.dispatch_note` | Single line text | Per-piece availability line on the card |
+| `custom.preorder_ship_window` | Single line text | Ship window under a preorder button |
+| `custom.preorder_note` | Rich text | Replaces the house preorder terms |
+| `custom.materials` · `fit_dimensions` · `care` | Rich text | Product accordions |
+| `custom.ritual_intro` · `object_copy` · `making_note` · `suitability` | Rich text | Product page copy |
 
-Without them the theme falls back to grid position for numbering and "Add to my parcel →" for the button.
+## Keeping this repository and the store in step
+
+The published theme has been the working copy: versions v5.12 through v5.25 exist as theme
+copies in the Shopify admin, and this repository sat at v1.0.0 until it was resynced from the
+live theme through the Admin GraphQL API. 103 of the 105 files here are byte-identical to
+`OBJ v5.24`, verified against the API's own MD5 per file.
+
+Two files are not byte-identical, and never will be: `config/settings_data.json` and
+`sections/header-group.json`. Shopify rewrites those minified whenever someone saves in the
+theme editor. What is here is exactly what the Admin API returns for them; the difference is
+whitespace and key order. `settings_data.json` is also marked auto-generated by Shopify and
+will be overwritten by the editor — treat it as a record of the current settings, not a source
+of truth.
+
+Before pushing this repository over a live theme, pull the live theme first and diff it.
+Someone may have edited it in the admin since the last sync.
 
 ## Getting it onto Shopify
 
 ```bash
-# from this directory
-shopify theme dev    # live preview against your store
+shopify theme dev
+```
+
+```bash
 shopify theme push --unpublished --theme "Oh Betty Jaletti"
 ```
 
 Or zip the folder and upload via **Online Store → Themes → Add theme → Upload zip file**.
 
-## Landing page: In Her Purse
+## Preorder: The Chaperone
 
-The homepage is the debut landing for **In Her Purse**. The first piece is **The Brownstone Tote by Betty** — brown suede, a flowered scarf knotted at the handle, No. 1. The photograph ships with the theme at `assets/brownstone-tote.jpg`.
+The Chaperone — a coat for the paperback — is sold as a preorder: charged today, cut when the
+edition opens, shipped with it. [`the-chaperone.csv`](the-chaperone.csv) is catalog data, not a
+theme asset; import it under **Products → Import** rather than relying on a theme zip.
 
-The same landing is the `page.in-her-purse` template. Create a page with handle `in-her-purse` and assign that template if you want the debut at its own address as well.
-
-Until a product with handle `the-brownstone-tote` exists, the page asks for an address and tags the customer `in-her-purse`. Once that product is published, the landing sells it at the variant price and the button reads "Claim the tote →". Assign the **brownstone** product template so the product page carries the suede, scarf, and shipping notes. No price is invented here — set it on the variant.
-
-The Chaperone preorder stays at `/products/the-chaperone`, and the landing links to it.
-
-## Preorder: The Chaperone at $79
-
-The Chaperone — a coat for the paperback, No. 1 in the first edition — can be preordered at **$79**. The customer is charged today; the piece is cut when the edition opens and ships with it.
-
-1. In Shopify admin, go to **Products → Import** and upload [`the-chaperone.csv`](the-chaperone.csv). That file is catalog data, not a theme asset — import it; don't rely on a theme zip to create the product. It publishes:
-   - Handle `the-chaperone`
-   - Price **$79.00**
-   - Tag `preorder`
-   - Template suffix `preorder` (uses `templates/product.preorder.json`)
-   - Inventory left untracked, with policy **continue**, so the preorder stays open before any are made
-2. Add **The Chaperone** to the **First Edition** collection and pick that collection in the homepage edition grid.
-3. Leave the variant price at **$79.00**. The product page, homepage preorder, and announcement all sell that price. The charged amount is the variant price; the homepage shows `$79` only until the product exists.
-
-A product sells as a preorder when any of these are true: template suffix `preorder`, tag `preorder`, handle `the-chaperone`, or metafield `custom.preorder` is true. Adding it to the parcel writes line-item properties `Preorder: Yes` and `Ships: With the first edition`, which follow the order into checkout.
-
-To close the preorder, track inventory, set the policy to **deny**, and set quantity to 0. The button then reads "Preorder closed."
-
-## After upload
-
-1. Import **The Chaperone** (above), then create the **First Edition** collection with the four products (The Chaperone, The Good Lines, One More Chapter, The Good Glass) and pick it in the homepage "Edition grid" section.
-2. Create a page with handle `the-letter` using the **page.the-letter** template for the full About letter.
-3. Set the `main-menu` and `footer` navigation menus.
-4. Add the metafields above for per-product CTAs and edition numbers.
+A product sells as a preorder when any of these are true: template suffix `preorder`, tag
+`preorder`, handle `the-chaperone`, or metafield `custom.preorder` is true. Adding it to the
+parcel writes line-item properties `Preorder: Yes` and `Ships: With the first edition`, which
+follow the order into checkout. To close the preorder, track inventory, set the policy to
+**deny**, and set quantity to 0 — the button then reads "Preorder closed."
