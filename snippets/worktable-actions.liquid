@@ -26,6 +26,8 @@
   assign cname = concept_name | default: 'this idea'
   assign mode = layout | default: 'rail'
   assign uid = cid | append: '-' | append: section.id
+  assign notify_form_id = 'wt-notify-' | append: uid
+  assign thought_form_id = 'wt-thought-' | append: uid
 -%}
 
 {%- if mode == 'rail' -%}
@@ -81,7 +83,7 @@
 
   <div class="wt-panel" id="notify-{{ uid | escape }}" hidden>
     <p class="wt-panel__h">Tell me if it happens.</p>
-    {%- form 'customer', id: 'wt-notify-' | append: uid -%}
+    {%- form 'customer', id: notify_form_id -%}
       {%- if form.posted_successfully? -%}
         <p>Consider it noted. The house will write when there is something to say about
           {{ cname }} &mdash; and about nothing else, unless you ticked the box.</p>
@@ -111,7 +113,7 @@
 
   <div class="wt-panel" id="thought-{{ uid | escape }}" hidden>
     <p class="wt-panel__h">Leave a thought.</p>
-    {%- form 'contact', id: 'wt-thought-' | append: uid -%}
+    {%- form 'contact', id: thought_form_id -%}
       {%- if form.posted_successfully? -%}
         <p>Well, that&rsquo;s lovely to know. Consider your opinion tucked away.</p>
       {%- else -%}

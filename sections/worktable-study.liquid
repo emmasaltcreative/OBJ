@@ -17,12 +17,18 @@
   assign cname = section.settings.title | strip_html | strip | default: page.title
 
   case section.settings.status
-    when 'worktable'  then assign status_label = 'At the worktable'
-    when 'shaping'    then assign status_label = 'Taking shape'
-    when 'nearly'     then assign status_label = 'Nearly here'
-    when 'shop'       then assign status_label = 'In the shop'
-    when 'away'       then assign status_label = 'Put away for now'
-    else                   assign status_label = 'A little thought'
+    when 'worktable'
+      assign status_label = 'At the worktable'
+    when 'shaping'
+      assign status_label = 'Taking shape'
+    when 'nearly'
+      assign status_label = 'Nearly here'
+    when 'shop'
+      assign status_label = 'In the shop'
+    when 'away'
+      assign status_label = 'Put away for now'
+    else
+      assign status_label = 'A little thought'
   endcase
 -%}
 
@@ -183,10 +189,10 @@
       "content": "Words"
     },
     {
-      "type": "inline_richtext",
+      "type": "text",
       "id": "title",
       "label": "Title",
-      "info": "Use <br> for a line break."
+      "info": "Wraps on its own in the rail. Keep it short."
     },
     {
       "type": "text",
