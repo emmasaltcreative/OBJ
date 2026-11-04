@@ -13,13 +13,13 @@
     "content_for_index": [],
     "samples_enabled": true,
     "sample_sticker_kicker": "Free sample",
-    "sample_sticker_label": "Smell it before you buy",
+    "sample_sticker_label": "Try it on first",
     "sample_summary_label": "Grab a sample — free",
     "sample_summary_note": "Free · posted to you",
-    "sample_heading": "Smell it before you buy",
+    "sample_heading": "Try it on first",
     "sample_text": "Tell us where to send it. A card, scented by hand, goes out by post — folded into a house envelope and closed with a wax seal. Nothing is charged, and nothing is expected of you afterwards.",
     "sample_button": "Send me the sample →",
-    "sample_note": "One sample per address. We use the address for the envelope and nothing else.",
+    "sample_note": "One sample per address.",
     "sample_success": "Sealed and sent. Watch the letterbox — it travels the long way.",
     "blocks": {
       "7539343560218715217": {

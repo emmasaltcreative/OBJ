@@ -124,7 +124,7 @@
         "type": "text",
         "id": "sample_sticker_label",
         "label": "Seal line",
-        "default": "Smell it before you buy",
+        "default": "Try it on first",
         "info": "Sits on the product's photograph in a grid and links to the form."
       },
       {
@@ -147,7 +147,7 @@
         "type": "text",
         "id": "sample_heading",
         "label": "Heading",
-        "default": "Smell it before you buy"
+        "default": "Try it on first"
       },
       {
         "type": "textarea",
@@ -165,7 +165,7 @@
         "type": "textarea",
         "id": "sample_note",
         "label": "Note",
-        "default": "One sample per address. We use the address for the envelope and nothing else."
+        "default": "One sample per address."
       },
       {
         "type": "textarea",

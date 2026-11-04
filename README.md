@@ -83,7 +83,7 @@ envelope and closed with a wax seal. Nothing is charged.
   goes by post. It is shown whether or not the piece is sellable today: while the doors are
   shut, the scented card is the only way to meet the perfume at all.
 - **On a collection page** — a wax seal on the product's photograph reading *Free sample ·
-  Smell it before you buy*, linking to the form at `/products/<handle>#sample`. The seal sits
+  Try it on first*, linking to the form at `/products/<handle>#sample`. The seal sits
   top-right; quick add owns the bottom of the card, so the two never meet.
 
 A product offers a sample when any of these are true: metafield `custom.free_sample` is true,
