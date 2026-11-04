@@ -131,7 +131,7 @@
         "type": "text",
         "id": "sample_sticker_label",
         "label": "Seal line",
-        "default": "Try it on first",
+        "default": "A scented letter",
         "info": "On the product's photograph in a grid. First contact — it has to earn a click."
       },
       {
@@ -161,7 +161,7 @@
         "type": "text",
         "id": "sample_heading",
         "label": "Heading",
-        "default": "Try it on first"
+        "default": "A letter you can wear"
       },
       {
         "type": "textarea",

@@ -82,8 +82,13 @@ envelope and closed with a wax seal. Nothing is charged, postage included.
   whether or not the piece is sellable today: while the doors are shut, the card is the only way
   to meet the perfume at all.
 - **On a collection page** — a wax seal on the product's photograph reading *Free sample ·
-  Try it on first*, linking to `/products/<handle>#sample`. The seal sits top-right; quick add
+  A scented letter*, linking to `/products/<handle>#sample`. The seal sits top-right; quick add
   owns the bottom of the card, so the two never meet.
+- **On the product page** — a second, larger seal on the lead photograph reading *Free sample ·
+  A letter you can wear*, linking to the panel on the same page. The two seals say different
+  things on purpose: on a grid the seal has to earn a click, and on the product page the reader
+  is already here, so it says what the thing is. Neither promises a spray, because what arrives
+  is scented paper you press to your wrist.
 
 ### How a request is taken
 
