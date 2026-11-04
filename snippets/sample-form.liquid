@@ -125,3 +125,24 @@
     </div>
   </details>
 {% endform %}
+
+<script>
+  /* Open the disclosure on arrival at #sample — from the wax seal on a
+     collection card, or Shopify's own redirect after the form posts.
+     Without JavaScript the form still opens itself on post and on error. */
+  (function () {
+    function openSample() {
+      if (window.location.hash !== '#sample') return;
+      var form = document.getElementById('sample');
+      if (!form) return;
+      var panel = form.querySelector('details');
+      if (panel) panel.open = true;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    }
+    if (window.location.hash === '#sample') {
+      window.addEventListener('load', function () { window.setTimeout(openSample, 100); });
+    }
+    window.addEventListener('hashchange', openSample);
+  })();
+</script>

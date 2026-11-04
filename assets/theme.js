@@ -416,23 +416,4 @@
   if (window.location.hash === '#claim') {
     window.addEventListener('load', function () { window.setTimeout(beckon, 250); });
   }
-
-  /* ------------------------------------------------------------------
-     Free sample — open the disclosure when arriving at #sample, whether
-     that is the wax seal on a collection card or Shopify's own redirect
-     after the contact form posts.
-     ------------------------------------------------------------------ */
-  function openSample() {
-    if (window.location.hash !== '#sample') return;
-    var form = document.getElementById('sample');
-    if (!form) return;
-    var panel = form.querySelector('details');
-    if (panel) panel.open = true;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-  }
-  if (window.location.hash === '#sample') {
-    window.addEventListener('load', function () { window.setTimeout(openSample, 100); });
-  }
-  window.addEventListener('hashchange', openSample);
 })();

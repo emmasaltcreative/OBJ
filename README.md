@@ -54,6 +54,7 @@ Two things cross the gate anyway: a preorder, and any product page whose Product
 | `snippets/product-card.liquid` | Product card: edition number, quick add, dispatch note, sample seal |
 | `snippets/product-notes.liquid` | The fragrance notes board |
 | `snippets/sample-form.liquid` · `has-sample.liquid` | Free samples (below) |
+| `assets/free-sample.css` | Free-sample styles, kept out of `base.css` |
 | `templates/agents.md.liquid` | The house knowledge base, served at `/agents.md` |
 
 ## Product metafields
