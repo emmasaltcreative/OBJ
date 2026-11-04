@@ -20,19 +20,19 @@
         "type": "color",
         "id": "color_paper",
         "label": "Paper (cards & panels)",
-        "default": "#FCF9F1"
+        "default": "#FDFAF3"
       },
       {
         "type": "color",
         "id": "color_ink",
         "label": "Ink (text)",
-        "default": "#26221B"
+        "default": "#2A2320"
       },
       {
         "type": "color",
         "id": "color_accent",
         "label": "Accent (bordeaux)",
-        "default": "#7E2F2A"
+        "default": "#3A544A"
       },
       {
         "type": "color",
@@ -55,8 +55,45 @@
         "type": "text",
         "id": "fulfillment_line",
         "label": "Fulfillment promise",
-        "default": "Made when you order it. Allow 3–5 days before shipping — nothing here waits in a warehouse.",
+        "default": "Each edition is produced with intention and released in considered quantities.",
         "info": "Shown on every product page."
+      }
+    ]
+  },
+  {
+    "name": "Edition",
+    "settings": [
+      {
+        "type": "select",
+        "id": "edition_state",
+        "label": "Purchasing state",
+        "options": [
+          {
+            "value": "pre_launch",
+            "label": "Doors not yet open"
+          },
+          {
+            "value": "open",
+            "label": "Open (purchasable)"
+          },
+          {
+            "value": "retired",
+            "label": "Edition retired"
+          }
+        ],
+        "default": "pre_launch"
+      },
+      {
+        "type": "text",
+        "id": "doors_text",
+        "label": "Pre-launch note",
+        "default": "In preproduction. The doors open when it's ready."
+      },
+      {
+        "type": "text",
+        "id": "retired_text",
+        "label": "Retired note",
+        "default": "This edition has closed."
       }
     ]
   }

@@ -1,16 +1,47 @@
 {%- comment -%}
-  The Brownstone Tote photograph shipped with the theme.
+  The Brownstone Tote photograph.
+
+  Prefers the product's own featured image, so replacing the photo in Shopify
+  updates every place it appears. Falls back to the photograph shipped with
+  the theme if the product is missing or has no image yet.
+
   Accepts:
   - loading {String} eager or lazy. Default: lazy
   - alt {String}
   - class {String}
 {%- endcomment -%}
-<img
-  src="{{ 'brownstone-tote.jpg' | asset_url }}"
-  alt="{{ alt | default: 'The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle' | escape }}"
-  width="1239"
-  height="1270"
-  loading="{{ loading | default: 'lazy' }}"
-  {% if loading == 'eager' %}fetchpriority="high"{% endif %}
-  {% if class != blank %}class="{{ class }}"{% endif %}
->
+
+{%- assign tote_handle = section.settings.product_handle -%}
+{%- if tote_handle == blank -%}
+  {%- assign tote_handle = 'the-brownstone-tote' -%}
+{%- endif -%}
+
+{%- assign tote = all_products[tote_handle] -%}
+{%- assign tote_image = tote.featured_image -%}
+
+{%- assign tote_loading = loading -%}
+{%- if tote_loading == blank -%}
+  {%- assign tote_loading = 'lazy' -%}
+{%- endif -%}
+
+{%- assign tote_alt = alt -%}
+{%- if tote_alt == blank -%}
+  {%- assign tote_alt = tote_image.alt -%}
+{%- endif -%}
+{%- if tote_alt == blank -%}
+  {%- assign tote_alt = 'The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle' -%}
+{%- endif -%}
+
+{%- if tote_image != blank -%}
+  {{ tote_image | image_url: width: 2000 | image_tag: loading: tote_loading, widths: '600, 900, 1400, 2000', alt: tote_alt, class: class }}
+{%- else -%}
+  <img
+    src="{{ 'brownstone-tote.jpg' | asset_url }}"
+    alt="{{ tote_alt | escape }}"
+    width="1239"
+    height="1270"
+    loading="{{ tote_loading }}"
+    {% if tote_loading == 'eager' %}fetchpriority="high"{% endif %}
+    {% if class != blank %}class="{{ class }}"{% endif %}
+  >
+{%- endif -%}

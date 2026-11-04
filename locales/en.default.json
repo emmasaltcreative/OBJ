@@ -10,7 +10,7 @@
     },
     "cart": {
       "title": "Your parcel",
-      "empty": "Your parcel is empty — for now.",
+      "empty": "Your parcel is empty, for now.",
       "checkout": "Check out"
     }
   }

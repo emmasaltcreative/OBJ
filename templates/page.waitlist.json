@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "waitlist-home",
+      "settings": {
+        "page_handle": "waitlist"
+      }
+    },
+    "ribbon": {
+      "type": "marquee",
+      "settings": {}
+    }
+  },
+  "order": [
+    "ribbon",
+    "main"
+  ]
+}

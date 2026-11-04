@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">One More Chapter reading candle</title>
+  <desc id="desc">A warm cream candle in printed glass glowing on a butter yellow table.</desc>
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="220%">
+      <feDropShadow dx="0" dy="28" stdDeviation="30" flood-color="#553d12" flood-opacity=".25"/>
+    </filter>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#fff2ad" stop-opacity=".95"/>
+      <stop offset=".45" stop-color="#f7d36e" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#e6c86e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" x2="1">
+      <stop offset="0" stop-color="#d7c8b4"/>
+      <stop offset=".18" stop-color="#fffaf1"/>
+      <stop offset=".82" stop-color="#f2e5d3"/>
+      <stop offset="1" stop-color="#bca991"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#e8cd75"/>
+  <circle cx="405" cy="365" r="300" fill="url(#glow)"/>
+  <path d="M0 828c120-40 256-53 417-38 161 16 289 9 383-20v230H0Z" fill="#d9b956" opacity=".48"/>
+  <ellipse cx="400" cy="836" rx="235" ry="58" fill="#735b19" opacity=".13"/>
+  <g filter="url(#shadow)" transform="translate(193 172)">
+    <ellipse cx="207" cy="115" rx="185" ry="70" fill="#241d1a"/>
+    <rect x="22" y="112" width="370" height="532" rx="34" fill="url(#glass)"/>
+    <ellipse cx="207" cy="115" rx="170" ry="55" fill="#f6ead8"/>
+    <ellipse cx="207" cy="121" rx="151" ry="43" fill="#e3d3bc"/>
+    <path d="M207 119v-47" stroke="#6b3f2b" stroke-width="8" stroke-linecap="round"/>
+    <path d="M207 78c-27-33-5-70 17-85 19 34 18 61-17 85Z" fill="#3A544A"/>
+    <path d="M210 63c-8-20 1-39 13-50" fill="none" stroke="#f4d47c" stroke-width="8" stroke-linecap="round"/>
+    <rect x="63" y="214" width="288" height="286" rx="5" fill="#f7f1e8"/>
+    <rect x="78" y="229" width="258" height="256" fill="none" stroke="#3A544A" stroke-width="2"/>
+    <text x="207" y="283" fill="#3A544A" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" letter-spacing="4">MAISON BETTY JALETTI</text>
+    <text x="207" y="350" fill="#241d1a" font-family="Georgia,serif" font-size="44" text-anchor="middle">ONE MORE</text>
+    <text x="207" y="399" fill="#241d1a" font-family="Georgia,serif" font-size="44" font-style="italic" text-anchor="middle">CHAPTER</text>
+    <path d="M158 430c26-28 57-28 86 0" fill="none" stroke="#3A544A" stroke-width="2"/>
+    <text x="207" y="463" fill="#5e7187" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" letter-spacing="3">THE READING CANDLE</text>
+    <path d="M65 600c86 17 191 17 284 0" fill="none" stroke="#b09c83" stroke-width="2" opacity=".7"/>
+  </g>
+  <g fill="none" stroke="#3A544A" stroke-width="5" stroke-linecap="round" opacity=".58">
+    <path d="M95 188c32 0 55 15 70 44-28 15-56 7-83-22"/>
+    <path d="M700 723c-35-3-60 11-76 42 29 18 60 12 91-17"/>
+  </g>
+</svg>

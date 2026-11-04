@@ -1,0 +1,90 @@
+{%- comment -%}
+  Signup confirmation. Guest book copy per the July 2026 go-to-market
+  update; check in before rewording. The share block renders only when
+  theme.js stored the signup email (sessionStorage objEmail), since the
+  link is derived from it; direct visits see the note alone.
+{%- endcomment -%}
+
+<section class="section utility-page">
+  <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="96" height="96" style="margin: 0 auto 1.5rem;">
+  <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+  <h1 style="font-style: italic;">{{ section.settings.heading }}</h1>
+  <p style="color: var(--ink-soft); font-size: 1.1rem;">{{ section.settings.text }}</p>
+
+  <div id="objIntroBlock" hidden style="margin: 2.6rem auto 0; max-width: 520px; text-align: center;">
+    <hr style="width: 46px; border: 0; border-top: 1px solid rgba(42, 35, 32, 0.3); margin: 0 auto 2.2rem;" aria-hidden="true">
+    <span class="eyebrow eyebrow--accent">Bring someone with you.</span>
+    <p style="color: var(--ink-soft); margin: 0.75rem 0 0;">The reading hour is better shared.</p>
+    <div style="display: flex; gap: 0.5rem; margin-top: 1.2rem; justify-content: center; flex-wrap: wrap;">
+      <input id="objIntroLink" type="text" readonly value="" aria-label="Your personal link" style="flex: 1 1 240px; min-width: 0; padding: 0.6rem 0.75rem; border: 1px solid rgba(42, 35, 32, 0.25); background: var(--color-paper, #FDFAF3); font-size: 0.85rem; color: var(--ink-soft);">
+      <button type="button" id="objIntroCopy" style="padding: 0.6rem 1.2rem; border: 1px solid var(--color-accent, #3A544A); background: var(--color-accent, #3A544A); color: var(--on-accent, #F3E6D2); letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.75rem; cursor: pointer;">Copy</button>
+    </div>
+  </div>
+
+  <div style="margin-top: 2rem;">
+    <a href="{{ section.settings.link | default: routes.root_url }}" class="link-arrow">{{ section.settings.link_label }}</a>
+  </div>
+</section>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'waitlist_signup' });
+  if (typeof gtag === 'function') {
+    gtag('event', 'sign_up', { method: 'waitlist' });
+    gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var email;
+    try { email = sessionStorage.getItem('objEmail'); } catch (e) { return; }
+    if (!email || typeof window.objIntroCode !== 'function') return;
+    var block = document.getElementById('objIntroBlock');
+    var field = document.getElementById('objIntroLink');
+    var copy = document.getElementById('objIntroCopy');
+    field.value = 'https://www.ohbettyjaletti.com/?intro=' + window.objIntroCode(email);
+    block.hidden = false;
+    copy.addEventListener('click', function () {
+      field.select();
+      var done = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy'; }, 2000); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(field.value).then(done); } else { document.execCommand('copy'); done(); }
+      if (typeof gtag === 'function') gtag('event', 'share', { method: 'introduction' });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sealed confirmation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Correspondence received"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your name is in Betty's guest book."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "You'll receive her letters, quiet glimpses behind the scenes, and an invitation when Edition One is ready."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Back to the maison"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ]
+}
+{% endschema %}

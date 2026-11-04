@@ -5,9 +5,9 @@
       "settings": {
         "eyebrow": "The debut collection",
         "heading": "In <em>Her</em> Purse",
-        "subheading": "A debut of bags, beginning with one. The Brownstone Tote by Betty.",
+        "subheading": "She has what the day asks for, and the thing it forgot to mention. Never caught short — and never late, except fashionably.",
         "button_label": "The Brownstone Tote",
-        "image_alt": "The Brownstone Tote by Betty, a brown suede tote with a flowered scarf knotted at the handle",
+        "image_alt": "The Brownstone Tote by Betty, a faux suede tote in Café Noir with a silk scarf knotted at the handle",
         "caption_left": "No. 1",
         "caption_right": "The Brownstone Tote by Betty"
       }
@@ -26,22 +26,22 @@
         "suede": {
           "type": "fact",
           "settings": {
-            "label": "Suede",
-            "value": "Brown, full, and soft"
+            "label": "Fabric",
+            "value": "Ultra-soft faux suede, lined in polyester"
           }
         },
         "scarf": {
           "type": "fact",
           "settings": {
             "label": "Scarf",
-            "value": "Flowered, knotted at the handle"
+            "value": "100% Mulberry Silk, knotted at the handle"
           }
         },
         "clasp": {
           "type": "fact",
           "settings": {
-            "label": "Clasp",
-            "value": "A slim strap across the front"
+            "label": "Closure",
+            "value": "A silent magnetic snap, with quiet front buckles"
           }
         },
         "place": {
@@ -77,8 +77,8 @@
           "type": "step",
           "settings": {
             "numeral": "I.",
-            "heading": "The suede",
-            "text": "Brown, and soft enough to take the shape of what goes inside. It will mark where a life marks it."
+            "heading": "The fabric",
+            "text": "Ultra-soft faux suede, velvety in the hand, and unstructured enough to take the shape of whatever goes inside."
           }
         },
         "step-2": {
@@ -86,7 +86,7 @@
           "settings": {
             "numeral": "II.",
             "heading": "The scarf",
-            "text": "Knotted on, not tucked away. Small flowers on a brown ground. A bag should have one piece of jewelry."
+            "text": "100% Mulberry Silk, knotted on rather than tucked away. A bag should have one piece of jewelry."
           }
         },
         "step-3": {
@@ -104,7 +104,7 @@
       "type": "the-letter",
       "settings": {
         "eyebrow": "A note on the debut",
-        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote. Brown suede, a scarf I would not take off, and enough room to leave the house without a plan.</p>",
+        "body": "<p>I have been thinking about what a woman keeps close. Not the performance of a bag — the actual contents. The letter she means to post. The paperback with the corner turned down. The lipstick she will reapply in a doorway, badly, and not mind.</p><p>In Her Purse is that thought, made into a collection. It begins with the Brownstone Tote.</p>",
         "signature": "— B.",
         "link_label": ""
       }

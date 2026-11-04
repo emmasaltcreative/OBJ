@@ -5,14 +5,27 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "The debut — In Her Purse. The Brownstone Tote by Betty.",
-        "link": "/#brownstone-tote"
+        "text": "Edition II · THE READING HOUR | Open for preorder.",
+        "link": "/collections/in-her-purse"
       }
     },
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "shop_label": "Shop",
+        "edition_one_handle": "in-her-purse",
+        "edition_one_label": "Edition I · In Her Purse",
+        "edition_two_handle": "the-reading-hour",
+        "edition_two_label": "Edition II · Preorder · The Reading Hour",
+        "story_label": "Our Story",
+        "story_url": "",
+        "journal_label": "Journal",
+        "journal_url": ""
+      }
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }

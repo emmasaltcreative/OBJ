@@ -1,0 +1,101 @@
+{%- assign waitlist_page = pages[section.settings.page_handle] -%}
+
+{% if waitlist_page != blank and waitlist_page.content != blank %}
+  {%- comment -%}
+    Render-time fixes, leaving the page body untouched in admin:
+    1. Production-claim compliance: "made to order" is never shown.
+    2. Signup redirects to the tracked confirmation page.
+    3. The body's embedded <style> and <script> blocks are stripped;
+       their contents live in base.css and theme.js so they cache with the theme.
+  {%- endcomment -%}
+  {%- assign waitlist_content = waitlist_page.content
+        | replace: 'made to order and numbered by hand', 'made with intention'
+        | replace: '/pages/waitlist?customer_posted=true', '/pages/sealed'
+        | replace: ' — ', ': ' -%}
+
+  {%- comment -%}
+    v5.7: the hero above now carries the headline and the claim form, so the
+    body's duplicates are trimmed at render. The page body in admin stays
+    whole (the live theme still needs it); every strip is a no-op if the
+    body changes shape.
+  {%- endcomment -%}
+
+  {%- comment -%} 1. The script wordmark: the header lockup owns the branding now. {%- endcomment -%}
+  {%- assign wm_parts = waitlist_content | split: '<svg class="obj-wordmark"' -%}
+  {%- if wm_parts.size > 1 -%}
+    {%- assign wm_tail = wm_parts[1] | split: '</svg>' -%}
+    {%- assign rebuilt = wm_parts[0] -%}
+    {%- for piece in wm_tail offset: 1 -%}
+      {%- assign rebuilt = rebuilt | append: piece -%}
+      {%- unless forloop.last -%}
+        {%- assign rebuilt = rebuilt | append: '</svg>' -%}
+      {%- endunless -%}
+    {%- endfor -%}
+    {%- assign waitlist_content = rebuilt -%}
+  {%- endif -%}
+
+  {%- comment -%} 2. Lines the hero already says. {%- endcomment -%}
+  {%- assign waitlist_content = waitlist_content
+        | replace: '<h1 class="obj-h1">Objects for the quiet hour.</h1>', ''
+        | replace: '<p class="obj-sub"><em>The Chaperone</em>, a linen book cover for the reading hour, and the three objects that complete it. Pressed once and numbered by hand.</p>', ''
+        | replace: '<p class="obj-sub"><em>The Chaperone</em>, an heirloom book cover for the reading hour, and the companion pieces taking shape around it.</p>', ''
+        | replace: '<p class="obj-plain"><strong>The short version: sign today, claim a low number for life, and shop the First Edition a week before anyone else.</strong></p>', ''
+        | replace: '<p class="obj-plain"><strong>The short version: sign today, claim a low number, and shop the First Edition a week before anyone else.</strong></p>', ''
+        | replace: '<p class="obj-plain"><strong>The short version: sign today and shop the First Edition a week before anyone else.</strong></p>', ''
+        | replace: '<p class="obj-plain"><strong>The short version: guest book members will receive the first invitation to shop Edition One.</strong></p>', '' -%}
+
+  {%- comment -%}
+    3. The second claim form: replaced with a button up to the hero form.
+       Everything from the form wrap to the next rule goes, along with the
+       rule directly beneath the button; later rules stay.
+  {%- endcomment -%}
+  {%- assign fw_parts = waitlist_content | split: '<div class="obj-form-wrap"' -%}
+  {%- if fw_parts.size > 1 -%}
+    {%- assign fw_tail = fw_parts[1] | split: '<hr class="obj-rule">' -%}
+    {%- assign rebuilt = fw_parts[0] | append: '<p class="obj-claim-up"><a class="obj-claim-btn" href="#claim">Enter Betty&rsquo;s guest book</a></p>' -%}
+    {%- for piece in fw_tail offset: 1 -%}
+      {%- unless forloop.first -%}
+        {%- assign rebuilt = rebuilt | append: '<hr class="obj-rule">' -%}
+      {%- endunless -%}
+      {%- assign rebuilt = rebuilt | append: piece -%}
+    {%- endfor -%}
+    {%- assign waitlist_content = rebuilt -%}
+  {%- endif -%}
+  {%- assign style_parts = waitlist_content | split: '<style>' -%}
+  {%- if style_parts.size > 1 -%}
+    {%- assign style_tail = style_parts[1] | split: '</style>' -%}
+    {%- assign waitlist_content = style_parts[0] | append: style_tail[1] -%}
+  {%- endif -%}
+  {%- assign script_parts = waitlist_content | split: '<script>' -%}
+  {%- if script_parts.size > 1 -%}
+    {%- assign script_tail = script_parts[1] | split: '</script>' -%}
+    {%- assign waitlist_content = script_parts[0] | append: script_tail[1] -%}
+  {%- endif -%}
+  <div class="waitlist-home">{{ waitlist_content }}</div>
+{% else %}
+  <section class="utility-page">
+    <span class="eyebrow eyebrow--accent">Maison Betty Jaletti</span>
+    <h1 style="font-style: italic;">Objects for the quiet hour.</h1>
+    <p style="color: var(--ink-soft);">Choose the waitlist page in the theme editor to render it here.</p>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Waitlist home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_handle",
+      "label": "Page handle",
+      "default": "waitlist",
+      "info": "The page whose content renders as the homepage."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Waitlist home"
+    }
+  ]
+}
+{% endschema %}

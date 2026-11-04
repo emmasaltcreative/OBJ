@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "sealed-confirmation",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
