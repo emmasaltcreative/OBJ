@@ -31,7 +31,7 @@
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent (bordeaux)",
+        "label": "Accent (green)",
         "default": "#3A544A"
       },
       {
@@ -94,6 +94,84 @@
         "id": "retired_text",
         "label": "Retired note",
         "default": "This edition has closed."
+      }
+    ]
+  },
+  {
+    "name": "Free samples",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "A card scented by hand, folded into a house envelope and closed with a wax seal. Offered on scented products — tagged fragrance or sample, typed as an eau de parfum, or with the metafield custom.free_sample set true. Withheld with the tag no-sample. Requests arrive wherever Settings → Notifications → Contact is sent."
+      },
+      {
+        "type": "checkbox",
+        "id": "samples_enabled",
+        "label": "Offer free samples",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "The seal on a product card"
+      },
+      {
+        "type": "text",
+        "id": "sample_sticker_kicker",
+        "label": "Seal kicker",
+        "default": "Free sample"
+      },
+      {
+        "type": "text",
+        "id": "sample_sticker_label",
+        "label": "Seal line",
+        "default": "Smell it before you buy",
+        "info": "Sits on the product's photograph in a grid and links to the form."
+      },
+      {
+        "type": "header",
+        "content": "The form on a product page"
+      },
+      {
+        "type": "text",
+        "id": "sample_summary_label",
+        "label": "Disclosure label",
+        "default": "Grab a sample — free"
+      },
+      {
+        "type": "text",
+        "id": "sample_summary_note",
+        "label": "Disclosure note",
+        "default": "Free · posted to you"
+      },
+      {
+        "type": "text",
+        "id": "sample_heading",
+        "label": "Heading",
+        "default": "Smell it before you buy"
+      },
+      {
+        "type": "textarea",
+        "id": "sample_text",
+        "label": "Text",
+        "default": "Tell us where to send it. A card, scented by hand, goes out by post — folded into a house envelope and closed with a wax seal. Nothing is charged, and nothing is expected of you afterwards."
+      },
+      {
+        "type": "text",
+        "id": "sample_button",
+        "label": "Button",
+        "default": "Send me the sample →"
+      },
+      {
+        "type": "textarea",
+        "id": "sample_note",
+        "label": "Note",
+        "default": "One sample per address. We use the address for the envelope and nothing else."
+      },
+      {
+        "type": "textarea",
+        "id": "sample_success",
+        "label": "Thank you",
+        "default": "Sealed and sent. Watch the letterbox — it travels the long way."
       }
     ]
   }

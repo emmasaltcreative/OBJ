@@ -1,0 +1,47 @@
+{%- comment -%}
+  Outputs "true" when the product offers a free scented sample.
+  Accepts:
+  - product: {Object}
+
+  A product offers a sample when any of these are true:
+  - metafield custom.free_sample is true
+  - tagged "sample" or "free-sample"
+  - tagged "fragrance"
+  - handle is "a-woman-remembered"
+  - product type reads parfum / perfume / fragrance / cologne / scent
+
+  It is withheld when the metafield is explicitly false, when the product is
+  tagged "no-sample", or when samples are switched off in theme settings.
+
+  The sample is deliberately not gated on edition_state. While the doors are
+  shut the scented card is the only way to meet the perfume at all, which is
+  exactly when it is worth sending.
+{%- endcomment -%}
+{%- liquid
+  assign sample = false
+
+  if product != blank and settings.samples_enabled
+    assign sample_meta = product.metafields.custom.free_sample.value
+    assign tag_list = product.tags | join: ',' | downcase
+    assign type_handle = product.type | handle
+
+    if sample_meta == true or sample_meta == 'true'
+      assign sample = true
+    elsif tag_list contains 'sample'
+      assign sample = true
+    elsif tag_list contains 'fragrance'
+      assign sample = true
+    elsif product.handle == 'a-woman-remembered'
+      assign sample = true
+    elsif type_handle contains 'parfum' or type_handle contains 'perfume'
+      assign sample = true
+    elsif type_handle contains 'fragrance' or type_handle contains 'cologne' or type_handle contains 'scent'
+      assign sample = true
+    endif
+
+    if sample_meta == false or sample_meta == 'false' or tag_list contains 'no-sample'
+      assign sample = false
+    endif
+  endif
+-%}
+{%- if sample -%}true{%- endif -%}

@@ -73,8 +73,18 @@
   the edition_state gate stays shut for every other piece.
 {%- endcomment -%}
 {%- capture preorder_flag -%}{%- render 'is-preorder', product: product -%}{%- endcapture -%}
+{%- capture sample_flag -%}{%- render 'has-sample', product: product -%}{%- endcapture -%}
 {%- liquid
   assign variant = product.selected_or_first_available_variant
+
+  comment
+    The free scented card. Offered whether or not the piece is sellable
+    today: while the doors are shut it is the only way to meet the scent.
+  endcomment
+  assign has_sample = false
+  if sample_flag contains 'true' and section.settings.show_sample
+    assign has_sample = true
+  endif
 
   assign is_preorder = false
   if preorder_flag contains 'true' or section.settings.preorder_mode
@@ -310,6 +320,10 @@
           </div>
         {% endif %}
 
+        {% if has_sample %}
+          {% render 'sample-form', product: product %}
+        {% endif %}
+
         <div class="product__accordions">
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.heading != blank and block.settings.content != blank %}
@@ -492,6 +506,13 @@
       "id": "preorder_eyebrow",
       "label": "Preorder eyebrow",
       "default": "Preorder · The First Edition"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sample",
+      "label": "Offer a free sample",
+      "default": true,
+      "info": "Shown on scented products — tagged fragrance or sample, typed as an eau de parfum, or with metafield custom.free_sample true. Copy lives in Theme settings → Free samples."
     },
     {
       "type": "checkbox",

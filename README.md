@@ -51,8 +51,9 @@ Two things cross the gate anyway: a preorder, and any product page whose Product
 | `sections/house-notes.liquid` · `house-rules.liquid` · `service-strip.liquid` | House copy blocks |
 | `sections/sealed-confirmation.liquid` | Post-signup confirmation |
 | `snippets/cart-drawer.liquid` | The parcel drawer |
-| `snippets/product-card.liquid` | Product card: edition number, quick add, dispatch note |
+| `snippets/product-card.liquid` | Product card: edition number, quick add, dispatch note, sample seal |
 | `snippets/product-notes.liquid` | The fragrance notes board |
+| `snippets/sample-form.liquid` · `has-sample.liquid` | Free samples (below) |
 | `templates/agents.md.liquid` | The house knowledge base, served at `/agents.md` |
 
 ## Product metafields
@@ -64,11 +65,42 @@ All optional; each falls back to house copy. Create them under **Settings → Cu
 | `custom.edition_number` | Integer | `1` → renders "No. 1" |
 | `custom.cta_label` | Single line text | Microcopy under the buy button |
 | `custom.preorder` | Boolean | `true` → sell as a preorder |
+| `custom.free_sample` | Boolean | `true` → offer a free sample; `false` → never |
 | `custom.dispatch_note` | Single line text | Per-piece availability line on the card |
 | `custom.preorder_ship_window` | Single line text | Ship window under a preorder button |
 | `custom.preorder_note` | Rich text | Replaces the house preorder terms |
 | `custom.materials` · `fit_dimensions` · `care` | Rich text | Product accordions |
 | `custom.ritual_intro` · `object_copy` · `making_note` · `suitability` | Rich text | Product page copy |
+
+## Free samples: smell it before you buy
+
+Scented products carry a free-sample offer: a card scented by hand, folded into a house
+envelope and closed with a wax seal. Nothing is charged.
+
+- **On the product page** — a disclosure under the buy box, "Grab a sample — free". It opens a
+  form that requires a physical address (street, city, postal code, country), because the card
+  goes by post. It is shown whether or not the piece is sellable today: while the doors are
+  shut, the scented card is the only way to meet the perfume at all.
+- **On a collection page** — a wax seal on the product's photograph reading *Free sample ·
+  Smell it before you buy*, linking to the form at `/products/<handle>#sample`. The seal sits
+  top-right; quick add owns the bottom of the card, so the two never meet.
+
+A product offers a sample when any of these are true: metafield `custom.free_sample` is true,
+tagged `sample` or `free-sample`, tagged `fragrance`, handle `a-woman-remembered`, or the
+product type reads parfum / perfume / fragrance / cologne / scent. It is withheld when
+`custom.free_sample` is false, the product is tagged `no-sample`, or samples are switched off
+in theme settings. **A Woman Remembered** is tagged `fragrance`, so it qualifies as it stands.
+
+The form is a Shopify **contact** form, so no app and no metafield plumbing is needed. Every
+field — name, email, street address, apartment, city, state, postal code, country and an
+optional note — arrives in the store's contact notification, ready to address an envelope
+from, along with the product title and URL and an optional "write to me when a new edition
+opens" checkbox. **Requests land wherever Settings → Notifications → Contact is sent.** The
+form does not create a customer or apply a tag; contact forms cannot, so the letters checkbox
+is a note to the house, not an automatic subscribe.
+
+Copy lives under **Theme settings → Free samples**. A single product page can hide the offer
+with the Product section's **Offer a free sample** checkbox.
 
 ## Keeping this repository and the store in step
 
