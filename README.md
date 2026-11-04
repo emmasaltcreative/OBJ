@@ -21,8 +21,6 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/ritual.liquid` | I / II / III made-to-order value props |
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
-| `snippets/sample-form.liquid` | "Grab a sample" — free scented card, posted to an address |
-| `snippets/has-sample.liquid` | Decides which products offer a sample |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
 
 ## Product metafields (optional but recommended)
@@ -34,7 +32,6 @@ Create these under **Settings → Custom data → Products**:
 | `custom.edition_number` | Integer | `1` → renders "No. 1" |
 | `custom.cta_label` | Single line text | `Escort my paperback →` |
 | `custom.preorder` | Boolean | `true` → sell as a preorder |
-| `custom.free_sample` | Boolean | `true` → offer a free scented sample (`false` → never) |
 
 Without them the theme falls back to grid position for numbering and "Add to my parcel →" for the button.
 
@@ -74,34 +71,6 @@ The Chaperone — a coat for the paperback, No. 1 in the first edition — can b
 A product sells as a preorder when any of these are true: template suffix `preorder`, tag `preorder`, handle `the-chaperone`, or metafield `custom.preorder` is true. Adding it to the parcel writes line-item properties `Preorder: Yes` and `Ships: With the first edition`, which follow the order into checkout.
 
 To close the preorder, track inventory, set the policy to **deny**, and set quantity to 0. The button then reads "Preorder closed."
-
-## Free samples: smell it before you buy
-
-Scented products carry a free-sample offer: a card scented by hand, folded into a house
-envelope and closed with a wax seal. Nothing is charged.
-
-- **On the product page** — a disclosure under the add-to-parcel button, "Grab a sample — free".
-  It opens a form that requires a physical address (street, city, postal code, country), because
-  the card goes by post.
-- **On a collection page** — a bordeaux wax seal on the product's photograph reading
-  *Free sample · Smell it before you buy*, linking to the form at `/products/<handle>#sample`.
-  The same seal appears anywhere the product card is used, including the homepage edition grid.
-
-A product offers a sample when any of these are true: metafield `custom.free_sample` is true,
-tagged `sample` or `free-sample`, tagged `fragrance`, handle `a-woman-remembered`, or the product
-type reads parfum / perfume / fragrance / cologne / scent. It is withheld when
-`custom.free_sample` is false, the product is tagged `no-sample`, or samples are switched off
-in theme settings. **A Woman Remembered** is tagged `fragrance`, so it qualifies as it stands.
-
-The form is a Shopify **contact** form, so no app is needed: every field — name, email, street
-address, apartment, city, state, postal code, country, and an optional note — arrives in the
-store's contact notification, ready to address an envelope from. It also carries the product
-title and URL, and an optional "write to me when a new edition opens" checkbox. Requests land
-wherever **Settings → Notifications → Contact** is sent.
-
-All of the copy lives under **Theme settings → Free samples** (sticker text, heading, intro,
-button, note, thank-you). Per product page, the offer can be hidden with the Product section's
-**Offer a free sample** checkbox.
 
 ## After upload
 

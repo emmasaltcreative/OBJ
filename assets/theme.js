@@ -87,20 +87,4 @@
 
     selects.forEach(function (s) { s.addEventListener('change', update); });
   });
-
-  /* ------------------------------------------------------------------
-     Free sample — open the disclosure when arriving at #sample
-     (from the wax seal on a collection card, or after the form posts)
-     ------------------------------------------------------------------ */
-  function openSample() {
-    if (window.location.hash !== '#sample') return;
-    var form = document.getElementById('sample');
-    if (!form) return;
-    var panel = form.querySelector('details');
-    if (panel) panel.open = true;
-    form.scrollIntoView({ block: 'center' });
-  }
-
-  openSample();
-  window.addEventListener('hashchange', openSample);
 })();

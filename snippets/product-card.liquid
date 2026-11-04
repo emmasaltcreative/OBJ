@@ -10,11 +10,6 @@
 {%- if preorder_flag contains 'true' -%}
   {%- assign is_preorder = true -%}
 {%- endif -%}
-{%- capture sample_flag -%}{%- render 'has-sample', product: product -%}{%- endcapture -%}
-{%- assign has_sample = false -%}
-{%- if sample_flag contains 'true' -%}
-  {%- assign has_sample = true -%}
-{%- endif -%}
 {%- assign edition = product.metafields.custom.edition_number.value -%}
 {%- if edition == blank -%}
   {%- if product.handle == 'the-chaperone' or product.handle == 'the-brownstone-tote' -%}
@@ -36,13 +31,6 @@
       {% render 'brownstone-image', alt: product.title, class: 'brownstone-card-img' %}
     {% else %}
       {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-    {% endif %}
-
-    {% if has_sample %}
-      <a class="sample-sticker" href="{{ product.url }}#sample">
-        <span class="sample-sticker__kicker">{{ settings.sample_sticker_kicker | default: 'Free sample' }}</span>
-        <span class="sample-sticker__line">{{ settings.sample_sticker_label | default: 'Smell it before you buy' }}</span>
-      </a>
     {% endif %}
   </div>
 
