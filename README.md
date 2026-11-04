@@ -73,35 +73,57 @@ All optional; each falls back to house copy. Create them under **Settings → Cu
 | `custom.materials` · `fit_dimensions` · `care` | Rich text | Product accordions |
 | `custom.ritual_intro` · `object_copy` · `making_note` · `suitability` | Rich text | Product page copy |
 
-## Free samples: smell it before you buy
+## Free samples: the scented card
 
 Scented products carry a free-sample offer: a card scented by hand, folded into a house
-envelope and closed with a wax seal. Nothing is charged.
+envelope and closed with a wax seal. Nothing is charged, postage included.
 
-- **On the product page** — a disclosure under the buy box, "Grab a sample — free". It opens a
-  form that requires a physical address (street, city, postal code, country), because the card
-  goes by post. It is shown whether or not the piece is sellable today: while the doors are
-  shut, the scented card is the only way to meet the perfume at all.
+- **On the product page** — a disclosure under the buy box, "Grab a sample — free". It is shown
+  whether or not the piece is sellable today: while the doors are shut, the card is the only way
+  to meet the perfume at all.
 - **On a collection page** — a wax seal on the product's photograph reading *Free sample ·
-  Try it on first*, linking to the form at `/products/<handle>#sample`. The seal sits
-  top-right; quick add owns the bottom of the card, so the two never meet.
+  Try it on first*, linking to `/products/<handle>#sample`. The seal sits top-right; quick add
+  owns the bottom of the card, so the two never meet.
+
+### How a request is taken
+
+The button adds **The Scented Card** — a real $0.00 product — to the parcel and posts straight
+to checkout, where Shopify collects the address. It is not a contact form, and that is the
+whole point:
+
+| | Contact form | $0.00 product through checkout |
+|---|---|---|
+| Address | free text, unvalidated | validated against carrier data |
+| Arrives as | an email | an order, with a label and a fulfilment state |
+| Creates | nothing | a customer record, which syncs to Klaviyo |
+| Can you measure sample → purchase? | no | yes |
+| Cap how many go out | no | inventory on the variant |
+
+The line item carries `Sample of: <product title>`, so one SKU serves every scent and the order
+says which card to scent.
+
+### The pieces
+
+- **Product** `the-scented-card` — $0.00, physical (it must require shipping or checkout will
+  not ask for an address), inventory tracked so the count is a cap, policy **deny** so it stops
+  at zero. Tagged `no-sample` so it does not offer a sample of itself.
+- **Delivery profile** "Samples — posted free" — the card's variant lives in its own profile
+  with a single $0.00 rate. This is deliberate: a conditional "free when the order totals $0"
+  rate on the General profile was tried first and Shopify did not apply it to a $0.00 cart. A
+  separate profile has no condition to misfire.
+- **`data-direct-checkout`** on the form, honoured by `theme.js` — the drawer intercepts every
+  `/cart/add` form, and the sample needs to bypass it so Shopify's own `return_to` carries the
+  shopper to checkout. It also means the sample works with JavaScript off.
 
 A product offers a sample when any of these are true: metafield `custom.free_sample` is true,
 tagged `sample` or `free-sample`, tagged `fragrance`, handle `a-woman-remembered`, or the
 product type reads parfum / perfume / fragrance / cologne / scent. It is withheld when
 `custom.free_sample` is false, the product is tagged `no-sample`, or samples are switched off
-in theme settings. **A Woman Remembered** is tagged `fragrance`, so it qualifies as it stands.
+in theme settings.
 
-The form is a Shopify **contact** form, so no app and no metafield plumbing is needed. Every
-field — name, email, street address, apartment, city, state, postal code, country and an
-optional note — arrives in the store's contact notification, ready to address an envelope
-from, along with the product title and URL and an optional "write to me when a new edition
-opens" checkbox. **Requests land wherever Settings → Notifications → Contact is sent.** The
-form does not create a customer or apply a tag; contact forms cannot, so the letters checkbox
-is a note to the house, not an automatic subscribe.
-
-Copy lives under **Theme settings → Free samples**. A single product page can hide the offer
-with the Product section's **Offer a free sample** checkbox.
+Copy lives under **Theme settings → Free samples**, including the handle of the $0.00 product.
+A single product page can hide the offer with the Product section's **Offer a free sample**
+checkbox. When the card's inventory reaches zero the panel says so instead of showing a button.
 
 ## Keeping this repository and the store in step
 

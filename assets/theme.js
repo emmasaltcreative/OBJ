@@ -147,6 +147,11 @@
     if (drawer) {
       document.querySelectorAll('form[action*="/cart/add"]').forEach(function (form) {
         form.addEventListener('submit', function (event) {
+          /* Opt out: the free-sample form posts normally so Shopify's own
+             return_to carries the shopper straight to checkout, where the
+             address is collected. It works with JavaScript off for the
+             same reason. */
+          if (form.hasAttribute('data-direct-checkout')) return;
           event.preventDefault();
           var button = form.querySelector('[type="submit"]');
           var originalHtml = button ? button.innerHTML : '';
