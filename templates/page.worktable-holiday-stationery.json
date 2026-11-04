@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Cream",
+            "color": "#F2EADB"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Green",
+            "color": "#3A544A"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Red",
+            "color": "#7E2F2A"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Note cards",
+            "color": "#F2EADB"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Envelopes",
+            "color": "#3A544A"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Seasonal set",
+            "color": "#7E2F2A"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "holiday-stationery",
+        "collection_label": "The 12th Month",
+        "index_url": "/pages/the-worktable",
+        "title": "Holiday<br>Stationery",
+        "subtitle": "A little holiday mischief",
+        "story": "<p>Cards and notes for the people who still write things down and put them in the post. Enough of the season to feel like December, not so much that it goes in the bin on the second of January.</p><p>For the one who posts them early; not for someone who sends a group message.</p>",
+        "worktable_note": "Format and stock. How much decoration before it stops being the house.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

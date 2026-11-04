@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "House green",
+            "color": "#3A544A"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Cognac",
+            "color": "#9A5F32"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Chocolate",
+            "color": "#4A3122"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "House green",
+            "color": "#3A544A"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Cognac",
+            "color": "#9A5F32"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Chocolate",
+            "color": "#4A3122"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "leather-keychain",
+        "collection_label": "In Her Purse",
+        "index_url": "/pages/the-worktable",
+        "title": "The Leather<br>Keychain",
+        "subtitle": "A little signature piece",
+        "story": "<p>Good leather cut to the house mark, with hardware heavy enough to hear. It takes the scratches a set of keys gives it and looks better for them.</p><p>For the one who finds her keys by feel at the bottom of the bag; not for someone who wants another charm.</p>",
+        "worktable_note": "Edge finishing, and the weight of the ring. The silhouette comes from the approved artwork, never a redraw.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Linen",
+            "color": "#EDE4D2"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Ribbon",
+            "color": "#3A544A"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Ticking blue",
+            "color": "#3D4E6E"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Weekly",
+            "color": "#EDE4D2"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Daily",
+            "color": "#3A544A"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Undated",
+            "color": "#3D4E6E"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "focus-notebook",
+        "collection_label": "The Reading Hour",
+        "index_url": "/pages/the-worktable",
+        "title": "The Focus<br>Notebook",
+        "subtitle": "A place to put the thought",
+        "story": "<p>One week to a spread, a column for what actually happened, and no scoring, no habits, no streaks.</p><p>For the one who plans on paper and changes her mind in pencil; not for someone who wants a system.</p>",
+        "worktable_note": "Whether this is a Betty object at all. It is the one here that sounds like a productivity brand, and the house is not one.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

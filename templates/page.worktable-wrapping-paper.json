@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "House green",
+            "color": "#3A544A"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Cream",
+            "color": "#F2EADB"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Oxblood",
+            "color": "#6E2B2B"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Illustrated print",
+            "color": "#3A544A"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Stripe / graphic",
+            "color": "#3D4E6E"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Quiet neutral",
+            "color": "#F2EADB"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "wrapping-paper",
+        "collection_label": "The 12th Month",
+        "index_url": "/pages/the-worktable",
+        "title": "The Wrapping<br>Paper",
+        "subtitle": "Three prints, one little hour",
+        "story": "<p>Flat sheets, not a roll: a roll never lies flat again, and this is meant to be kept. Uncoated, so it creases sharply and takes a pen. The reverse left plain, so once the gift is out of it the paper can be written on and posted.</p><p>For the one who wraps it properly on the kitchen table; not for someone in a hurry.</p>",
+        "worktable_note": "Sheets or a roll. And whether December gets a print of its own, or the house mark is enough.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

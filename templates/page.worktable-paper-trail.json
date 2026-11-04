@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Manila",
+            "color": "#D9C6A5"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Grosgrain",
+            "color": "#3A544A"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Paper",
+            "color": "#F2EADB"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Gift tags",
+            "color": "#D9C6A5"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Grosgrain ribbon",
+            "color": "#3A544A"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Paper accessories",
+            "color": "#F2EADB"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "paper-trail",
+        "collection_label": "The 12th Month",
+        "index_url": "/pages/the-worktable",
+        "title": "Paper Trail",
+        "subtitle": "The details that finish a gift",
+        "story": "<p>Manila tags with brass eyelets and a spool of green grosgrain, printed in the same family as the paper. The reverse ruled, so a long message fits and the gift becomes a letter.</p><p>For the one who writes more on the tag than the card; not for someone who signs her name and stops.</p>",
+        "worktable_note": "This exists mainly to make the paper worth ordering. Judge it on whether it lifts that.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

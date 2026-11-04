@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Lacquer",
+            "color": "#3A544A"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Oxblood",
+            "color": "#6E2B2B"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Brass",
+            "color": "#A5834B"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Green pencils",
+            "color": "#3A544A"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Oxblood pencil",
+            "color": "#6E2B2B"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Brass tin",
+            "color": "#A5834B"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "marginalia",
+        "collection_label": "The Reading Hour",
+        "index_url": "/pages/the-worktable",
+        "title": "Marginalia",
+        "subtitle": "Tools for the margins",
+        "story": "<p>Three cedar pencils and a slide-top tin. 2B: dark enough to read back, soft enough not to score the page. No eraser, because an eraser is an apology.</p><p>For the one who highlights in ink without apologising; not for someone who keeps a book pristine.</p>",
+        "worktable_note": "Lacquer finish and the weight of the tin. Pencils or a pen: a pen is more final, which is more Betty, and much harder to make well.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

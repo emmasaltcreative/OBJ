@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Bone",
+            "color": "#FDFAF3"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Green",
+            "color": "#3A544A"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Uncoated",
+            "color": "#F2EADB"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Cream cover",
+            "color": "#F2EADB"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Green cover",
+            "color": "#3A544A"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Linen weave",
+            "color": "#EDE4D2"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "house-catalogue",
+        "collection_label": "OBJ at Large",
+        "index_url": "/pages/the-worktable",
+        "title": "The House<br>Catalogue",
+        "subtitle": "A small printed world",
+        "story": "<p>Paperback proportions, on purpose. Linen board, the mark blocked in gold, and thirty-odd pages of photographs, the letter, the house rules and the pieces. Numbered by hand, like everything else.</p><p>For the one who keeps the good catalogues in a drawer; not for someone who shops on a phone and is happy about it.</p>",
+        "worktable_note": "An annual, or twice a year. Free to the ledger, or charged and refunded against a first order.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}
