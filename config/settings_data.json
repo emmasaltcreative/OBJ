@@ -17,11 +17,12 @@
     "sample_summary_label": "Grab a sample — free",
     "sample_summary_note": "Free · posted to you",
     "sample_heading": "Try it on first",
-    "sample_text": "Tell us where to send it at checkout. A card, scented by hand, goes out by post — folded into a house envelope and closed with a wax seal. The card is free and the postage is ours; nothing is charged and nothing is expected of you afterwards.",
+    "sample_text": "Tell us where to send it at checkout. A card, scented by hand, folded into a house envelope and closed with a wax seal. Press it to your wrist to wear it — it is scented paper, not a vial to spray — and it costs you nothing, postage included.",
     "sample_button": "Send me the sample →",
     "sample_note": "One sample per address.",
     "sample_product_handle": "the-scented-card",
     "sample_spoken_for": "The cards are spoken for just now. The letter will say when more are scented.",
+    "sample_pdp_label": "A letter you can wear",
     "blocks": {
       "7539343560218715217": {
         "type": "shopify://apps/lucky-orange/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",

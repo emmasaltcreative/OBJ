@@ -158,14 +158,24 @@
     >
 
       <div class="product__gallery">
+        {%- assign seal_placed = false -%}
         {% if product.media.size > 0 %}
           {% for media in product.media %}
             {% if media.media_type == 'image' %}
-              {% if forloop.first %}
-                {{ media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
-              {% else %}
-                {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
-              {% endif %}
+              {%- if forloop.first -%}
+                {%- capture lead_image %}{{ media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', alt: media.alt | default: product.title }}{% endcapture -%}
+              {%- else -%}
+                {%- capture lead_image %}{{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}{% endcapture -%}
+              {%- endif -%}
+              {%- if has_sample and seal_placed == false -%}
+                <div class="product__media-lead">
+                  {{ lead_image }}
+                  {% render 'sample-seal', product: product, context: 'pdp' %}
+                </div>
+                {%- assign seal_placed = true -%}
+              {%- else -%}
+                {{ lead_image }}
+              {%- endif -%}
             {% elsif media.media_type == 'video' %}
               <div class="product__video">
                 {{ media | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '1400x' }}
@@ -176,6 +186,11 @@
           {% endfor %}
         {% elsif product.handle == 'the-brownstone-tote' %}
           {% render 'brownstone-image', loading: 'eager', alt: product.title %}
+        {% elsif has_sample %}
+          <div class="product__media-lead">
+            <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000">
+            {% render 'sample-seal', product: product, context: 'pdp' %}
+          </div>
         {% else %}
           <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000">
         {% endif %}

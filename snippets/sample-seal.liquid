@@ -1,0 +1,28 @@
+{%- comment -%}
+  The free-sample wax seal.
+
+  Accepts:
+  - product: {Object} the product being sampled
+  - context: {String} 'pdp' for the product page gallery, otherwise a card
+
+  Two lines, because the two places are read differently. On a grid the
+  seal is first contact and has to earn a click. On the product page the
+  reader is already here, so it says what the thing actually is — a card
+  you wear off the paper, not a vial you spray.
+{%- endcomment -%}
+{%- liquid
+  assign kicker = settings.sample_sticker_kicker | default: 'Free sample'
+  if context == 'pdp'
+    assign line = settings.sample_pdp_label | default: 'A letter you can wear'
+    assign href = '#sample'
+    assign modifier = ' sample-sticker--pdp'
+  else
+    assign line = settings.sample_sticker_label | default: 'Try it on first'
+    assign href = product.url | append: '#sample'
+    assign modifier = ''
+  endif
+-%}
+<a class="sample-sticker{{ modifier }}" href="{{ href }}">
+  <span class="sample-sticker__kicker">{{ kicker }}</span>
+  <span class="sample-sticker__line">{{ line }}</span>
+</a>

@@ -76,10 +76,7 @@
       <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000" loading="lazy">
     {% endif %}
     {%- if has_sample -%}
-      <a class="sample-sticker" href="{{ product.url }}#sample">
-        <span class="sample-sticker__kicker">{{ settings.sample_sticker_kicker | default: 'Free sample' }}</span>
-        <span class="sample-sticker__line">{{ settings.sample_sticker_label | default: 'Try it on first' }}</span>
-      </a>
+      {% render 'sample-seal', product: product %}
     {%- endif -%}
     {%- if show_quick_add -%}
     {%- form 'product', product, class: 'quick-add-form' -%}
