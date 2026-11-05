@@ -164,28 +164,3 @@
   .sample__summary { flex-wrap: wrap; }
   .sample__summary-note { margin-left: 0; width: 100%; text-align: left; }
 }
-
-/* The seal on the product page's lead photograph. Bigger than the one on
-   a card, because the image is: at card size the type would be the only
-   thing holding it together, and here it has room to read as an object. */
-
-.product__media-lead { position: relative; }
-
-.sample-sticker--pdp {
-  top: 1.4rem;
-  right: 1.4rem;
-  width: 8.6rem;
-  height: 8.6rem;
-  padding: 0.8rem;
-  transform: rotate(-6deg);
-}
-.sample-sticker--pdp .sample-sticker__kicker { font-size: 0.56rem; }
-.sample-sticker--pdp .sample-sticker__line {
-  margin-top: 0.38rem;
-  font-size: 1.14rem;
-}
-
-@media (max-width: 900px) {
-  .sample-sticker--pdp { width: 7.2rem; height: 7.2rem; top: 1rem; right: 1rem; }
-  .sample-sticker--pdp .sample-sticker__line { font-size: 1rem; }
-}

@@ -119,7 +119,7 @@
       },
       {
         "type": "header",
-        "content": "The seals"
+        "content": "The seal on a product card"
       },
       {
         "type": "text",
@@ -131,15 +131,8 @@
         "type": "text",
         "id": "sample_sticker_label",
         "label": "Seal line",
-        "default": "A scented letter",
-        "info": "On the product's photograph in a grid. First contact — it has to earn a click."
-      },
-      {
-        "type": "text",
-        "id": "sample_pdp_label",
-        "label": "Seal line (product page)",
-        "default": "A letter you can wear",
-        "info": "On the lead photograph of the product page. The reader is already here, so this one says what the thing is rather than selling it."
+        "default": "Smell It First",
+        "info": "On the product's photograph in a grid. The only seal; the product page has none."
       },
       {
         "type": "header",
