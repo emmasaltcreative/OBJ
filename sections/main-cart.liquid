@@ -28,7 +28,7 @@
                 {%- assign ships = item.properties.Ships | default: 'With the first edition' -%}
                 <div class="cart-line__meta">Preorder · charged today · ships {{ ships | downcase }}</div>
               {% else %}
-                <div class="cart-line__meta">Made to order · allow 3–5 days</div>
+                <div class="cart-line__meta">Made to order · ships in 3–5 business days</div>
               {% endif %}
               <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
             </div>

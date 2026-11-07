@@ -2,6 +2,19 @@
 
 A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisirs, faits exprès*.
 
+## Shipping times
+
+The house standard for how long an order takes lives in
+[`docs/shipping-standard.md`](docs/shipping-standard.md): 3–5 business days to
+pack, 2–5 more in the post, so **5–10 business days to the door** on Standard
+and 4–8 on Express. Change it there first, then on every surface that file
+lists. `docs/shipping-policy.html` is the paste-ready policy page.
+
+> **This repo is not what ohbettyjaletti.com runs.** The live theme is
+> `OBJ v5.26 · The Worktable (preview)`; this snapshot predates it. Copy edited
+> here does not reach the storefront — see the note at the end of
+> `docs/shipping-standard.md`.
+
 ## Design language
 
 - **Palette** — cream paper (`#F6F1E7`), warm ink (`#26221B`), bordeaux accent (`#7E2F2A`), ticking-stripe blue (`#3D4E6E`). All editable under **Theme settings → Colors**.

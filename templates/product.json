@@ -7,14 +7,14 @@
           "type": "accordion",
           "settings": {
             "heading": "The making",
-            "content": "<p>Made to order, one at a time, and numbered to the edition. Printed, bound, or poured when you claim it — allow 3–5 days before shipping.</p>"
+            "content": "<p>Made to order, one at a time, and numbered to the edition. Printed, bound, or poured when you claim it — packed in 3–5 business days.</p>"
           }
         },
         "shipping": {
           "type": "accordion",
           "settings": {
             "heading": "Shipping & returns",
-            "content": "<p>It ships the moment it's finished, and it took the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+            "content": "<p>Packed by hand in 3–5 business days, then 2–5 business days in the post — about 5–10 business days to your door. Express arrives in 4–8. Free US shipping over $70; Standard $8, Express $15.</p><p>Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
           }
         }
       },
