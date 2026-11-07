@@ -125,7 +125,10 @@ product type reads parfum / perfume / fragrance / cologne / scent. It is withhel
 `custom.free_sample` is false, the product is tagged `no-sample`, or samples are switched off
 in theme settings.
 
-Copy lives under **Theme settings → Free samples**, including the handle of the $0.00 product.
+The copy runs as one thought: the seal on the card asks (*Smell It First*), the disclosure
+states the offer (*Grab a sample — free*), and the panel says what arrives (*A scented card,
+sent by post*) before explaining that it is paper, not a vial. Copy lives under
+**Theme settings → Free samples**, including the handle of the $0.00 product.
 A single product page can hide the offer with the Product section's **Offer a free sample**
 checkbox. When the card's inventory reaches zero the panel says so instead of showing a button.
 

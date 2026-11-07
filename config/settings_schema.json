@@ -154,13 +154,14 @@
         "type": "text",
         "id": "sample_heading",
         "label": "Heading",
-        "default": "A letter you can wear"
+        "default": "A scented card, sent by post",
+        "info": "Follows the seal. The seal asks; this says what arrives."
       },
       {
         "type": "textarea",
         "id": "sample_text",
         "label": "Text",
-        "default": "Tell us where to send it at checkout. A card, scented by hand, folded into a house envelope and closed with a wax seal. Press it to your wrist to wear it — it is scented paper, not a vial to spray — and it costs you nothing, postage included."
+        "default": "A card, scented by hand, in a house envelope under a wax seal. Hold it to your nose, or rub it on your wrist and let it warm — it is paper, not a vial, so there is nothing to spray. Tell us where to send it at checkout; the card and the postage are both ours."
       },
       {
         "type": "text",
