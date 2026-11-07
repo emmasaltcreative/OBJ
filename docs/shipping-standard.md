@@ -12,7 +12,7 @@ by hand, and the days spent with the carrier.
 | Method | Packed | In the post | **Arrives** | Price |
 |---|---|---|---|---|
 | Standard | 3–5 business days | 2–5 business days | **5–10 business days** | $8.00, free over $70 |
-| Express | 3–5 business days | 1–3 business days | **4–8 business days** | $15.00 |
+| Express | **1 business day**, packed first | 1–3 business days | **2–4 business days** | $15.00 |
 | The Scented Letter (free sample) | 3–5 business days | up to a week, ordinary post | **1–2 weeks** | free |
 | Preorder | — | — | the date published on the listing | — |
 
@@ -23,8 +23,9 @@ ground service only, US addresses only.
 
 1. **Never state a packing time without a transit time.** "Ships in 3–5 days"
    is the question nobody asked; "arrives in 5–10 business days" is the answer.
-2. **Express buys a faster carrier, not a faster bench.** It is 4–8 against
-   5–10. Do not imply more. See *Outstanding* below.
+2. **Express is packed first, within one business day.** That is what the $15
+   buys: 2–4 days against 5–10. An Express order jumps the bench — honour that,
+   or drop the rate.
 3. **A preorder with no published date is not a preorder, it is a loan.** Either
    publish a date or take the listing down. Shopify's own Terms of Service for
    this store already promises that "preorder listings will identify the
@@ -36,7 +37,7 @@ ground service only, US addresses only.
 
 | Surface | What it says | Where to change it |
 |---|---|---|
-| Checkout, Express rate | "Express — arrives in 4–8 business days" | Settings → Shipping and delivery |
+| Checkout, Express rate | "Express — arrives in 2–4 business days" | Settings → Shipping and delivery |
 | Checkout, Standard rate | *see Outstanding — not yet changed* | Settings → Shipping and delivery |
 | Checkout, sample rate | "Posted — free (allow 1–2 weeks)" | Settings → Shipping and delivery |
 | Every product page | theme setting `fulfillment_line` | Theme settings → Brand |
@@ -73,14 +74,11 @@ Ordered by how much it costs to leave alone.
    `agents.md` both say the United States only. A non-US buyer can check out
    today and the house owes them a parcel it says it does not send. Turn the
    zone off, or change what the house claims.
-6. **Express is barely worth $15.** 4–8 against 5–10 is two days for fifteen
-   dollars, because packing dominates. If Express is to mean anything, give it
-   one-business-day packing, then it becomes 2–4 days and the price makes sense.
-7. **Preorder ship notes were inconsistent on live orders.** Orders #1003–#1005
+6. **Preorder ship notes were inconsistent on live orders.** Orders #1003–#1005
    recorded `Ships: With the first edition`, #1007 recorded `Mid-November`, and
    #1008–#1011 recorded nothing at all — three promises for one product in ten
    days. The templates now write `Date to be confirmed` until a date exists.
-8. **International rates show as `usps` and `dhl_express`** — raw carrier
+7. **International rates show as `usps` and `dhl_express`** — raw carrier
    slugs, lowercase, in front of customers.
 
 ## Note on this repository

@@ -55,7 +55,7 @@
         "type": "text",
         "id": "fulfillment_line",
         "label": "Fulfillment promise",
-        "default": "Packed by hand at the house in 3–5 business days, then 2–5 days in the post. Your exact arrival window is shown at checkout.",
+        "default": "Packed by hand in 3–5 business days, then 2–5 in the post. Express is packed first, within one business day. Your arrival window is shown at checkout.",
         "info": "Shown on every product page. Keep it consistent with Settings → Shipping and the shipping policy."
       }
     ]

@@ -7,7 +7,7 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 The house standard for how long an order takes lives in
 [`docs/shipping-standard.md`](docs/shipping-standard.md): 3–5 business days to
 pack, 2–5 more in the post, so **5–10 business days to the door** on Standard
-and 4–8 on Express. Change it there first, then on every surface that file
+and **2–4 on Express**, which is packed first. Change it there first, then on every surface that file
 lists. `docs/shipping-policy.html` is the paste-ready policy page.
 
 > **This repo is not what ohbettyjaletti.com runs.** The live theme is
