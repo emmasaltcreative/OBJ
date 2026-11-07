@@ -25,7 +25,7 @@
                 <div class="cart-line__meta">{{ item.variant.title }}</div>
               {% endunless %}
               {% if line_preorder %}
-                {%- assign ships = item.properties.Ships | default: 'With the first edition' -%}
+                {%- assign ships = item.properties.Ships | default: 'Date to be confirmed' -%}
                 <div class="cart-line__meta">Preorder · charged today · ships {{ ships | downcase }}</div>
               {% else %}
                 <div class="cart-line__meta">Made to order · ships in 3–5 business days</div>

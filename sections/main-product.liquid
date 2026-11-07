@@ -35,7 +35,7 @@
       {%- assign cta = section.settings.default_cta -%}
     {%- endif -%}
 
-    {%- assign ships = section.settings.preorder_ships | default: 'With the first edition' -%}
+    {%- assign ships = section.settings.preorder_ships | default: 'Date to be confirmed' -%}
     {%- assign sold_out_label = section.settings.sold_out_label -%}
     {%- if is_preorder and sold_out_label == 'Between editions' -%}
       {%- assign sold_out_label = 'Preorder closed' -%}
@@ -236,7 +236,7 @@
       "type": "text",
       "id": "preorder_ships",
       "label": "Preorder ship note",
-      "default": "With the first edition",
+      "default": "Date to be confirmed",
       "info": "Saved on the order as the Ships line-item property."
     },
     {

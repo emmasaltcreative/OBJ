@@ -19,7 +19,7 @@
     assign cta = preorder_product.metafields.custom.cta_label.value
   endif
 
-  assign ships = section.settings.ships | default: 'With the first edition'
+  assign ships = section.settings.ships | default: 'Date to be confirmed'
 -%}
 
 <section class="preorder-feature section" id="chaperone-preorder">
@@ -151,7 +151,7 @@
       "type": "text",
       "id": "ships",
       "label": "Ship note",
-      "default": "With the first edition",
+      "default": "Date to be confirmed",
       "info": "Saved on the order as the Ships line-item property."
     },
     {

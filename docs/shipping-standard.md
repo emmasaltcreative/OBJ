@@ -32,6 +32,13 @@ ground service only, US addresses only.
    estimated shipping date or fulfillment window."
 4. **Processing starts the next business day.** An order placed Friday night
    begins its count Monday.
+5. **A product metafield beats everything in the theme.** `custom.dispatch_note`
+   overrides a card's window, and `custom.preorder_ship_window` and
+   `custom.preorder_note` print under the buy button regardless of what any
+   template says. Changing theme copy and stopping there leaves the metafield
+   contradicting it, which is exactly what happened on 7 Nov: every template
+   said no date while The Chaperone's metafield still read "Sent by 15
+   December." Check the product's metafields whenever a date changes.
 
 ## Where the standard is stated
 
@@ -49,6 +56,10 @@ ground service only, US addresses only.
 | Cart drawer | footer note | `snippets/cart-drawer.liquid` |
 | Shipping policy | "How Long It Takes" section | Settings → Policies |
 | Agent-facing doc | Shipping section | `templates/agents.md.liquid` (live theme) |
+| Every product card (grids, related, collections) | `In stock — at your door in 5–10 business days` / `Preorder — paid today, ship date to be confirmed` | `snippets/product-card.liquid` |
+| The `Ships` property saved on an order | `Date to be confirmed` | `snippets/preorder-properties.liquid`, plus `preorder_ships` per template |
+| Preorder terms & "If it isn't right" accordions | set per template, not left to the section default | `preorder_terms` / `preorder_shipping` / `shipping_text` in `templates/product*.json` |
+| The Chaperone, under the buy button | `custom.preorder_ship_window` metafield | Shopify admin → the product → Metafields |
 
 ## Outstanding
 
@@ -74,11 +85,24 @@ Ordered by how much it costs to leave alone.
    `agents.md` both say the United States only. A non-US buyer can check out
    today and the house owes them a parcel it says it does not send. Turn the
    zone off, or change what the house claims.
-6. **Preorder ship notes were inconsistent on live orders.** Orders #1003–#1005
-   recorded `Ships: With the first edition`, #1007 recorded `Mid-November`, and
-   #1008–#1011 recorded nothing at all — three promises for one product in ten
-   days. The templates now write `Date to be confirmed` until a date exists.
-7. **International rates show as `usps` and `dhl_express`** — raw carrier
+6. **Four preorder buyers were promised a date that is now withdrawn.** Orders
+   #1003–#1005 recorded `Ships: With the first edition`, #1007 recorded
+   `Mid-November`, and #1008–#1011 recorded nothing — three promises for one
+   product in ten days, and the page separately said "Sent by 15 December."
+   The theme now writes `Date to be confirmed`, but those orders keep what they
+   were sold. The house's own terms require writing to them with a revised date
+   and the option to cancel for a full refund. That letter is still unsent.
+7. **`sections/main-product.liquid` still holds stale schema defaults** for
+   `preorder_ships`, `preorder_terms`, `preorder_shipping` and `shipping_text`
+   — the last still claims the store "has no published refund or shipping
+   policy yet," which is no longer true. Every live template now overrides all
+   four, so nothing stale renders today, but a new product template would
+   inherit them. Fix the defaults when that file is next touched.
+8. **Two stale facts on The Chaperone's page**, neither a date: the theme's
+   design-mode check still asserts "The Chaperone preorder is $79" against a
+   $169 variant, and the eyebrow reads "The First Edition" while the metafields
+   and `agents.md` both place it in Edition II.
+9. **International rates show as `usps` and `dhl_express`** — raw carrier
    slugs, lowercase, in front of customers.
 
 ## Note on this repository
