@@ -50,26 +50,21 @@ above, excluding weekends and federal holidays:
 | Standard | 10 business days | **Thursday 10 December** |
 | Express | 4 business days | **Friday 18 December** |
 
-### The banner says 17 December, which only holds for Express
+### The banner carries the Standard cutoff, so it holds for both methods
 
-The announcement bar reads "Place Order by December 17th for Christmas Eve
-Delivery." Order on Thursday 17 December and:
+The announcement bar reads "Place Order by December 10th for Christmas Eve
+Delivery." That is the Standard cutoff, and Standard is the slower of the two,
+so the promise holds whichever method a buyer picks — Express ordered that day
+arrives around 14 December, comfortably early.
 
-- **Express** arrives Mon 21 – Wed 23 December. In time.
-- **Standard** arrives Thu 24 December *at best* and **Mon 4 January at worst** —
-  eleven days late, because Standard's window runs to 10 business days.
+It was briefly set to 17 December, which would have been true of Express alone:
+a Standard order placed 17 December arrives 24 December *at best* and **4
+January at worst**, because Standard's window runs to 10 business days. Standard
+is the default and free over $70, so most orders take it. The rule this follows:
+**a single cutoff date must be computed from the slowest method offered**, or it
+has to name the method it applies to.
 
-Standard is the default and the free option over $70, so most orders take it.
-As written, the banner promises Christmas Eve on the one method that cannot
-reliably hit it. Three ways to square it, in order of how little they cost:
-
-1. Say the method: "Place Order by December 17th with Express for Christmas
-   Eve Delivery."
-2. Move the date to the honest Standard cutoff: "Place Order by December 10th
-   for Christmas Eve Delivery."
-3. Carry both: "Christmas Eve delivery — Standard by Dec 10, Express by Dec 18."
-
-Whichever is chosen, the banner is one field: Theme editor → Header group →
+If the date ever needs to move, it is one field: Theme editor → Header group →
 Announcement bar → Text.
 
 **This is all moot until something ships.** The store has never fulfilled an
