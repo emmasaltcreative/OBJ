@@ -32,7 +32,14 @@ ground service only, US addresses only.
    estimated shipping date or fulfillment window."
 4. **Processing starts the next business day.** An order placed Friday night
    begins its count Monday.
-5. **A product metafield beats everything in the theme.** `custom.dispatch_note`
+5. **Shopify computes its own delivery dates, and they beat the rate name.**
+   With delivery dates on, checkout prints a date range under each rate from
+   `deliveryPromiseSettings.processingTime` plus its own transit estimate. The
+   rate name is just a label next to it. On 8 Nov this read `P10D` — ten days
+   of packing — so a rate named "arrives in 5–10 business days" sat directly
+   above "Tue, Dec 1 – Thu, Dec 3" on an order placed 7 November. Whenever the
+   packing window changes, change it in **both** places.
+6. **A product metafield beats everything in the theme.** `custom.dispatch_note`
    overrides a card's window, and `custom.preorder_ship_window` and
    `custom.preorder_note` print under the buy button regardless of what any
    template says. Changing theme copy and stopping there leaves the metafield
@@ -90,6 +97,7 @@ order, so no Christmas cutoff is real yet.
 | The `Ships` property saved on an order | `Date to be confirmed` | `snippets/preorder-properties.liquid`, plus `preorder_ships` per template |
 | Preorder terms & "If it isn't right" accordions | set per template, not left to the section default | `preorder_terms` / `preorder_shipping` / `shipping_text` in `templates/product*.json` |
 | The Chaperone, under the buy button | `custom.preorder_ship_window` metafield | Shopify admin → the product → Metafields |
+| **The dates under each rate at checkout** | Shopify's own delivery-dates engine, **not** the rate name | Settings → Shipping and delivery → Processing time |
 
 ## Outstanding
 
@@ -99,40 +107,53 @@ Ordered by how much it costs to leave alone.
    zero fulfilments; the oldest (#1003, 27 Oct) is 11 days old. Every promise in
    this file is already broken for every order on the books. Fulfil or write to
    those twelve buyers before advertising any window.
-2. **The Standard rate still reads "Standard" at checkout**, with no time. It
+2. **Shopify's processing time is still 10 days** (`deliveryPromiseSettings`
+   reads `processingTime: "P10D"`, `deliveryDatesEnabled: true`), so checkout
+   quotes arrival about a fortnight later than every other surface promises.
+   There is no API for it — `deliverySettingUpdate` takes no arguments — so it
+   must be set by hand at **Settings → Shipping and delivery → Processing
+   time**, to 3–5 business days.
+
+   One caveat that cannot be designed around: Shopify holds **one processing
+   time for the whole shop**. It cannot pack Express in one business day and
+   Standard in three to five. Whatever is set applies to both, so the quoted
+   Express date will carry Standard's packing time. Either accept that Express
+   looks slower at checkout than its rate name claims, or drop the one-day
+   Express packing promise and put Express back to 4–8 business days.
+3. **The Standard rate still reads "Standard" at checkout**, with no time. It
    carries a price-range condition (free over $70) that the Admin API refuses to
    update, so it must be renamed by hand in Settings → Shipping and delivery:
    - Name: `Standard — arrives in 5–10 business days`
    - Description: `Packed by hand at the house in 3–5 business days, then 2–5 business days in the post. Free on orders over $70.`
-3. **The shipping policy needs pasting.** This connection lacks the
+4. **The shipping policy needs pasting.** This connection lacks the
    `write_legal_policies` scope. Paste `docs/shipping-policy.html` into
    Settings → Policies → Shipping policy.
-4. **The Chaperone has no ship date** and sells at $169. Publish a date or
+5. **The Chaperone has no ship date** and sells at $169. Publish a date or
    unpublish it. Existing preorder buyers must be written to either way.
-5. **International shipping is switched on but the policy says US-only.** The
+6. **International shipping is switched on but the policy says US-only.** The
    General profile has an International zone with 27 countries on
    carrier-calculated USPS/DHL rates, while the shipping policy and
    `agents.md` both say the United States only. A non-US buyer can check out
    today and the house owes them a parcel it says it does not send. Turn the
    zone off, or change what the house claims.
-6. **Four preorder buyers were promised a date that is now withdrawn.** Orders
+7. **Four preorder buyers were promised a date that is now withdrawn.** Orders
    #1003–#1005 recorded `Ships: With the first edition`, #1007 recorded
    `Mid-November`, and #1008–#1011 recorded nothing — three promises for one
    product in ten days, and the page separately said "Sent by 15 December."
    The theme now writes `Date to be confirmed`, but those orders keep what they
    were sold. The house's own terms require writing to them with a revised date
    and the option to cancel for a full refund. That letter is still unsent.
-7. **`sections/main-product.liquid` still holds stale schema defaults** for
+8. **`sections/main-product.liquid` still holds stale schema defaults** for
    `preorder_ships`, `preorder_terms`, `preorder_shipping` and `shipping_text`
    — the last still claims the store "has no published refund or shipping
    policy yet," which is no longer true. Every live template now overrides all
    four, so nothing stale renders today, but a new product template would
    inherit them. Fix the defaults when that file is next touched.
-8. **Two stale facts on The Chaperone's page**, neither a date: the theme's
+9. **Two stale facts on The Chaperone's page**, neither a date: the theme's
    design-mode check still asserts "The Chaperone preorder is $79" against a
    $169 variant, and the eyebrow reads "The First Edition" while the metafields
    and `agents.md` both place it in Edition II.
-9. **International rates show as `usps` and `dhl_express`** — raw carrier
+10. **International rates show as `usps` and `dhl_express`** — raw carrier
    slugs, lowercase, in front of customers.
 
 ## Note on this repository
