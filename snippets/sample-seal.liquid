@@ -1,0 +1,15 @@
+{%- comment -%}
+  The free-sample wax seal, on a product card in a grid.
+
+  Accepts:
+  - product: {Object} the product being sampled
+
+  It lives on the card only. The product page does not carry one: by the
+  time the reader is there the offer is already stated under the buy box,
+  and a seal over the photograph would be selling something they have
+  already found.
+{%- endcomment -%}
+<a class="sample-sticker" href="{{ product.url }}#sample">
+  <span class="sample-sticker__kicker">{{ settings.sample_sticker_kicker | default: 'Free sample' }}</span>
+  <span class="sample-sticker__line">{{ settings.sample_sticker_label | default: 'Smell It First' }}</span>
+</a>

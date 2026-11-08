@@ -1,11 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_background": "#F6F1E7",
-    "color_paper": "#FCF9F1",
-    "color_ink": "#26221B",
-    "color_accent": "#7E2F2A",
+    "color_paper": "#FDFAF3",
+    "color_ink": "#2A2320",
+    "color_accent": "#3A544A",
     "color_stripe": "#3D4E6E",
     "brand_tagline": "petits plaisirs, faits exprès",
-    "fulfillment_line": "Made when you order it. Allow 3–5 days before shipping — nothing here waits in a warehouse."
+    "fulfillment_line": "Packed by hand in 3–5 business days, then 2–5 in the post. Express is packed first, within one business day. Your arrival window is shown at checkout.",
+    "edition_state": "pre_launch",
+    "doors_text": "In preproduction. The doors open when it's ready.",
+    "retired_text": "This edition has closed.",
+    "content_for_index": [],
+    "blocks": {
+      "7539343560218715217": {
+        "type": "shopify://apps/lucky-orange/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",
+        "disabled": false,
+        "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "1891853884814220282": {
+        "type": "shopify://apps/bloom-analytics/blocks/app-embed/54eab297-ce3a-47c0-920b-0d498f21c1e9",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   }
 }

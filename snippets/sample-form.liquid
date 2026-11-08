@@ -1,0 +1,100 @@
+{%- comment -%}
+  "Grab a sample" — a card scented by hand, folded into a house envelope
+  and closed with a wax seal, sent by post.
+
+  The card is a real $0.00 product that goes through checkout, not a
+  contact form. Checkout validates the address against carrier data, the
+  request lands in Orders with a shipping label and a fulfilment state,
+  it creates a Customer (which syncs to Klaviyo), and it can be counted:
+  you can ask how many people who took a card later bought a bottle. An
+  inbox full of addresses can answer none of that.
+
+  The form posts normally rather than through the drawer — see
+  data-direct-checkout in theme.js — so Shopify's return_to carries the
+  shopper straight to checkout, and the whole thing works without
+  JavaScript.
+
+  Accepts:
+  - product: {Object} the product being sampled
+
+  Copy lives in Theme settings → Free samples.
+{%- endcomment -%}
+
+{%- liquid
+  assign card_handle = settings.sample_product_handle | default: 'the-scented-card'
+  assign card = all_products[card_handle]
+  assign card_variant = card.selected_or_first_available_variant
+
+  assign summary_label = settings.sample_summary_label | default: 'Grab a sample — free'
+  assign summary_note = settings.sample_summary_note | default: 'Free · posted to you'
+  assign heading = settings.sample_heading | default: 'A scented card, sent by post'
+  assign intro = settings.sample_text
+  assign button_label = settings.sample_button | default: 'Send me the sample →'
+  assign note = settings.sample_note
+  assign spoken_for = settings.sample_spoken_for | default: 'The cards are spoken for just now. The letter will say when more are scented.'
+-%}
+
+{%- if card != blank and card_variant != blank -%}
+  <div class="sample" id="sample">
+    <details class="sample__disclosure">
+      <summary class="sample__summary">
+        <span class="sample__seal" aria-hidden="true"></span>
+        <span class="sample__summary-label">{{ summary_label }}</span>
+        <span class="sample__summary-note">{{ summary_note }}</span>
+      </summary>
+
+      <div class="sample__panel">
+        <h2 class="sample__heading">{{ heading }}</h2>
+
+        {% if intro != blank %}
+          <p class="sample__intro">{{ intro }}</p>
+        {% endif %}
+
+        {%- if card_variant.available -%}
+          <form
+            method="post"
+            action="{{ routes.cart_add_url }}"
+            accept-charset="UTF-8"
+            class="sample__form"
+            data-direct-checkout
+          >
+            <input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+            <input type="hidden" name="id" value="{{ card_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="properties[Sample of]" value="{{ product.title | escape }}">
+            <input type="hidden" name="return_to" value="/checkout">
+            <button type="submit" class="btn btn--solid btn--full">{{ button_label }}</button>
+          </form>
+
+          {% if note != blank %}
+            <p class="sample__note">{{ note }}</p>
+          {% endif %}
+        {%- else -%}
+          <p class="sample__sent">{{ spoken_for }}</p>
+        {%- endif -%}
+      </div>
+    </details>
+  </div>
+{%- endif -%}
+
+<script>
+  /* Open the disclosure on arrival at #sample — from the wax seal on a
+     collection card. Without JavaScript the shopper lands on the product
+     page and opens it themselves; nothing else depends on this. */
+  (function () {
+    function openSample() {
+      if (window.location.hash !== '#sample') return;
+      var wrap = document.getElementById('sample');
+      if (!wrap) return;
+      var panel = wrap.querySelector('details');
+      if (panel) panel.open = true;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      wrap.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    }
+    if (window.location.hash === '#sample') {
+      window.addEventListener('load', function () { window.setTimeout(openSample, 100); });
+    }
+    window.addEventListener('hashchange', openSample);
+  })();
+</script>

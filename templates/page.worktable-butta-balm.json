@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Aged brass",
+            "color": "#A5834B"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Bone",
+            "color": "#FDFAF3"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Soft rose",
+            "color": "#9B6370"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Refillable stick",
+            "color": "#A5834B"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Soft tint",
+            "color": "#9B6370"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Clear balm",
+            "color": "#FDFAF3"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "butta-balm",
+        "collection_label": "In Her Purse",
+        "index_url": "/pages/the-worktable",
+        "title": "Butta Balm by -B.",
+        "subtitle": "A refillable little essential",
+        "story": "<p>A lip balm you refill rather than replace, in a case worth keeping. Enough shine to look like you meant it, not enough to feel like makeup.</p><p>For the one who reapplies it in a doorway, badly, and does not mind; not for someone who wants a whole routine.</p>",
+        "worktable_note": "The refill has to click. If it rattles, it is a worse object than the thing it replaces.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

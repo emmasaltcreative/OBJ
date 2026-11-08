@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Manila",
+            "color": "#D9C6A5"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Card",
+            "color": "#FDFAF3"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Ink",
+            "color": "#2A2320"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Card + pocket",
+            "color": "#D9C6A5"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Bookplate",
+            "color": "#FDFAF3"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Small set",
+            "color": "#2A2320"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "lending",
+        "collection_label": "The Reading Hour",
+        "index_url": "/pages/the-worktable",
+        "title": "Lending",
+        "subtitle": "For books that travel",
+        "story": "<p>A gummed pocket and a ruled card for the inside back cover. Lent to, returned. No dates and no fines: a record, not a reprimand.</p><p>For the one who lends books and would quite like them back; not for someone who gives them away and means it.</p>",
+        "worktable_note": "Pocket fit and card stock. And whether this is charming or twee, which is the cheapest thing here to find out.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

@@ -1,0 +1,267 @@
+{%- comment -%}
+  The parcel drawer.
+
+  free_shipping_cents mirrors the free-shipping rate in Settings → Shipping
+  (free US standard over $70). Change it in one place here if that rate moves;
+  set it to 0 to drop the shipping progress entirely.
+{%- endcomment -%}
+{%- assign free_shipping_cents = 7000 -%}
+
+{%- comment -%}
+  Every live, buyable piece — In Her Purse first, then anything else the house
+  has published. The old drawer hardcoded "the-first-edition" and the complete
+  set, all of which are drafts, so the upsell could never fire for a real
+  order. This follows the catalog instead, so new pieces join automatically
+  and retired ones drop out on their own.
+{%- endcomment -%}
+{%- liquid
+  assign seen = '|'
+  assign ordered = ''
+  for p in collections['in-her-purse'].products
+    if p.available
+      assign ordered = ordered | append: p.handle | append: ','
+      assign seen = seen | append: p.handle | append: '|'
+    endif
+  endfor
+  for p in collections.all.products
+    assign needle = '|' | append: p.handle | append: '|'
+    unless seen contains needle
+      if p.available
+        assign ordered = ordered | append: p.handle | append: ','
+        assign seen = seen | append: p.handle | append: '|'
+      endif
+    endunless
+  endfor
+  assign upsell_handles = ordered | split: ','
+-%}
+
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" data-cart-drawer hidden>
+  <div class="cart-drawer__header">
+    <div>
+      <span class="eyebrow eyebrow--accent" style="margin-bottom: 0.3rem;">Your parcel</span>
+      <h2 id="CartDrawerTitle" style="margin: 0;">The good things</h2>
+    </div>
+    <button class="cart-drawer__close" type="button" aria-label="Close cart" data-close-cart>&times;</button>
+  </div>
+
+  <div class="cart-drawer__empty" data-cart-empty>
+    <img src="{{ 'obj-monogram-obj.svg' | asset_url }}" alt="" width="84" height="124" loading="lazy">
+    <p style="font-style: italic; color: var(--ink-soft);">Your parcel is waiting for its first good thing.</p>
+    {%- comment -%}
+      An empty parcel used to offer a button that only closed the drawer,
+      which left the shopper exactly where they started. Send them to the
+      edition that is actually for sale.
+    {%- endcomment -%}
+    <a class="link-arrow" href="{{ collections['in-her-purse'].url | default: routes.all_products_collection_url }}">Browse the edition</a>
+  </div>
+
+  <div class="cart-drawer__lines" data-cart-lines></div>
+
+  {%- comment -%}
+    One ready-made add form per live piece, rendered now and hidden. They exist
+    before theme.js binds every /cart/add form on load, so a suggested add gets
+    the same AJAX, toast and re-render as the buy box. The script below only
+    decides which one to show.
+  {%- endcomment -%}
+  {%- if upsell_handles.size > 0 -%}
+    <div class="parcel-suggest" data-suggest hidden>
+      <p class="parcel-suggest__note" data-suggest-note></p>
+      {%- for handle in upsell_handles limit: 8 -%}
+        {%- assign p = all_products[handle] -%}
+        {%- if p != blank and p.available -%}
+          {%- capture pre_flag -%}{%- render 'is-preorder', product: p -%}{%- endcapture -%}
+          <div
+            class="parcel-suggest__item"
+            data-suggest-item
+            data-handle="{{ p.handle }}"
+            data-title="{{ p.title | escape }}"
+            data-price="{{ p.price }}"
+            hidden
+          >
+            {% form 'product', p, class: 'parcel-suggest__form' %}
+              <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              {%- if pre_flag contains 'true' -%}
+                {% render 'preorder-properties' %}
+              {%- endif -%}
+              <button type="submit" name="add" class="btn btn--full">
+                Add {{ p.title }} · {{ p.price | money }}
+              </button>
+            {% endform %}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="cart-drawer__footer" data-cart-footer hidden>
+    {%- if free_shipping_cents > 0 -%}
+      {%- comment -%}
+        The house gives free US shipping over $70 and said so nowhere. A $43
+        bottle sits under that line, so naming the gap is the cheapest nudge
+        toward a second piece there is.
+      {%- endcomment -%}
+      <div class="ship-bar" data-ship-progress data-threshold="{{ free_shipping_cents }}" hidden>
+        <p class="ship-bar__note" data-ship-note></p>
+        <div class="ship-bar__track" aria-hidden="true"><span class="ship-bar__fill" data-ship-fill></span></div>
+      </div>
+    {%- endif -%}
+
+    <div class="cart-drawer__subtotal">
+      <span>Subtotal</span>
+      <strong data-cart-subtotal>{{ cart.total_price | money }}</strong>
+    </div>
+    <p style="font-style: italic; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1rem;">
+      Taxes and shipping settled at checkout. Packed in 3–5 business days, then 2–5 in the post — or choose Express and yours is packed first.
+    </p>
+    <form action="{{ routes.cart_url }}" method="post">
+      <button class="btn btn--solid btn--full" type="submit" name="checkout">Check out</button>
+    </form>
+    <a href="{{ routes.cart_url }}" style="display: block; text-align: center; margin-top: 0.9rem; font-size: 0.85rem;">View the full parcel</a>
+  </div>
+</aside>
+
+<script>
+  (function () {
+    var threshold = 0;
+    var shipBox = document.querySelector('[data-ship-progress]');
+    if (shipBox) threshold = parseInt(shipBox.dataset.threshold, 10) || 0;
+
+    var shipNote = shipBox ? shipBox.querySelector('[data-ship-note]') : null;
+    var shipFill = shipBox ? shipBox.querySelector('[data-ship-fill]') : null;
+
+    var suggestBox = document.querySelector('[data-suggest]');
+    var suggestNote = suggestBox ? suggestBox.querySelector('[data-suggest-note]') : null;
+    var suggestItems = suggestBox
+      ? Array.prototype.slice.call(suggestBox.querySelectorAll('[data-suggest-item]'))
+      : [];
+
+    var subtotalEl = document.querySelector('[data-cart-subtotal]');
+    if (!shipBox && !suggestBox) return;
+
+    function money(cents) {
+      try {
+        return new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
+          style: 'currency',
+          currency: window.BettyCurrency || 'USD',
+          maximumFractionDigits: 2
+        }).format(cents / 100);
+      } catch (e) {
+        return '$' + (cents / 100).toFixed(2);
+      }
+    }
+
+    function paintShipping(total) {
+      if (!shipBox || !threshold) return;
+      var short = threshold - total;
+      var pct = Math.max(0, Math.min(100, (total / threshold) * 100));
+      if (shipFill) shipFill.style.width = pct.toFixed(1) + '%';
+      if (shipNote) {
+        shipNote.textContent = short > 0
+          ? money(short) + ' more and the shipping is on the house'
+          : 'Free US shipping — unlocked';
+      }
+      shipBox.classList.toggle('is-met', short <= 0);
+      shipBox.hidden = false;
+    }
+
+    function paintSuggestion(cart) {
+      if (!suggestBox || !suggestItems.length) return;
+
+      suggestItems.forEach(function (el) { el.hidden = true; });
+      suggestBox.hidden = true;
+      if (!cart.items.length) return;
+
+      var inCart = cart.items.map(function (i) { return i.handle; });
+      var pick = null;
+      for (var i = 0; i < suggestItems.length; i++) {
+        if (inCart.indexOf(suggestItems[i].dataset.handle) === -1) { pick = suggestItems[i]; break; }
+      }
+      if (!pick) return;
+
+      var title = pick.dataset.title || 'another piece';
+      var price = parseInt(pick.dataset.price, 10) || 0;
+      var total = cart.total_price;
+
+      /* When the piece would carry the parcel over the free-shipping line,
+         say that instead — it is the more honest reason to add it. */
+      if (suggestNote) {
+        suggestNote.textContent =
+          threshold && total < threshold && (total + price) >= threshold
+            ? 'Add ' + title + ' and the shipping is on the house.'
+            : 'May we suggest ' + title + '? It keeps good company.';
+      }
+
+      pick.hidden = false;
+      suggestBox.hidden = false;
+    }
+
+    /* theme.js owns the cart; it writes the subtotal's text on every render but
+       never rebuilds this markup. Watching that one node keeps both the bar and
+       the suggestion in step with adds, removes and quantity changes, without
+       having to touch theme.js. */
+    var pending = null;
+    function refresh() {
+      window.clearTimeout(pending);
+      pending = window.setTimeout(function () {
+        fetch('/cart.js', { headers: { Accept: 'application/json' } })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (cart) {
+            if (!cart) return;
+            paintShipping(cart.total_price);
+            paintSuggestion(cart);
+          })
+          .catch(function () {});
+      }, 60);
+    }
+
+    if (subtotalEl && 'MutationObserver' in window) {
+      new MutationObserver(refresh).observe(subtotalEl, {
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    }
+
+    refresh();
+  })();
+</script>
+
+<style>
+.ship-bar {
+  margin: 0 0 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.ship-bar__note {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-align: center;
+}
+.ship-bar__track { height: 3px; background: var(--line); overflow: hidden; }
+.ship-bar__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--color-accent);
+  transition: width 0.45s ease;
+}
+.ship-bar.is-met .ship-bar__note { color: var(--color-ink); }
+
+.parcel-suggest {
+  padding: 1rem var(--page-gutter, 1.25rem);
+  border-top: 1px solid var(--line);
+  background: var(--color-background);
+}
+.parcel-suggest__note {
+  margin: 0 0 0.7rem;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+.parcel-suggest__form { margin: 0; }
+</style>

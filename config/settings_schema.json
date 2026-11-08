@@ -20,19 +20,19 @@
         "type": "color",
         "id": "color_paper",
         "label": "Paper (cards & panels)",
-        "default": "#FCF9F1"
+        "default": "#FDFAF3"
       },
       {
         "type": "color",
         "id": "color_ink",
         "label": "Ink (text)",
-        "default": "#26221B"
+        "default": "#2A2320"
       },
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent (bordeaux)",
-        "default": "#7E2F2A"
+        "label": "Accent (green)",
+        "default": "#3A544A"
       },
       {
         "type": "color",
@@ -55,8 +55,131 @@
         "type": "text",
         "id": "fulfillment_line",
         "label": "Fulfillment promise",
-        "default": "Made when you order it. Allow 3–5 days before shipping — nothing here waits in a warehouse.",
+        "default": "Each edition is produced with intention and released in considered quantities.",
         "info": "Shown on every product page."
+      }
+    ]
+  },
+  {
+    "name": "Edition",
+    "settings": [
+      {
+        "type": "select",
+        "id": "edition_state",
+        "label": "Purchasing state",
+        "options": [
+          {
+            "value": "pre_launch",
+            "label": "Doors not yet open"
+          },
+          {
+            "value": "open",
+            "label": "Open (purchasable)"
+          },
+          {
+            "value": "retired",
+            "label": "Edition retired"
+          }
+        ],
+        "default": "pre_launch"
+      },
+      {
+        "type": "text",
+        "id": "doors_text",
+        "label": "Pre-launch note",
+        "default": "In preproduction. The doors open when it's ready."
+      },
+      {
+        "type": "text",
+        "id": "retired_text",
+        "label": "Retired note",
+        "default": "This edition has closed."
+      }
+    ]
+  },
+  {
+    "name": "Free samples",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "A card scented by hand, folded into a house envelope and closed with a wax seal. The button adds a $0.00 product to the parcel and goes straight to checkout, so Shopify collects and validates the address, the request lands in Orders ready to fulfil, and it creates a customer you can count. Offered on scented products — tagged fragrance or sample, typed as an eau de parfum, or with the metafield custom.free_sample set true. Withheld with the tag no-sample."
+      },
+      {
+        "type": "checkbox",
+        "id": "samples_enabled",
+        "label": "Offer free samples",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sample_product_handle",
+        "label": "Sample product handle",
+        "default": "the-scented-card",
+        "info": "The $0.00 product the button adds. It needs an address at checkout, so keep \"This is a physical product\" ticked. Track its inventory to cap how many go out."
+      },
+      {
+        "type": "header",
+        "content": "The seal on a product card"
+      },
+      {
+        "type": "text",
+        "id": "sample_sticker_kicker",
+        "label": "Seal kicker",
+        "default": "Free sample"
+      },
+      {
+        "type": "text",
+        "id": "sample_sticker_label",
+        "label": "Seal line",
+        "default": "Smell It First",
+        "info": "On the product's photograph in a grid. The only seal; the product page has none."
+      },
+      {
+        "type": "header",
+        "content": "The form on a product page"
+      },
+      {
+        "type": "text",
+        "id": "sample_summary_label",
+        "label": "Disclosure label",
+        "default": "Grab a sample — free"
+      },
+      {
+        "type": "text",
+        "id": "sample_summary_note",
+        "label": "Disclosure note",
+        "default": "Free · posted to you"
+      },
+      {
+        "type": "text",
+        "id": "sample_heading",
+        "label": "Heading",
+        "default": "A scented card, sent by post",
+        "info": "Follows the seal. The seal asks; this says what arrives."
+      },
+      {
+        "type": "textarea",
+        "id": "sample_text",
+        "label": "Text",
+        "default": "A card, scented by hand, in a house envelope under a wax seal. Hold it to your nose, or rub it on your wrist and let it warm — it is paper, not a vial, so there is nothing to spray. Tell us where to send it at checkout; the card and the postage are both ours."
+      },
+      {
+        "type": "text",
+        "id": "sample_button",
+        "label": "Button",
+        "default": "Send me the sample →"
+      },
+      {
+        "type": "textarea",
+        "id": "sample_note",
+        "label": "Note",
+        "default": "One sample per address."
+      },
+      {
+        "type": "textarea",
+        "id": "sample_spoken_for",
+        "label": "When the cards run out",
+        "default": "The cards are spoken for just now. The letter will say when more are scented."
       }
     ]
   }

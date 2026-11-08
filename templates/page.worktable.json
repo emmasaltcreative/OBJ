@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "index": {
+      "type": "worktable-index",
+      "blocks": {
+        "ch1": {
+          "type": "chapter",
+          "settings": {
+            "label": "In Her Purse"
+          }
+        },
+        "st2": {
+          "type": "study",
+          "settings": {
+            "title": "Butta Balm by -B.",
+            "subtitle": "A refillable little essential",
+            "status": "A little thought",
+            "link": "/pages/worktable-butta-balm"
+          }
+        },
+        "st3": {
+          "type": "study",
+          "settings": {
+            "title": "The Leather Keychain",
+            "subtitle": "A little signature piece",
+            "status": "A little thought",
+            "link": "/pages/worktable-leather-keychain"
+          }
+        },
+        "st4": {
+          "type": "study",
+          "settings": {
+            "title": "The OBJ Cap",
+            "subtitle": "A quiet everyday icon",
+            "status": "A little thought",
+            "link": "/pages/worktable-obj-cap"
+          }
+        },
+        "st5": {
+          "type": "study",
+          "settings": {
+            "title": "The Bag Tray",
+            "subtitle": "A place for the little things",
+            "status": "A little thought",
+            "link": "/pages/worktable-bag-tray"
+          }
+        },
+        "ch6": {
+          "type": "chapter",
+          "settings": {
+            "label": "The Reading Hour"
+          }
+        },
+        "st7": {
+          "type": "study",
+          "settings": {
+            "title": "The Commonplace Book",
+            "subtitle": "Thoughts, kept close",
+            "status": "At the worktable",
+            "link": "/pages/worktable-commonplace-book"
+          }
+        },
+        "st8": {
+          "type": "study",
+          "settings": {
+            "title": "The Focus Notebook",
+            "subtitle": "A place to put the thought",
+            "status": "A little thought",
+            "link": "/pages/worktable-focus-notebook"
+          }
+        },
+        "st9": {
+          "type": "study",
+          "settings": {
+            "title": "Marginalia",
+            "subtitle": "Tools for the margins",
+            "status": "A little thought",
+            "link": "/pages/worktable-marginalia"
+          }
+        },
+        "st10": {
+          "type": "study",
+          "settings": {
+            "title": "Lending",
+            "subtitle": "For books that travel",
+            "status": "A little thought",
+            "link": "/pages/worktable-lending"
+          }
+        },
+        "ch11": {
+          "type": "chapter",
+          "settings": {
+            "label": "The 12th Month"
+          }
+        },
+        "st12": {
+          "type": "study",
+          "settings": {
+            "title": "The Wrapping Paper",
+            "subtitle": "Three prints, one little hour",
+            "status": "A little thought",
+            "link": "/pages/worktable-wrapping-paper"
+          }
+        },
+        "st13": {
+          "type": "study",
+          "settings": {
+            "title": "Paper Trail",
+            "subtitle": "The details that finish a gift",
+            "status": "A little thought",
+            "link": "/pages/worktable-paper-trail"
+          }
+        },
+        "st14": {
+          "type": "study",
+          "settings": {
+            "title": "Holiday Stationery",
+            "subtitle": "A little holiday mischief",
+            "status": "A little thought",
+            "link": "/pages/worktable-holiday-stationery"
+          }
+        },
+        "ch15": {
+          "type": "chapter",
+          "settings": {
+            "label": "OBJ at Large"
+          }
+        },
+        "st16": {
+          "type": "study",
+          "settings": {
+            "title": "The House Catalogue",
+            "subtitle": "A small printed world",
+            "status": "A little thought",
+            "link": "/pages/worktable-house-catalogue"
+          }
+        },
+        "st17": {
+          "type": "study",
+          "settings": {
+            "title": "Correspondence",
+            "subtitle": "A note worth sending",
+            "status": "A little thought",
+            "link": "/pages/worktable-correspondence"
+          }
+        },
+        "st18": {
+          "type": "study",
+          "settings": {
+            "title": "The House Wax Seal",
+            "subtitle": "The finishing touch",
+            "status": "A little thought",
+            "link": "/pages/worktable-wax-seal"
+          }
+        }
+      },
+      "block_order": [
+        "ch1",
+        "st2",
+        "st3",
+        "st4",
+        "st5",
+        "ch6",
+        "st7",
+        "st8",
+        "st9",
+        "st10",
+        "ch11",
+        "st12",
+        "st13",
+        "st14",
+        "ch15",
+        "st16",
+        "st17",
+        "st18"
+      ],
+      "settings": {
+        "eyebrow": "The Back Room",
+        "heading": "At the Worktable",
+        "intro": "<p>This is where we keep the things we are thinking about. Some are little sketches. Some are nearly ready. And a few are waiting for someone like you to say, yes, that one.</p><p>Have a look around. Leave a thought or two. You never know what might come of it.</p>",
+        "footnote": "Concept studies only — nothing here is for sale, priced or promised."
+      }
+    }
+  },
+  "order": [
+    "index"
+  ]
+}

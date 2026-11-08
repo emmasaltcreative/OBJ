@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "study": {
+      "type": "worktable-study",
+      "blocks": {
+        "sw1": {
+          "type": "swatch",
+          "settings": {
+            "label": "Paper",
+            "color": "#FDFAF3"
+          }
+        },
+        "sw2": {
+          "type": "swatch",
+          "settings": {
+            "label": "Green",
+            "color": "#3A544A"
+          }
+        },
+        "sw3": {
+          "type": "swatch",
+          "settings": {
+            "label": "Oxblood",
+            "color": "#6E2B2B"
+          }
+        },
+        "dr1": {
+          "type": "direction",
+          "settings": {
+            "label": "Cream laid",
+            "color": "#FDFAF3"
+          }
+        },
+        "dr2": {
+          "type": "direction",
+          "settings": {
+            "label": "Green lining",
+            "color": "#3A544A"
+          }
+        },
+        "dr3": {
+          "type": "direction",
+          "settings": {
+            "label": "Oxblood lining",
+            "color": "#6E2B2B"
+          }
+        }
+      },
+      "block_order": [
+        "sw1",
+        "sw2",
+        "sw3",
+        "dr1",
+        "dr2",
+        "dr3"
+      ],
+      "settings": {
+        "concept_id": "correspondence",
+        "collection_label": "OBJ at Large",
+        "index_url": "/pages/the-worktable",
+        "title": "Correspondence",
+        "subtitle": "A note worth sending",
+        "story": "<p>Cream laid cards, lined envelopes, green wax and a brass seal. For the note you would otherwise have sent as a text, and for the small satisfaction of making someone walk to the hall to pick it up.</p><p>For the one with something to say on paper; not for someone who will text instead.</p>",
+        "worktable_note": "Card weight, envelope lining, and whether the seal carries the house mark or a B.",
+        "ask": "What do you think?",
+        "status": "thought"
+      }
+    }
+  },
+  "order": [
+    "study"
+  ]
+}

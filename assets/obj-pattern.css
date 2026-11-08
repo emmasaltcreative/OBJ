@@ -1,0 +1,81 @@
+/*
+  Oh Betty Jaletti — the house quatrefoil, used sparingly.
+
+  One band of wallpaper sits behind the place a shopper commits: the buy box
+  on a product page, the checkout block in the parcel drawer, and the totals
+  on the cart page. Nowhere else. The pattern only reads as the house mark if
+  it stays rare — spread over whole pages it becomes texture and stops being
+  noticed, and it starts competing with the photographs, which are the thing
+  that actually sells a suede tote.
+
+  Why there: the band frames the one control that matters, so the eye lands on
+  it after the price rather than drifting past; it reads as finish and care at
+  the moment the shopper is deciding whether this house is careful; and it
+  slows the scroll exactly where deliberation is wanted. It is kept at a very
+  low contrast on purpose — a decorative background that fights the button's
+  legibility costs more sales than it wins.
+
+  Strength and tile size are variables; lower --pattern-strength to fade it,
+  raise it toward 0.4 before the quatrefoils start reading as a texture
+  rather than a watermark.
+*/
+
+:root {
+  --pattern-tile: 168px;
+  --pattern-strength: 0.2;
+}
+
+.shopify-product-form,
+.cart-drawer__footer,
+.cart-checkout,
+.buy-strip {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-paper);
+}
+
+.shopify-product-form::before,
+.cart-drawer__footer::before,
+.cart-checkout::before,
+.buy-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("obj-quatrefoil-tile.svg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: var(--pattern-tile) var(--pattern-tile);
+  opacity: var(--pattern-strength);
+  pointer-events: none;
+}
+
+/* The buy box on a product page. */
+.shopify-product-form {
+  padding: clamp(1.4rem, 3vw, 2rem);
+  margin-block: 1.6rem;
+  border-block: 1px solid var(--line);
+}
+
+/* The checkout block in the parcel drawer. */
+.cart-drawer__footer {
+  border-top: 1px solid var(--line);
+}
+
+/* The totals and checkout column on the cart page. */
+.cart-checkout {
+  padding: clamp(1.4rem, 3vw, 1.9rem);
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 749px) {
+  :root { --pattern-tile: 132px; }
+  .shopify-product-form { margin-block: 1.25rem; }
+}
+
+@media (prefers-contrast: more) {
+  .shopify-product-form::before,
+  .cart-drawer__footer::before,
+  .cart-checkout::before,
+  .buy-strip::before { display: none; }
+}

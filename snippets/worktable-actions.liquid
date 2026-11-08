@@ -1,0 +1,140 @@
+{%- comment -%}
+  The three things she can do with a concept.
+
+  Accepts:
+  - concept_id  {String}  stable id, e.g. "butta-balm". Required.
+  - concept_name {String} the title in plain words, for forms and messages.
+  - layout      {String}  "rail" (stacked, in the left column) or "bar" (the
+                          decision bar at the foot). Default: rail.
+
+  How each one works today, with no backend:
+
+  1. I'd keep this     — held in the visitor's own browser and reported to GA4
+                         as a back_room_concept_interest event. Directional only:
+                         it counts browsers, not people, and it cannot be rolled
+                         up into unique interest per collection. That needs the
+                         interest store; see the Phase 2 plan.
+  2. Tell me if it      — a real Shopify customer form, tagged per concept, with
+     happens             marketing consent as a separate, unticked box. Nothing
+                         is added to the general newsletter without that tick.
+  3. Leave a thought    — the Shopify contact form, carrying the concept id, so
+                         replies arrive in admin attached to the right idea.
+{%- endcomment -%}
+
+{%- liquid
+  assign cid = concept_id | default: 'unknown'
+  assign cname = concept_name | default: 'this idea'
+  assign mode = layout | default: 'rail'
+  assign uid = cid | append: '-' | append: section.id
+  assign notify_form_id = 'wt-notify-' | append: uid
+  assign thought_form_id = 'wt-thought-' | append: uid
+-%}
+
+{%- if mode == 'rail' -%}
+  <ul class="wt-acts wt-acts--rail">
+    <li>
+      <button type="button"
+              data-wt-keep="{{ cid | escape }}"
+              data-wt-name="{{ cname | escape }}"
+              aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M6 3h12v18l-6-4.5L6 21z"/>
+        </svg>
+        <span data-wt-keep-label>I&rsquo;d keep this</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" data-wt-open="notify-{{ uid | escape }}" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>
+        </svg>
+        <span>Tell me if it happens</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" data-wt-open="thought-{{ uid | escape }}" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M21 12a8 8 0 0 1-8 8H4l2.2-3A8 8 0 1 1 21 12z"/>
+        </svg>
+        <span>Leave a thought</span>
+      </button>
+    </li>
+  </ul>
+  <p class="wt-said" data-wt-said="{{ cid | escape }}" hidden></p>
+{%- else -%}
+  <div class="wt-decide__acts">
+    <button type="button" class="btn btn--solid"
+            data-wt-keep="{{ cid | escape }}"
+            data-wt-name="{{ cname | escape }}"
+            aria-pressed="false">
+      <span data-wt-keep-label>I&rsquo;d keep this</span>
+    </button>
+    <button type="button" class="btn" data-wt-open="notify-{{ uid | escape }}" aria-expanded="false">
+      Tell me if it happens
+    </button>
+    <button type="button" class="btn" data-wt-open="thought-{{ uid | escape }}" aria-expanded="false">
+      Leave a thought
+    </button>
+  </div>
+{%- endif -%}
+
+{%- comment -%} The two panels. Rendered once per section, by the rail. {%- endcomment -%}
+{%- if mode == 'rail' -%}
+
+  <div class="wt-panel" id="notify-{{ uid | escape }}" hidden>
+    <p class="wt-panel__h">Tell me if it happens.</p>
+    {%- form 'customer', id: notify_form_id -%}
+      {%- if form.posted_successfully? -%}
+        <p>Consider it noted. The house will write when there is something to say about
+          {{ cname }} &mdash; and about nothing else, unless you ticked the box.</p>
+      {%- else -%}
+        {%- if form.errors -%}
+          <div class="errors">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">
+          One letter, about {{ cname }}, if it is ever made. Nothing else.
+        </p>
+        <input type="hidden" name="contact[tags]" value="worktable,concept-{{ cid | escape }}">
+        <input type="hidden" name="contact[note]" value="Worktable interest: {{ cname | escape }} ({{ cid | escape }})">
+        <input type="hidden" name="return_to" value="{{ request.path }}?noted={{ cid | escape }}">
+        <div class="wt-field-row">
+          <label class="visually-hidden" for="wt-email-{{ uid }}">Your email</label>
+          <input id="wt-email-{{ uid }}" type="email" name="contact[email]" placeholder="Your email" required>
+          <button type="submit" class="btn btn--solid">Notify me &rarr;</button>
+        </div>
+        <label class="wt-consent" for="wt-consent-{{ uid }}">
+          <input id="wt-consent-{{ uid }}" type="checkbox" name="contact[accepts_marketing]" value="true">
+          <span>Also write to me with letters from the house. Separate from the line above,
+            and you can stop either one whenever you like.</span>
+        </label>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+  <div class="wt-panel" id="thought-{{ uid | escape }}" hidden>
+    <p class="wt-panel__h">Leave a thought.</p>
+    {%- form 'contact', id: thought_form_id -%}
+      {%- if form.posted_successfully? -%}
+        <p>Well, that&rsquo;s lovely to know. Consider your opinion tucked away.</p>
+      {%- else -%}
+        {%- if form.errors -%}
+          <div class="errors">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <input type="hidden" name="contact[subject]" value="Worktable &middot; {{ cname | escape }}">
+        <input type="hidden" name="contact[concept]" value="{{ cid | escape }}">
+        <div class="field">
+          <label for="wt-thought-body-{{ uid }}">What would you change?</label>
+          <textarea id="wt-thought-body-{{ uid }}" name="contact[body]" rows="4" required
+                    placeholder="A different colour, a different size, or the thing we have not thought of."></textarea>
+        </div>
+        <div class="field">
+          <label for="wt-thought-email-{{ uid }}">Your email, if you would like an answer</label>
+          <input id="wt-thought-email-{{ uid }}" type="email" name="contact[email]">
+        </div>
+        <button type="submit" class="btn btn--solid">Send the thought</button>
+        <p class="wt-panel__note">A person reads these. Nothing is published without asking you first.</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+{%- endif -%}

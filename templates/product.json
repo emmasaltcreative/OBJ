@@ -1,26 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
+      "settings": {
+        "preorder_fulfillment": "A preorder, charged today at [price]. No ship date is set for this edition yet — the house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships.",
+        "preorder_ships": "Date to be confirmed",
+        "preorder_shipping": "<p>No ship date is set for this edition yet. The house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships. Once yours is made, the parcel is packed by hand in 3–5 business days and then spends 2–5 business days in the post.</p><p>After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>",
+        "preorder_terms": "<p>You are charged today, at the preorder price. The piece does not exist until you claim it. <strong>No ship date is set for this edition yet.</strong> The house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships. If the edition cannot be made at all, the house refunds every preorder in full, unasked.</p>",
+        "shipping_text": "Packed by hand at the house in 3–5 business days, then 2–5 business days in the post — about 5–10 business days to your door. Express is packed first, within one business day, and arrives in 2–4. Free US shipping over $70. If something arrives damaged, or simply is not what you hoped for, write to hello@ohbettyjaletti.com within 30 days of delivery and we will make it right. Full terms are at /policies/shipping-policy and /policies/refund-policy.",
+        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first."
+      }
+    },
+    "service": {
+      "type": "service-strip",
       "blocks": {
-        "making": {
-          "type": "accordion",
+        "promise-1": {
+          "type": "promise",
           "settings": {
-            "heading": "The making",
-            "content": "<p>Made to order, one at a time, and numbered to the edition. Printed, bound, or poured when you claim it — allow 3–5 days before shipping.</p>"
+            "heading": "Free US shipping over $70",
+            "text": "Standard $8, Express $15."
           }
         },
-        "shipping": {
-          "type": "accordion",
+        "promise-2": {
+          "type": "promise",
           "settings": {
-            "heading": "Shipping & returns",
-            "content": "<p>It ships the moment it's finished, and it took the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+            "heading": "Packed in 3–5 business days",
+            "text": "Express is packed within one."
+          }
+        },
+        "promise-3": {
+          "type": "promise",
+          "settings": {
+            "heading": "A person reads the post",
+            "text": "hello@ohbettyjaletti.com"
           }
         }
       },
-      "block_order": ["making", "shipping"],
+      "block_order": [
+        "promise-1",
+        "promise-2",
+        "promise-3"
+      ],
       "settings": {}
+    },
+    "sticky": {
+      "type": "sticky-buy",
+      "settings": {
+        "enabled": true,
+        "ships": "Date to be confirmed"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "service",
+    "sticky"
+  ]
 }

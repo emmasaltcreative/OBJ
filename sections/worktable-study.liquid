@@ -1,0 +1,268 @@
+{%- comment -%}
+  The Worktable — one concept study.
+
+  Every word, swatch, label and control on this page is live HTML and CSS.
+  Images are photographic slots only; nothing here is a composed PNG page.
+  Each slot is captioned as a study, never as a product photograph.
+
+  Content is edited in the theme editor, per page, so the founder never
+  touches code to change a word.
+{%- endcomment -%}
+
+{{ 'worktable.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'worktable.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign cid = section.settings.concept_id | default: page.handle | default: 'concept'
+  assign cname = section.settings.title | strip_html | strip | default: page.title
+
+  case section.settings.status
+    when 'worktable'
+      assign status_label = 'At the worktable'
+    when 'shaping'
+      assign status_label = 'Taking shape'
+    when 'nearly'
+      assign status_label = 'Nearly here'
+    when 'shop'
+      assign status_label = 'In the shop'
+    when 'away'
+      assign status_label = 'Put away for now'
+    else
+      assign status_label = 'A little thought'
+  endcase
+-%}
+
+<div class="page-width" data-wt-study="{{ cid | escape }}" data-wt-collection="{{ section.settings.collection_label | escape }}">
+
+  <nav class="wt-crumb" aria-label="Breadcrumb">
+    <a href="{{ section.settings.index_url | default: '/pages/the-worktable' }}">The Worktable</a>
+    {%- if section.settings.collection_label != blank -%}
+      &nbsp;/&nbsp;<span>{{ section.settings.collection_label }}</span>
+    {%- endif -%}
+  </nav>
+
+  <div class="wt-study">
+
+    {%- comment -%} ---------- the rail ---------- {%- endcomment -%}
+    <div class="wt-rail">
+      <h1 class="wt-rail__title">{{ section.settings.title }}</h1>
+      {%- if section.settings.subtitle != blank -%}
+        <span class="wt-rail__sub">{{ section.settings.subtitle }}</span>
+      {%- endif -%}
+      <div class="wt-rail__story">{{ section.settings.story }}</div>
+      <p><span class="wt-status">{{ status_label }}</span></p>
+      {%- render 'worktable-actions', concept_id: cid, concept_name: cname, layout: 'rail' -%}
+    </div>
+
+    {%- comment -%} ---------- the plates ---------- {%- endcomment -%}
+    <div class="wt-plates">
+
+      <div class="wt-plate wt-plates__hero">
+        <div class="wt-plate__frame">
+          {%- if section.settings.hero != blank -%}
+            {{ section.settings.hero | image_url: width: 1400 | image_tag:
+                 loading: 'eager', widths: '400, 700, 1000, 1400',
+                 alt: section.settings.hero.alt | default: cname }}
+          {%- else -%}
+            <div class="wt-plate__empty"><span>Concept study &mdash; image to come</span></div>
+          {%- endif -%}
+        </div>
+        <span class="wt-plate__cap">Concept study &nbsp;/&nbsp; Reference image</span>
+      </div>
+
+      <div class="wt-plate wt-plates__context">
+        <div class="wt-plate__frame">
+          {%- if section.settings.context != blank -%}
+            {{ section.settings.context | image_url: width: 800 | image_tag:
+                 loading: 'lazy', widths: '300, 500, 800',
+                 alt: section.settings.context.alt | default: cname }}
+          {%- else -%}
+            <div class="wt-plate__empty"><span>In context &mdash; image to come</span></div>
+          {%- endif -%}
+        </div>
+        <span class="wt-plate__cap">In context &nbsp;/&nbsp; Material</span>
+      </div>
+
+      <div class="wt-plate wt-plates__construction">
+        <div class="wt-plate__frame">
+          {%- if section.settings.construction != blank -%}
+            {{ section.settings.construction | image_url: width: 800 | image_tag:
+                 loading: 'lazy', widths: '300, 500, 800',
+                 alt: 'Construction study for ' | append: cname }}
+          {%- else -%}
+            <div class="wt-plate__empty"><span>Construction study &mdash; drawing to come</span></div>
+          {%- endif -%}
+        </div>
+        <span class="wt-plate__cap">Construction study</span>
+      </div>
+
+      {%- assign swatches = section.blocks | where: 'type', 'swatch' -%}
+      {%- if swatches.size > 0 -%}
+        <div class="wt-palette wt-plates__palette">
+          <span class="wt-palette__label">Palette &nbsp;/&nbsp; Materials</span>
+          <div class="wt-palette__row">
+            {%- for block in swatches -%}
+              <div class="wt-chip" {{ block.shopify_attributes }}>
+                <div class="wt-chip__swatch"
+                     style="background-color: {{ block.settings.color }};{% if block.settings.image != blank %} background-image: url({{ block.settings.image | image_url: width: 400 }});{% endif %}"></div>
+                <span class="wt-chip__name">{{ block.settings.label }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} ---------- directions + the note ---------- {%- endcomment -%}
+  {%- assign directions = section.blocks | where: 'type', 'direction' -%}
+  {%- if directions.size > 0 or section.settings.worktable_note != blank -%}
+    <div class="wt-lower">
+      {%- if directions.size > 0 -%}
+        <div class="wt-directions">
+          <span class="wt-section-label">Proposed directions &nbsp;/&nbsp; Design studies</span>
+          <div class="wt-directions__row">
+            {%- for block in directions -%}
+              <div {{ block.shopify_attributes }}>
+                <div class="wt-direction__swatch">
+                  <div class="wt-direction__fill"
+                       style="background-color: {{ block.settings.color }};{% if block.settings.image != blank %} background-image: url({{ block.settings.image | image_url: width: 600 }});{% endif %}"></div>
+                </div>
+                <span class="wt-direction__name">
+                  <span class="wt-direction__no">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                  {{ block.settings.label }}
+                </span>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.worktable_note != blank -%}
+        <div class="wt-note">
+          <span class="wt-section-label">From the worktable</span>
+          <p class="wt-note__body">{{ section.settings.worktable_note }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- the decision bar ---------- {%- endcomment -%}
+  <div class="wt-decide">
+    <p class="wt-decide__ask">{{ section.settings.ask | default: 'What do you think?' }}</p>
+    {%- render 'worktable-actions', concept_id: cid, concept_name: cname, layout: 'bar' -%}
+  </div>
+
+  <p class="wt-fineprint">
+    Oh Betty Jaletti &nbsp;/&nbsp; Concept only &mdash; not a product photograph.
+    Nothing here is for sale, priced or promised.
+  </p>
+</div>
+
+{% schema %}
+{
+  "name": "Worktable study",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Identity"
+    },
+    {
+      "type": "text",
+      "id": "concept_id",
+      "label": "Concept ID",
+      "info": "Stable id for interest tracking, e.g. butta-balm. Never change it once it is live — the interest records are attached to it."
+    },
+    {
+      "type": "text",
+      "id": "collection_label",
+      "label": "Collection",
+      "default": "In Her Purse"
+    },
+    {
+      "type": "url",
+      "id": "index_url",
+      "label": "Worktable index link"
+    },
+    {
+      "type": "header",
+      "content": "Words"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "info": "Use <br> for a line break."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "info": "Set in small caps."
+    },
+    {
+      "type": "richtext",
+      "id": "story",
+      "label": "Story"
+    },
+    {
+      "type": "textarea",
+      "id": "worktable_note",
+      "label": "From the worktable",
+      "info": "What is still being decided. Set in italic at the foot."
+    },
+    {
+      "type": "text",
+      "id": "ask",
+      "label": "Decision bar question",
+      "default": "What do you think?"
+    },
+    {
+      "type": "select",
+      "id": "status",
+      "label": "Development status",
+      "info": "Only move past 'A little thought' when the work has actually reached that stage.",
+      "options": [
+        { "value": "thought", "label": "A little thought (early concept)" },
+        { "value": "worktable", "label": "At the worktable (design in progress)" },
+        { "value": "shaping", "label": "Taking shape (prototype or sampling)" },
+        { "value": "nearly", "label": "Nearly here (confirmed release)" },
+        { "value": "shop", "label": "In the shop (live product)" },
+        { "value": "away", "label": "Put away for now (paused)" }
+      ],
+      "default": "thought"
+    },
+    {
+      "type": "header",
+      "content": "Images",
+      "info": "Reference studies only. Never upload a photograph that implies the piece has been made."
+    },
+    { "type": "image_picker", "id": "hero", "label": "Concept study" },
+    { "type": "image_picker", "id": "context", "label": "In context / material" },
+    { "type": "image_picker", "id": "construction", "label": "Construction study" }
+  ],
+  "blocks": [
+    {
+      "type": "swatch",
+      "name": "Palette / material",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Name", "default": "House green" },
+        { "type": "color", "id": "color", "label": "Colour", "default": "#3A544A" },
+        { "type": "image_picker", "id": "image", "label": "Material photograph", "info": "Optional. Overrides the colour." }
+      ]
+    },
+    {
+      "type": "direction",
+      "name": "Proposed direction",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Name", "default": "House green" },
+        { "type": "color", "id": "color", "label": "Colour", "default": "#3A544A" },
+        { "type": "image_picker", "id": "image", "label": "Study image", "info": "Optional. Overrides the colour." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Worktable study" }
+  ]
+}
+{% endschema %}

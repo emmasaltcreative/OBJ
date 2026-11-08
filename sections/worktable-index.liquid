@@ -1,0 +1,115 @@
+{%- comment -%}
+  The Worktable — the wall of studies.
+
+  Each concept has its own page; this lists them, grouped by chapter.
+  Chapters and entries are theme-editor blocks, so the order and the
+  wording are the founder's, not the code's.
+{%- endcomment -%}
+
+{{ 'worktable.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width section">
+  <div class="wt-index__head">
+    <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="64" height="64" style="margin: 0 auto 1.4rem;">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+    <h1 class="title-quiet">{{ section.settings.heading }}</h1>
+    <div class="prose prose--quiet">{{ section.settings.intro }}</div>
+  </div>
+
+  {%- assign current_chapter = '' -%}
+  {%- for block in section.blocks -%}
+
+    {%- if block.type == 'chapter' -%}
+      {%- unless current_chapter == '' -%}
+          </div>
+        </section>
+      {%- endunless -%}
+      {%- assign current_chapter = block.settings.label -%}
+      <section class="wt-chapter" {{ block.shopify_attributes }}>
+        <span class="wt-chapter__label">{{ block.settings.label }}</span>
+        <div class="wt-grid">
+    {%- endif -%}
+
+    {%- if block.type == 'study' -%}
+      {%- if current_chapter == '' -%}
+        {%- assign current_chapter = 'Studies' -%}
+        <section class="wt-chapter">
+          <span class="wt-chapter__label">Studies</span>
+          <div class="wt-grid">
+      {%- endif -%}
+      <a class="wt-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        <div class="wt-card__frame">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 700 | image_tag:
+                 loading: 'lazy', widths: '240, 400, 700',
+                 alt: block.settings.image.alt | default: block.settings.title }}
+          {%- else -%}
+            <div class="wt-plate__empty"><span>Study &mdash; image to come</span></div>
+          {%- endif -%}
+        </div>
+        <h2 class="wt-card__title">{{ block.settings.title }}</h2>
+        {%- if block.settings.subtitle != blank -%}
+          <span class="wt-card__sub">{{ block.settings.subtitle }}</span>
+        {%- endif -%}
+        {%- if block.settings.status != blank -%}
+          <span class="wt-card__status">{{ block.settings.status }}</span>
+        {%- endif -%}
+      </a>
+    {%- endif -%}
+
+  {%- endfor -%}
+
+  {%- unless current_chapter == '' -%}
+      </div>
+    </section>
+  {%- endunless -%}
+
+  {%- if section.settings.footnote != blank -%}
+    <p class="wt-fineprint" style="text-align: center; padding-bottom: 0;">{{ section.settings.footnote }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Worktable index",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Back Room" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "At the Worktable" },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>This is where we keep the things we are thinking about. Some are little sketches. Some are nearly ready. And a few are waiting for someone like you to say, yes, that one.</p><p>Have a look around. Leave a thought or two. You never know what might come of it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Concept studies only — nothing here is for sale, priced or promised."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter heading",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Chapter", "default": "In Her Purse" }
+      ]
+    },
+    {
+      "type": "study",
+      "name": "Study",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "The Bag Tray" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "text", "id": "status", "label": "Status", "default": "A little thought" },
+        { "type": "url", "id": "link", "label": "Page" },
+        { "type": "image_picker", "id": "image", "label": "Study image" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Worktable index" }
+  ]
+}
+{% endschema %}
