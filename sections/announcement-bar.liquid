@@ -92,14 +92,23 @@
   pointer-events: none;
 }
 
+/*
+  The fall is driven by `top`, not by a percentage inside translate():
+  a percentage in translate() resolves against the element's own box, and
+  these flakes are 2-4px across, so translateY(180%) moved them about five
+  pixels and piled them along the top edge. `top: 100%` resolves against
+  the bar instead, so one flake crosses the whole bar whatever its height
+  — a wrapped two-line bar on a phone included. translate() is left to do
+  the sideways drift only.
+*/
 .obj-snow i {
   position: absolute;
-  top: 0;
+  top: -6px;
   display: block;
   border-radius: 50%;
   background: currentColor;
   opacity: 0;
-  will-change: transform, opacity;
+  will-change: top, transform, opacity;
   animation-name: obj-snow-fall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -107,7 +116,8 @@
 
 @keyframes obj-snow-fall {
   0% {
-    transform: translate3d(0, -6px, 0);
+    top: -6px;
+    transform: translate3d(0, 0, 0);
     opacity: 0;
   }
   18% {
@@ -117,7 +127,8 @@
     opacity: var(--obj-snow-fade, 0.5);
   }
   100% {
-    transform: translate3d(var(--obj-snow-drift, 0px), 180%, 0);
+    top: 100%;
+    transform: translate3d(var(--obj-snow-drift, 0px), 0, 0);
     opacity: 0;
   }
 }
