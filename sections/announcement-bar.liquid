@@ -1,18 +1,48 @@
+{%- comment -%}
+  Announcement bar.
+
+  Falling snow is decorative and drawn with CSS only — no JavaScript, no
+  images. The flakes inherit the bar's own text colour through
+  currentColor, so they follow the palette set in Theme settings and never
+  need their own colour picker. Each flake's lane, size, speed, drift and
+  opacity are derived from its index, which gives an irregular fall from a
+  plain loop. Negative animation delays start them mid-flight, so the bar
+  looks like it has been snowing since before the page loaded.
+
+  The whole field is aria-hidden and skipped entirely for anyone who asks
+  for reduced motion; the sentence alone remains.
+{%- endcomment -%}
+
 {% if section.settings.text != blank %}
   {%- assign announcement_href = section.settings.link -%}
   {%- if announcement_href == blank -%}
-    {%- if section.settings.text contains 'Chaperone' -%}
-      {%- assign announcement_href = '/products/the-chaperone' -%}
-    {%- elsif section.settings.text contains 'Purse' or section.settings.text contains 'Brownstone' -%}
+    {%- if section.settings.text contains 'Purse' or section.settings.text contains 'Brownstone' -%}
       {%- assign announcement_href = '/#brownstone-tote' -%}
     {%- endif -%}
   {%- endif -%}
-  <div class="announcement-bar">
-    {% if announcement_href != blank %}
-      <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
-    {% else %}
-      {{ section.settings.text }}
-    {% endif %}
+  <div class="announcement-bar{% if section.settings.show_snow %} announcement-bar--snow{% endif %}">
+    {%- if section.settings.show_snow -%}
+      <span class="obj-snow" aria-hidden="true">
+        {%- for i in (1..18) -%}
+          {%- liquid
+            assign lane = forloop.index | times: 5.7 | modulo: 100
+            assign dur = forloop.index | modulo: 5 | plus: 7
+            assign delay = forloop.index | times: 7 | modulo: 11
+            assign size = forloop.index | modulo: 3 | plus: 2
+            assign fade = forloop.index | modulo: 4 | plus: 3
+            assign drift = forloop.index | modulo: 7 | minus: 3 | times: 5
+          -%}
+          <i style="left: {{ lane }}%; width: {{ size }}px; height: {{ size }}px; animation-duration: {{ dur }}s; animation-delay: -{{ delay }}s; --obj-snow-drift: {{ drift }}px; --obj-snow-fade: 0.{{ fade }};"></i>
+        {%- endfor -%}
+      </span>
+    {%- endif -%}
+    <span class="announcement-bar__text">
+      {% if announcement_href != blank %}
+        <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
+      {% else %}
+        {{ section.settings.text }}
+      {% endif %}
+    </span>
   </div>
 {% endif %}
 
@@ -24,13 +54,76 @@
       "type": "text",
       "id": "text",
       "label": "Text",
-      "default": "The debut — In Her Purse. The Brownstone Tote by Betty."
+      "default": "Place Order by December 17th for Christmas Eve Delivery"
     },
     {
       "type": "url",
       "id": "link",
       "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_snow",
+      "label": "Falling snow",
+      "default": true,
+      "info": "Decorative only. Hidden automatically for visitors who ask for reduced motion."
     }
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+.announcement-bar--snow {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.announcement-bar--snow .announcement-bar__text {
+  position: relative;
+  z-index: 1;
+}
+
+.obj-snow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.obj-snow i {
+  position: absolute;
+  top: 0;
+  display: block;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: obj-snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes obj-snow-fall {
+  0% {
+    transform: translate3d(0, -6px, 0);
+    opacity: 0;
+  }
+  18% {
+    opacity: var(--obj-snow-fade, 0.5);
+  }
+  82% {
+    opacity: var(--obj-snow-fade, 0.5);
+  }
+  100% {
+    transform: translate3d(var(--obj-snow-drift, 0px), 180%, 0);
+    opacity: 0;
+  }
+}
+
+/* The sentence is the point; the weather is not. */
+@media (prefers-reduced-motion: reduce) {
+  .obj-snow { display: none; }
+}
+{% endstylesheet %}

@@ -40,6 +40,41 @@ ground service only, US addresses only.
    said no date while The Chaperone's metafield still read "Sent by 15
    December." Check the product's metafields whenever a date changes.
 
+## Christmas 2026 cutoffs
+
+Christmas Eve is **Thursday 24 December 2026**. Worked back from the windows
+above, excluding weekends and federal holidays:
+
+| Method | Worst case | Latest safe order date |
+|---|---|---|
+| Standard | 10 business days | **Thursday 10 December** |
+| Express | 4 business days | **Friday 18 December** |
+
+### The banner says 17 December, which only holds for Express
+
+The announcement bar reads "Place Order by December 17th for Christmas Eve
+Delivery." Order on Thursday 17 December and:
+
+- **Express** arrives Mon 21 – Wed 23 December. In time.
+- **Standard** arrives Thu 24 December *at best* and **Mon 4 January at worst** —
+  eleven days late, because Standard's window runs to 10 business days.
+
+Standard is the default and the free option over $70, so most orders take it.
+As written, the banner promises Christmas Eve on the one method that cannot
+reliably hit it. Three ways to square it, in order of how little they cost:
+
+1. Say the method: "Place Order by December 17th with Express for Christmas
+   Eve Delivery."
+2. Move the date to the honest Standard cutoff: "Place Order by December 10th
+   for Christmas Eve Delivery."
+3. Carry both: "Christmas Eve delivery — Standard by Dec 10, Express by Dec 18."
+
+Whichever is chosen, the banner is one field: Theme editor → Header group →
+Announcement bar → Text.
+
+**This is all moot until something ships.** The store has never fulfilled an
+order, so no Christmas cutoff is real yet.
+
 ## Where the standard is stated
 
 | Surface | What it says | Where to change it |
