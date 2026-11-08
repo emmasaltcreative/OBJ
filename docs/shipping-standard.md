@@ -12,7 +12,7 @@ by hand, and the days spent with the carrier.
 | Method | Packed | In the post | **Arrives** | Price |
 |---|---|---|---|---|
 | Standard | 3–5 business days | 2–5 business days | **5–10 business days** | $8.00, free over $70 |
-| Express | **1 business day**, packed first | 1–3 business days | **2–4 business days** | $15.00 |
+| Express | **1 business day**, packed first | 1–3 business days | **2–4 business days** | $15.00, orders of $150 or more |
 | The Scented Letter (free sample) | 3–5 business days | up to a week, ordinary post | **1–2 weeks** | free |
 | Preorder | — | — | the date published on the listing | — |
 
@@ -23,9 +23,11 @@ ground service only, US addresses only.
 
 1. **Never state a packing time without a transit time.** "Ships in 3–5 days"
    is the question nobody asked; "arrives in 5–10 business days" is the answer.
-2. **Express is packed first, within one business day.** That is what the $15
-   buys: 2–4 days against 5–10. An Express order jumps the bench — honour that,
-   or drop the rate.
+2. **Express is packed the next business day, and is offered only on orders of
+   $150 or more.** That is what the $15 buys: 2–4 days against 5–10. The gate is
+   the point — at $150 an order is worth interrupting the bench for, and few
+   enough qualify that next-day packing stays possible. An Express order jumps
+   the queue; honour that, or drop the rate.
 3. **A preorder with no published date is not a preorder, it is a loan.** Either
    publish a date or take the listing down. Shopify's own Terms of Service for
    this store already promises that "preorder listings will identify the
@@ -103,10 +105,13 @@ order, so no Christmas cutoff is real yet.
 
 Ordered by how much it costs to leave alone.
 
-1. **Nothing has ever shipped.** As of 7 Nov 2026 the store has 12 orders and
-   zero fulfilments; the oldest (#1003, 27 Oct) is 11 days old. Every promise in
-   this file is already broken for every order on the books. Fulfil or write to
-   those twelve buyers before advertising any window.
+1. **The backlog, and when the standard becomes real.** As of 8 Nov 2026 the
+   store has 12 orders and zero fulfilments, the oldest (#1003, 27 Oct). The
+   cause is shipping supplies, which are due **10 November**; orders that must
+   go out before then are packed in whatever one-off packaging is to hand. The
+   3–5 business day window is the owner's own figure and is right from the
+   point supplies land. Until then, every window in this file is aspirational,
+   so clear the twelve before leaning on any of it.
 2. **Shopify's processing time is still 10 days** (`deliveryPromiseSettings`
    reads `processingTime: "P10D"`, `deliveryDatesEnabled: true`), so checkout
    quotes arrival about a fortnight later than every other surface promises.
@@ -116,10 +121,13 @@ Ordered by how much it costs to leave alone.
 
    One caveat that cannot be designed around: Shopify holds **one processing
    time for the whole shop**. It cannot pack Express in one business day and
-   Standard in three to five. Whatever is set applies to both, so the quoted
-   Express date will carry Standard's packing time. Either accept that Express
-   looks slower at checkout than its rate name claims, or drop the one-day
-   Express packing promise and put Express back to 4–8 business days.
+   Standard in three to five. Set it to 3–5 and the quoted Express date carries
+   Standard's packing time, so Express reads slower at checkout than its rate
+   name claims and the buyer simply receives it earlier than quoted. The $150
+   gate narrows this to the few orders that qualify, which makes it liveable.
+   The alternative is to switch Shopify's delivery dates off entirely and let
+   the two rate names — which are accurate per method — carry the promise, at
+   the cost of concrete dates at checkout. Both are one toggle in admin.
 3. **The Standard rate still reads "Standard" at checkout**, with no time. It
    carries a price-range condition (free over $70) that the Admin API refuses to
    update, so it must be renamed by hand in Settings → Shipping and delivery:
