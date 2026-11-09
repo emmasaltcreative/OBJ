@@ -78,10 +78,15 @@ has to name the method it applies to.
 The announcement bar holds two sentences and swaps between them on dates, so
 nobody has to remember:
 
-- **Everyday:** "Packed by hand in Virginia · Free US shipping over $70 ·
-  Thirty-day returns" — the three things an unknown shop has to prove: that a
-  real person in a real place makes this, what it costs, and what happens if
-  it is wrong.
+- **Everyday:** "Packed by hand in the USA · Free US shipping over $70 · The
+  house reads every letter" — the three things an unknown shop has to prove:
+  that real people pack it, what it costs, and that someone answers.
+
+  Length was measured, not guessed. This sets on one line at 1280px and three
+  at 390px (79px). Every three-clause arrangement of these phrases wraps to
+  three lines on a phone, whichever order they run in. To buy back a line,
+  swap the last clause for "A person writes back" (60px, two lines) or drop
+  one clause.
 - **1–10 December:** the Christmas cutoff line.
 - **From 11 December:** back to the everyday line, automatically.
 
