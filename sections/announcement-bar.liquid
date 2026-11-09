@@ -13,10 +13,34 @@
   for reduced motion; the sentence alone remains.
 {%- endcomment -%}
 
-{% if section.settings.text != blank %}
+{%- comment -%}
+  The seasonal line runs itself. A cutoff banner that outlives its cutoff
+  is worse than no banner — "order by December 10th" still showing on the
+  15th is a promise the house cannot keep — so the holiday sentence shows
+  only between its two dates and the everyday one returns on its own.
+
+  Dates are compared as plain integers (20261209) rather than strings,
+  because Liquid's string comparison is not dependable. `now` follows the
+  shop's own time zone.
+{%- endcomment -%}
+{%- liquid
+  assign banner_text = section.settings.text
+
+  assign today_num = 'now' | date: '%Y%m%d' | plus: 0
+  assign start_num = section.settings.holiday_start | remove: '-' | plus: 0
+  assign end_num = section.settings.holiday_end | remove: '-' | plus: 0
+
+  if section.settings.holiday_text != blank and start_num > 0 and today_num >= start_num
+    if end_num == 0 or today_num <= end_num
+      assign banner_text = section.settings.holiday_text
+    endif
+  endif
+-%}
+
+{% if banner_text != blank %}
   {%- assign announcement_href = section.settings.link -%}
   {%- if announcement_href == blank -%}
-    {%- if section.settings.text contains 'Purse' or section.settings.text contains 'Brownstone' -%}
+    {%- if banner_text contains 'Purse' or banner_text contains 'Brownstone' -%}
       {%- assign announcement_href = '/#brownstone-tote' -%}
     {%- endif -%}
   {%- endif -%}
@@ -38,9 +62,9 @@
     {%- endif -%}
     <span class="announcement-bar__text">
       {% if announcement_href != blank %}
-        <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ section.settings.text }}</a>
+        <a href="{{ announcement_href }}" style="text-decoration: none; color: inherit;">{{ banner_text }}</a>
       {% else %}
-        {{ section.settings.text }}
+        {{ banner_text }}
       {% endif %}
     </span>
   </div>
@@ -54,12 +78,40 @@
       "type": "text",
       "id": "text",
       "label": "Text",
-      "default": "Place Order by December 10th for Christmas Eve Delivery"
+      "default": "Packed by hand in Virginia · Free US shipping over $70 · Thirty-day returns"
     },
     {
       "type": "url",
       "id": "link",
       "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Seasonal line"
+    },
+    {
+      "type": "paragraph",
+      "content": "Replaces the text above between the two dates, then reverts on its own. Leave the text empty to turn it off."
+    },
+    {
+      "type": "text",
+      "id": "holiday_text",
+      "label": "Seasonal text",
+      "default": "Place Order by December 10th for Christmas Eve Delivery"
+    },
+    {
+      "type": "text",
+      "id": "holiday_start",
+      "label": "Show from",
+      "default": "2026-12-01",
+      "info": "YYYY-MM-DD, in the shop's time zone."
+    },
+    {
+      "type": "text",
+      "id": "holiday_end",
+      "label": "Stop after",
+      "default": "2026-12-10",
+      "info": "The last day it shows. Set this to the ordering cutoff itself, so the promise never outlives it."
     },
     {
       "type": "checkbox",

@@ -73,8 +73,24 @@ is the default and free over $70, so most orders take it. The rule this follows:
 **a single cutoff date must be computed from the slowest method offered**, or it
 has to name the method it applies to.
 
-If the date ever needs to move, it is one field: Theme editor → Header group →
-Announcement bar → Text.
+### The banner schedules itself
+
+The announcement bar holds two sentences and swaps between them on dates, so
+nobody has to remember:
+
+- **Everyday:** "Packed by hand in Virginia · Free US shipping over $70 ·
+  Thirty-day returns" — the three things an unknown shop has to prove: that a
+  real person in a real place makes this, what it costs, and what happens if
+  it is wrong.
+- **1–10 December:** the Christmas cutoff line.
+- **From 11 December:** back to the everyday line, automatically.
+
+That last part is the one that matters. A cutoff banner outliving its cutoff
+is worse than no banner at all — "order by December 10th" still showing on the
+15th is a promise the house cannot keep. **Set "Stop after" to the cutoff date
+itself, never later.**
+
+All of it is in Theme editor → Header group → Announcement bar.
 
 **This is all moot until something ships.** The store has never fulfilled an
 order, so no Christmas cutoff is real yet.

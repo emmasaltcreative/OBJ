@@ -5,9 +5,12 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Place Order by December 10th for Christmas Eve Delivery",
+        "text": "Packed by hand in Virginia · Free US shipping over $70 · Thirty-day returns",
         "link": "/collections/in-her-purse",
-        "show_snow": true
+        "show_snow": true,
+        "holiday_text": "Place Order by December 10th for Christmas Eve Delivery",
+        "holiday_start": "2026-12-01",
+        "holiday_end": "2026-12-10"
       }
     },
     "header": {
