@@ -1,0 +1,149 @@
+{%- comment -%}
+  03 — A Note From the House.
+
+  Where the Betty illustration lives now. It used to sit third in the product
+  gallery, between a photograph and a video, which asked the shopper to read
+  a drawing as product photography.
+
+  The featured character is set by framing rather than by cutting a new file:
+  the artwork holds the whole cast, and zoom with a focal point crops to one
+  of them in CSS. Nothing is regenerated, nothing is overwritten, and the
+  framing is a setting the house can move.
+
+  Focal point and zoom are percentages of the source image. Zoom 1 shows the
+  whole picture; the focal point is both the centre of the zoom and the part
+  kept when the frame is a different shape from the file.
+{%- endcomment -%}
+
+{%- liquid
+  assign image = section.settings.image
+  assign zoom = section.settings.zoom | default: 1
+-%}
+
+{%- if image != blank or section.settings.note != blank -%}
+  <section class="portrait section" id="{{ section.settings.anchor | default: 'the-house' }}">
+    <div class="page-width">
+      <div class="portrait__inner">
+        {%- if image != blank -%}
+          <figure class="portrait__figure">
+            <div
+              class="portrait__frame"
+              style="--focal-x: {{ section.settings.focal_x }}%; --focal-y: {{ section.settings.focal_y }}%; --portrait-zoom: {{ zoom }};"
+            >
+              {{ image
+                 | image_url: width: 1600
+                 | image_tag: loading: 'lazy',
+                              widths: '500, 800, 1100, 1600',
+                              sizes: '(min-width: 900px) 42vw, 90vw',
+                              alt: section.settings.image_alt | default: image.alt | default: '' }}
+            </div>
+            {% if section.settings.caption != blank %}
+              <figcaption class="portrait__caption">{{ section.settings.caption }}</figcaption>
+            {% endif %}
+          </figure>
+        {%- endif -%}
+
+        <div class="portrait__text">
+          {% if section.settings.numeral != blank %}
+            <span class="seq-numeral">{{ section.settings.numeral }}</span>
+          {% endif %}
+          {% if section.settings.eyebrow != blank %}
+            <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+          {% endif %}
+          <h2>{{ section.settings.heading }}</h2>
+
+          {% if section.settings.note != blank %}
+            <div class="portrait__note prose">{{ section.settings.note }}</div>
+          {% endif %}
+
+          {% if section.settings.signature != blank %}
+            <p class="portrait__signature">{{ section.settings.signature }}</p>
+          {% endif %}
+
+          {%- if section.settings.full_image != blank -%}
+            <figure class="portrait__full">
+              {{ section.settings.full_image
+                 | image_url: width: 900
+                 | image_tag: loading: 'lazy',
+                              widths: '320, 480, 720, 900',
+                              sizes: '(min-width: 900px) 24vw, 60vw',
+                              alt: section.settings.full_alt | default: '' }}
+              {% if section.settings.full_caption != blank %}
+                <figcaption>{{ section.settings.full_caption }}</figcaption>
+              {% endif %}
+            </figure>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "House portrait",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "numeral", "label": "Numeral", "default": "03" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From the house" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Note From the House" },
+    { "type": "richtext", "id": "note", "label": "Note" },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature",
+      "info": "Set in the house italic, as a signed line."
+    },
+    { "type": "header", "content": "The portrait" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Illustration",
+      "info": "The approved character illustration. Frame it on the right Betty with the focal point and zoom below rather than by cropping a new file."
+    },
+    { "type": "text", "id": "image_alt", "label": "Illustration alt text" },
+    {
+      "type": "range",
+      "id": "focal_x",
+      "label": "Focal point — across",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "focal_y",
+      "label": "Focal point — down",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "zoom",
+      "label": "Zoom",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "default": 1,
+      "info": "1 shows the whole illustration. Raise it to frame a single character."
+    },
+    { "type": "text", "id": "caption", "label": "Caption" },
+    { "type": "header", "content": "Supporting artwork" },
+    {
+      "type": "image_picker",
+      "id": "full_image",
+      "label": "Full illustration",
+      "info": "Optional, shown small beside the note — the whole cast as house storytelling, after the featured character has been introduced."
+    },
+    { "type": "text", "id": "full_alt", "label": "Full illustration alt text" },
+    { "type": "text", "id": "full_caption", "label": "Full illustration caption" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-house" }
+  ],
+  "presets": [{ "name": "House portrait" }]
+}
+{% endschema %}

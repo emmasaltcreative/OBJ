@@ -1,0 +1,36 @@
+{%- comment -%}
+  Outputs "true" when a piece of product media is an illustration rather
+  than product photography, and so belongs in a storytelling section rather
+  than the gallery.
+
+  Accepts:
+  - media: {Object} a product media object
+  - keys: {String} comma-separated fragments, from the template's
+    "Illustration filenames" setting
+
+  Matching is on the file name. Shopify gives these uploads no alt text to
+  match on, and media has no tag or type of its own that separates a drawing
+  from a photograph. With no keys nothing matches, which is why every other
+  template keeps all of its media in the gallery.
+
+  Only the base name is matched, never the whole URL. image_url returns an
+  absolute address on the shop's own domain, so matching the URL would test
+  the keys against "ohbettyjaletti.com" as well and a key like "betty" would
+  quietly swallow every photograph on the page.
+{%- endcomment -%}
+{%- liquid
+  assign is_illustration = false
+
+  if keys != blank and media != blank
+    assign needles = keys | downcase | split: ','
+    assign media_src = media.preview_image | image_url: width: 1 | split: '?' | first | split: '/' | last | downcase
+
+    for needle in needles
+      assign fragment = needle | strip
+      if fragment != blank and media_src contains fragment
+        assign is_illustration = true
+      endif
+    endfor
+  endif
+-%}
+{%- if is_illustration -%}true{%- endif -%}

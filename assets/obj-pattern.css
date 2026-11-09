@@ -50,7 +50,12 @@
   pointer-events: none;
 }
 
-/* The buy box on a product page. */
+/* The buy box on a product page.
+
+   The editorial product layout opts out of the band — see
+   product-editorial.css. There the buy box sits high in a quiet column and
+   a panel of wallpaper behind it was reading as decoration rather than as
+   the house mark. The drawer and the cart keep theirs. */
 .shopify-product-form {
   padding: clamp(1.4rem, 3vw, 2rem);
   margin-block: 1.6rem;

@@ -1,12 +1,14 @@
 {%- comment -%}
-  "Grab a sample" — a card scented by hand, folded into a house envelope
-  and closed with a wax seal, sent by post.
+  "Send me a scented letter" — a sheet of house paper scented by hand,
+  folded into a house envelope under a wax seal, and sent by post. It is
+  paper, not a decanted bottle: the copy has to say so, or it reads as an
+  offer of free perfume.
 
-  The card is a real $0.00 product that goes through checkout, not a
+  The letter is a real $0.00 product that goes through checkout, not a
   contact form. Checkout validates the address against carrier data, the
   request lands in Orders with a shipping label and a fulfilment state,
   it creates a Customer (which syncs to Klaviyo), and it can be counted:
-  you can ask how many people who took a card later bought a bottle. An
+  you can ask how many people who took a letter later bought a bottle. An
   inbox full of addresses can answer none of that.
 
   The form posts normally rather than through the drawer — see
@@ -25,13 +27,13 @@
   assign card = all_products[card_handle]
   assign card_variant = card.selected_or_first_available_variant
 
-  assign summary_label = settings.sample_summary_label | default: 'Grab a sample — free'
+  assign summary_label = settings.sample_summary_label | default: 'Send me a scented letter'
   assign summary_note = settings.sample_summary_note | default: 'Free · posted to you'
-  assign heading = settings.sample_heading | default: 'A scented card, sent by post'
+  assign heading = settings.sample_heading | default: 'A letter, scented by hand'
   assign intro = settings.sample_text
-  assign button_label = settings.sample_button | default: 'Send me the sample →'
+  assign button_label = settings.sample_button | default: 'Send me a scented letter →'
   assign note = settings.sample_note
-  assign spoken_for = settings.sample_spoken_for | default: 'The cards are spoken for just now. The letter will say when more are scented.'
+  assign spoken_for = settings.sample_spoken_for | default: 'The letters are spoken for just now. We will write when more are scented.'
 -%}
 
 {%- if card != blank and card_variant != blank -%}

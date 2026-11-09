@@ -1,0 +1,513 @@
+/* --------------------------------------------------------------------------
+   Oh Betty Jaletti — the editorial product page
+
+   One sheet per feature, the way free-sample.css and obj-pattern.css are
+   kept, so base.css stays diffable against the theme the store is running.
+
+   Everything that changes the buy area is scoped to .product--editorial, so
+   a template without the editorial layout switched on is untouched. The
+   sections below it (accords, story, portrait, particulars) only exist on
+   templates that add them.
+
+   Colour comes from the global tokens — cream paper, dark ink, jade accent,
+   gold — not from new values. Cream and ink carry the page, jade is kept for
+   the things you can press, gold and brown stay as thin detail.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Gallery — one image language
+   -------------------------------------------------------------------------- */
+
+/* Three children: the lead photograph, the rest of the gallery, and the buy
+   column. On a wide screen the first two stack in the left column; on a
+   phone the lead rises above the title and the rest drops below the button. */
+.product--editorial {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-areas:
+    "lead info"
+    "gallery info";
+  align-items: start;
+  row-gap: clamp(0.5rem, 1.1vw, 0.9rem);
+}
+
+.product--editorial .product__lead { grid-area: lead; }
+.product--editorial .product__info { grid-area: info; }
+
+.product--editorial .product__gallery {
+  grid-area: gallery;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.1vw, 0.9rem);
+  align-content: start;
+}
+
+/* Nothing left to show under the lead photograph. */
+.product--editorial .product__gallery:empty { display: none; }
+
+/* A frame rather than a border: same proportion, same background, no outline
+   drawn around the photograph. */
+.product--editorial .gallery__frame {
+  grid-column: span 1;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-paper);
+  margin: 0;
+}
+
+.product--editorial .gallery__frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  background: none;
+}
+
+/* Anything moving takes the full width: a video cropped to a column reads
+   as a mistake, and its own proportion is the right one. */
+.product--editorial .gallery__frame--wide {
+  grid-column: 1 / -1;
+  aspect-ratio: auto;
+  border: 0;
+}
+
+.product--editorial .product__video {
+  margin-top: 0;
+  border: 0;
+  background: var(--color-paper);
+}
+
+/* A lone supporting image would otherwise sit in a half-width column with
+   nothing beside it. */
+.product--editorial .product__gallery > .gallery__frame:not(.gallery__frame--wide):first-child:last-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 3 / 2;
+}
+
+/* --------------------------------------------------------------------------
+   Buy column
+   -------------------------------------------------------------------------- */
+
+.product--editorial .product__title {
+  font-size: clamp(2.5rem, 4.4vw, 3.9rem);
+  line-height: 1.02;
+  margin-bottom: 0.25rem;
+}
+
+.product--editorial .product__type {
+  margin-bottom: 0.9rem;
+  font-size: 1.05rem;
+}
+
+.product--editorial .product__price {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.product--editorial .product__description { margin-block: 0 1.6rem; }
+
+.product--editorial .product__intro {
+  font-size: clamp(1.08rem, 1.5vw, 1.22rem);
+  line-height: 1.6;
+  color: var(--color-ink);
+  max-width: 30rem;
+}
+.product--editorial .product__intro p { margin-bottom: 0.65em; }
+.product--editorial .product__intro p:last-child {
+  margin-bottom: 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* The buy box: no wallpaper behind it, no card around it. The quatrefoil is
+   a signature, and it reads as one only where it is rare — see obj-pattern.css,
+   which keeps it on the parcel drawer and the cart. */
+.product--editorial .shopify-product-form {
+  padding: 0;
+  margin-block: 0 0.4rem;
+  border-block: 0;
+  background: none;
+}
+.product--editorial .shopify-product-form::before { content: none; }
+
+.product--editorial .product__include {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: -0.5rem 0 1.25rem;
+}
+
+.product--editorial .fulfillment-line {
+  margin-block: 1.4rem 0;
+  border-bottom: 0;
+}
+
+.product--editorial .product__accordions { margin-top: 1.8rem; }
+
+/* --------------------------------------------------------------------------
+   The scented letter — a quiet second action, not a rival button
+   -------------------------------------------------------------------------- */
+
+.product--editorial .sample { margin-top: 1.1rem; }
+
+.product--editorial .sample__disclosure {
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+}
+
+.product--editorial .sample__summary {
+  padding: 1.1rem 0;
+  letter-spacing: 0.2em;
+}
+
+.product--editorial .sample__panel {
+  padding: 0 0 1.5rem;
+  border-top: 0;
+}
+
+.product--editorial .sample__heading {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+
+/* The letter is free and secondary: it gets the outline, the bottle gets
+   the solid button. */
+.product--editorial .sample__form .btn--solid {
+  background: none;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+.product--editorial .sample__form .btn--solid:hover {
+  background: var(--color-accent);
+  color: var(--on-accent);
+}
+
+/* --------------------------------------------------------------------------
+   The numbered editorial sequence
+   -------------------------------------------------------------------------- */
+
+/* The sequence numeral is read, so it takes a colour that passes AA on
+   cream: the house gold sits at about 3.1:1 at this size. The gold stays
+   as the rule above it, where it is ornament rather than text. */
+.seq-numeral {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+
+.seq-numeral::before {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 0.85rem;
+}
+
+.accords .eyebrow,
+.story .eyebrow,
+.portrait .eyebrow,
+.particulars .eyebrow { margin-bottom: 0.9rem; }
+
+/* 01 — the accords */
+
+.accords { border-top: 1px solid var(--line); }
+
+.accords__head {
+  max-width: 44rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+}
+.accords__head h2 { margin-bottom: 0.5rem; }
+
+.accords__intro {
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  margin: 0;
+  max-width: 38rem;
+}
+
+.accords__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+.accord { margin: 0; }
+
+.accord__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-paper);
+  margin-bottom: 1.3rem;
+}
+.accord__media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Without photography the accord sets as a plate: paper, a rule and the
+   house mark. Kept to a shallow band on purpose — at the height of a
+   photograph it reads as a picture that failed to load, and at this height
+   it reads as an ornament, which is what it is. Identical across the three.
+   The four-petal mark earns its place here because it appears once. */
+.accords__grid--plates .accord__media {
+  aspect-ratio: 2 / 1;
+  display: grid;
+  place-items: center;
+  background: var(--color-paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.accord__plate .icon-floral {
+  width: clamp(2rem, 3.4vw, 2.6rem);
+  height: auto;
+  opacity: 0.45;
+}
+
+.accord__index {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
+  color: var(--ink-soft);
+  margin-bottom: 0.55rem;
+}
+
+.accord__name {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  margin-bottom: 0.3rem;
+}
+
+.accord__descriptor {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.7rem;
+}
+
+.accord__text {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin: 0;
+}
+
+.accords__accents {
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding-top: clamp(1.4rem, 2.5vw, 2rem);
+  border-top: 1px solid var(--line);
+  font-style: italic;
+  color: var(--ink-soft);
+  max-width: 44rem;
+}
+
+.accords__accents-label {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-right: 0.7rem;
+}
+
+/* 02 — the story */
+
+.story { background: var(--color-paper); border-block: 1px solid var(--line); }
+
+.story__inner { max-width: 42rem; margin-inline: auto; }
+
+.story__head { margin-bottom: clamp(1.8rem, 3vw, 2.5rem); }
+.story__head h2 { margin-bottom: 0; }
+
+.story__body { font-size: 1.08rem; }
+.story__body h3 {
+  font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.story__body ul { padding-left: 1.1rem; color: var(--ink-soft); }
+.story__body li { margin-bottom: 0.45em; }
+
+.story__body--cap > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  float: left;
+  font-size: 4.2em;
+  line-height: 0.76;
+  padding-right: 0.1em;
+  padding-top: 0.06em;
+  color: var(--color-accent);
+}
+
+.story__quote {
+  margin: clamp(2rem, 4vw, 2.8rem) 0 0;
+  padding-top: clamp(1.4rem, 2.5vw, 1.9rem);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+
+/* 03 — the house portrait */
+
+.portrait__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.portrait__figure { margin: 0; }
+
+.portrait__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-paper);
+}
+
+/* The crop: object-position places the focal point, the matching
+   transform-origin zooms into it. No second file, and the framing stays a
+   setting rather than a decision baked into an asset. */
+.portrait__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+  transform: scale(var(--portrait-zoom, 1));
+  transform-origin: var(--focal-x, 50%) var(--focal-y, 50%);
+}
+
+.portrait__caption,
+.portrait__full figcaption {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.9rem;
+}
+
+.portrait__text h2 { margin-bottom: 0.9rem; }
+
+.portrait__note {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 34rem;
+}
+
+.portrait__signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  color: var(--color-accent);
+  margin: 1.4rem 0 0;
+}
+
+.portrait__full {
+  margin: clamp(2rem, 4vw, 2.75rem) 0 0;
+  max-width: 15rem;
+}
+.portrait__full figcaption { margin-top: 0.7rem; }
+
+/* 04 — the particulars */
+
+.particulars { border-top: 1px solid var(--line); }
+
+.particulars__head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.particulars__head h2 { margin-bottom: 0; }
+
+.particulars__list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(2rem, 5vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.particulars__row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 11rem) minmax(0, 1fr);
+  gap: 0 clamp(1rem, 2vw, 1.75rem);
+  padding-block: clamp(1.1rem, 2vw, 1.5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.particulars__row dt {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+
+.particulars__row dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.particulars__footnote {
+  margin: clamp(1.8rem, 3vw, 2.4rem) 0 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  max-width: 44rem;
+}
+.particulars__footnote p { margin: 0; }
+
+/* --------------------------------------------------------------------------
+   Narrower screens — identity, scent and the button come first
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  /* On a phone the gallery is a tall stack of pictures standing between the
+     title and the button. Lead with one photograph, move the rest below the
+     buy box, and the whole decision fits in the first screen or two. */
+  .product--editorial {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  /* Out of the grid and into the flex column, so it restates its own shape. */
+  .product--editorial .product__lead {
+    order: 1;
+    aspect-ratio: 4 / 5;
+    margin-bottom: clamp(1.5rem, 5vw, 2.25rem);
+  }
+  .product--editorial .product__info { order: 2; }
+  .product--editorial .product__gallery {
+    order: 3;
+    margin-top: clamp(2rem, 6vw, 3rem);
+  }
+
+  .product--editorial .product__title { font-size: clamp(2.2rem, 9vw, 3rem); }
+
+  .accords__grid { grid-template-columns: 1fr; gap: clamp(1.75rem, 6vw, 2.5rem); }
+  .accords__grid--plates .accord__media { aspect-ratio: 5 / 2; }
+  .accord__media { aspect-ratio: 3 / 2; margin-bottom: 1rem; }
+
+  .portrait__inner { grid-template-columns: 1fr; }
+  .portrait__frame { aspect-ratio: 5 / 4; }
+
+  .particulars__list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .particulars__row { grid-template-columns: 1fr; gap: 0.4rem; }
+}

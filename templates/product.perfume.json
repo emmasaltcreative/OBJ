@@ -15,91 +15,192 @@
         "scent": {
           "type": "accordion",
           "settings": {
-            "heading": "The scent",
-            "content": "<p>Rose, jasmine, peony, and lilac in the opening, settling into warm sandalwood and soft musk. A little nostalgic, decidedly feminine, and entirely her own.</p>"
+            "heading": "How it wears",
+            "content": "<p>Pear in the opening, amber through the middle, musk on the skin at the end of the day. Rose and jasmine sit underneath, quietly. It stays close rather than filling a room, and it lasts the length of an evening.</p>"
           }
         },
         "shipping": {
           "type": "accordion",
           "settings": {
             "heading": "Shipping &amp; returns",
-            "content": "<p>In hand and ready to send. Packed by hand at the house in 3–5 business days, then 2–5 business days in the post — about 5–10 business days to your door. Express is packed first, within one business day, and arrives in 2–4. Fragrance travels by ground service only, within the United States.</p><p>Returns: thirty days on an unopened bottle, gracious and calm — write to the house and we'll sort it. Opened, we'd rather you wrote anyway; we will do what we can.</p>"
-          }
-        },
-        "note-rose": {
-          "type": "note",
-          "settings": {
-            "name": "Rose",
-            "text": "The one everyone recognises, and nobody tires of.",
-            "image": "shopify://shop_images/awr-note-rose.webp"
-          }
-        },
-        "note-jasmine": {
-          "type": "note",
-          "settings": {
-            "name": "Jasmine",
-            "text": "Opens after dark, like the best conversations.",
-            "image": "shopify://shop_images/awr-note-jasmine.webp"
-          }
-        },
-        "note-peony": {
-          "type": "note",
-          "settings": {
-            "name": "Peony",
-            "text": "Extravagant for a Tuesday. Wear it anyway.",
-            "image": "shopify://shop_images/awr-note-peony.webp"
-          }
-        },
-        "note-lilac": {
-          "type": "note",
-          "settings": {
-            "name": "Lilac",
-            "text": "A garden you walked past once and never forgot.",
-            "image": "shopify://shop_images/awr-note-lilac.webp"
-          }
-        },
-        "note-sandalwood": {
-          "type": "note",
-          "settings": {
-            "name": "Sandalwood",
-            "text": "The warmth that stays after the flowers go quiet.",
-            "image": "shopify://shop_images/awr-note-sandalwood.webp"
-          }
-        },
-        "note-musk": {
-          "type": "note",
-          "settings": {
-            "name": "Musk",
-            "text": "Not a scent so much as the memory of one.",
-            "image": "shopify://shop_images/awr-note-musk.webp"
+            "content": "<p>In hand and ready to send. Packed by hand at the house in 3–5 business days, then 2–5 business days in the post — about 5–10 business days to your door. Express, on orders of $150 or more, is packed the next business day and arrives in 2–4. Fragrance travels by ground service only, within the United States.</p><p>Returns: thirty days on an unopened bottle, gracious and calm — write to the house and we'll sort it. Opened, we'd rather you wrote anyway; we will do what we can.</p>"
           }
         }
       },
       "block_order": [
         "scent",
-        "shipping",
-        "note-rose",
-        "note-jasmine",
-        "note-peony",
-        "note-lilac",
-        "note-sandalwood",
-        "note-musk"
+        "shipping"
       ],
       "settings": {
+        "editorial_layout": true,
         "collection_eyebrow": "No. 2 · In Her Purse",
         "preorder_eyebrow": "No. 2 · In Her Purse",
+        "intro_text": "<p>Luminous pear. Warm amber. Intimate musk.</p><p>A little nostalgic, decidedly feminine, and entirely her own.</p>",
+        "include_note": "One 10 mL bottle, dual-ended — an atomised spray at one end, a rollerball at the other.",
+        "illustration_filenames": "betty",
         "preorder_cta": "Claim the perfume →",
         "preorder_ships": "",
         "preorder_fulfillment": "",
         "share_note": "Small enough to forget you packed it. Never quite forgotten by anyone else.",
         "share_label": "Send it to her →",
-        "notes_eyebrow": "What it is made of",
-        "notes_heading": "The notes",
         "more_text": "The collection fills up slowly, on purpose. <a href='#perfume-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
         "sell_in_preproduction": true,
         "default_cta": "Claim the perfume →",
         "story_heading": "A small bottle with a long memory",
         "preproduction_copy": ""
+      }
+    },
+    "accords": {
+      "type": "scent-accords",
+      "blocks": {
+        "pear": {
+          "type": "accord",
+          "settings": {
+            "name": "Pear",
+            "descriptor": "Luminous · delicate",
+            "text": "The first thing you notice and the first thing to go — bright, a little green, gone before anyone can ask what it is."
+          }
+        },
+        "amber": {
+          "type": "accord",
+          "settings": {
+            "name": "Amber",
+            "descriptor": "Warm · enveloping",
+            "text": "The middle of it, and the reason it reads as warmth rather than as perfume. Softly golden, and in no hurry."
+          }
+        },
+        "musk": {
+          "type": "accord",
+          "settings": {
+            "name": "Musk",
+            "descriptor": "Intimate · skinlike",
+            "text": "What is left at the end of the evening. Close to the skin, and more like a memory of a scent than a scent."
+          }
+        }
+      },
+      "block_order": [
+        "pear",
+        "amber",
+        "musk"
+      ],
+      "settings": {
+        "numeral": "01",
+        "eyebrow": "How it wears",
+        "heading": "The Scent of Her",
+        "intro": "Three accords, in the order you meet them. It opens bright, settles warm, and finishes close to the skin.",
+        "anchor": "the-scent",
+        "accents_label": "Beneath it",
+        "accents": "A quiet trace of rose and jasmine — present, never the point."
+      }
+    },
+    "story": {
+      "type": "product-story",
+      "settings": {
+        "numeral": "02",
+        "eyebrow": "Why it exists",
+        "heading": "A Woman Remembered",
+        "body": "<p>Some women have a way of staying with you.</p><p>Perhaps it's the way they enter a room, how they remember the smallest details, or the particular perfume that lingers long after they've left.</p><p>It feels like a handwritten letter tucked into a handbag. An unexpected compliment from a stranger. The perfume your grandmother wore, if she'd had a standing reservation downtown and a rather interesting past.</p><p>Familiar, but never predictable. For ordinary Tuesdays, extraordinary evenings, and everything in between.</p>",
+        "drop_cap": true,
+        "pull_quote": "Some women leave a room. Others leave a story.",
+        "anchor": "the-story"
+      }
+    },
+    "portrait": {
+      "type": "house-portrait",
+      "settings": {
+        "numeral": "03",
+        "eyebrow": "From the house",
+        "heading": "A Note From the House",
+        "note": "<p>This one is for the Betty who has had the most practice. She is not the loudest in the room and never has been — she simply arrives, remembers your sister's name, and leaves the place warmer than she found it.</p><p>We made a perfume that behaves the way she does. It does not announce itself at the door. It stays near the skin, keeps its own counsel, and turns up in your memory a week later, uninvited.</p>",
+        "signature": "— Betty",
+        "image": "shopify://shop_images/Betty_s_Botanical_Fragrance_Portrait.png",
+        "image_alt": "Betty Remembered — an older Betty with short silver-grey curls, in a navy cardigan and cream scarf, drawn in the house illustration style.",
+        "focal_x": 82,
+        "focal_y": 64,
+        "zoom": 2.2,
+        "caption": "Betty Remembered",
+        "full_image": "shopify://shop_images/Betty_s_Botanical_Fragrance_Portrait.png",
+        "full_alt": "Bettys through the ages — five generations of Betty drawn together with pear, iris, rose and the amber bottle.",
+        "full_caption": "Bettys through the ages",
+        "anchor": "the-house"
+      }
+    },
+    "particulars": {
+      "type": "product-particulars",
+      "blocks": {
+        "concentration": {
+          "type": "particular",
+          "settings": {
+            "label": "Concentration",
+            "text": "Eau de Parfum."
+          }
+        },
+        "size": {
+          "type": "particular",
+          "settings": {
+            "label": "Size",
+            "text": "10 mL, in one bottle. Roughly the length of a lipstick, and happy at the bottom of a handbag or in the inside pocket of The Brownstone Tote."
+          }
+        },
+        "bottle": {
+          "type": "particular",
+          "settings": {
+            "label": "The bottle",
+            "text": "Amber glass with gold fittings, dual-ended: the top sprays a fine mist, the base unscrews to a rollerball. \"Travel Duo\" is the pair of applicators, not a pair of bottles."
+          }
+        },
+        "notes": {
+          "type": "particular",
+          "settings": {
+            "label": "What is in it",
+            "text": "Pear, amber and musk, with rose and jasmine beneath them."
+          }
+        },
+        "wearing": {
+          "type": "particular",
+          "settings": {
+            "label": "Wearing it",
+            "fallback": "ritual_intro"
+          }
+        },
+        "care": {
+          "type": "particular",
+          "settings": {
+            "label": "Keeping it",
+            "fallback": "care"
+          }
+        },
+        "making": {
+          "type": "particular",
+          "settings": {
+            "label": "How it is made",
+            "fallback": "making_note"
+          }
+        },
+        "shipping": {
+          "type": "particular",
+          "settings": {
+            "label": "Getting it to you",
+            "text": "Packed by hand in 3–5 business days, then 2–5 in the post. Express, on orders of $150 or more, is packed the next business day and arrives in 2–4. Free US shipping over $70. Fragrance ships ground only, within the United States."
+          }
+        }
+      },
+      "block_order": [
+        "concentration",
+        "size",
+        "bottle",
+        "notes",
+        "wearing",
+        "care",
+        "making",
+        "shipping"
+      ],
+      "settings": {
+        "numeral": "04",
+        "eyebrow": "Everything else",
+        "heading": "The Particulars",
+        "footnote": "<p>Thirty days to change your mind on an unopened bottle. Write to <a href=\"mailto:hello@ohbettyjaletti.com\">hello@ohbettyjaletti.com</a> and a person will answer.</p>",
+        "anchor": "the-particulars"
       }
     },
     "promises": {
@@ -116,7 +217,7 @@
           "type": "promise",
           "settings": {
             "heading": "Free US shipping over $70",
-            "text": "Standard $8, Express $15 (2–4 business days)."
+            "text": "Otherwise $8. Express $15 over $150."
           }
         },
         "returns": {
@@ -164,6 +265,10 @@
   "order": [
     "main",
     "promises",
+    "accords",
+    "story",
+    "portrait",
+    "particulars",
     "marquee",
     "newsletter",
     "sticky"

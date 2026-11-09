@@ -102,7 +102,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "A card scented by hand, folded into a house envelope and closed with a wax seal. The button adds a $0.00 product to the parcel and goes straight to checkout, so Shopify collects and validates the address, the request lands in Orders ready to fulfil, and it creates a customer you can count. Offered on scented products — tagged fragrance or sample, typed as an eau de parfum, or with the metafield custom.free_sample set true. Withheld with the tag no-sample."
+        "content": "A sheet of house paper scented by hand, folded into a house envelope and closed with a wax seal. It is paper, not a decanted bottle, and the copy says so. The button adds a $0.00 product to the parcel and goes straight to checkout, so Shopify collects and validates the address, the request lands in Orders ready to fulfil, and it creates a customer you can count. Offered on scented products — tagged fragrance or sample, typed as an eau de parfum, or with the metafield custom.free_sample set true. Withheld with the tag no-sample."
       },
       {
         "type": "checkbox",
@@ -125,7 +125,7 @@
         "type": "text",
         "id": "sample_sticker_kicker",
         "label": "Seal kicker",
-        "default": "Free sample"
+        "default": "A scented letter"
       },
       {
         "type": "text",
@@ -142,7 +142,7 @@
         "type": "text",
         "id": "sample_summary_label",
         "label": "Disclosure label",
-        "default": "Grab a sample — free"
+        "default": "Send me a scented letter"
       },
       {
         "type": "text",
@@ -154,32 +154,32 @@
         "type": "text",
         "id": "sample_heading",
         "label": "Heading",
-        "default": "A scented card, sent by post",
+        "default": "A letter, scented by hand",
         "info": "Follows the seal. The seal asks; this says what arrives."
       },
       {
         "type": "textarea",
         "id": "sample_text",
         "label": "Text",
-        "default": "A card, scented by hand, in a house envelope under a wax seal. Hold it to your nose, or rub it on your wrist and let it warm — it is paper, not a vial, so there is nothing to spray. Tell us where to send it at checkout; the card and the postage are both ours."
+        "default": "A sheet of house paper, scented by hand and sent in an envelope under a wax seal. Hold it to your nose, or draw it along your wrist and let it warm. It is paper, not a bottle — there is no perfume to decant and nothing to spray. Tell us where to send it at checkout; the letter and the postage are both ours."
       },
       {
         "type": "text",
         "id": "sample_button",
         "label": "Button",
-        "default": "Send me the sample →"
+        "default": "Send me a scented letter →"
       },
       {
         "type": "textarea",
         "id": "sample_note",
         "label": "Note",
-        "default": "One sample per address."
+        "default": "One letter per address."
       },
       {
         "type": "textarea",
         "id": "sample_spoken_for",
-        "label": "When the cards run out",
-        "default": "The cards are spoken for just now. The letter will say when more are scented."
+        "label": "When the letters run out",
+        "default": "The letters are spoken for just now. We will write when more are scented."
       }
     ]
   }

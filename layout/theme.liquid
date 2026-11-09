@@ -105,6 +105,13 @@
   {{ 'purse-preorder.css' | asset_url | stylesheet_tag }}
   {{ 'obj-pattern.css' | asset_url | stylesheet_tag }}
   {{ 'free-sample.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    The refined product page. Only the product templates use it, so it is
+    not worth a request anywhere else.
+  {%- endcomment -%}
+  {%- if request.page_type == 'product' -%}
+    {{ 'product-editorial.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
 
   <style>
     :root {

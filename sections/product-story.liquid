@@ -1,0 +1,72 @@
+{%- comment -%}
+  02 — The emotional origin of the piece.
+
+  The long narrative that used to run down the buy column, moved below the
+  purchase area where it can be read rather than scrolled past.
+
+  Body copy falls back to the product description, so a merchant editing the
+  description in admin still changes the page. The template may override it
+  when the page wants a curated version — the description also feeds search
+  results, collection cards and structured data, and the three jobs do not
+  always want the same words.
+{%- endcomment -%}
+
+{%- liquid
+  assign body = section.settings.body
+  if body == blank
+    assign body = product.description
+  endif
+-%}
+
+{%- if body != blank -%}
+  <section class="story section" id="{{ section.settings.anchor | default: 'the-story' }}">
+    <div class="page-width">
+      <div class="story__inner">
+        <div class="story__head">
+          {% if section.settings.numeral != blank %}
+            <span class="seq-numeral">{{ section.settings.numeral }}</span>
+          {% endif %}
+          {% if section.settings.eyebrow != blank %}
+            <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+          {% endif %}
+          <h2>{{ section.settings.heading }}</h2>
+        </div>
+
+        <div class="story__body prose{% if section.settings.drop_cap %} story__body--cap{% endif %}">
+          {{ body }}
+        </div>
+
+        {% if section.settings.pull_quote != blank %}
+          <p class="story__quote">{{ section.settings.pull_quote }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product story",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "numeral", "label": "Numeral", "default": "02" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why it exists" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Woman Remembered" },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "info": "Leave blank to use the product description."
+    },
+    { "type": "checkbox", "id": "drop_cap", "label": "Drop cap", "default": true },
+    {
+      "type": "text",
+      "id": "pull_quote",
+      "label": "Closing line",
+      "info": "Set apart at the end. Keep it to one sentence."
+    },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-story" }
+  ],
+  "presets": [{ "name": "Product story" }]
+}
+{% endschema %}

@@ -131,6 +131,14 @@
       assign has_accordion_blocks = true
     endif
   endfor
+
+  comment
+    The refined editorial layout, off by default so the tote, the preorder
+    and the default product template keep the page they already have. The
+    perfume template turns it on. Everything it changes is scoped to the
+    product--editorial class or guarded by this flag.
+  endcomment
+  assign editorial = section.settings.editorial_layout
 -%}
 {%- if section.settings.preorder_fulfillment != blank -%}
   {%- assign preorder_promise = section.settings.preorder_fulfillment | replace: '[price]', price_label -%}
@@ -151,45 +159,105 @@
 <section class="section" style="padding-top: clamp(1.5rem, 3vw, 2.5rem);">
   <div class="page-width">
     <div
-      class="product{% if is_preorder %} product--preorder{% endif %}"
+      class="product{% if is_preorder %} product--preorder{% endif %}{% if editorial %} product--editorial{% endif %}"
       data-product-form
       data-money-format="{{ shop.money_format | strip_html | escape }}"
       {% if is_preorder %}data-preorder="true"{% endif %}
     >
 
+      {%- comment -%}
+        Illustration media is routed out of the gallery when the template
+        names it in "Illustration filenames". The drawing is house
+        storytelling, not product photography, and mixing the two is what
+        made the gallery read as three unrelated pictures. It is shown in
+        full further down, in the House portrait section.
+
+        The lead photograph is its own element rather than the first child
+        of the gallery, so a phone can put it above the title and the buy
+        box and leave the rest of the pictures below them.
+      {%- endcomment -%}
+      {%- assign illustration_keys = section.settings.illustration_filenames -%}
+      {%- liquid
+        assign lead_id = blank
+        if editorial
+          for media in product.media
+            if media.media_type == 'image' and lead_id == blank
+              capture drawing
+                render 'is-illustration', media: media, keys: illustration_keys
+              endcapture
+              unless drawing contains 'true'
+                assign lead_id = media.id
+              endunless
+            endif
+          endfor
+        endif
+      -%}
+
+      {%- if editorial and lead_id != blank -%}
+        {%- for media in product.media -%}
+          {%- if media.id == lead_id -%}
+            <div class="product__lead gallery__frame gallery__frame--lead">
+              {{ media | image_url: width: 1600 | image_tag:
+                   loading: 'eager',
+                   fetchpriority: 'high',
+                   widths: '600, 900, 1200, 1600',
+                   sizes: '(min-width: 900px) 58vw, 100vw',
+                   alt: media.alt | default: product.title }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
       <div class="product__gallery">
         {% if product.media.size > 0 %}
-          {% for media in product.media %}
-            {% if media.media_type == 'image' %}
-              {% if forloop.first %}
-                {{ media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
-              {% else %}
-                {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
+          {%- for media in product.media -%}
+            {%- capture drawing -%}{%- render 'is-illustration', media: media, keys: illustration_keys -%}{%- endcapture -%}
+            {%- unless drawing contains 'true' or media.id == lead_id -%}
+              {% if media.media_type == 'image' %}
+                {%- if editorial -%}
+                  <div class="gallery__frame">
+                    {{ media | image_url: width: 1400 | image_tag:
+                         loading: 'lazy',
+                         widths: '400, 600, 900, 1400',
+                         sizes: '(min-width: 900px) 29vw, 50vw',
+                         alt: media.alt | default: product.title }}
+                  </div>
+                {%- elsif forloop.first -%}
+                  {{ media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
+                {%- else -%}
+                  {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', alt: media.alt | default: product.title }}
+                {%- endif -%}
+              {% elsif media.media_type == 'video' %}
+                <div class="product__video{% if editorial %} gallery__frame gallery__frame--wide{% endif %}">
+                  {{ media | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '1400x' }}
+                </div>
+              {% elsif media.media_type == 'external_video' %}
+                <div class="product__video product__video--embed{% if editorial %} gallery__frame gallery__frame--wide{% endif %}">{{ media | external_video_tag }}</div>
               {% endif %}
-            {% elsif media.media_type == 'video' %}
-              <div class="product__video">
-                {{ media | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '1400x' }}
-              </div>
-            {% elsif media.media_type == 'external_video' %}
-              <div class="product__video product__video--embed">{{ media | external_video_tag }}</div>
-            {% endif %}
-          {% endfor %}
+            {%- endunless -%}
+          {%- endfor -%}
         {% elsif product.handle == 'the-brownstone-tote' %}
           {% render 'brownstone-image', loading: 'eager', alt: product.title %}
         {% else %}
           <img src="{{ fallback_asset | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000">
         {% endif %}
 
-        <div class="edition-certificate">
-          <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="120" height="80" loading="lazy">
-          <div>
-            <span class="eyebrow eyebrow--accent" style="margin-bottom: 0.2rem;">{{ section.settings.collection_eyebrow }}</span>
-            <strong>{{ section.settings.certificate_heading }}</strong>
-            <span>{{ section.settings.certificate_text }}</span>
+        {%- comment -%}
+          The certificate is a bordered card sitting under the photographs.
+          The editorial layout drops it: the same promise is already made by
+          the service strip and the fulfilment line, and a third frame here
+          competes with the pictures.
+        {%- endcomment -%}
+        {% unless editorial %}
+          <div class="edition-certificate">
+            <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="120" height="80" loading="lazy">
+            <div>
+              <span class="eyebrow eyebrow--accent" style="margin-bottom: 0.2rem;">{{ section.settings.collection_eyebrow }}</span>
+              <strong>{{ section.settings.certificate_heading }}</strong>
+              <span>{{ section.settings.certificate_text }}</span>
+            </div>
           </div>
-        </div>
-
-        {% render 'product-notes', section: section %}
+        {% endunless %}
       </div>
 
       <div class="product__info">
@@ -225,22 +293,37 @@
           </div>
         {% endunless %}
 
+        {%- comment -%}
+          The buy column carries a short scent introduction; the long
+          narrative moves to the Product story section below the fold, so the
+          same feeling is not sold three times before the button. With no
+          intro set the column shows the product description as before.
+        {%- endcomment -%}
         <div class="product__description prose">
           {% if preproduction %}
             <p>{{ object_copy }}</p>
             <p>{{ section.settings.preproduction_copy }}</p>
+          {% elsif editorial and section.settings.intro_text != blank %}
+            <div class="product__intro">{{ section.settings.intro_text }}</div>
           {% else %}
             {{ product.description }}
           {% endif %}
         </div>
 
-        <div class="fulfillment-line">
-          {% if is_preorder %}
-            {{ preorder_promise }}
-          {% else %}
-            {{ settings.fulfillment_line }}
-          {% endif %}
-        </div>
+        {%- comment -%}
+          The fulfilment line sits above the button on the other templates.
+          In the editorial order it belongs after it: the promise answers the
+          question the button has just raised, rather than delaying it.
+        {%- endcomment -%}
+        {% unless editorial %}
+          <div class="fulfillment-line">
+            {% if is_preorder %}
+              {{ preorder_promise }}
+            {% else %}
+              {{ settings.fulfillment_line }}
+            {% endif %}
+          </div>
+        {% endunless %}
 
         {% if selling %}
           {% form 'product', product %}
@@ -264,6 +347,16 @@
                 </div>
               {% endfor %}
             {% endunless %}
+
+            {%- comment -%}
+              What the chosen size actually contains. "10 mL Travel Duo" can
+              read as two bottles; it is one dual-ended bottle, so the page
+              says so where the size is chosen rather than leaving it to the
+              description.
+            {%- endcomment -%}
+            {% if editorial and section.settings.include_note != blank %}
+              <p class="product__include">{{ section.settings.include_note }}</p>
+            {% endif %}
 
             <div class="field">
               <label for="Quantity-{{ section.id }}">Quantity</label>
@@ -320,6 +413,16 @@
           </div>
         {% endif %}
 
+        {% if editorial %}
+          <div class="fulfillment-line">
+            {% if is_preorder %}
+              {{ preorder_promise }}
+            {% else %}
+              {{ settings.fulfillment_line }}
+            {% endif %}
+          </div>
+        {% endif %}
+
         {% if has_sample %}
           {% render 'sample-form', product: product %}
         {% endif %}
@@ -345,28 +448,37 @@
               <div class="accordion-content prose">{{ preorder_body }}</div>
             </details>
           {% endif %}
-          <details{% unless is_preorder %} open{% endunless %}>
-            <summary>Materials</summary>
-            <div class="accordion-content prose">{{ materials }}</div>
-          </details>
-          <details>
-            <summary>Fit &amp; dimensions</summary>
-            <div class="accordion-content prose">{{ fit }}</div>
-          </details>
-          <details>
-            <summary>Is it for you?</summary>
-            <div class="accordion-content prose">{{ suits }}</div>
-          </details>
+          {%- comment -%}
+            With a Particulars section on the page these four would state the
+            same specifications twice. The editorial layout leaves the buy box
+            the template's own accordions and lets Particulars carry the rest.
+          {%- endcomment -%}
+          {% unless editorial %}
+            <details{% unless is_preorder %} open{% endunless %}>
+              <summary>Materials</summary>
+              <div class="accordion-content prose">{{ materials }}</div>
+            </details>
+            <details>
+              <summary>Fit &amp; dimensions</summary>
+              <div class="accordion-content prose">{{ fit }}</div>
+            </details>
+            <details>
+              <summary>Is it for you?</summary>
+              <div class="accordion-content prose">{{ suits }}</div>
+            </details>
+          {% endunless %}
           {% if preproduction %}
             <details>
               <summary>Where it is right now</summary>
               <div class="accordion-content prose">{{ section.settings.preproduction_status }}</div>
             </details>
           {% endif %}
-          <details>
-            <summary>Care</summary>
-            <div class="accordion-content prose">{{ care }}</div>
-          </details>
+          {% unless editorial %}
+            <details>
+              <summary>Care</summary>
+              <div class="accordion-content prose">{{ care }}</div>
+            </details>
+          {% endunless %}
           {% unless has_accordion_blocks %}
             <details>
               <summary>If it isn&rsquo;t right</summary>
@@ -383,6 +495,13 @@
   </div>
 </section>
 
+{%- comment -%}
+  The I/II/III ritual block is the old storytelling slot. The editorial
+  layout replaces it with the numbered sequence built from the Scent
+  accords, Product story, House portrait and Particulars sections, so the
+  same ground is not covered twice.
+{%- endcomment -%}
+{% unless editorial %}
 <section class="letter section">
   <div class="page-width">
     <div class="section-header">
@@ -408,6 +527,7 @@
     </div>
   </div>
 </section>
+{% endunless %}
 
 {%- assign related_collection = product.collections.first -%}
 {%- if related_collection != blank and related_collection.products.size > 1 -%}
@@ -628,17 +748,33 @@
       "default": "The edition fills up slowly, on purpose. The letter tells you first."
     },
     {
-      "type": "text",
-      "id": "notes_eyebrow",
-      "label": "Notes eyebrow",
-      "default": "What it is made of"
+      "type": "header",
+      "content": "Editorial layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "editorial_layout",
+      "label": "Editorial layout",
+      "default": false,
+      "info": "The refined two-column page: a consistent image gallery, the buy button high in the column, the fulfilment line under it, and the long copy handed to the Scent accords, Product story, House portrait and Particulars sections. Leave off and this template keeps the page it has today."
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Scent introduction",
+      "info": "Two or three lines beside the photographs, in place of the full description. The description itself moves to the Product story section. Editorial layout only."
     },
     {
       "type": "text",
-      "id": "notes_heading",
-      "label": "Notes heading",
-      "default": "The notes",
-      "info": "Leave blank to hide the heading. The board shows only when the template has Fragrance note blocks."
+      "id": "include_note",
+      "label": "What the size contains",
+      "info": "One line under the size selector, for an option whose name does not say what is in the box. Editorial layout only."
+    },
+    {
+      "type": "text",
+      "id": "illustration_filenames",
+      "label": "Illustration filenames",
+      "info": "Comma-separated. Product media whose file name contains one of these is kept out of the gallery, for drawings that are house storytelling rather than product photography. Show it in a House portrait section instead. Leave blank to keep every image in the gallery."
     },
     {
       "type": "text",
@@ -661,15 +797,6 @@
         { "type": "text", "id": "heading", "label": "Heading" },
         { "type": "richtext", "id": "content", "label": "Content" }
       ]
-    },
-    {
-      "type": "note",
-      "name": "Fragrance note",
-      "settings": [
-        { "type": "text", "id": "name", "label": "Note", "default": "Rose" },
-        { "type": "text", "id": "text", "label": "Line beneath" },
-        { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Optional. Without one the note sets as a typographic plate." }
-      ]
     }
   ],
   "presets": [
@@ -685,33 +812,6 @@
 .product__video video { display: block; width: 100%; height: auto; }
 .product__video--embed iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
 
-.note-board { margin-top: clamp(2rem, 4vw, 3rem); }
-.note-board__head { margin-bottom: 1.4rem; }
-.note-board__head h2 { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
-.note-board__grid {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.2rem);
-}
-@media (max-width: 620px) { .note-board__grid { grid-template-columns: repeat(2, 1fr); } }
-.note-card { margin: 0; text-align: center; }
-.note-card__media {
-  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
-  border: 1px solid var(--line); background: var(--color-paper); margin-bottom: 0.7rem;
-}
-.note-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.note-card__plate {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  font-family: var(--font-display); font-style: italic;
-  font-size: clamp(2.4rem, 5vw, 3.4rem); color: var(--color-accent); opacity: 0.55;
-}
-.note-card__name {
-  display: block; font-family: var(--font-sans);
-  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-}
-.note-card__text {
-  display: block; margin-top: 0.25rem; font-style: italic;
-  font-size: 0.86rem; color: var(--ink-soft);
-}
 .cta-note--ships { font-style: normal; }
 
 .product-card--more {
