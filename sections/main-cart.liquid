@@ -28,7 +28,7 @@
                 {%- assign ships = item.properties.Ships | default: 'on a date to be confirmed' -%}
                 <div class="cart-line__meta">Preorder · charged today · ships {{ ships | downcase }}</div>
               {% else %}
-                <div class="cart-line__meta">Numbered to the edition · ships in 3–5 business days</div>
+                <div class="cart-line__meta">Numbered to the edition · ships in 2–3 business days</div>
               {% endif %}
               <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
             </div>
@@ -65,7 +65,7 @@
               {% if cart_has_preorder %}
                 Taxes and shipping settled at checkout. Preorders are charged today, then made when the edition opens.
               {% else %}
-                Taxes and shipping settled at checkout. Packed in 3–5 business days, then 2–5 days in the post.
+                Taxes and shipping settled at checkout. Packed in 2–3 business days, then 3–4 days in the post.
               {% endif %}
             </p>
             <button type="submit" name="update" class="btn btn--full" style="margin-bottom: 0.8rem;">Update parcel</button>
