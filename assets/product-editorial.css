@@ -370,6 +370,14 @@
   align-items: center;
 }
 
+/* No illustration: one column, on the same measure as the story above it
+   so the sequence still reads as one set of pages. */
+.portrait__inner--text {
+  grid-template-columns: 1fr;
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
 .portrait__figure { margin: 0; }
 
 .portrait__frame {

@@ -23,7 +23,11 @@
 {%- if image != blank or section.settings.note != blank -%}
   <section class="portrait section" id="{{ section.settings.anchor | default: 'the-house' }}">
     <div class="page-width">
-      <div class="portrait__inner">
+      {%- comment -%}
+        With no illustration the two-column grid would leave half the row
+        empty, so the note stands on its own measure instead.
+      {%- endcomment -%}
+      <div class="portrait__inner{% if image == blank %} portrait__inner--text{% endif %}">
         {%- if image != blank -%}
           <figure class="portrait__figure">
             <div
