@@ -30,7 +30,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Shipping &amp; returns",
-            "content": "<p>Free US shipping on this one — it is over the $70 threshold. Packed by hand at the house in 2–3 business days, then 3–4 business days in the post, so about 5–7 business days to your door. Express, on orders of $150 or more, is packed the next business day, then 1–2 in the post.</p><p>Gracious, calm returns within 30 days: write to the house and we'll sort it.</p>"
+            "content": "<p>Free US shipping on this one — it is over the $70 threshold. Packed by hand at the house in 2–3 business days, then handed to the carrier — your arrival window is shown at checkout. Express, on orders of $150 or more, is packed the next business day.</p><p>Gracious, calm returns within 30 days: write to the house and we'll sort it.</p>"
           }
         }
       },
@@ -57,7 +57,7 @@
           "type": "promise",
           "settings": {
             "heading": "Free US shipping",
-            "text": "At your door in 5–7 business days."
+            "text": "Packed by hand in 2–3 business days."
           }
         },
         "returns": {

@@ -23,7 +23,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Shipping & returns",
-            "content": "<p>No ship date is set for this edition yet. Once yours is cut, the parcel is packed by hand at the house in 2–3 business days and then spends 3–4 business days in the post.</p><p>After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
+            "content": "<p>No ship date is set for this edition yet. Once yours is cut, the parcel is packed by hand at the house in 2–3 business days and then goes to the carrier.</p><p>After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>"
           }
         }
       },
@@ -41,9 +41,9 @@
         "chaperone_cta": "Preorder — escort my paperback →",
         "sold_out_label": "Preorder closed",
         "preorder_ships": "Date to be confirmed",
-        "preorder_shipping": "<p>No ship date is set for this edition yet. The house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships. Once yours is made, the parcel is packed by hand in 2–3 business days and then spends 3–4 business days in the post.</p><p>After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>",
+        "preorder_shipping": "<p>No ship date is set for this edition yet. The house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships. Once yours is made, the parcel is packed by hand in 2–3 business days and then goes to the carrier.</p><p>After it arrives, returns are the same as the rest of the house: gracious, calm, within 30 days — write to us and we'll sort it.</p>",
         "preorder_terms": "<p>You are charged today, at the preorder price. The piece does not exist until you claim it. <strong>No ship date is set for this edition yet.</strong> The house writes to you the moment there is one, and you may cancel for a full refund at any time before it ships. If the edition cannot be made at all, the house refunds every preorder in full, unasked.</p>",
-        "shipping_text": "Packed by hand at the house in 2–3 business days, then 3–4 business days in the post — about 5–7 business days to your door. Express, on orders of $150 or more, is packed the next business day, then 1–2 in the post. Free US shipping over $70. If something arrives damaged, or simply is not what you hoped for, write to hello@ohbettyjaletti.com within 30 days of delivery and we will make it right. Full terms are at /policies/shipping-policy and /policies/refund-policy."
+        "shipping_text": "Packed by hand at the house in 2–3 business days, then handed to the carrier — your arrival window is shown at checkout. Express, on orders of $150 or more, is packed the next business day. Free US shipping over $70. If something arrives damaged, or simply is not what you hoped for, write to hello@ohbettyjaletti.com within 30 days of delivery and we will make it right. Full terms are at /policies/shipping-policy and /policies/refund-policy."
       }
     },
     "sticky": {
