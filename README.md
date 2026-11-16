@@ -8,6 +8,26 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 - **Type** — Cormorant Garamond (display serif), Lora (body), Jost (letterspaced small caps for eyebrows & buttons).
 - **Voice baked in** — "Your parcel" instead of cart, "Between editions" instead of sold out, the fulfillment promise on every product page, the letter on the homepage.
 
+## Attribution
+
+Every product carries the presenter signature **"… by Betty Jaletti"** on the first line of its description. It means the house *presents* the piece. It does not mean the house made it.
+
+What the house actually did is stated separately, exactly once, in the body copy and in a template accordion:
+
+| The house | Accordion | Example |
+|---|---|---|
+| Made it | `The making` | A Woman Remembered — blended and bottled by hand at the house, in small batches |
+| Chose and paired it | `The pairing` | The Brownstone Tote — bag and scarf chosen separately, then paired |
+| Chose it | `The maker` | The Out-the-Door Gloves — made in France by Glove Story |
+
+Two rules keep this honest:
+
+1. **Keep the signature on every piece.** Dropping it only on sourced pieces turns it back into a maker claim by implication.
+2. **Never let a template imply manufacture the house does not do.** The default `product.json` says "Made to order … printed, bound, or poured when you claim it." That is true of the Reading Hour pieces and false of anything sourced, so sourced products get their own template.
+
+For a sourced piece, set the Shopify `vendor` field to the real maker. The theme does not render `vendor`, so this is structured credit that costs the page nothing.
+
+
 ## Structure
 
 | Where | What |
