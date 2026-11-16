@@ -153,6 +153,20 @@
         "tags": "newsletter, in-her-purse",
         "anchor": "purse-list"
       }
+    },
+    "instagram": {
+      "type": "instagram-follow",
+      "settings": {
+        "eyebrow": "Elsewhere",
+        "heading": "Follow the house",
+        "text": "The things that do not make it into an edition. Mornings, scraps, the long way home.",
+        "handle": "ohbettyjaletti",
+        "button_label": "Follow on Instagram",
+        "columns": 4,
+        "columns_mobile": 2,
+        "ratio": "1 / 1",
+        "anchor": "instagram"
+      }
     }
   },
   "order": [
@@ -162,6 +176,7 @@
     "tote",
     "ritual",
     "letter",
-    "newsletter"
+    "newsletter",
+    "instagram"
   ]
 }
