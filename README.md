@@ -1,45 +1,42 @@
 # Oh Betty Jaletti — Custom Shopify Theme
 
-> ## ⚠️ This repository is NOT the live theme. Do not push it.
+> ## Sync status
 >
-> The live theme is **OBJ v5.30 · Accord photography**
-> (`gid://shopify/OnlineStoreTheme/189792157749`). This repo is a stale ancestor
-> of it. Measured 2026-11-16:
+> This repository mirrors the live theme **OBJ v5.30 · Accord photography**
+> (`gid://shopify/OnlineStoreTheme/189792157749`), synced from the official
+> Shopify theme export on **2026-11-16** — 136 files, verified byte-for-byte
+> against the Admin Files API.
 >
-> | State | Files |
-> |---|---|
-> | Identical to live | 27 |
-> | Present but **stale** | 32 |
-> | **Missing** entirely | 77 (1,031 KB) |
-> | Live total | 136 |
->
-> `sections/main-product.liquid` is 11 KB here and 38 KB live. `assets/theme.js`
-> is 3.7 KB here and 19 KB live. The house fonts, `service-strip`, `sticky-buy`,
-> `scent-accords`, `product-particulars`, the `worktable-*` set and
-> `product.perfume.json` do not exist here at all.
->
-> **`shopify theme push` from this directory would delete 77 files from the live
-> storefront.** Do not run it until the sync below is done.
+> Before that sync it was four-plus versions behind: 77 files missing, 32 stale,
+> only 27 of 136 correct. Nothing keeps it in sync automatically yet, so
+> **re-verify before trusting it** — see below.
 
-## Syncing this repo to the live theme
+## Keeping this repo in sync
 
-Do this once, to catch up:
+### Verifying
 
-1. Shopify admin → **Online Store → Themes**
-2. On **OBJ v5.30 · Accord photography**, open the **⋯** menu → **Download theme file**
-3. Shopify emails a `.zip` link. Unzip it over this repository, replacing files.
-4. Review `git status`, then commit.
-
-With the Shopify CLI, steps 1–3 are one command:
+With the Shopify CLI, pull over the working tree and read `git status`. A clean
+tree means the repo matches the theme; anything listed is drift:
 
 ```bash
 shopify theme pull --store ohbettyjaletti.com --theme 189792157749
 ```
 
-Either route is byte-exact and includes the fonts and images, which cannot be
-transferred correctly any other way.
+```bash
+git status --short
+```
 
-### Staying in sync after that
+### Re-syncing without the CLI
+
+1. Shopify admin → **Online Store → Themes**
+2. **⋯** on the live theme → **Download theme file**
+3. Shopify emails a `.zip`. Unzip it over this repository, replacing files.
+4. Review `git status`, then commit.
+
+Both routes are byte-exact and include the fonts and images. Those cannot be
+transferred correctly through the Files API, so this is the only reliable way.
+
+### Making it automatic
 
 Connect the theme to this repository with Shopify's GitHub integration:
 **Online Store → Themes → Add theme → Connect from GitHub**, then authorise the
@@ -47,7 +44,8 @@ Shopify app for `emmasaltcreative/OBJ` and pick a branch.
 
 Once connected, the branch *is* the theme: edits made in the Shopify theme
 editor commit back to the branch automatically, and commits pushed to the branch
-deploy to the theme. The drift above becomes impossible.
+deploy to the theme. Drift stops being possible rather than being something
+anyone has to remember.
 
 Three things to know before connecting:
 
@@ -59,15 +57,15 @@ Three things to know before connecting:
 
 ### Working with Claude Code in this repo
 
-Until the sync is done, this repo cannot be trusted as a picture of the store, so:
-
-- **Read theme files from the store, not from here.** The live theme is the
-  source of truth. The Files API and `theme_bash` both read it directly.
-- **Never publish theme changes by pushing this repo.** Make them on an
-  unpublished theme and publish from admin after a look.
+- **Check the sync status first.** The theme editor rewrites `.json` templates in
+  place, so this repo goes stale on its own. Verify before relying on it.
+- **Do not publish theme changes by pushing this repo.** Until the GitHub
+  integration is connected, pushing here changes nothing on the store, and
+  `shopify theme push` would overwrite the live theme wholesale. Make theme
+  changes on an unpublished theme and publish from admin after a look.
 - **Product copy is not theme code.** Descriptions, SEO, variants, SKUs and
-  barcodes are product data, and changes to them are live the moment they are
-  saved — they do not wait on a theme deploy and are not captured in this repo.
+  barcodes are product data. They go live the moment they are saved, do not wait
+  on a theme deploy, and are not captured in this repo at all.
 
 ## Design language
 
@@ -79,13 +77,19 @@ Until the sync is done, this repo cannot be trusted as a picture of the store, s
 
 Every product carries the presenter signature **"… by Betty Jaletti"** on the first line of its description. It means the house *presents* the piece. It does not mean the house made it.
 
-What the house actually did is stated separately, exactly once, in the body copy and in a template accordion:
+What the house actually did is stated separately, exactly once, in the body copy
+of the product description — which is product data and lives in Shopify, not in
+this repo.
 
-| The house | Accordion | Example |
+| The house | Example | Where it says so |
 |---|---|---|
-| Made it | `The making` | A Woman Remembered — blended and bottled by hand at the house, in small batches |
-| Chose and paired it | `The pairing` | The Brownstone Tote — bag and scarf chosen separately, then paired |
-| Chose it | `The maker` | The Out-the-Door Gloves — made in France by Glove Story |
+| Made it | A Woman Remembered — blended and bottled by hand, small batches | Description, "The Making" |
+| Chose and paired it | The Brownstone Tote — bag and scarf chosen separately, then paired | Description, "The Pairing" |
+| Chose it | The Out-the-Door Gloves — made in France by Glove Story | Description, "The Maker" |
+
+Product templates may also carry a matching accordion, but the description is
+what guarantees the credit appears. The gloves have no dedicated template; they
+render on the default `product.json`, which is correct and needs no change.
 
 Two rules keep this honest:
 
@@ -108,7 +112,6 @@ For a sourced piece, set the Shopify `vendor` field to the real maker. The theme
 | `sections/ritual.liquid` | I / II / III made-to-order value props |
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
-| `templates/product.gloves.json` | Product page for sourced gloves — leather, fit, care, shipping accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
 
 ## Product metafields (optional but recommended)
@@ -125,13 +128,16 @@ Without them the theme falls back to grid position for numbering and "Add to my 
 
 ## Getting it onto Shopify
 
-> **Do not run these until this repo has been synced** — see *Syncing this repo
-> to the live theme* above. Pushing the current contents would delete 77 files
-> from the live storefront.
+> Check **Sync status** above first. A push sends whatever is in this directory,
+> so pushing a stale tree deletes every file the tree is missing. Always push to
+> an **unpublished** theme and publish from admin after looking at it.
 
 ```bash
-# from this directory, AFTER syncing
+# from this directory
 shopify theme dev    # live preview against your store
+```
+
+```bash
 shopify theme push --unpublished --theme "Oh Betty Jaletti"
 ```
 

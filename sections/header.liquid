@@ -1,42 +1,141 @@
-<header class="site-header">
+{%- comment -%}
+  Header. The Shop dropdown lists each published edition as a link to its
+  collection, with that edition's pieces beneath it.
+
+  Edition I's handle falls back in Liquid, and its link is built from the
+  handle rather than the resolved collection object, so the menu can never
+  render empty. Edition II is optional: clear "Edition II collection handle"
+  and the block disappears from both the dropdown and the mobile menu. That
+  is how an edition comes off the storefront without anything being deleted.
+
+  The guest book line is hidden unless "Show the guest book link" is ticked.
+{%- endcomment -%}
+
+{%- liquid
+  assign h_one = section.settings.edition_one_handle | default: 'in-her-purse'
+  assign ed_one = collections[h_one]
+  assign url_one = '/collections/' | append: h_one
+
+  comment
+    No fallback handle for Edition II, on purpose: a blank setting is how
+    the house takes an edition off the menu.
+  endcomment
+  assign h_two = section.settings.edition_two_handle
+  assign show_two = false
+  if h_two != blank
+    assign show_two = true
+    assign ed_two = collections[h_two]
+    assign url_two = '/collections/' | append: h_two
+  endif
+-%}
+
+<header class="site-header" data-header>
   <div class="page-width site-header__inner">
     <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">Menu</button>
 
     <nav class="site-header__nav" aria-label="Main navigation">
-      {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {% endfor %}
+      <div class="nav-item nav-item--drop">
+        <a href="{{ url_one }}" class="nav-item__link">
+          {{ section.settings.shop_label }}
+          <svg class="nav-caret" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+        <div class="nav-drop">
+
+          <a class="nav-drop__eyebrow nav-drop__eyebrow--link" href="{{ url_one }}">{{ section.settings.edition_one_label }}</a>
+          {%- for drop_product in ed_one.products limit: 4 -%}
+            <a class="nav-drop__item" href="{{ drop_product.url }}">
+              <span>{{ drop_product.title }}</span>
+              {%- if drop_product.type != blank -%}
+                <i>{{ drop_product.type | downcase }}</i>
+              {%- endif -%}
+            </a>
+          {%- endfor -%}
+
+          {%- if show_two -%}
+            <a class="nav-drop__eyebrow nav-drop__eyebrow--link nav-drop__eyebrow--second" href="{{ url_two }}">{{ section.settings.edition_two_label }}</a>
+            {%- for drop_product in ed_two.products limit: 4 -%}
+              {%- capture drop_flag -%}{%- render 'is-preorder', product: drop_product -%}{%- endcapture -%}
+              <a class="nav-drop__item" href="{{ drop_product.url }}">
+                <span>{{ drop_product.title }}</span>
+                {%- if drop_flag contains 'true' -%}
+                  <i>preorder</i>
+                {%- elsif drop_product.type != blank -%}
+                  <i>{{ drop_product.type | downcase }}</i>
+                {%- endif -%}
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if section.settings.show_guestbook -%}
+            <a class="nav-drop__cta" href="/#claim">In preproduction &middot; Enter the guest book</a>
+          {%- endif -%}
+        </div>
+      </div>
+      <a href="{{ section.settings.story_url | default: '/pages/the-letter' }}">{{ section.settings.story_label }}</a>
+      <a href="{{ section.settings.journal_url | default: '/blogs/letters' }}">{{ section.settings.journal_label }}</a>
     </nav>
 
-    <a href="{{ routes.root_url }}" class="site-header__logo">
-      Oh Betty <em>Jaletti</em>
+    <a href="{{ routes.root_url }}" class="site-header__lockup" aria-label="Oh Betty Jaletti, home">
+      {% render 'icon-floral' %}
+      <span class="site-header__name">Oh Betty Jaletti</span>
+      <span class="site-header__atelier">Atelier</span>
     </a>
 
     <div class="site-header__utils">
-      <a href="{{ routes.search_url }}">Search</a>
-      {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}">Account</a>
-      {% endif %}
-      <a href="{{ routes.cart_url }}">
-        Parcel
-        {% if cart.item_count > 0 %}
-          <span class="cart-count">({{ cart.item_count }})</span>
-        {% endif %}
+      <a href="{{ routes.search_url }}" class="site-header__util site-header__util--search">
+        Search
+        <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><circle cx="6" cy="6" r="4.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M9.4 9.4L13 13" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      <a href="{{ routes.account_url }}" class="site-header__util site-header__util--account">Account</a>
+      <a href="{{ routes.cart_url }}" class="site-header__util" data-cart-button>
+        Cart
+        <span class="cart-count" data-cart-count>({{ cart.item_count }})</span>
       </a>
     </div>
   </div>
+
+  <nav class="site-header__mobile-nav" aria-label="Menu">
+    <a href="{{ url_one }}">{{ section.settings.edition_one_label }}</a>
+    {%- if show_two -%}
+      <a href="{{ url_two }}">{{ section.settings.edition_two_label }}</a>
+    {%- endif -%}
+    <a href="{{ section.settings.story_url | default: '/pages/the-letter' }}">{{ section.settings.story_label }}</a>
+    <a href="{{ section.settings.journal_url | default: '/blogs/letters' }}">{{ section.settings.journal_label }}</a>
+    <a href="{{ routes.search_url }}">Search</a>
+    <a href="{{ routes.account_url }}">Account</a>
+  </nav>
 </header>
 
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
-    }
+    { "type": "text", "id": "shop_label", "label": "Shop label", "default": "Shop" },
+    { "type": "header", "content": "Editions in the Shop menu" },
+    { "type": "text", "id": "edition_one_handle", "label": "Edition I collection handle", "default": "in-her-purse" },
+    { "type": "text", "id": "edition_one_label", "label": "Edition I label", "default": "Edition I · In Her Purse" },
+    { "type": "text", "id": "edition_two_handle", "label": "Edition II collection handle", "info": "Leave empty to hide Edition II from the Shop menu and the mobile menu entirely." },
+    { "type": "text", "id": "edition_two_label", "label": "Edition II label" },
+    { "type": "checkbox", "id": "show_guestbook", "label": "Show the guest book link", "default": false, "info": "The \"In preproduction · Enter the guest book\" line at the foot of the Shop menu." },
+    { "type": "header", "content": "Other links" },
+    { "type": "text", "id": "story_label", "label": "Story label", "default": "Our Story" },
+    { "type": "url", "id": "story_url", "label": "Story link", "info": "Defaults to /pages/the-letter." },
+    { "type": "text", "id": "journal_label", "label": "Journal label", "default": "Journal" },
+    { "type": "url", "id": "journal_url", "label": "Journal link", "info": "Defaults to /blogs/letters." }
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+.site-header__nav a.nav-drop__eyebrow {
+  display: block;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.site-header__nav a.nav-drop__eyebrow:hover { color: var(--color-accent); }
+.site-header__nav .nav-drop__eyebrow--second {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+{% endstylesheet %}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "collectors-ledger",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

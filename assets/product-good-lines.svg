@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">The Good Lines commonplace book</title>
+  <desc id="desc">A French blue hardbound notebook with an oxblood ribbon and fountain pen.</desc>
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="25" stdDeviation="26" flood-color="#1f2933" flood-opacity=".24"/>
+    </filter>
+    <pattern id="cloth" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#5e7187"/>
+      <path d="M0 2h12M0 7h12M2 0v12M8 0v12" stroke="#8796a7" stroke-width=".45" opacity=".65"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1000" fill="#adb7c2"/>
+  <circle cx="690" cy="140" r="180" fill="#c7ced5" opacity=".45"/>
+  <path d="M0 860c210-120 430-54 800-8v148H0Z" fill="#96a4b2" opacity=".45"/>
+  <ellipse cx="396" cy="826" rx="282" ry="70" fill="#263849" opacity=".12"/>
+  <g filter="url(#shadow)" transform="translate(150 112) rotate(4 250 365)">
+    <rect x="10" y="22" width="500" height="720" rx="12" fill="#344354"/>
+    <rect x="0" y="0" width="480" height="714" rx="10" fill="url(#cloth)"/>
+    <rect x="26" y="27" width="428" height="660" rx="4" fill="none" stroke="#c4ced8" stroke-width="2" opacity=".7"/>
+    <rect x="42" y="43" width="396" height="628" rx="3" fill="none" stroke="#c4ced8" stroke-width="1" opacity=".45"/>
+    <path d="M238 0v714" stroke="#43566a" stroke-width="7" opacity=".32"/>
+    <circle cx="240" cy="268" r="84" fill="#f7f1e8" opacity=".96"/>
+    <circle cx="240" cy="268" r="73" fill="none" stroke="#3A544A" stroke-width="2"/>
+    <text x="240" y="250" fill="#3A544A" font-family="Georgia,serif" font-size="22" font-style="italic" text-anchor="middle">The</text>
+    <text x="240" y="284" fill="#241d1a" font-family="Georgia,serif" font-size="34" text-anchor="middle">GOOD LINES</text>
+    <text x="240" y="313" fill="#3A544A" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" letter-spacing="3">COMMONPLACE BOOK</text>
+    <path d="M365 0h28v753l-14-20-14 20Z" fill="#3A544A"/>
+  </g>
+  <g transform="translate(500 495) rotate(17)" filter="url(#shadow)">
+    <rect x="0" y="0" width="42" height="330" rx="19" fill="#241d1a"/>
+    <path d="M4 45h34v180H4Z" fill="#2C423A"/>
+    <path d="M21 286 8 330h26Z" fill="#d8b46a"/>
+    <path d="M21 286v44" stroke="#241d1a" stroke-width="3"/>
+    <rect x="7" y="38" width="28" height="10" rx="5" fill="#d8b46a"/>
+  </g>
+  <path d="M102 98c38 5 63 24 76 58-34 9-61-3-79-37" fill="none" stroke="#3A544A" stroke-width="5" opacity=".55"/>
+</svg>

@@ -1,0 +1,97 @@
+<section class="section">
+  <div class="page-width narrow" style="max-width: 36rem; text-align: center;">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+    <h1 class="title-quiet">{{ page.title }}</h1>
+    <div class="prose prose--quiet" style="margin-top: 1.5rem;">
+      {{ page.content }}
+    </div>
+
+    {% if section.settings.email != blank %}
+      <p style="margin-top: 1.5rem;">
+        <a href="mailto:{{ section.settings.email }}" class="link-arrow">{{ section.settings.email }}</a>
+        <button type="button" class="copy-email" data-copy-email="{{ section.settings.email }}">Copy address</button>
+      </p>
+    {% endif %}
+
+    <div class="contact-form" style="text-align: left; margin-top: 2.5rem;">
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <p class="newsletter__note" style="text-align: center;">{{ section.settings.success_text }}</p>
+        {% else %}
+          {% if form.errors %}
+            <div class="errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+          <div class="field">
+            <label for="ContactName">Your name</label>
+            <input type="text" id="ContactName" name="contact[name]" autocomplete="name" value="{{ form.name }}">
+          </div>
+          <div class="field">
+            <label for="ContactEmail">Email</label>
+            <input type="email" id="ContactEmail" name="contact[email]" autocomplete="email" value="{{ form.email }}" required>
+          </div>
+          <div class="field">
+            <label for="ContactMessage">Your letter</label>
+            <textarea id="ContactMessage" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="btn btn--solid btn--full">Send it along</button>
+        {% endif %}
+      {% endform %}
+    </div>
+
+    <p class="cta-note" style="margin-top: 2rem;">{{ section.settings.note }}</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btn = document.querySelector('[data-copy-email]');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var email = btn.dataset.copyEmail;
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        window.setTimeout(function () { btn.textContent = original; }, 2200);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(done).catch(function () {
+          window.prompt('Copy the address:', email);
+        });
+      } else {
+        window.prompt('Copy the address:', email);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Correspondence"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "hello@ohbettyjaletti.com"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Received, with thanks. The house writes back within a few days."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "Real correspondence, always. The house writes back."
+    }
+  ]
+}
+{% endschema %}

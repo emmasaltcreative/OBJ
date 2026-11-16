@@ -1,0 +1,189 @@
+{%- comment -%}
+  Editorial hero for a collection landing page. Falls back to the
+  collection's own image, then its first product's photo.
+
+  The lineup line — what is in the collection, with prices — is read live
+  from the collection, so it cannot go stale when a price or a piece changes.
+{%- endcomment -%}
+
+{%- assign hero_image = section.settings.image -%}
+{%- if hero_image == blank -%}
+  {%- assign hero_image = collection.image -%}
+{%- endif -%}
+{%- if hero_image == blank -%}
+  {%- assign hero_image = collection.products.first.featured_image -%}
+{%- endif -%}
+
+{%- assign heading = section.settings.heading | default: collection.title -%}
+{%- assign intro = section.settings.intro -%}
+{%- if intro == blank -%}
+  {%- assign intro = collection.description | strip_html -%}
+{%- endif -%}
+
+{%- assign button_class = 'link-arrow' -%}
+{%- if section.settings.button_style == 'button' -%}
+  {%- assign button_class = 'btn btn--solid' -%}
+{%- endif -%}
+
+<section class="collection-hero">
+  <div class="page-width">
+    <div class="collection-hero__inner">
+      <div class="collection-hero__text">
+        <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+        <h1>{{ heading }}</h1>
+
+        {% if intro != blank %}
+          <p class="collection-hero__intro">{{ intro }}</p>
+        {% endif %}
+
+        {%- if section.settings.show_lineup and collection.products.size > 0 -%}
+          <p class="collection-hero__lineup">
+            {%- for product in collection.products limit: section.settings.lineup_limit -%}
+              {%- liquid
+                assign show_type = false
+                assign type_down = product.type | downcase
+                if product.type != blank
+                  assign type_last = type_down | split: ' ' | last
+                  assign title_down = product.title | downcase
+                  unless title_down contains type_last
+                    assign show_type = true
+                  endunless
+                endif
+              -%}
+              <span class="collection-hero__lineup-item">
+                <a href="{{ product.url }}">{{ product.title }}{% if show_type %} {{ type_down }}{% endif %}</a>,
+                <span class="collection-hero__lineup-price">
+                  {%- if product.price_varies %}from {% endif -%}
+                  {{ product.price | money_without_trailing_zeros }}
+                </span>
+              </span>
+              {%- unless forloop.last -%}
+                <span class="collection-hero__lineup-sep" aria-hidden="true">&middot;</span>
+              {%- endunless -%}
+            {%- endfor -%}
+          </p>
+        {%- endif -%}
+
+        {% if section.settings.note != blank %}
+          <p class="collection-hero__note">{{ section.settings.note }}</p>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          <a href="{{ section.settings.button_link | default: '#the-inventory' }}" class="collection-hero__cta {{ button_class }}">
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      <figure class="collection-hero__figure">
+        {% if hero_image != blank %}
+          {{ hero_image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '500, 800, 1100, 1400', alt: hero_image.alt | default: heading }}
+        {% else %}
+          <img src="{{ 'product-chaperone.svg' | asset_url }}" alt="{{ heading | escape }}" width="800" height="800">
+        {% endif %}
+        {% if section.settings.caption != blank %}
+          <figcaption>{{ section.settings.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  </div>
+  <div class="ticking"></div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "An ongoing collection" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Leave blank to use the collection title." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "info": "Leave blank to use the collection description. Keep it to a line — the pieces and prices come next." },
+    { "type": "header", "content": "The lineup" },
+    { "type": "checkbox", "id": "show_lineup", "label": "List the pieces and prices", "default": false, "info": "Reads the collection live: title, kind, and price for each piece." },
+    { "type": "range", "id": "lineup_limit", "label": "Pieces to name", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "header", "content": "Note and link" },
+    { "type": "text", "id": "note", "label": "Small note", "info": "For something true of the whole collection. Availability and dispatch belong on each product card." },
+    { "type": "text", "id": "button_label", "label": "Link label", "default": "See what's inside" },
+    { "type": "url", "id": "button_link", "label": "Link" },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Link style",
+      "options": [
+        { "value": "link", "label": "Underlined link" },
+        { "value": "button", "label": "Solid button" }
+      ],
+      "default": "link"
+    },
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "caption", "label": "Image caption" }
+  ],
+  "presets": [{ "name": "Collection hero" }]
+}
+{% endschema %}
+
+{% stylesheet %}
+.collection-hero { border-bottom: 1px solid var(--line); }
+.collection-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: center;
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
+@media (max-width: 900px) { .collection-hero__inner { grid-template-columns: 1fr; } }
+.collection-hero__text h1 { margin-bottom: 0.35em; }
+.collection-hero__text h1 em { color: var(--color-accent); }
+.collection-hero__intro { font-size: 1.15rem; color: var(--ink-soft); max-width: 34rem; margin-bottom: 1.25rem; }
+.collection-hero__lineup {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  line-height: 2;
+  color: var(--color-ink);
+  max-width: 34rem;
+  margin: 0;
+}
+.collection-hero__lineup a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.collection-hero__lineup a:hover { border-bottom-color: var(--color-ink); }
+.collection-hero__lineup-price { color: var(--ink-soft); white-space: nowrap; }
+.collection-hero__lineup-sep { margin-inline: 0.45rem; color: var(--ink-soft); }
+.collection-hero__note {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1rem;
+  max-width: 32rem;
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+}
+.collection-hero__cta { display: inline-block; margin-top: 1.6rem; }
+.collection-hero__note + .collection-hero__cta { margin-top: 0; }
+.collection-hero__figure { margin: 0; }
+.collection-hero__figure img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--color-paper);
+  border: 1px solid var(--line);
+}
+.collection-hero__figure figcaption {
+  margin-top: 0.9rem;
+  text-align: right;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+@media (max-width: 749px) {
+  .collection-hero__inner { padding-block: 1.75rem 2rem; gap: 1.75rem; }
+  .collection-hero__intro { font-size: 1.05rem; margin-bottom: 1rem; }
+  .collection-hero__cta { margin-top: 1.25rem; }
+  .collection-hero__note { margin-bottom: 1.5rem; }
+  .collection-hero__figure img { aspect-ratio: 4 / 3; }
+}
+{% endstylesheet %}

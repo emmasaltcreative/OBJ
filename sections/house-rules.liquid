@@ -1,0 +1,58 @@
+<section class="section house-rules">
+  <div class="page-width">
+    <div class="section-header">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="house-rules__grid">
+      {%- for block in section.blocks -%}
+        <blockquote {{ block.shopify_attributes }}>&ldquo;{{ block.settings.text }}&rdquo;</blockquote>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "House rules",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Rules of the house"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A quiet way of living"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rule",
+      "name": "Rule",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Use the good glass when no one is looking."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "House rules",
+      "blocks": [
+        { "type": "rule", "settings": { "text": "Use the good glass when no one is looking." } },
+        { "type": "rule", "settings": { "text": "Notice what makes an ordinary hour feel like yours." } },
+        { "type": "rule", "settings": { "text": "Choose fewer things. Love them properly." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

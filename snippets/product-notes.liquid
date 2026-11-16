@@ -1,0 +1,58 @@
+{%- comment -%}
+  The fragrance notes board. Rendered inside the product gallery column by
+  sections/main-product.liquid, where the long product copy would otherwise
+  leave the left side empty.
+
+  Accepts:
+  - section {Object} the main-product section, for its blocks and headings
+
+  Each note is a block of type "note". Drop a photograph in and it is used;
+  without one the note sets as a typographic plate, so the board always
+  looks finished.
+{%- endcomment -%}
+{%- assign note_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'note' -%}{%- assign note_count = note_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+
+{%- if note_count > 0 -%}
+  <div class="note-board">
+    {% if section.settings.notes_heading != blank %}
+      <div class="note-board__head">
+        {% if section.settings.notes_eyebrow != blank %}
+          <span class="eyebrow eyebrow--accent">{{ section.settings.notes_eyebrow }}</span>
+        {% endif %}
+        <h2>{{ section.settings.notes_heading }}</h2>
+      </div>
+    {% endif %}
+    <ul class="note-board__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'note' -%}
+          <li class="note-card" {{ block.shopify_attributes }}>
+            <div class="note-card__media">
+              {%- if block.settings.image != blank -%}
+                {%- comment -%}
+                  The tile is a third of the gallery column, so it never needs
+                  more than ~260px. Without sizes the browser assumes 100vw and
+                  pulls the largest candidate for a thumbnail.
+                {%- endcomment -%}
+                {{ block.settings.image
+                   | image_url: width: 600
+                   | image_tag: loading: 'lazy',
+                                widths: '200, 300, 400, 600',
+                                sizes: '(min-width: 990px) 210px, (min-width: 620px) 30vw, 45vw',
+                                alt: block.settings.image.alt | default: block.settings.name | default: '' }}
+              {%- else -%}
+                <span class="note-card__plate" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+              {%- endif -%}
+            </div>
+            <strong class="note-card__name">{{ block.settings.name }}</strong>
+            {%- if block.settings.text != blank -%}
+              <span class="note-card__text">{{ block.settings.text }}</span>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

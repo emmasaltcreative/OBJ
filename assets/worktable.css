@@ -1,0 +1,430 @@
+/* ==========================================================================
+   Oh Betty Jaletti — The Worktable
+   Editorial concept studies. One page per idea.
+
+   Everything here is live HTML and CSS: words, swatches, labels, actions.
+   No composed PNG pages. Images are photographic slots only, and every one
+   of them is captioned as a study rather than a product photograph.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Breadcrumb
+   -------------------------------------------------------------------------- */
+
+.wt-crumb {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block: 1.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+.wt-crumb a { text-decoration: none; }
+.wt-crumb a:hover { color: var(--color-accent); }
+.wt-crumb span { color: var(--ink-soft); }
+
+/* --------------------------------------------------------------------------
+   The study: a rail of words, then the plates
+   -------------------------------------------------------------------------- */
+
+.wt-study {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.6rem, 3vw, 2.6rem);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .wt-study { grid-template-columns: minmax(230px, 300px) 1fr; }
+}
+
+.wt-rail__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  line-height: 1.08;
+  color: var(--color-accent);
+  margin: 0 0 0.7rem;
+}
+
+.wt-rail__sub {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 1.1rem;
+}
+
+.wt-rail__story { font-size: 1rem; line-height: 1.7; }
+.wt-rail__story p { margin: 0 0 0.9em; }
+.wt-rail__story p:last-child { margin-bottom: 0; }
+
+.wt-status {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-paper));
+  border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+  padding: 0.5rem 0.9rem;
+  margin-top: 1.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   The plates
+   -------------------------------------------------------------------------- */
+
+.wt-plates {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  min-width: 0;
+}
+@media (min-width: 760px) {
+  .wt-plates { grid-template-columns: 1.35fr 1fr 1fr; }
+  .wt-plates__hero { grid-column: 1; grid-row: 1 / span 2; }
+  .wt-plates__context { grid-column: 2; grid-row: 1; }
+  .wt-plates__construction { grid-column: 3; grid-row: 1; }
+  .wt-plates__palette { grid-column: 2 / span 2; grid-row: 2; }
+}
+
+.wt-plate { min-width: 0; }
+.wt-plate__frame {
+  background: var(--color-paper);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  position: relative;
+}
+.wt-plate__frame img,
+.wt-plate__frame svg { display: block; width: 100%; height: auto; }
+.wt-plate__frame img { aspect-ratio: 4 / 5; object-fit: cover; }
+.wt-plates__context .wt-plate__frame img,
+.wt-plates__construction .wt-plate__frame img { aspect-ratio: 1 / 1; }
+
+.wt-plate__cap {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+}
+
+/* An empty slot still has to say what it is for. */
+.wt-plate__empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 1.6rem 1rem;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 9px,
+      color-mix(in srgb, var(--color-ink) 4%, transparent) 9px 10px
+    ),
+    var(--color-paper);
+}
+.wt-plates__hero .wt-plate__empty { aspect-ratio: 4 / 5; }
+.wt-plates__context .wt-plate__empty,
+.wt-plates__construction .wt-plate__empty { aspect-ratio: 1 / 1; }
+.wt-plate__empty span {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  max-width: 16ch;
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   Palette / materials
+   -------------------------------------------------------------------------- */
+
+.wt-palette { align-self: end; }
+.wt-palette__label,
+.wt-section-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  display: block;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.9rem;
+}
+.wt-palette__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 0.6rem;
+}
+.wt-chip__swatch {
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+}
+.wt-chip__name {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--color-ink);
+  margin-top: 0.45rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Directions + the worktable note
+   -------------------------------------------------------------------------- */
+
+.wt-lower {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.6rem, 3vw, 2.6rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.6rem, 3vw, 2.2rem);
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .wt-lower { grid-template-columns: 1.3fr 1fr; }
+  .wt-note { border-left: 1px solid var(--line); padding-left: clamp(1.6rem, 3vw, 2.6rem); }
+}
+
+.wt-directions__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.9rem;
+}
+.wt-direction__swatch {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  padding: 4px;
+  background: var(--color-paper);
+}
+.wt-direction__fill {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.wt-direction__name {
+  display: block;
+  font-size: 0.88rem;
+  margin-top: 0.55rem;
+  line-height: 1.5;
+}
+.wt-direction__no {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-right: 0.3em;
+}
+
+.wt-note__body {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   The three actions
+   -------------------------------------------------------------------------- */
+
+/* In the rail: quiet, stacked, with a rule under each. */
+.wt-acts--rail {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.wt-acts--rail li { border-bottom: 1px solid var(--line); }
+.wt-acts--rail button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0.8rem 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-align: left;
+  transition: color 0.25s ease;
+}
+.wt-acts--rail button:hover { color: var(--color-accent); }
+.wt-acts--rail svg { width: 17px; height: 17px; flex: none; }
+
+/* At the foot: the decision bar. */
+.wt-decide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.4rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+.wt-decide__ask {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  margin: 0 auto 0 0;
+}
+.wt-decide__acts { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.wt-decide__acts .btn { padding: 0.95rem 1.5rem; }
+
+.wt-fineprint {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 1.2rem;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* --------------------------------------------------------------------------
+   The panels the actions open
+   -------------------------------------------------------------------------- */
+
+.wt-panel {
+  border: 1px solid var(--line);
+  background: var(--color-paper);
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  margin-top: 1.2rem;
+  max-width: 34rem;
+}
+.wt-panel__h {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  margin: 0 0 0.6rem;
+}
+.wt-panel__note {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-top: 0.8rem;
+}
+.wt-consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.wt-consent input { width: 16px; height: 16px; margin-top: 0.25rem; }
+.wt-field-row { display: flex; gap: 0; margin-top: 0.4rem; }
+.wt-field-row input[type="email"] { border-right: 0; }
+.wt-field-row .btn { flex-shrink: 0; }
+
+.wt-said {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  margin-top: 0.9rem;
+}
+
+/* The kept state: a quiet mark, never a badge with a number on it. */
+.wt-acts--rail button[aria-pressed="true"],
+.btn[aria-pressed="true"] {
+  color: var(--color-background);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.wt-acts--rail button[aria-pressed="true"] {
+  color: var(--color-accent);
+  background: none;
+}
+
+/* --------------------------------------------------------------------------
+   The index
+   -------------------------------------------------------------------------- */
+
+.wt-index__head { text-align: center; max-width: 44rem; margin: 0 auto clamp(2.4rem, 5vw, 3.6rem); }
+.wt-index__head h1 { font-style: italic; }
+
+.wt-chapter { margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+.wt-chapter__label {
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: block;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.4rem;
+}
+
+.wt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: clamp(1.2rem, 2.4vw, 1.8rem);
+}
+.wt-card { min-width: 0; text-decoration: none; display: block; }
+.wt-card__frame {
+  background: var(--color-paper);
+  border: 1px solid var(--line);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.wt-card__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wt-card__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  margin: 0.8rem 0 0.2rem;
+  line-height: 1.2;
+}
+.wt-card__sub {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: block;
+}
+.wt-card__status {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.4rem;
+}
+.wt-card:hover .wt-card__title { color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wt-acts--rail button,
+  .wt-card__title { transition: none; }
+}

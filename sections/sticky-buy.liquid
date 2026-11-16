@@ -1,0 +1,229 @@
+{%- comment -%}
+  Sticky buy bar — phones only.
+
+  The tote's description runs long, so on a phone the only buy button sits
+  far above the fold by the time anyone has read enough to want the thing.
+  This keeps the name, the price and the button within thumb reach once the
+  real buy button has scrolled away.
+
+  Added as a section so main-product.liquid stays untouched. Its form is a
+  plain /cart/add form, so theme.js picks it up for AJAX, the toast and the
+  parcel drawer with no extra wiring.
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+
+  assign show_bar = false
+  if section.settings.enabled and product != blank and product.available and settings.edition_state != 'retired'
+    assign show_bar = true
+  endif
+
+  capture preorder_flag
+    render 'is-preorder', product: product
+  endcapture
+  assign is_preorder = false
+  if preorder_flag contains 'true'
+    assign is_preorder = true
+  endif
+-%}
+
+{%- if show_bar -%}
+  <div class="sticky-buy" data-sticky-buy hidden aria-hidden="true">
+    <div class="sticky-buy__inner">
+      {%- if product.featured_image != blank -%}
+        {{ product.featured_image | image_url: width: 140 | image_tag: loading: 'lazy', widths: '70, 140', sizes: '44px', class: 'sticky-buy__img', alt: '' }}
+      {%- endif -%}
+
+      <div class="sticky-buy__meta">
+        <strong class="sticky-buy__title">{{ product.title }}</strong>
+        <span class="sticky-buy__price">
+          {%- if product.price_varies -%}From {{ product.price_min | money }}{%- else -%}{{ variant.price | money }}{%- endif -%}
+        </span>
+      </div>
+
+      {%- if product.has_only_default_variant -%}
+        {% form 'product', product, class: 'sticky-buy__form' %}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          {%- if is_preorder -%}
+            {% render 'preorder-properties', ships: section.settings.ships %}
+          {%- endif -%}
+          <button type="submit" name="add" class="btn btn--solid sticky-buy__btn">
+            {%- if is_preorder -%}{{ section.settings.preorder_label }}{%- else -%}{{ section.settings.label }}{%- endif -%}
+          </button>
+        {% endform %}
+      {%- else -%}
+        {%- comment -%}
+          With options to pick, adding blind from here would guess the
+          variant. Send them to the buy box instead.
+        {%- endcomment -%}
+        <button type="button" class="btn btn--solid sticky-buy__btn" data-sticky-scroll>
+          {{ section.settings.choose_label }}
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var bar = document.querySelector('[data-sticky-buy]');
+      if (!bar) return;
+
+      function ready(fn) {
+        if (document.readyState !== 'loading') { fn(); }
+        else { document.addEventListener('DOMContentLoaded', fn); }
+      }
+
+      ready(function () {
+        var anchor = document.querySelector('[data-buy-button]');
+
+        /* No real buy button on the page (doors closed, or sold out) means
+           there is nothing for this bar to stand in for. */
+        if (!anchor) { bar.remove(); return; }
+
+        function show(on) {
+          bar.hidden = !on;
+          bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+          document.body.classList.toggle('has-sticky-buy', on);
+        }
+
+        var scroller = bar.querySelector('[data-sticky-scroll]');
+        if (scroller) {
+          scroller.addEventListener('click', function () {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            var field = document.querySelector('[data-option-select]');
+            if (field) { window.setTimeout(function () { field.focus({ preventScroll: true }); }, 500); }
+          });
+        }
+
+        if (!('IntersectionObserver' in window)) return;
+
+        /* Show the bar only once the real button has left the screen. */
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            show(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+          });
+        }, { threshold: 0 }).observe(anchor);
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sticky buy bar",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows on phones once the main buy button scrolls out of view. Hidden on desktop, and hidden entirely when the piece is not for sale."
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enabled",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Button label",
+      "default": "Add to parcel"
+    },
+    {
+      "type": "text",
+      "id": "preorder_label",
+      "label": "Preorder button label",
+      "default": "Preorder"
+    },
+    {
+      "type": "text",
+      "id": "choose_label",
+      "label": "Label when options must be picked",
+      "default": "Choose yours"
+    },
+    {
+      "type": "text",
+      "id": "ships",
+      "label": "Preorder ship note",
+      "default": "With the first edition"
+    }
+  ],
+  "presets": [
+    { "name": "Sticky buy bar" }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.sticky-buy {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--color-paper);
+  border-top: 1px solid var(--line-strong);
+  padding: 0.7rem var(--page-gutter);
+  padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -6px 24px rgb(0 0 0 / 8%);
+}
+
+.sticky-buy__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: var(--page-width);
+  margin-inline: auto;
+}
+
+.sticky-buy__img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-background);
+}
+
+.sticky-buy__meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.sticky-buy__title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-buy__price {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.sticky-buy__form { margin: 0; margin-left: auto; }
+
+.sticky-buy__btn {
+  margin-left: auto;
+  white-space: nowrap;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.7rem;
+}
+.sticky-buy__form .sticky-buy__btn { margin-left: 0; }
+
+/* Keep the bar from covering the last of the page. */
+body.has-sticky-buy { padding-bottom: 5.2rem; }
+
+/* Phones only — on a wider screen the buy box is never far away. */
+@media (min-width: 750px) {
+  .sticky-buy { display: none !important; }
+  body.has-sticky-buy { padding-bottom: 0; }
+}
+{% endstylesheet %}

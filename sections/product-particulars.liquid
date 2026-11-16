@@ -1,0 +1,116 @@
+{%- comment -%}
+  04 — The Particulars.
+
+  The specifications, out of the buy column and set as a plain reference
+  table. Everything a shopper might want to check after they have decided
+  they like the thing: concentration, size, bottle, what is in it, how to
+  wear it, how it gets to them.
+
+  Each row is a block. Leave a row's text blank and it falls back to the
+  product metafield named in "Fall back to", so the page tracks admin unless
+  the template deliberately says otherwise.
+{%- endcomment -%}
+
+{%- liquid
+  assign meta = product.metafields.custom
+-%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="particulars section" id="{{ section.settings.anchor | default: 'the-particulars' }}">
+    <div class="page-width">
+      <div class="particulars__head">
+        {% if section.settings.numeral != blank %}
+          <span class="seq-numeral">{{ section.settings.numeral }}</span>
+        {% endif %}
+        {% if section.settings.eyebrow != blank %}
+          <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+        {% endif %}
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+
+      <dl class="particulars__list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign body = block.settings.text
+
+            if body == blank
+              case block.settings.fallback
+                when 'materials'
+                  assign body = meta.materials.value
+                when 'fit_dimensions'
+                  assign body = meta.fit_dimensions.value
+                when 'care'
+                  assign body = meta.care.value
+                when 'ritual_intro'
+                  assign body = meta.ritual_intro.value
+                when 'object_copy'
+                  assign body = meta.object_copy.value
+                when 'making_note'
+                  assign body = meta.making_note.value
+                when 'suitability'
+                  assign body = meta.suitability.value
+              endcase
+            endif
+          -%}
+          {%- if body != blank -%}
+            <div class="particulars__row" {{ block.shopify_attributes }}>
+              <dt>{{ block.settings.label }}</dt>
+              <dd>{{ body }}</dd>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </dl>
+
+      {% if section.settings.footnote != blank %}
+        <p class="particulars__footnote">{{ section.settings.footnote }}</p>
+      {% endif %}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product particulars",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "numeral", "label": "Numeral", "default": "04" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Everything else" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Particulars" },
+    { "type": "richtext", "id": "footnote", "label": "Footnote" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-particulars" }
+  ],
+  "blocks": [
+    {
+      "type": "particular",
+      "name": "Particular",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Concentration" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "info": "Leave blank to use the metafield chosen below."
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Fall back to",
+          "options": [
+            { "value": "", "label": "Nothing" },
+            { "value": "object_copy", "label": "custom.object_copy" },
+            { "value": "materials", "label": "custom.materials" },
+            { "value": "fit_dimensions", "label": "custom.fit_dimensions" },
+            { "value": "care", "label": "custom.care" },
+            { "value": "ritual_intro", "label": "custom.ritual_intro" },
+            { "value": "making_note", "label": "custom.making_note" },
+            { "value": "suitability", "label": "custom.suitability" }
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [{ "name": "Product particulars" }]
+}
+{% endschema %}

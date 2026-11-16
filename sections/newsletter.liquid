@@ -11,7 +11,8 @@
         {% if form.errors %}
           <div class="errors">{{ form.errors | default_errors }}</div>
         {% endif %}
-        <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | default: 'newsletter' | escape }}">
+        <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | default: 'waitlist,first-edition' | escape }}">
+        <input type="hidden" name="return_to" value="/pages/sealed">
         <div class="newsletter__form">
           <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required>
           <button type="submit" class="btn btn--solid">{{ section.settings.button_label | default: 'Subscribe' }}</button>
@@ -43,7 +44,7 @@
       "type": "textarea",
       "id": "text",
       "label": "Text",
-      "default": "New editions announced first, by letter. No hype, no hurry — we write when there is something worth writing about."
+      "default": "New editions announced first, by letter. No hype, no hurry. We write when there is something worth writing about."
     },
     {
       "type": "text",
@@ -61,7 +62,7 @@
       "type": "text",
       "id": "tags",
       "label": "Customer tags",
-      "default": "newsletter"
+      "default": "waitlist,first-edition"
     },
     {
       "type": "text",

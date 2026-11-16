@@ -1,0 +1,137 @@
+{%- comment -%}
+  01 — The Scent of Her.
+
+  The accord board. It replaces the six equal-weight flower photographs that
+  used to sit under the gallery, which gave the nose the wrong idea: the
+  fragrance is pear, amber and musk, and rose and jasmine are accents.
+
+  Hierarchy is the whole point of the section, so it is built in two tiers:
+
+  - Defining accords. Three of them, set large and identically framed. Each
+    takes an optional photograph; without one it sets as a typographic plate
+    with the house mark, which is deliberate rather than a fallback. There is
+    no warm, tactile photography for pear or amber yet, and a board with one
+    photograph and two plates would read as a mistake — so either all three
+    carry a picture or none of them do.
+
+  - Supporting accents. A single line of text. Named, not illustrated,
+    because illustrating them is what overstated them in the first place.
+
+  Accepts nothing; everything is section settings and blocks.
+{%- endcomment -%}
+
+{%- liquid
+  assign defining = section.blocks | where: 'type', 'accord'
+  assign imaged = 0
+  for block in defining
+    if block.settings.image != blank
+      assign imaged = imaged | plus: 1
+    endif
+  endfor
+
+  comment
+    All or nothing: the plates only read as a choice when they are uniform.
+  endcomment
+  assign use_images = false
+  if imaged == defining.size and defining.size > 0
+    assign use_images = true
+  endif
+-%}
+
+{%- if defining.size > 0 -%}
+  <section class="accords section" id="{{ section.settings.anchor | default: 'the-scent' }}">
+    <div class="page-width">
+      <div class="accords__head">
+        {% if section.settings.numeral != blank %}
+          <span class="seq-numeral">{{ section.settings.numeral }}</span>
+        {% endif %}
+        {% if section.settings.eyebrow != blank %}
+          <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+        {% endif %}
+        <h2>{{ section.settings.heading }}</h2>
+        {% if section.settings.intro != blank %}
+          <p class="accords__intro">{{ section.settings.intro }}</p>
+        {% endif %}
+      </div>
+
+      <ul class="accords__grid{% unless use_images %} accords__grid--plates{% endunless %}">
+        {%- for block in defining -%}
+          <li class="accord" {{ block.shopify_attributes }}>
+            <div class="accord__media">
+              {%- if use_images -%}
+                {{ block.settings.image
+                   | image_url: width: 900
+                   | image_tag: loading: 'lazy',
+                                widths: '300, 450, 600, 900',
+                                sizes: '(min-width: 900px) 30vw, 86vw',
+                                alt: block.settings.image.alt | default: block.settings.name }}
+              {%- else -%}
+                <span class="accord__plate" aria-hidden="true">
+                  {% render 'icon-floral' %}
+                </span>
+              {%- endif -%}
+            </div>
+            <span class="accord__index" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <h3 class="accord__name">{{ block.settings.name }}</h3>
+            {% if block.settings.descriptor != blank %}
+              <p class="accord__descriptor">{{ block.settings.descriptor }}</p>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <p class="accord__text">{{ block.settings.text }}</p>
+            {% endif %}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {% if section.settings.accents != blank %}
+        <p class="accords__accents">
+          {% if section.settings.accents_label != blank %}
+            <span class="accords__accents-label">{{ section.settings.accents_label }}</span>
+          {% endif %}
+          {{ section.settings.accents }}
+        </p>
+      {% endif %}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Scent accords",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "numeral", "label": "Numeral", "default": "01" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it wears" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Scent of Her" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-scent" },
+    { "type": "header", "content": "Supporting accents" },
+    { "type": "text", "id": "accents_label", "label": "Label", "default": "Beneath it" },
+    {
+      "type": "text",
+      "id": "accents",
+      "label": "Accents",
+      "info": "One line. Accents are named rather than photographed, so they stay accents."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accord",
+      "name": "Defining accord",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Accord", "default": "Pear" },
+        { "type": "text", "id": "descriptor", "label": "Descriptor", "info": "Two or three words." },
+        { "type": "textarea", "id": "text", "label": "Line beneath" },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photograph",
+          "info": "Optional, but all or nothing: the board only uses photographs when every accord has one. Otherwise all three set as typographic plates. Match the warm window light and brown-and-cream palette of the product photography — not bright botanical stock."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Scent accords" }]
+}
+{% endschema %}

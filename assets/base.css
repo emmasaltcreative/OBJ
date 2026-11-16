@@ -3,20 +3,74 @@
    Vintage maison · bourgeois bohemian · never hype, never hurry
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   Fonts — self-hosted variable woff2 (latin subset), served from the theme
+   CDN so nothing waits on fonts.googleapis.com. Glyphs outside the latin
+   range fall back to the next family in each stack.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fraunces.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fraunces-italic.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url(work-sans.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(literata.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(literata-italic.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --color-background: #F6F1E7;
-  --color-paper: #FCF9F1;
-  --color-ink: #26221B;
-  --color-accent: #7E2F2A;
+  --color-paper: #FDFAF3;
+  --color-ink: #2A2320;
+  --color-accent: #3A544A;
   --color-stripe: #3D4E6E;
 
-  --ink-soft: color-mix(in srgb, var(--color-ink) 62%, var(--color-background));
-  --line: color-mix(in srgb, var(--color-ink) 16%, transparent);
+  --ink-soft: #6F6355;
+  --gold: #A5834B;
+  --wax-dark: #273B33;
+  --on-accent: #F3E6D2;
+  --line: rgba(42, 35, 32, 0.16);
   --line-strong: color-mix(in srgb, var(--color-ink) 40%, transparent);
 
-  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --font-body: "Lora", Georgia, serif;
-  --font-sans: "Jost", "Futura", "Avenir Next", sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Literata", Georgia, serif;
+  --font-sans: "Work Sans", "Helvetica Neue", "Avenir Next", sans-serif;
 
   --page-width: 1240px;
   --page-gutter: clamp(1.25rem, 4vw, 3rem);
@@ -191,10 +245,11 @@ em, .italic { font-style: italic; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .btn--solid {
-  background: var(--color-ink);
-  color: var(--color-background);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--on-accent);
 }
-.btn--solid:hover { background: var(--color-accent); border-color: var(--color-accent); }
+.btn--solid:hover { background: var(--wax-dark); border-color: var(--wax-dark); color: var(--on-accent); }
 
 .btn--full { display: block; width: 100%; text-align: center; }
 
@@ -288,35 +343,160 @@ select {
 
 .site-header__nav {
   display: flex;
-  gap: 2rem;
+  gap: 2.2rem;
+  align-items: center;
 }
 
 .site-header__nav a,
 .site-header__utils a {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-.site-header__logo {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+/* Centre lockup — floral mark over the letterspaced wordmark */
+.site-header__lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
   text-decoration: none;
-  text-align: center;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  color: var(--color-ink);
+  padding-block: 0.15rem;
 }
-.site-header__logo em { color: var(--color-accent); }
+.site-header__lockup .icon-floral {
+  width: 30px;
+  height: auto;
+  display: block;
+}
+.site-header__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  letter-spacing: 0.18em;
+  text-indent: 0.18em; /* balances the trailing tracking so the line centres true */
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+.site-header__atelier {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  line-height: 1;
+}
+
+/* Shop dropdown */
+.nav-item--drop { position: relative; }
+.nav-item__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.nav-caret { transition: transform 0.25s ease; }
+.nav-item--drop:hover .nav-caret,
+.nav-item--drop:focus-within .nav-caret { transform: rotate(180deg); }
+
+.nav-drop {
+  position: absolute;
+  left: -1.4rem;
+  top: calc(100% + 1.6rem);
+  min-width: 21rem;
+  background: var(--color-paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(42, 35, 32, 0.12);
+  padding: 1.15rem 1.4rem 1.3rem;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  z-index: 60;
+}
+.nav-drop::before {
+  /* invisible bridge so the pointer can travel from link to panel */
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -1.7rem;
+  height: 1.7rem;
+}
+.nav-item--drop:hover .nav-drop,
+.nav-item--drop:focus-within .nav-drop {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.site-header__nav .nav-drop__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.7rem;
+}
+.site-header__nav .nav-drop__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.site-header__nav .nav-drop__item i {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: right;
+}
+/* Pre-launch: hovering a sealed item trades its note for the house's wink;
+   the link itself already leads to the waitlist claim form. */
+.site-header__nav .nav-drop__note-hover {
+  display: none;
+  color: var(--color-accent);
+}
+.site-header__nav .nav-drop__item:hover .nav-drop__note-rest,
+.site-header__nav .nav-drop__item:focus .nav-drop__note-rest { display: none; }
+.site-header__nav .nav-drop__item:hover .nav-drop__note-hover,
+.site-header__nav .nav-drop__item:focus .nav-drop__note-hover { display: inline; }
+
+.site-header__nav .nav-drop__cta {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.35em;
+  width: fit-content;
+}
 
 .site-header__utils {
   display: flex;
   gap: 1.75rem;
   justify-content: flex-end;
   align-items: center;
+}
+.site-header__util {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .cart-count {
@@ -338,10 +518,17 @@ select {
   color: var(--color-ink);
 }
 
-@media (max-width: 820px) {
-  .site-header__inner { grid-template-columns: auto 1fr auto; }
-  .site-header__nav {
-    display: none;
+.site-header__mobile-nav { display: none; }
+
+@media (max-width: 920px) {
+  .site-header__inner { grid-template-columns: auto 1fr auto; gap: 1rem; }
+  .site-header__nav { display: none; }
+  .site-header__util--search,
+  .site-header__util--account { display: none; }
+  .site-header__name { font-size: 1.05rem; }
+  .nav-toggle { display: block; }
+  .site-header.nav-open .site-header__mobile-nav {
+    display: flex;
     position: absolute;
     left: 0; right: 0;
     top: 100%;
@@ -351,10 +538,16 @@ select {
     gap: 0;
     padding: 0.5rem var(--page-gutter) 1rem;
   }
-  .site-header__nav a { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
-  .site-header.nav-open .site-header__nav { display: flex; }
-  .nav-toggle { display: block; }
-  .site-header__logo { text-align: center; }
+  .site-header__mobile-nav a {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -385,109 +578,6 @@ select {
   aspect-ratio: 21 / 9;
   object-fit: cover;
 }
-
-/* --------------------------------------------------------------------------
-   In Her Purse — debut landing
-   -------------------------------------------------------------------------- */
-
-.purse-hero {
-  padding-top: clamp(3.2rem, 7vw, 6rem);
-  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
-  text-align: center;
-}
-
-.purse-hero__intro { max-width: 44rem; }
-.purse-hero h1 {
-  max-width: 16ch;
-  margin-inline: auto;
-  font-weight: 500;
-}
-.purse-hero .hero__sub { margin-bottom: 2rem; }
-
-.purse-hero__figure {
-  width: min(920px, calc(100% - (var(--page-gutter) * 2)));
-  margin: clamp(2.4rem, 5vw, 3.6rem) auto 0;
-}
-
-.purse-hero__img {
-  width: 100%;
-  height: auto;
-  background: #f4f0e8;
-}
-
-.purse-hero__caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-top: 0.95rem;
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.purse-tote__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(2rem, 6vw, 5.5rem);
-  align-items: start;
-}
-@media (max-width: 800px) {
-  .purse-tote__grid { grid-template-columns: 1fr; }
-}
-
-.purse-tote__byline {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
-  color: var(--color-accent);
-  margin: -0.15rem 0 0.4rem;
-}
-
-.purse-facts {
-  list-style: none;
-  margin: 1.6rem 0 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
-}
-.purse-facts li {
-  display: grid;
-  grid-template-columns: 6.5rem 1fr;
-  gap: 1rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--line);
-}
-.purse-facts span {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-top: 0.28rem;
-}
-
-.purse-tote__price {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  letter-spacing: 0.16em;
-  margin: 0.4rem 0 0.8rem;
-}
-
-.purse-tote__promise {
-  font-style: italic;
-  color: var(--ink-soft);
-  margin-bottom: 1.4rem;
-}
-
-.purse-tote__more { display: inline-block; margin-top: 1.3rem; }
-
-.purse-tote__also {
-  margin-top: 2.2rem;
-  font-size: 0.98rem;
-}
-.purse-tote__also a { color: var(--ink-soft); }
 
 /* --------------------------------------------------------------------------
    Marquee ribbon
@@ -572,10 +662,6 @@ select {
   object-fit: cover;
   transition: transform 0.7s ease;
 }
-.product-card__media .brownstone-card-img {
-  object-fit: contain;
-  background: #f4f0e8;
-}
 .product-card:hover .product-card__media img { transform: scale(1.04); }
 
 .product-card__title {
@@ -596,10 +682,6 @@ select {
 
 .product-card__price {
   margin-top: auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.7em;
   font-family: var(--font-sans);
   font-size: 0.82rem;
   letter-spacing: 0.14em;
@@ -616,10 +698,6 @@ select {
   border: 1px solid var(--line-strong);
   padding: 0.3rem 0.7rem;
   color: var(--ink-soft);
-}
-.badge--preorder {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
 }
 
 /* --------------------------------------------------------------------------
@@ -749,60 +827,6 @@ select {
   letter-spacing: 0.12em;
   margin-bottom: 1.8rem;
 }
-
-.product__price-kicker {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 0.45rem;
-}
-
-.preorder-feature {
-  background: var(--color-paper);
-  border-block: 1px solid var(--line);
-}
-
-.preorder-feature__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
-}
-@media (max-width: 900px) {
-  .preorder-feature__grid { grid-template-columns: 1fr; }
-}
-
-.preorder-feature__media {
-  aspect-ratio: 4 / 5;
-  background: var(--color-background);
-  border: 1px solid var(--line);
-  overflow: hidden;
-}
-.preorder-feature__media img,
-.preorder-feature__media svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.preorder-feature__price {
-  font-family: var(--font-sans);
-  font-size: 1.05rem;
-  letter-spacing: 0.16em;
-  margin: 0.2rem 0 1.2rem;
-}
-
-.preorder-feature__promise {
-  font-style: italic;
-  color: var(--ink-soft);
-  margin-bottom: 1.6rem;
-}
-
-.preorder-feature__more { display: inline-block; margin-top: 1.4rem; }
 
 .product__description { margin-block: 1.8rem; }
 
@@ -1041,3 +1065,727 @@ select {
 }
 
 .article-body { max-width: 42rem; margin-inline: auto; }
+
+/* ==========================================================================
+   v4 additions — v3's commerce machinery in the atelier's clothes
+   ========================================================================== */
+
+.site-header__inner { padding-block: 0.85rem; }
+
+/* Breadcrumbs */
+.breadcrumbs {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block: 1.1rem 0;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.breadcrumbs a { text-decoration: none; }
+.breadcrumbs span:last-child { color: var(--color-ink); }
+
+/* Overlay, toast, body lock */
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  z-index: 80;
+}
+body.is-locked { overflow: hidden; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translate(-50%, 1rem);
+  background: var(--color-ink);
+  color: var(--color-background);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  padding: 0.9rem 1.6rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 110;
+  max-width: min(90vw, 30rem);
+  text-align: center;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* Parcel drawer */
+.cart-drawer[hidden],
+.page-overlay[hidden] { display: none; }
+
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(26rem, 100vw);
+  background: var(--color-background);
+  border-left: 1px solid var(--line);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  overflow-y: auto;
+}
+.cart-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.cart-drawer__header h2 { font-size: 1.6rem; }
+.cart-drawer__close {
+  background: none;
+  border: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-ink);
+  padding: 0.25rem 0.5rem;
+}
+.cart-drawer__empty { text-align: center; padding-block: 2.5rem; }
+.cart-drawer__empty img { margin: 0 auto 1.2rem; opacity: 0.85; }
+.cart-drawer__lines { flex: 1; }
+
+.drawer-line {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding-block: 1.2rem;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-line img { border: 1px solid var(--line); background: var(--color-paper); }
+.drawer-line__body h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.drawer-line__body h3 a { text-decoration: none; }
+.drawer-line__price {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+.drawer-line__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--line-strong);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+.drawer-line__qty button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-ink);
+  padding: 0.2rem 0.3rem;
+}
+.drawer-line__remove {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0;
+}
+.drawer-line__remove:hover { color: var(--color-accent); }
+.cart-drawer__footer { border-top: 1px solid var(--line); padding-top: 1.2rem; margin-top: 1.2rem; }
+.cart-drawer__subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Quick add on product cards */
+.product-card__media { position: relative; }
+.quick-add-form {
+  position: absolute;
+  left: 0.8rem; right: 0.8rem; bottom: 0.8rem;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.product-card:hover .quick-add-form,
+.product-card:focus-within .quick-add-form { opacity: 1; transform: translateY(0); }
+.quick-add {
+  display: block;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--color-background);
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.quick-add:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-background); }
+.quick-add:disabled { opacity: 0.6; cursor: not-allowed; }
+@media (hover: none) {
+  .quick-add-form { opacity: 1; transform: none; }
+}
+
+/* CTA microcopy under the buy button */
+.cta-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--color-accent);
+  text-align: center;
+  margin-top: 0.9rem;
+}
+
+/* Edition certificate under the gallery */
+.edition-certificate {
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+  background: var(--color-paper);
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.3rem;
+}
+.edition-certificate img { width: 84px; height: auto; flex-shrink: 0; }
+.edition-certificate strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: block;
+}
+.edition-certificate span:last-child {
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* Related products */
+.product-grid--related { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 820px) { .product-grid--related { grid-template-columns: 1fr; } }
+
+/* Service strip */
+.service-strip {
+  border-block: 1px solid var(--line);
+  background: var(--color-paper);
+  padding-block: 1.4rem;
+}
+.service-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+@media (max-width: 720px) { .service-strip__grid { grid-template-columns: 1fr; gap: 0.9rem; } }
+.service-strip__grid p { margin: 0; }
+.service-strip__grid strong {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.service-strip__grid span {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* Complete edition bundle */
+.bundle { border-block: 1px solid var(--line); }
+.bundle__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+@media (max-width: 860px) { .bundle__inner { grid-template-columns: 1fr; } }
+.bundle__collage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.bundle__image {
+  border: 1px solid var(--line);
+  background: var(--color-paper);
+  overflow: hidden;
+}
+.bundle__image img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+.bundle__image--1 { grid-row: span 2; }
+.bundle__image--1 img { aspect-ratio: 4 / 6.3; }
+.bundle__price {
+  font-family: var(--font-sans);
+  letter-spacing: 0.08em;
+  margin-block: 1.2rem 1.6rem;
+}
+.bundle__price strong { font-size: 1.5rem; font-weight: 500; }
+.bundle__price span {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.bundle__note {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* House rules */
+.house-rules__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+@media (max-width: 820px) { .house-rules__grid { grid-template-columns: 1fr; } }
+.house-rules__grid blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.4;
+  text-align: center;
+  border-top: 2px solid var(--color-accent);
+  padding-top: 1.4rem;
+}
+
+/* Preorder page */
+.preorder__ship-note {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-top: 1rem;
+}
+.preorder__list { border-top: 1px solid var(--line); }
+.preorder__row {
+  display: grid;
+  grid-template-columns: 180px 1fr minmax(200px, 240px);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
+  padding-block: 2.2rem;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 820px) {
+  .preorder__row { grid-template-columns: 120px 1fr; }
+  .preorder__buy { grid-column: 1 / -1; }
+}
+.preorder__media img { border: 1px solid var(--line); background: var(--color-paper); }
+.preorder__body h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 0.2rem;
+}
+.preorder__body h2 a { text-decoration: none; }
+.preorder__excerpt {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 0;
+  max-width: 46ch;
+}
+.preorder__buy { text-align: center; }
+.preorder__price {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+.preorder__buy .btn { width: 100%; }
+.preorder__fine-print {
+  margin-top: 0.7rem;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.preorder__letter {
+  text-align: center;
+  max-width: 34rem;
+  margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+}
+
+/* Gentle reveals */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Edition states & drawer cross-sell */
+.edition-state-note {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding-block: 1.4rem;
+  text-align: center;
+}
+.edition-state-note p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.edition-state-note--inline { border: 0; padding: 0; text-align: left; }
+
+.cart-drawer__suggestion {
+  border-top: 1px solid var(--gold);
+  padding-top: 1.1rem;
+  margin-top: 1.1rem;
+}
+.cart-drawer__suggestion-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.8rem;
+}
+
+/* Quiet pages (contact, search, ledger): smaller, more atelier */
+.title-quiet {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  letter-spacing: 0.01em;
+}
+.prose--quiet { font-size: 0.95rem; line-height: 1.75; }
+.prose--quiet p { margin-bottom: 1.2em; }
+
+.search-form--quiet input,
+.search-form--quiet .btn { font-size: 0.9rem; }
+
+/* Collector's ledger */
+.ledger-tiers { margin-top: 2.5rem; border-top: 1px solid var(--gold); }
+.ledger-tier {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding-block: 1.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.ledger-tier h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; }
+.ledger-tier__standing {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.ledger-tier__perk { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
+
+.copy-email {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-left: 1rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.copy-email:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.contact-form textarea { min-height: 8rem; }
+
+
+/* --------------------------------------------------------------------------
+   Waitlist envelope (homepage) — moved out of the /pages/waitlist page body
+   so it caches with the theme; waitlist-home.liquid strips the inline copy.
+   -------------------------------------------------------------------------- */
+
+.waitlist-home .obj-wordmark { display: none; }
+
+.obj-waitlist{--paper:#f6f1e7;--card:#fdfaf3;--ink:#2a2320;--soft:#6f6355;--wax:#3a544a;--wax-dk:#273b33;--gold:#a5834b;--line:rgba(42,35,32,.16);
+  background:var(--paper);color:var(--ink);font-family:var(--font-body);
+  margin:0 auto;max-width:100%;padding:56px 20px 72px;text-align:center;line-height:1.55;}
+.obj-waitlist *{box-sizing:border-box;margin:0;padding:0;}
+.obj-eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);margin-bottom:34px;}
+
+/* ---------- Copy ---------- */
+.obj-fadein{opacity:0;animation:obj-fade 1.2s ease forwards;animation-delay:.2s;}
+@keyframes obj-fade{to{opacity:1;}}
+.obj-h1{font-family:var(--font-display);font-size:clamp(28px,5vw,40px);font-weight:450;font-style:italic;margin:44px 0 10px;}
+.obj-sub{max-width:520px;margin:0 auto;font-size:16px;color:var(--soft);}
+.obj-rule{width:52px;height:1px;background:var(--gold);margin:36px auto;border:0;}
+.obj-sprig{width:150px;height:30px;display:block;margin:30px auto;}
+.obj-wordmark{height:132px;width:auto;display:block;margin:0 auto 10px;}
+.obj-h2{font-family:var(--font-sans);font-size:12px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--wax);margin-bottom:14px;}
+.obj-mech{max-width:520px;margin:0 auto;font-size:16px;}
+.obj-objects{max-width:440px;margin:0 auto;text-align:left;font-size:15px;}
+.obj-objects div{display:flex;justify-content:space-between;gap:16px;padding:12px 2px;border-bottom:1px solid var(--line);}
+.obj-objects div:first-child{border-top:1px solid var(--line);}
+.obj-objects i{color:var(--soft);font-size:14px;text-align:right;}
+
+/* ---------- Form ---------- */
+.obj-form-wrap{max-width:440px;margin:34px auto 0;}
+.obj-form{display:flex;gap:0;margin-top:22px;border:1px solid var(--ink);}
+.obj-form input[type=email]{flex:1;min-width:0;border:0;background:var(--card);padding:15px 16px;font:inherit;font-size:16px;color:var(--ink);outline:none;}
+.obj-form button{border:0;background:var(--wax);color:var(--on-accent);font:inherit;font-family:var(--font-sans);font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:0 22px;cursor:pointer;white-space:nowrap;}
+.obj-form button:hover{background:var(--wax-dk);}
+.obj-form button:disabled{opacity:.65;cursor:default;}
+.obj-fine{margin-top:14px;font-size:14px;color:var(--soft);font-style:italic;}
+.obj-thanks{display:none;margin-top:22px;padding:22px;border:1px solid var(--gold);font-size:16px;font-style:italic;}
+.obj-posted .obj-thanks{display:block;}
+.obj-posted .obj-form,.obj-posted .obj-fine{display:none;}
+
+/* ---------- Footer seal ---------- */
+.obj-foot{margin-top:64px;}
+.obj-foot svg{width:60px;height:60px;opacity:.95;}
+.obj-foot p{font-family:var(--font-sans);margin-top:10px;font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--soft);}
+
+/* v5.9 type refresh: the page body's objHouseEdits block styles these and
+   wins the cascade (it loads after this sheet), so outrank it with the
+   .obj-waitlist prefix instead of editing the body. */
+.obj-waitlist .obj-plain{font-size:17px;}
+.obj-waitlist .obj-sub--edition{font-size:15px;}
+.obj-waitlist .obj-note{font-family:var(--font-display);font-size:17px;}
+.obj-waitlist .obj-note-sig{font-family:var(--font-display);font-size:16px;}
+.obj-waitlist .obj-note-link{font-family:var(--font-sans);font-size:11px;font-weight:500;}
+
+@media (prefers-reduced-motion:reduce){
+  .obj-fadein{animation:none;opacity:1;}
+}
+
+/* ==========================================================================
+   v5.7 — atelier hero (flat-lay photograph + waitlist claim form)
+   ========================================================================== */
+
+.hero-atelier {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  /* Shows only while the banner loads, so keep it on-palette. */
+  background: var(--color-background);
+}
+
+.hero-atelier__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Homepage body refinements (July 2026): the claim link renders as a proper
+   button, and the replay hint under the envelope stays quiet. */
+.obj-claim-up { margin: 6px 0 44px; }
+.obj-claim-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--on-accent);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.7rem;
+  text-decoration: none;
+  border: 0;
+  transition: background 0.3s ease;
+}
+.obj-claim-btn:hover { background: var(--wax-dark); }
+
+.hero-atelier__frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hero-atelier__panel {
+  max-width: 30rem;
+  padding-block: 2.2rem 2.6rem;
+}
+
+.hero-atelier__eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.1rem;
+}
+.hero-atelier__eyebrow::after {
+  content: "";
+  display: block;
+  width: 46px;
+  border-top: 1px solid var(--line-strong);
+  margin-top: 1.1rem;
+}
+
+.hero-atelier__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.9rem;
+}
+
+.hero-atelier__sub {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.7rem;
+  max-width: 26rem;
+}
+
+.hero-atelier__row {
+  display: flex;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+}
+/* Arriving via a guest book link (theme.js beckon): the form rings softly
+   and the focused field keeps a steady jade ring, so it is clear the next
+   step is typing an email. */
+.hero-atelier__cta { scroll-margin-top: 110px; }
+.hero-atelier__row:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(58, 84, 74, 0.18);
+}
+.hero-atelier__row.is-beckoned {
+  animation: obj-beckon 1.5s ease 2;
+}
+@keyframes obj-beckon {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(58, 84, 74, 0); }
+  35% { box-shadow: 0 0 0 6px rgba(58, 84, 74, 0.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-atelier__row.is-beckoned { animation: none; }
+}
+.hero-atelier__row input[type="email"] {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 1rem 1.1rem;
+}
+.hero-atelier__row input[type="email"]:focus { outline: none; }
+
+.hero-atelier__btn {
+  flex-shrink: 0;
+  border: 0;
+  cursor: pointer;
+  background: var(--color-accent);
+  color: var(--on-accent);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0 1.6rem;
+  transition: background 0.3s ease;
+}
+.hero-atelier__btn:hover { background: var(--wax-dark); }
+.hero-atelier__btn:disabled { opacity: 0.65; cursor: default; }
+/* The guest-book label runs longer than the old one; give the email field
+   room to breathe on small screens. */
+@media (max-width: 420px) {
+  .hero-atelier__btn { padding: 0 0.9rem; letter-spacing: 0.12em; }
+}
+
+.hero-atelier__fine {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+  margin: 0.9rem 0 0;
+}
+/* The expectations line: quieter than the fine print above it, since it
+   answers a question rather than making a promise. */
+.hero-atelier__fine--small {
+  font-size: 0.85rem;
+  margin-top: 0.45rem;
+  max-width: 24rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 861px) {
+  /* The banner artwork (Oct 2026) carries the monogram and the scripted
+     tagline, so the overlay keeps only the guest book form, tucked into the
+     quiet dappled corner at lower left. The image is light; copy stays ink
+     and the header keeps its normal paper bar. */
+  .hero-atelier__media img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    object-position: 22% 50%;
+  }
+  /* A soft wash under the panel's fine print so it never has to fight the
+     artwork. The colour is sampled from the banner itself (the warm off-
+     white behind the text block, median #F9EFEC) rather than the page
+     cream, so the wash disappears into the photograph instead of sitting
+     on top of it. Anchored to the text block with a tight vertical falloff,
+     so the scripted tagline above and the sketchbook right stay crisp. */
+  .hero-atelier__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(50% 22% at 14% 84%,
+      rgba(249, 239, 236, 0.97) 0%,
+      rgba(249, 239, 236, 0.93) 45%,
+      rgba(249, 239, 236, 0.70) 72%,
+      rgba(249, 239, 236, 0) 100%);
+  }
+  .hero-atelier__frame {
+    /* The banner's scripted tagline is baked into the artwork at roughly
+       43-55% of its height, so the bottom-aligned panel has to start below
+       that. Keep this clearance in mind if the panel gains another line. */
+    min-height: clamp(460px, 41vw, 580px);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(1.5rem, 2.5vw, 2rem);
+    align-items: flex-end;
+  }
+  .hero-atelier__panel {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    max-width: 24rem;
+  }
+  .hero-atelier__eyebrow,
+  .hero-atelier__title,
+  .hero-atelier__sub {
+    display: none;
+  }
+}
+
+/* Footer monogram (v5.7 logo kit) */
+.site-footer__monogram .icon-obj-monogram {
+  width: 42px;
+  height: auto;
+  display: block;
+  margin-bottom: 0.9rem;
+  color: var(--color-ink);
+  opacity: 0.9;
+}
+
+/* v5.7 homepage trim — with the wordmark and mid-page form stripped, the
+   envelope sits closer to the hero and the remaining copy breathes. */
+.waitlist-home .obj-sub--edition { margin-top: 40px; }
+.waitlist-home .obj-h2--ladder { margin-top: 40px; }
+.waitlist-home .obj-claim-up { margin-top: 26px; }

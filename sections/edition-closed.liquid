@@ -1,0 +1,66 @@
+<section class="section utility-page">
+  <img src="{{ 'obj-seal.svg' | asset_url }}" alt="" width="96" height="64" style="margin: 0 auto 1.5rem;">
+  <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+  <h1 style="font-style: italic;">{{ section.settings.heading }}</h1>
+  <div class="prose" style="color: var(--ink-soft);">
+    {{ section.settings.body }}
+  </div>
+
+  <div style="max-width: 26rem; margin: 2.5rem auto 0;">
+    <span class="eyebrow eyebrow--accent">{{ section.settings.form_heading }}</span>
+    {% form 'customer' %}
+      {% if form.posted_successfully? %}
+        <p class="newsletter__note">Consider it sealed. We'll write when the next edition stirs.</p>
+      {% else %}
+        {% if form.errors %}
+          <div class="errors">{{ form.errors | default_errors }}</div>
+        {% endif %}
+        <input type="hidden" name="contact[tags]" value="waitlist,second-edition">
+        <input type="hidden" name="return_to" value="/pages/sealed">
+        <div class="newsletter__form">
+          <input type="email" name="contact[email]" placeholder="Your email" aria-label="Email" required>
+          <button type="submit" class="btn btn--solid">Seal it</button>
+        </div>
+      {% endif %}
+    {% endform %}
+    <p class="newsletter__note">{{ section.settings.fine_print }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Edition closed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The First Edition · The Reading Hour"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The doors have closed."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>The First Edition was pressed once, numbered by hand, and claimed. It isn't coming back; that was rather the point. To everyone who took the long way with us: your number is yours, every edition, for life.</p>"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "For the Second Edition"
+    },
+    {
+      "type": "text",
+      "id": "fine_print",
+      "label": "Fine print",
+      "default": "Your place in line carries over. The house writes when there is something worth writing about."
+    }
+  ]
+}
+{% endschema %}

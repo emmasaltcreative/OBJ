@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "edition-closed",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
