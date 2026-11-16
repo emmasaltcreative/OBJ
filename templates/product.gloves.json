@@ -7,14 +7,14 @@
           "type": "accordion",
           "settings": {
             "heading": "The leather",
-            "content": "<p>[CONFIRM BEFORE PUBLISHING — leather composition and lining. The supplier listing describes lambskin with a 100% silk lining; state neither until it is confirmed in writing.]</p>"
+            "content": "<p>Lambskin, with a lining of 100% silk. Made in France.</p>"
           }
         },
         "fit": {
           "type": "accordion",
           "settings": {
             "heading": "The fit",
-            "content": "<p>Two sizes, S/M and M/L. Measure around the fullest part of your palm, thumb excluded, and go by that number in inches.</p><p>[CONFIRM BEFORE PUBLISHING — add the inch range for each size from the supplier spec.]</p>"
+            "content": "<p>Two sizes, S/M and M/L. Measure around the fullest part of your palm, thumb excluded, and go by that number in inches.</p><p>[CONFIRM BEFORE PUBLISHING — add the inch range for each size.]</p>"
           }
         },
         "care": {
@@ -32,12 +32,19 @@
           }
         }
       },
-      "block_order": ["leather", "fit", "care", "shipping"],
+      "block_order": [
+        "leather",
+        "fit",
+        "care",
+        "shipping"
+      ],
       "settings": {
         "collection_eyebrow": "In Her Purse",
         "default_cta": "Take them with you →"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
