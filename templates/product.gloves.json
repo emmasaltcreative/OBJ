@@ -7,7 +7,7 @@
           "type": "accordion",
           "settings": {
             "heading": "The leather",
-            "content": "<p>Lambskin, with a lining of 100% silk. Made in France.</p>"
+            "content": "<p>Lambskin, with a lining of 100% silk.</p>"
           }
         },
         "fit": {
@@ -30,9 +30,17 @@
             "heading": "Shipping & returns",
             "content": "<p>Sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
           }
+        },
+        "maker": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The maker",
+            "content": "<p>Glove Story, in France. Chosen by the house for In Her Purse, not made by it. The house makes some things and finds others; this is one it found.</p>"
+          }
         }
       },
       "block_order": [
+        "maker",
         "leather",
         "fit",
         "care",
