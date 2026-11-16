@@ -21,6 +21,7 @@ A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisir
 | `sections/ritual.liquid` | I / II / III made-to-order value props |
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
+| `templates/product.gloves.json` | Product page for sourced gloves — leather, fit, care, shipping accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
 
 ## Product metafields (optional but recommended)

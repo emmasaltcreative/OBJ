@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "leather": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The leather",
+            "content": "<p>[CONFIRM BEFORE PUBLISHING — leather composition and lining. The supplier listing describes lambskin with a 100% silk lining; state neither until it is confirmed in writing.]</p>"
+          }
+        },
+        "fit": {
+          "type": "accordion",
+          "settings": {
+            "heading": "The fit",
+            "content": "<p>Two sizes, S/M and M/L. Measure around the fullest part of your palm, thumb excluded, and go by that number in inches.</p><p>[CONFIRM BEFORE PUBLISHING — add the inch range for each size from the supplier spec.]</p>"
+          }
+        },
+        "care": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Care",
+            "content": "<p>Spot clean with a barely damp cloth. Never machine wash. Let them dry away from direct heat, and store them flat — the bottom of the purse is fine.</p>"
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
+          }
+        }
+      },
+      "block_order": ["leather", "fit", "care", "shipping"],
+      "settings": {
+        "collection_eyebrow": "In Her Purse",
+        "default_cta": "Take them with you →"
+      }
+    }
+  },
+  "order": ["main"]
+}
