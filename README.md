@@ -2,10 +2,12 @@
 
 > ## Sync status
 >
-> This repository mirrors the live theme **OBJ v5.30 · Accord photography**
-> (`gid://shopify/OnlineStoreTheme/189792157749`), synced from the official
-> Shopify theme export on **2026-11-16** — 136 files, verified byte-for-byte
-> against the Admin Files API.
+> This repository mirrors the live theme **OBJ v5.31 · Editorial PDPs**
+> (`gid://shopify/OnlineStoreTheme/189807820853`), verified byte-for-byte
+> against the Admin Files API on **2026-11-16** — 137 files, no drift.
+>
+> v5.31 is v5.30 plus the editorial `product.gloves.json` and
+> `product.brownstone.json`. It was published 2026-11-16.
 >
 > Before that sync it was four-plus versions behind: 77 files missing, 32 stale,
 > only 27 of 136 correct. Nothing keeps it in sync automatically yet, so
@@ -19,7 +21,7 @@ With the Shopify CLI, pull over the working tree and read `git status`. A clean
 tree means the repo matches the theme; anything listed is drift:
 
 ```bash
-shopify theme pull --store ohbettyjaletti.com --theme 189792157749
+shopify theme pull --store ohbettyjaletti.com --theme 189807820853
 ```
 
 ```bash
