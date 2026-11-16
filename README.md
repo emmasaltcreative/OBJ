@@ -2,35 +2,72 @@
 
 > ## ⚠️ This repository is NOT the live theme. Do not push it.
 >
-> The live theme is **OBJ v5.30 · Accord photography**, and it is far ahead of this
-> repository. Checked 2026-11-16:
+> The live theme is **OBJ v5.30 · Accord photography**
+> (`gid://shopify/OnlineStoreTheme/189792157749`). This repo is a stale ancestor
+> of it. Measured 2026-11-16:
 >
-> | | This repo | Live theme |
-> |---|---|---|
-> | Files | 62 | ~137 |
-> | `sections/main-product.liquid` | 11 KB | 38 KB |
-> | `assets/base.css` | 26 KB | 50 KB |
-> | `assets/theme.js` | 3.7 KB | 19 KB |
+> | State | Files |
+> |---|---|
+> | Identical to live | 27 |
+> | Present but **stale** | 32 |
+> | **Missing** entirely | 77 (1,031 KB) |
+> | Live total | 136 |
 >
-> The live theme has roughly thirty sections this repo does not, including
-> `service-strip`, `sticky-buy`, `scent-accords`, `product-particulars`,
-> `product-story`, `house-notes`, `collection-hero` and the `worktable-*` set,
-> plus `product.perfume.json`, the collection templates, and the house fonts.
+> `sections/main-product.liquid` is 11 KB here and 38 KB live. `assets/theme.js`
+> is 3.7 KB here and 19 KB live. The house fonts, `service-strip`, `sticky-buy`,
+> `scent-accords`, `product-particulars`, the `worktable-*` set and
+> `product.perfume.json` do not exist here at all.
 >
-> **`shopify theme push` from this directory would delete all of it.** The
-> "Getting it onto Shopify" section below predates the drift and must not be run
-> as written.
->
-> The `.liquid` sections that do exist here still match live (`purse-tote.liquid`
-> is byte-identical). The `.json` templates have drifted, because the Shopify
-> theme editor rewrites them in place — those files carry an auto-generated
-> header live.
->
-> Treat this repo as a copy-and-reference source until someone pulls the live
-> theme down over it.
+> **`shopify theme push` from this directory would delete 77 files from the live
+> storefront.** Do not run it until the sync below is done.
 
+## Syncing this repo to the live theme
 
-A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisirs, faits exprès*.
+Do this once, to catch up:
+
+1. Shopify admin → **Online Store → Themes**
+2. On **OBJ v5.30 · Accord photography**, open the **⋯** menu → **Download theme file**
+3. Shopify emails a `.zip` link. Unzip it over this repository, replacing files.
+4. Review `git status`, then commit.
+
+With the Shopify CLI, steps 1–3 are one command:
+
+```bash
+shopify theme pull --store ohbettyjaletti.com --theme 189792157749
+```
+
+Either route is byte-exact and includes the fonts and images, which cannot be
+transferred correctly any other way.
+
+### Staying in sync after that
+
+Connect the theme to this repository with Shopify's GitHub integration:
+**Online Store → Themes → Add theme → Connect from GitHub**, then authorise the
+Shopify app for `emmasaltcreative/OBJ` and pick a branch.
+
+Once connected, the branch *is* the theme: edits made in the Shopify theme
+editor commit back to the branch automatically, and commits pushed to the branch
+deploy to the theme. The drift above becomes impossible.
+
+Three things to know before connecting:
+
+- **Connect a dedicated branch**, not `main`. Shopify writes to it directly.
+- **A connected branch deploys on push.** Connect an *unpublished* theme if you
+  want a review step before anything reaches the storefront, and publish by hand.
+- **`config/settings_data.json` will churn.** Every theme-editor tweak commits to
+  it. That is normal, not a mistake.
+
+### Working with Claude Code in this repo
+
+Until the sync is done, this repo cannot be trusted as a picture of the store, so:
+
+- **Read theme files from the store, not from here.** The live theme is the
+  source of truth. The Files API and `theme_bash` both read it directly.
+- **Never publish theme changes by pushing this repo.** Make them on an
+  unpublished theme and publish from admin after a look.
+- **Product copy is not theme code.** Descriptions, SEO, variants, SKUs and
+  barcodes are product data, and changes to them are live the moment they are
+  saved — they do not wait on a theme deploy and are not captured in this repo.
 
 ## Design language
 
@@ -88,13 +125,15 @@ Without them the theme falls back to grid position for numbering and "Add to my 
 
 ## Getting it onto Shopify
 
+> **Do not run these until this repo has been synced** — see *Syncing this repo
+> to the live theme* above. Pushing the current contents would delete 77 files
+> from the live storefront.
+
 ```bash
-# from this directory
+# from this directory, AFTER syncing
 shopify theme dev    # live preview against your store
 shopify theme push --unpublished --theme "Oh Betty Jaletti"
 ```
-
-Or zip the folder and upload via **Online Store → Themes → Add theme → Upload zip file**.
 
 ## Landing page: In Her Purse
 
