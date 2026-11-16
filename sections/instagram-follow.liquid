@@ -31,9 +31,24 @@
       {% endif %}
     </div>
 
-    {%- if section.blocks.size > 0 -%}
+    {%- assign tiles = section.blocks | where: 'type', 'tile' -%}
+
+    {%- comment -%}
+      An app block renders its own feed, so it is not a tile and must not be
+      wrapped in one. Socialwidget, Instafeed and the rest go here, between the
+      heading and the follow button, keeping the house frame around a live feed.
+    {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        <div class="ig__app" {{ block.shopify_attributes }}>
+          {% render block %}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if tiles.size > 0 -%}
       <ul class="ig__grid" role="list">
-        {%- for block in section.blocks -%}
+        {%- for block in tiles -%}
           <li class="ig__tile" {{ block.shopify_attributes }}>
             <a
               href="{{ block.settings.link | default: profile }}"
@@ -133,6 +148,8 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
+  .ig__app { margin: 0 0 clamp(1.8rem, 4vw, 2.6rem); }
+
   .ig__cta { text-align: center; }
   .ig__handle { margin: 0.9rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
 
@@ -216,6 +233,7 @@
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "instagram" }
   ],
   "blocks": [
+    { "type": "@app" },
     {
       "type": "tile",
       "name": "Post",
