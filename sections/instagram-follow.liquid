@@ -94,9 +94,6 @@
       <a href="{{ profile }}" class="btn btn--solid" target="_blank" rel="noopener noreferrer">
         {{ section.settings.button_label }}
       </a>
-      <p class="ig__handle">
-        <a href="{{ profile }}" target="_blank" rel="noopener noreferrer">&#64;{{ handle }}</a>
-      </p>
     </div>
   </div>
 </section>
@@ -152,15 +149,17 @@
      and centred, rather than allowed to run the full page. */
   .ig__app {
     max-width: {{ section.settings.app_max_width }}px;
-    margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0 auto clamp(0.9rem, 1.8vw, 1.3rem);
   }
+
+  /* The app sets its own trailing margin, which lands on top of ours. */
+  .ig__app > :last-child { margin-bottom: 0; }
 
   .ig__app img,
   .ig__app video,
   .ig__app iframe { max-width: 100%; height: auto; }
 
   .ig__cta { text-align: center; }
-  .ig__handle { margin: 0.9rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
 
   .visually-hidden {
     position: absolute;
