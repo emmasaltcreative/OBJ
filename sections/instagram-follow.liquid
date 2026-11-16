@@ -148,7 +148,16 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
-  .ig__app { margin: 0 0 clamp(1.8rem, 4vw, 2.6rem); }
+  /* The app draws at whatever width it is given, so it is given a modest one
+     and centred, rather than allowed to run the full page. */
+  .ig__app {
+    max-width: {{ section.settings.app_max_width }}px;
+    margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
+  }
+
+  .ig__app img,
+  .ig__app video,
+  .ig__app iframe { max-width: 100%; height: auto; }
 
   .ig__cta { text-align: center; }
   .ig__handle { margin: 0.9rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
@@ -229,6 +238,13 @@
         { "value": "9 / 16", "label": "Reel" }
       ],
       "default": "1 / 1"
+    },
+    {
+      "type": "range",
+      "id": "app_max_width",
+      "label": "Feed width",
+      "info": "Caps the width of an app feed block, so it does not run the full page.",
+      "min": 360, "max": 1200, "step": 40, "unit": "px", "default": 720
     },
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "instagram" }
   ],
