@@ -39,9 +39,58 @@
         {% if section.settings.pull_quote != blank %}
           <p class="story__quote">{{ section.settings.pull_quote }}</p>
         {% endif %}
+
+        {%- comment -%}
+          The story is the last long read before the footer, so it carries a way
+          back to the buy box. One variant means there is nothing to guess and we
+          add it outright; with options to choose, we send them up to pick, the
+          same bargain the sticky bar makes.
+        {%- endcomment -%}
+        {%- if section.settings.show_cta and product != blank and product.available -%}
+          <div class="story__cta">
+            {%- if product.variants.size == 1 -%}
+              {% form 'product', product, class: 'story__cta-form' %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" name="add" class="btn btn--solid">
+                  {{ section.settings.cta_label }}
+                </button>
+              {% endform %}
+            {%- else -%}
+              <button type="button" class="btn btn--solid" data-story-scroll>
+                {{ section.settings.cta_choose_label }}
+              </button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </section>
+
+  {%- if section.settings.show_cta -%}
+    <style>
+      .story__cta {
+        margin-top: clamp(2rem, 4vw, 2.8rem);
+        padding-top: clamp(1.4rem, 2.5vw, 1.9rem);
+        border-top: 1px solid var(--line);
+      }
+      .story__cta .btn { display: inline-block; }
+      .story__cta-form { margin: 0; }
+    </style>
+    <script>
+      (function () {
+        var btn = document.querySelector('[data-story-scroll]');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          var anchor = document.querySelector('[data-buy-button]');
+          if (!anchor) return;
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var field = document.querySelector('[data-option-select]');
+          if (field) { window.setTimeout(function () { field.focus({ preventScroll: true }); }, 500); }
+        });
+      })();
+    </script>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -65,7 +114,22 @@
       "label": "Closing line",
       "info": "Set apart at the end. Keep it to one sentence."
     },
-    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-story" }
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "the-story" },
+    { "type": "checkbox", "id": "show_cta", "label": "Show a buy call to action", "default": true },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Call to action label",
+      "default": "Add to my parcel →",
+      "info": "Used when the piece has a single variant and can be added outright."
+    },
+    {
+      "type": "text",
+      "id": "cta_choose_label",
+      "label": "Call to action label, with options",
+      "default": "Choose yours →",
+      "info": "Used when there is a size or colour to pick. Sends the reader to the buy box."
+    }
   ],
   "presets": [{ "name": "Product story" }]
 }
