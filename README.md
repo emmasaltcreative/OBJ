@@ -1,5 +1,35 @@
 # Oh Betty Jaletti — Custom Shopify Theme
 
+> ## ⚠️ This repository is NOT the live theme. Do not push it.
+>
+> The live theme is **OBJ v5.30 · Accord photography**, and it is far ahead of this
+> repository. Checked 2026-11-16:
+>
+> | | This repo | Live theme |
+> |---|---|---|
+> | Files | 62 | ~137 |
+> | `sections/main-product.liquid` | 11 KB | 38 KB |
+> | `assets/base.css` | 26 KB | 50 KB |
+> | `assets/theme.js` | 3.7 KB | 19 KB |
+>
+> The live theme has roughly thirty sections this repo does not, including
+> `service-strip`, `sticky-buy`, `scent-accords`, `product-particulars`,
+> `product-story`, `house-notes`, `collection-hero` and the `worktable-*` set,
+> plus `product.perfume.json`, the collection templates, and the house fonts.
+>
+> **`shopify theme push` from this directory would delete all of it.** The
+> "Getting it onto Shopify" section below predates the drift and must not be run
+> as written.
+>
+> The `.liquid` sections that do exist here still match live (`purse-tote.liquid`
+> is byte-identical). The `.json` templates have drifted, because the Shopify
+> theme editor rewrites them in place — those files carry an auto-generated
+> header live.
+>
+> Treat this repo as a copy-and-reference source until someone pulls the live
+> theme down over it.
+
+
 A bespoke Online Store 2.0 theme for **Maison Betty Jaletti** · *petits plaisirs, faits exprès*.
 
 ## Design language
