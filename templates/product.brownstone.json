@@ -21,30 +21,16 @@
           "type": "accordion",
           "settings": {
             "heading": "Shipping & returns",
-            "content": "<p>Packed and sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
-          }
-        },
-        "pairing": {
-          "type": "accordion",
-          "settings": {
-            "heading": "The pairing",
-            "content": "<p>The bag and the scarf come from different makers. Choosing each of them, and knotting one to the other, is the house's work — and the whole idea behind In Her Purse.</p>"
+            "content": "<p>Made when you claim it, then sent the long way on purpose. Gracious, calm returns within 30 days — write to the house and we'll sort it.</p>"
           }
         }
       },
-      "block_order": [
-        "suede",
-        "scarf",
-        "pairing",
-        "shipping"
-      ],
+      "block_order": ["suede", "scarf", "shipping"],
       "settings": {
         "collection_eyebrow": "In Her Purse",
         "default_cta": "Claim the tote →"
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
