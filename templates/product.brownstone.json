@@ -25,64 +25,101 @@
           }
         }
       },
-      "block_order": [
-        "fabric",
-        "scarf",
-        "shipping"
-      ],
+      "block_order": ["fabric", "scarf", "shipping"],
       "settings": {
-        "collection_eyebrow": "Edition I · In Her Purse",
-        "preorder_eyebrow": "Preorder · Edition I · In Her Purse",
-        "preorder_fulfillment": "A preorder, charged today at [price]. Packed carefully by the house and sent the long way when it's ready. Nothing here waits in a warehouse.",
-        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
+        "editorial_layout": true,
+        "collection_eyebrow": "No. 1 · In Her Purse",
+        "preorder_eyebrow": "No. 1 · In Her Purse",
+        "intro_text": "<p>Café Noir faux suede, cut full enough for a day that changes its mind.</p><p>A flowered silk scarf knotted at the handle.</p>",
+        "include_note": "One tote, with the silk scarf knotted at the handle.",
+        "illustration_filenames": "",
         "sell_in_preproduction": true,
         "default_cta": "Claim the tote →",
+        "share_note": "For the friend whose purse is an archive.",
+        "share_label": "Send it along →",
         "story_heading": "A bag that holds the whole day",
+        "more_text": "The collection fills up slowly, on purpose. <a href='#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
         "preproduction_copy": ""
       }
     },
     "promises": {
       "type": "service-strip",
       "blocks": {
-        "shipping": {
-          "type": "promise",
-          "settings": {
-            "heading": "Free US shipping",
-            "text": "Packed by hand in 2–3 business days."
-          }
-        },
-        "returns": {
-          "type": "promise",
-          "settings": {
-            "heading": "Thirty days to change your mind",
-            "text": "Write to us and we'll sort it."
-          }
-        },
-        "packed": {
-          "type": "promise",
-          "settings": {
-            "heading": "Packed by the house",
-            "text": "Signed off before it leaves."
-          }
-        }
+        "shipping": { "type": "promise", "settings": { "heading": "Free US shipping", "text": "Packed by hand in 2–3 business days." } },
+        "returns": { "type": "promise", "settings": { "heading": "Thirty days to change your mind", "text": "Write to us and we'll sort it." } },
+        "packed": { "type": "promise", "settings": { "heading": "Packed by the house", "text": "Signed off before it leaves." } }
       },
-      "block_order": [
-        "shipping",
-        "returns",
-        "packed"
-      ],
+      "block_order": ["shipping", "returns", "packed"],
       "settings": {}
     },
-    "sticky": {
-      "type": "sticky-buy",
+    "story": {
+      "type": "product-story",
       "settings": {
-        "enabled": true
+        "numeral": "01",
+        "eyebrow": "Why it exists",
+        "heading": "The Brownstone Tote",
+        "body": "<p>There is a particular kind of day that requires you to step out of the house prepared for anything, yet unburdened by the weight of it. A day that might begin at the market, stretch into an uninterrupted hour at your favourite corner table, and end with an unexpected stack of paperbacks that simply must come home with you.</p><p>This is the bag for those days. Cut full, soft enough to take the shape of whatever it is asked to carry, and light enough to forget you are carrying it.</p>",
+        "drop_cap": true,
+        "pull_quote": "Leave the house without a plan.",
+        "anchor": "the-story"
       }
-    }
+    },
+    "portrait": {
+      "type": "house-portrait",
+      "settings": {
+        "numeral": "02",
+        "eyebrow": "From the house",
+        "heading": "The Pairing",
+        "note": "<p>The bag and the scarf come from different makers. Choosing each of them, and knotting one to the other, is the house's work — and the whole idea behind In Her Purse.</p><p>Some things the house makes: the perfume is blended here, by hand, in small batches. Some things it chooses. This one it chose, and then it made the pair.</p>",
+        "signature": "— Betty",
+        "focal_x": 50,
+        "focal_y": 50,
+        "zoom": 1,
+        "anchor": "the-house"
+      }
+    },
+    "particulars": {
+      "type": "product-particulars",
+      "blocks": {
+        "materials": { "type": "particular", "settings": { "label": "Materials", "text": "", "fallback": "materials" } },
+        "size": { "type": "particular", "settings": { "label": "Size", "text": "", "fallback": "fit_dimensions" } },
+        "scarf": { "type": "particular", "settings": { "label": "The scarf", "text": "A 100% Mulberry Silk scarf, knotted at the handle, with a small tag hanging from the knot.", "fallback": "" } },
+        "carrying": { "type": "particular", "settings": { "label": "Carrying it", "text": "", "fallback": "ritual_intro" } },
+        "care": { "type": "particular", "settings": { "label": "Keeping it", "text": "", "fallback": "care" } },
+        "making": { "type": "particular", "settings": { "label": "How it is made", "text": "", "fallback": "making_note" } },
+        "suits": { "type": "particular", "settings": { "label": "Is it for you?", "text": "", "fallback": "suitability" } },
+        "shipping": { "type": "particular", "settings": { "label": "Getting it to you", "text": "Free US shipping — this one is over the $70 threshold. Packed by hand in 2–3 business days, then handed to the carrier; your arrival window is shown at checkout.", "fallback": "" } }
+      },
+      "block_order": ["materials", "size", "scarf", "carrying", "care", "making", "suits", "shipping"],
+      "settings": {
+        "numeral": "03",
+        "eyebrow": "Everything else",
+        "heading": "The Particulars",
+        "footnote": "<p>Thirty days to change your mind. Write to <a href=\"mailto:hello@ohbettyjaletti.com\">hello@ohbettyjaletti.com</a> and we'll sort it.</p>",
+        "anchor": "the-particulars"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "cut full enough for a day that changes its mind",
+        "phrase_2": "the brownstone tote",
+        "phrase_3": "what she carries, and what she carries it in"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "Letters from the maison",
+        "text": "The Brownstone Tote is the first piece of In Her Purse. Leave an address and the house will write when there is a new one.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "button_label": "Write to me",
+        "tags": "newsletter, in-her-purse",
+        "anchor": "purse-list"
+      }
+    },
+    "sticky": { "type": "sticky-buy", "settings": { "enabled": true } }
   },
-  "order": [
-    "main",
-    "promises",
-    "sticky"
-  ]
+  "order": ["main", "promises", "story", "portrait", "particulars", "marquee", "newsletter", "sticky"]
 }

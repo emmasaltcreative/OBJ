@@ -7,7 +7,7 @@
           "type": "accordion",
           "settings": {
             "heading": "The maker",
-            "content": "<p>Glove Story, in France. Chosen by the house for In Her Purse, not made by it. The house makes some things and finds others; this is one it found.</p>"
+            "content": "<p>Glove Story, in France. Chosen by the house for In Her Purse, not made by it.</p>"
           }
         },
         "leather": {
@@ -21,66 +21,106 @@
           "type": "accordion",
           "settings": {
             "heading": "Shipping &amp; returns",
-            "content": "<p>Free US shipping on this one — it is over the $70 threshold. Packed by hand at the house in 2–3 business days, then handed to the carrier — your arrival window is shown at checkout. Express, on orders of $150 or more, is packed the next business day.</p><p>Gracious, calm returns within 30 days: write to the house and we'll sort it.</p>"
+            "content": "<p>Free US shipping on this one — it is over the $70 threshold. Packed by hand at the house in 2–3 business days, then handed to the carrier — your arrival window is shown at checkout.</p><p>Gracious, calm returns within 30 days: write to the house and we'll sort it.</p>"
           }
         }
       },
-      "block_order": [
-        "maker",
-        "leather",
-        "shipping"
-      ],
+      "block_order": ["maker", "leather", "shipping"],
       "settings": {
-        "collection_eyebrow": "Edition I · In Her Purse",
+        "editorial_layout": true,
+        "collection_eyebrow": "No. 3 · In Her Purse",
+        "preorder_eyebrow": "No. 3 · In Her Purse",
+        "intro_text": "<p>Chocolate lambskin, lined in silk.</p><p>For cold mornings and taking the long way home.</p>",
+        "include_note": "One pair, in Small or Medium.",
+        "illustration_filenames": "",
         "sell_in_preproduction": true,
         "default_cta": "Take them with you →",
+        "share_note": "The pair she will be glad of in February.",
+        "share_label": "Send them along →",
         "story_heading": "A small preparedness, kept in the purse",
-        "more_text": "The edition fills up slowly, on purpose. <a href='/#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
+        "more_text": "The collection fills up slowly, on purpose. <a href='#purse-list' style='color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em;'>The letter</a> tells you first.",
         "preproduction_copy": ""
       }
     },
     "promises": {
       "type": "service-strip",
       "blocks": {
-        "shipping": {
-          "type": "promise",
-          "settings": {
-            "heading": "Free US shipping",
-            "text": "Packed by hand in 2–3 business days."
-          }
-        },
-        "returns": {
-          "type": "promise",
-          "settings": {
-            "heading": "Thirty days to change your mind",
-            "text": "Write to us and we'll sort it."
-          }
-        },
-        "packed": {
-          "type": "promise",
-          "settings": {
-            "heading": "Packed by the house",
-            "text": "Signed off before it leaves."
-          }
-        }
+        "shipping": { "type": "promise", "settings": { "heading": "Free US shipping", "text": "Packed by hand in 2–3 business days." } },
+        "returns": { "type": "promise", "settings": { "heading": "Thirty days to change your mind", "text": "Write to us and we'll sort it." } },
+        "packed": { "type": "promise", "settings": { "heading": "Packed by the house", "text": "Signed off before it leaves." } }
       },
-      "block_order": [
-        "shipping",
-        "returns",
-        "packed"
-      ],
+      "block_order": ["shipping", "returns", "packed"],
       "settings": {}
     },
-    "sticky": {
-      "type": "sticky-buy",
+    "story": {
+      "type": "product-story",
       "settings": {
-        "enabled": true
+        "numeral": "01",
+        "eyebrow": "Why they exist",
+        "heading": "The Out-the-Door Gloves",
+        "body": "<p>There is a particular hour — before eight, the coat already on, the keys somewhere — when nobody wants to be making decisions. These are for that hour.</p><p>They are the plainest possible answer to it. Chocolate lambskin, cut close to the hand, three fine lines of stitching down the back and a plain edge just past the wrist. Nothing to fasten. Nothing to think about.</p><p>You put them on at the door, and take them off when you arrive. Then they wait in the purse for the walk home.</p>",
+        "drop_cap": true,
+        "pull_quote": "A little preparedness. Very good taste.",
+        "anchor": "the-story"
       }
-    }
+    },
+    "portrait": {
+      "type": "house-portrait",
+      "settings": {
+        "numeral": "02",
+        "eyebrow": "From the house",
+        "heading": "Chosen, Not Made",
+        "note": "<p>The house did not make these. It went looking, and stopped at Glove Story, in France, who have been making gloves properly for a long time and did not need our help.</p><p>That is the other half of the work. Some things we make — the perfume is blended here, by hand, in small batches. Some things we find. Both take the same eye, and we would rather tell you which is which.</p>",
+        "signature": "— Betty",
+        "focal_x": 50,
+        "focal_y": 50,
+        "zoom": 1,
+        "anchor": "the-house"
+      }
+    },
+    "particulars": {
+      "type": "product-particulars",
+      "blocks": {
+        "leather": { "type": "particular", "settings": { "label": "The leather", "text": "Lambskin, lined in 100% silk.", "fallback": "" } },
+        "colour": { "type": "particular", "settings": { "label": "The colourway", "text": "Chocolate — a deep, even brown that sits beside the Café Noir of The Brownstone Tote without trying to match it.", "fallback": "" } },
+        "sizes": { "type": "particular", "settings": { "label": "Sizes", "text": "", "fallback": "fit_dimensions" } },
+        "choosing": { "type": "particular", "settings": { "label": "Choosing yours", "text": "Skip the tape measure. Medium is the standard hand; Small is cut for a narrower one. If you land between two sizes, take the smaller.", "fallback": "" } },
+        "wearing": { "type": "particular", "settings": { "label": "Wearing them", "text": "", "fallback": "ritual_intro" } },
+        "care": { "type": "particular", "settings": { "label": "Keeping them", "text": "", "fallback": "care" } },
+        "making": { "type": "particular", "settings": { "label": "Where they come from", "text": "", "fallback": "making_note" } },
+        "suits": { "type": "particular", "settings": { "label": "Is it for you?", "text": "", "fallback": "suitability" } },
+        "shipping": { "type": "particular", "settings": { "label": "Getting them to you", "text": "Free US shipping — this pair is over the $70 threshold. Packed by hand in 2–3 business days, then handed to the carrier; your arrival window is shown at checkout.", "fallback": "" } }
+      },
+      "block_order": ["leather", "colour", "sizes", "choosing", "wearing", "care", "making", "suits", "shipping"],
+      "settings": {
+        "numeral": "03",
+        "eyebrow": "Everything else",
+        "heading": "The Particulars",
+        "footnote": "<p>Thirty days to change your mind. Write to <a href=\"mailto:hello@ohbettyjaletti.com\">hello@ohbettyjaletti.com</a> and we'll sort it.</p>",
+        "anchor": "the-particulars"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "phrase_1": "for cold mornings and taking the long way home",
+        "phrase_2": "the out-the-door gloves",
+        "phrase_3": "a little preparedness, very good taste"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "Letters from the maison",
+        "text": "The Out-the-Door Gloves are the third piece of In Her Purse. Leave an address and the house will write when there is a fourth.",
+        "note": "We write rarely and beautifully. Unsubscribe whenever, no hard feelings.",
+        "button_label": "Write to me",
+        "tags": "newsletter, in-her-purse",
+        "anchor": "purse-list"
+      }
+    },
+    "sticky": { "type": "sticky-buy", "settings": { "enabled": true } }
   },
-  "order": [
-    "main",
-    "promises",
-    "sticky"
-  ]
+  "order": ["main", "promises", "story", "portrait", "particulars", "marquee", "newsletter", "sticky"]
 }
