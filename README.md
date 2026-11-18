@@ -2,16 +2,15 @@
 
 > ## Sync status
 >
-> This repository mirrors the live theme **OBJ v5.31 · Editorial PDPs**
-> (`gid://shopify/OnlineStoreTheme/189807820853`), verified byte-for-byte
-> against the Admin Files API on **2026-11-16** — 137 files, no drift.
+> This repository mirrors the newest theme **OBJ v5.33 · Instagram tidy (preview)**
+> (`gid://shopify/OnlineStoreTheme/189818929205`), verified by MD5 against the
+> Admin Files API on **2026-11-18** — 139 theme files, no drift.
 >
-> v5.31 is v5.30 plus the editorial `product.gloves.json` and
-> `product.brownstone.json`. It was published 2026-11-16.
+> v5.33 is unpublished. The published theme is **OBJ v5.32 · CTA, top, Instagram (preview)**
+> (`gid://shopify/OnlineStoreTheme/189811097653`). It matches v5.33 except
+> `sections/instagram-follow.liquid`, which is the older copy on the live theme.
 >
-> Before that sync it was four-plus versions behind: 77 files missing, 32 stale,
-> only 27 of 136 correct. Nothing keeps it in sync automatically yet, so
-> **re-verify before trusting it** — see below.
+> Nothing keeps this repo in sync automatically, so **re-verify before trusting it** — see below.
 
 ## Keeping this repo in sync
 
@@ -21,7 +20,7 @@ With the Shopify CLI, pull over the working tree and read `git status`. A clean
 tree means the repo matches the theme; anything listed is drift:
 
 ```bash
-shopify theme pull --store ohbettyjaletti.com --theme 189807820853
+shopify theme pull --store ohbettyjaletti.com --theme 189818929205
 ```
 
 ```bash
