@@ -21,7 +21,7 @@
           "type": "signal",
           "settings": {
             "label": "When a parcel moves",
-            "value": "Packed by hand in 3–5 business days. Standard then arrives in 5–10 business days, Express in 2–4."
+            "value": "Packed by hand in 2–3 business days. Standard then arrives in 4–8 business days, Express in 2–4."
           }
         },
         "mind": {
@@ -145,7 +145,7 @@
           "type": "term",
           "settings": {
             "term": "Getting it to you",
-            "detail": "Within the United States. Your parcel is packed by hand at the house in 3–5 business days — Express is packed first, within one business day — and then it is with the carrier. Standard arrives in 5–10 business days and costs $8.00, free on orders of $70.00 or more; Express arrives in 2–4 and costs $15.00. Checkout shows the window again before you pay, and tracking follows the parcel out of the door where it is available.",
+            "detail": "Within the United States. Your parcel is packed by hand at the house in 2–3 business days — Express is packed first, within one business day — and then it is with the carrier. Standard arrives in 4–8 business days and costs $8.00, free on orders of $70.00 or more; Express arrives in 2–4 and costs $15.00. Checkout shows the window again before you pay, and tracking follows the parcel out of the door where it is available.",
             "link_label": "The shipping policy",
             "link": "/policies/shipping-policy"
           }

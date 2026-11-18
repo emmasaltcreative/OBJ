@@ -179,7 +179,7 @@ Checked on **2026-11-18** against the live store, not against this repo:
 
 | On the page | Source | Verified |
 |---|---|---|
-| Packed in 3–5 business days; Standard arrives 5–10, Express 2–4; $8.00 free over $70.00, Express $15.00 | Shipping policy, updated 2026-11-07 | ✅ |
+| Packed in 2–3 business days; Standard arrives 4–8, Express 2–4; $8.00 free over $70.00, Express $15.00 | Shipping policy — **pending the edit below** | ⏳ |
 | 30 days, unworn, in original packaging | Refund policy | ✅ |
 | Damaged or wrong: 14 days with a photograph, house pays return postage | Refund policy | ✅ |
 | Refunds in 5–10 business days to the original method | Refund policy | ✅ |
@@ -190,16 +190,41 @@ Checked on **2026-11-18** against the live store, not against this repo:
 | "The Pairing" on The Brownstone Tote | Product description | ✅ |
 | "The Maker" on the Out-the-Door Gloves, `vendor` = `Glove Story` | Product description + vendor field | ✅ |
 
-> ### ⚠️ One conflict to resolve in admin
+> ### ⏳ Do this first: three edits to the shipping policy
 >
-> **Theme setting → Brand → `fulfillment_line`** reads *"Packed by hand at the
-> house in 2–3 business days."* The **published shipping policy** (updated
-> 7 November 2026) says in-stock orders ship in **3–5 business days**.
+> The house publishes two different packing times. **Theme settings → Brand →
+> `fulfillment_line`** says *2–3 business days*; the shipping policy said *3–5*.
+> The decision was to keep 2–3 and change the policy — which also tightens the
+> Standard total, because the policy shows its own arithmetic (packing + post =
+> total).
 >
-> Those cannot both be true, and `fulfillment_line` renders on every product
-> page. The trust page follows the policy, because the policy governs. Fix the
-> setting in **Theme settings → Brand**, or change the policy — but make them
-> agree. `agents.md` carried the same stale 2–3 figure and has been corrected.
+> **This repo, the trust page and `agents.md` already say 2–3 and 4–8.** The
+> policy does not yet. Until these three edits are made, the storefront is
+> inconsistent, so make them before putting the trust page live.
+>
+> In **Shopify admin → Settings → Policies → Shipping policy**, change only
+> these three pieces of text. It is a rich-text editor, so edit the words in
+> place — do not paste HTML.
+>
+> | Find | Replace with |
+> |---|---|
+> | Last updated: November 7, 2026 | Last updated: November 18, 2026 |
+> | Standard — arrives in **5–10** business days. Packed in **3–5** business days, | Standard — arrives in **4–8** business days. Packed in **2–3** business days, |
+> | In-stock orders generally ship within **3–5** business days, | In-stock orders generally ship within **2–3** business days, |
+>
+> Leave everything else alone — Express (packed within one business day, arrives
+> in 2–4, $15.00), the rates, and every other section are unchanged and correct.
+>
+> Claude could not make this change itself: the Shopify connector does not hold
+> the `write_legal_policies` permission.
+
+### Also worth a look
+
+`The Scented Letter`, the free sample the shipping policy promises in 1–2 weeks,
+is an **archived** product (handle `the-scented-card`), while the theme's
+`samples_enabled` setting still defaults to on. Either the offer should come
+back or the policy line should go — promising a sample that cannot be sent is
+the kind of small breakage this page exists to prevent.
 
 ## Product metafields (optional but recommended)
 
