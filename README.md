@@ -2,16 +2,24 @@
 
 > ## Sync status
 >
-> This repository mirrors the live theme **OBJ v5.31 · Editorial PDPs**
-> (`gid://shopify/OnlineStoreTheme/189807820853`), verified byte-for-byte
-> against the Admin Files API on **2026-11-16** — 137 files, no drift.
+> The live theme is **OBJ v5.32 · CTA, top, Instagram (preview)**
+> (`gid://shopify/OnlineStoreTheme/189811097653`), published after v5.31.
 >
-> v5.31 is v5.30 plus the editorial `product.gloves.json` and
-> `product.brownstone.json`. It was published 2026-11-16.
+> Checked file-by-file against the Admin API on **2026-11-18**: of 139 files,
+> **134 match byte-for-byte**. Five do not, and the direction matters:
 >
-> Before that sync it was four-plus versions behind: 77 files missing, 32 stale,
-> only 27 of 136 correct. Nothing keeps it in sync automatically yet, so
-> **re-verify before trusting it** — see below.
+> | File | Which way |
+> |---|---|
+> | `sections/instagram-follow.liquid` | **Repo is ahead.** The repo dropped the duplicate @handle under the follow button; the live theme still shows it. Never deployed. |
+> | `templates/index.json` | Live is ahead — three app sections (Instafeed and friends) and homepage copy edits made in the theme editor. |
+> | `config/settings_data.json` | Live is ahead — app embed blocks (Lucky Orange, Klaviyo, Bloom, Socialwidget). |
+> | `locales/en.default.json` | Live is ahead — search placeholder is now "Search the house", was "Search the maison". |
+> | `templates/agents.md.liquid` | **Repo is ahead** — corrected on 2026-11-18, see below. Not yet on the live theme. |
+>
+> The four auto-generated JSON files **cannot be recovered byte-exactly through
+> the Files API** — it pretty-prints them and prepends a header, so what the API
+> returns is not what is stored. Use `shopify theme pull` or the admin download
+> for those. The procedure is below.
 
 ## Keeping this repo in sync
 
@@ -164,6 +172,34 @@ go stale, and a stale promise is worse than no promise.
 - **Claim nothing the house cannot show.** No invented response times, no
   invented certifications, no counts of happy customers. The page is persuasive
   because every line on it is checkable.
+
+### Where the facts came from
+
+Checked on **2026-11-18** against the live store, not against this repo:
+
+| On the page | Source | Verified |
+|---|---|---|
+| Packed in 3–5 business days; Standard arrives 5–10, Express 2–4; $8.00 free over $70.00, Express $15.00 | Shipping policy, updated 2026-11-07 | ✅ |
+| 30 days, unworn, in original packaging | Refund policy | ✅ |
+| Damaged or wrong: 14 days with a photograph, house pays return postage | Refund policy | ✅ |
+| Refunds in 5–10 business days to the original method | Refund policy | ✅ |
+| Preorder charged on the day, cancel any time before it ships | Refund + shipping policies | ✅ |
+| No exchanges; opened fragrance cannot come back | Refund policy | ✅ |
+| Virginia, United States; `hello@ohbettyjaletti.com` | Legal notice, contact policy | ✅ |
+| "The Making" on A Woman Remembered | Product description | ✅ |
+| "The Pairing" on The Brownstone Tote | Product description | ✅ |
+| "The Maker" on the Out-the-Door Gloves, `vendor` = `Glove Story` | Product description + vendor field | ✅ |
+
+> ### ⚠️ One conflict to resolve in admin
+>
+> **Theme setting → Brand → `fulfillment_line`** reads *"Packed by hand at the
+> house in 2–3 business days."* The **published shipping policy** (updated
+> 7 November 2026) says in-stock orders ship in **3–5 business days**.
+>
+> Those cannot both be true, and `fulfillment_line` renders on every product
+> page. The trust page follows the policy, because the policy governs. Fix the
+> setting in **Theme settings → Brand**, or change the policy — but make them
+> agree. `agents.md` carried the same stale 2–3 figure and has been corrected.
 
 ## Product metafields (optional but recommended)
 

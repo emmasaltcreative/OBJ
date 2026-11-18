@@ -21,7 +21,7 @@
           "type": "signal",
           "settings": {
             "label": "When a parcel moves",
-            "value": "In-stock pieces generally ship within 2–3 business days, packed by hand."
+            "value": "Packed by hand in 3–5 business days. Standard then arrives in 5–10 business days, Express in 2–4."
           }
         },
         "mind": {
@@ -145,7 +145,7 @@
           "type": "term",
           "settings": {
             "term": "Getting it to you",
-            "detail": "Within the United States. In-stock pieces generally ship within 2–3 business days, packed by hand before they go to the post, and tracking follows the parcel out of the door. Rates and any free-shipping threshold are confirmed at checkout.",
+            "detail": "Within the United States. Your parcel is packed by hand at the house in 3–5 business days — Express is packed first, within one business day — and then it is with the carrier. Standard arrives in 5–10 business days and costs $8.00, free on orders of $70.00 or more; Express arrives in 2–4 and costs $15.00. Checkout shows the window again before you pay, and tracking follows the parcel out of the door where it is available.",
             "link_label": "The shipping policy",
             "link": "/policies/shipping-policy"
           }
@@ -208,7 +208,7 @@
         "heading": "What you can hold us to",
         "intro": "<p>Written out here rather than buried in a policy page, because a promise you have to go looking for is not much of a promise.</p>",
         "caveats_heading": "And, said plainly",
-        "reviewed": "These terms were last read through on 18 November 2026.",
+        "reviewed": "These terms were checked against the published policies on 18 November 2026.",
         "closing": "<p>Where this page and the policy pages ever disagree, the policy pages govern — and we would like to know, so we can fix the page.</p>",
         "contact_email": "hello@ohbettyjaletti.com",
         "contact_note": "— write to the house about anything above. A person writes back."
