@@ -1,0 +1,228 @@
+{
+  "sections": {
+    "intro": {
+      "type": "house-intro",
+      "blocks": {
+        "where": {
+          "type": "signal",
+          "settings": {
+            "label": "Where we are",
+            "value": "An American house, based in Virginia. We ship within the United States."
+          }
+        },
+        "who": {
+          "type": "signal",
+          "settings": {
+            "label": "Who answers",
+            "value": "hello@ohbettyjaletti.com. A person writes back — not a ticket number."
+          }
+        },
+        "when": {
+          "type": "signal",
+          "settings": {
+            "label": "When a parcel moves",
+            "value": "In-stock pieces generally ship within 2–3 business days, packed by hand."
+          }
+        },
+        "mind": {
+          "type": "signal",
+          "settings": {
+            "label": "If you change your mind",
+            "value": "30 days from delivery, unworn and in its packaging. No reason required."
+          }
+        }
+      },
+      "block_order": ["where", "who", "when", "mind"],
+      "settings": {
+        "show_fallback_image": true,
+        "image_alt": "The Oh Betty Jaletti worktable: concept sketches beside linen, poplin and bookcloth swatches, with the house monogram and the words unreasonably pretty things, made with intention.",
+        "eyebrow": "The house, plainly",
+        "heading": "Who we are, why we bother, and what you can hold us to",
+        "standfirst": "<p>Oh Betty Jaletti is an American maison for the ones who take the slow way: small, useful, unreasonably pretty things, made with intention and released in considered quantities.</p><p>It is a small house, not a factory. This page says who is behind it, how a piece comes to exist, and exactly what the house promises — in plain words, with the terms written out rather than hidden behind a link.</p>",
+        "primary_label": "Read the whole letter",
+        "primary_link": "/pages/the-letter",
+        "secondary_label": "See what is for sale today",
+        "secondary_link": "/collections/all"
+      }
+    },
+    "why": {
+      "type": "the-letter",
+      "settings": {
+        "eyebrow": "Our why",
+        "body": "<p>I was named for two women called Betty. One kept her paperbacks the way other people keep secrets: spines cracked, corners turned down, margins full of arguments she was winning with the author. The other believed that if a thing was worth doing, it was worth doing with the good glass, the fresh flowers, and absolutely no rush whatsoever.</p><p>Neither of them would have called any of this an <em>aesthetic</em>. It was simply how a day was meant to be treated: like it deserved you.</p><p>Betty Jaletti is the house I built to keep their opinion alive — for the ones who still do it the long way on purpose. Who make the coffee themselves because they have the cup for it. Who highlight in ink, without apology. Who buy the bouquet for a Tuesday.</p>",
+        "signature": "— B.",
+        "link_label": "Read the whole letter",
+        "link": "/pages/the-letter"
+      }
+    },
+    "what-we-do": {
+      "type": "house-notes",
+      "blocks": {
+        "one": {
+          "type": "note",
+          "settings": {
+            "numeral": "I.",
+            "heading": "We make it, or we choose it",
+            "text": "Some pieces the house makes by hand, in small batches. Others it chooses from makers it is proud to name. Which of the two it was is written on every piece's own page."
+          }
+        },
+        "two": {
+          "type": "note",
+          "settings": {
+            "numeral": "II.",
+            "heading": "We number it",
+            "text": "Each piece takes its place in an edition — No. 1, No. 2 — so you know what you are holding and where it sits in the house's work."
+          }
+        },
+        "three": {
+          "type": "note",
+          "settings": {
+            "numeral": "III.",
+            "heading": "We make it in considered quantities",
+            "text": "An edition is finished when it is right, not when it is due. That is slower, and it is the whole point: a thing made slowly is a thing worth keeping."
+          }
+        },
+        "four": {
+          "type": "note",
+          "settings": {
+            "numeral": "IV.",
+            "heading": "We pack it, and we answer for it",
+            "text": "Your parcel is packed by hand, by the house, before it goes to the post. The same house answers the email afterwards, whatever the email is about."
+          }
+        }
+      },
+      "block_order": ["one", "two", "three", "four"],
+      "settings": {
+        "eyebrow": "What we do",
+        "heading": "How a piece comes to exist",
+        "intro": "Four steps, in order, every time. None of them are quick, and that is the only interesting thing about them.",
+        "footnote": "Nothing here is mass-produced, and nothing here pretends to be rare that is not."
+      }
+    },
+    "signature": {
+      "type": "house-attribution",
+      "blocks": {
+        "made": {
+          "type": "credit",
+          "settings": {
+            "role": "Made it",
+            "example": "A Woman Remembered — blended and bottled by hand, in small batches.",
+            "proof": "On the product page, under “The Making”."
+          }
+        },
+        "paired": {
+          "type": "credit",
+          "settings": {
+            "role": "Chose it, and paired it",
+            "example": "The Brownstone Tote — the bag and the silk scarf were chosen separately, then put together by the house.",
+            "proof": "On the product page, under “The Pairing”."
+          }
+        },
+        "chose": {
+          "type": "credit",
+          "settings": {
+            "role": "Chose it",
+            "example": "The Out-the-Door Gloves — made in France by Glove Story, chosen by the house.",
+            "proof": "On the product page, under “The Maker”, with the maker named."
+          }
+        }
+      },
+      "block_order": ["made", "paired", "chose"],
+      "settings": {
+        "eyebrow": "The signature",
+        "heading": "What “by Betty Jaletti” means — and what it does not",
+        "intro": "<p>Every piece in the house is signed <em>… by Betty Jaletti</em> on the first line of its description. That signature means the house <strong>presents</strong> the piece: chose it, stands behind it, and will answer for it. It does not mean the house made it.</p><p>Some pieces we make. Some we choose, and some we choose and pair. Which one it was is written on the piece's own page, every time, in its own words — so you never have to guess which kind of “handmade” you are reading.</p>",
+        "col_role": "What the house did",
+        "col_example": "For example",
+        "col_proof": "Where to check it",
+        "footnote": "<p>Where a piece was made by someone else, their name goes in the maker field on the product, not just in our copy. We would rather name a good French glovemaker than let you assume we are one.</p>"
+      }
+    },
+    "terms": {
+      "type": "house-promises",
+      "blocks": {
+        "shipping": {
+          "type": "term",
+          "settings": {
+            "term": "Getting it to you",
+            "detail": "Within the United States. In-stock pieces generally ship within 2–3 business days, packed by hand before they go to the post, and tracking follows the parcel out of the door. Rates and any free-shipping threshold are confirmed at checkout.",
+            "link_label": "The shipping policy",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "returns": {
+          "type": "term",
+          "settings": {
+            "term": "Changing your mind",
+            "detail": "30 days from delivery, for anything unworn, unused and in its original packaging. Write to us first so the return is expected. No reason required — on a change of mind the return postage is yours, and we recommend a tracked service.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "damaged": {
+          "type": "term",
+          "settings": {
+            "term": "If it arrives damaged or wrong",
+            "detail": "Write within 14 days of delivery with a photograph. You get a replacement or a full refund including the original shipping, and the house covers the return postage. That one is our fault, so it is our cost.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "refunds": {
+          "type": "term",
+          "settings": {
+            "term": "Getting your money back",
+            "detail": "To the original payment method, within 5–10 business days of the parcel reaching us. Banks sometimes take a few days more to show it. Original shipping comes back only where the fault was ours.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "preorder": {
+          "type": "term",
+          "settings": {
+            "term": "If you preorder",
+            "detail": "We say it is a preorder before you commit, and payment is taken the day you order, not the day it ships. You may cancel any time before it ships for a full refund — one line in an email is enough. If an edition cannot be made at all, every preorder is refunded in full, unasked, and if we run past the promised window we write to you with a new date and the choice to accept it or cancel.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "privacy": {
+          "type": "term",
+          "settings": {
+            "term": "Your details",
+            "detail": "Your address stays with the house. We write when there is something worth telling you, and you can leave the list whenever you like without writing to ask.",
+            "link_label": "The privacy policy",
+            "link": "/policies/privacy-policy"
+          }
+        },
+        "c1": { "type": "caveat", "settings": { "text": "Faux suede is faux suede. We will not call it leather." } },
+        "c2": { "type": "caveat", "settings": { "text": "We ship within the United States only — not yet anywhere else." } },
+        "c3": { "type": "caveat", "settings": { "text": "No exchanges. Return it for a refund and place a new order: it is faster, and it keeps the numbering straight." } },
+        "c4": { "type": "caveat", "settings": { "text": "An opened bottle of fragrance cannot come back, because it cannot be resold. Unopened, within 30 days, of course it can — and if the bottle itself is faulty, write anyway." } },
+        "c5": { "type": "caveat", "settings": { "text": "“No. 1” is a piece's place in its edition, not a serial number on a limited run." } },
+        "c6": { "type": "caveat", "settings": { "text": "It is a small house. Pieces are made in considered quantities, which is why an edition is finished when it is right rather than when it is due." } }
+      },
+      "block_order": ["shipping", "returns", "damaged", "refunds", "preorder", "privacy", "c1", "c2", "c3", "c4", "c5", "c6"],
+      "settings": {
+        "eyebrow": "Plain terms",
+        "heading": "What you can hold us to",
+        "intro": "<p>Written out here rather than buried in a policy page, because a promise you have to go looking for is not much of a promise.</p>",
+        "caveats_heading": "And, said plainly",
+        "reviewed": "These terms were last read through on 18 November 2026.",
+        "closing": "<p>Where this page and the policy pages ever disagree, the policy pages govern — and we would like to know, so we can fix the page.</p>",
+        "contact_email": "hello@ohbettyjaletti.com",
+        "contact_note": "— write to the house about anything above. A person writes back."
+      }
+    },
+    "letters": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Correspondence",
+        "heading": "Letters from the maison",
+        "text": "New editions announced first, by letter. No hype, no hurry. We write when there is something worth writing about.",
+        "note": "We write rarely. Your address stays with the house, and you can leave whenever you like."
+      }
+    }
+  },
+  "order": ["intro", "why", "what-we-do", "signature", "terms", "letters"]
+}

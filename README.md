@@ -115,6 +115,55 @@ For a sourced piece, set the Shopify `vendor` field to the real maker. The theme
 | `sections/marquee.liquid` | Scrolling ribbon of house phrases |
 | `sections/main-product.liquid` | Product page with edition number, custom CTA, accordions |
 | `templates/page.the-letter.json` | Full About / "Our Why" letter page |
+| `templates/page.the-house.json` | The trust page — who we are, what we do, what we promise |
+| `sections/house-intro.liquid` | Trust page opening: the house in a breath, plus the four facts a first-time buyer wants |
+| `sections/house-attribution.liquid` | What "by Betty Jaletti" means — made it / paired it / chose it, and where to verify each |
+| `sections/house-promises.liquid` | "Plain terms": the promises written out, each linked to its policy, plus the candid caveats |
+
+## The trust page: /pages/the-house
+
+A landing page whose only job is to earn belief before anything is asked of the
+buyer: who the house is, why it exists, how a piece comes to exist, what the
+signature does and does not claim, and exactly what the house promises.
+
+To put it live:
+
+1. **Online Store → Pages → Add page.** Title it whatever reads best — *The
+   House*, *About*, *Why we do this*. The handle is up to you; the template is
+   independent of it.
+2. Under **Theme template**, pick **the-house**.
+3. Add it to the `main-menu` and `footer` menus. It is worth a place in both:
+   this is the page people open before a first order.
+
+What it is made of, in order:
+
+| Section | Does |
+|---|---|
+| House intro | The house in two paragraphs, two calls to action, and four facts: where we are, who answers, when a parcel moves, what happens if they change their mind |
+| The letter | The *why* — the two Bettys — excerpted, linking to the full letter |
+| House notes | *How a piece comes to exist* — four numbered steps |
+| House attribution | What "by Betty Jaletti" means, and what it does not |
+| House promises | "Plain terms" — shipping, returns, damage, refunds, preorders, privacy — then the candid caveats |
+| Newsletter | The closing invitation |
+
+### Rules for editing it
+
+Every word is a theme setting, which is the point: these are the first facts to
+go stale, and a stale promise is worse than no promise.
+
+- **The figures must match the policies.** Shipping windows, the 30 days, the
+  14 days, the 5–10 business days and the preorder terms are all repeated from
+  the policy pages. If a policy changes, change this page the same day.
+- **Move the review date** at the foot of "Plain terms" whenever you touch a
+  figure. A dated page is a trusted page.
+- **Leave the closing line in.** It says the policy pages govern where the two
+  disagree. That is what makes writing the terms out on the page safe.
+- **Keep the attribution section honest.** Its third column tells the buyer
+  where to go and check for themselves. If a product page stops carrying that
+  accordion, fix the product page rather than softening the claim here.
+- **Claim nothing the house cannot show.** No invented response times, no
+  invented certifications, no counts of happy customers. The page is persuasive
+  because every line on it is checkable.
 
 ## Product metafields (optional but recommended)
 
@@ -174,5 +223,6 @@ To close the preorder, track inventory, set the policy to **deny**, and set quan
 
 1. Import **The Chaperone** (above), then create the **First Edition** collection with the four products (The Chaperone, The Good Lines, One More Chapter, The Good Glass) and pick it in the homepage "Edition grid" section.
 2. Create a page with handle `the-letter` using the **page.the-letter** template for the full About letter.
-3. Set the `main-menu` and `footer` navigation menus.
-4. Add the metafields above for per-product CTAs and edition numbers.
+3. Create the trust page on the **the-house** template (see above) and put it in both menus.
+4. Set the `main-menu` and `footer` navigation menus.
+5. Add the metafields above for per-product CTAs and edition numbers.

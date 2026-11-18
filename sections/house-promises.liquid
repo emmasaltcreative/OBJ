@@ -1,0 +1,347 @@
+{%- comment -%}
+  "Plain terms." The promises written out on the page, in the house's own
+  words, each one linking to the policy that governs it. A buyer should not
+  have to open four policy pages to find out when a parcel moves or what
+  happens if they change their mind.
+
+  Two kinds of block:
+    term   — a promise the house keeps, with an optional link to its policy
+    caveat — something true that a buyer would rather know before they buy
+             than discover afterwards
+
+  Rule for editing this section: if a figure changes in the policies, change
+  it here the same day, and move the review date. A stale promise is worse
+  than no promise. If the two ever disagree, the policy pages govern — the
+  closing line says so, so leave it in.
+{%- endcomment -%}
+
+<section class="house-terms section">
+  <div class="page-width">
+    <div class="house-terms__head">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.intro != blank -%}
+        <div class="house-terms__intro prose">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- assign terms = section.blocks | where: 'type', 'term' -%}
+    {%- assign caveats = section.blocks | where: 'type', 'caveat' -%}
+
+    {%- if terms.size > 0 -%}
+      <dl class="house-terms__grid">
+        {%- for block in terms -%}
+          <div class="house-terms__item" {{ block.shopify_attributes }}>
+            <dt>{{ block.settings.term }}</dt>
+            <dd>
+              <p>{{ block.settings.detail }}</p>
+              {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+                <a class="house-terms__link" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+              {%- endif -%}
+            </dd>
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+
+    {%- if caveats.size > 0 -%}
+      <div class="house-terms__plainly">
+        <h3 class="house-terms__plainly-title">{{ section.settings.caveats_heading }}</h3>
+        <ul class="house-terms__caveats">
+          {%- for block in caveats -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    <div class="house-terms__foot">
+      {%- if section.settings.reviewed != blank -%}
+        <p class="house-terms__reviewed">{{ section.settings.reviewed }}</p>
+      {%- endif -%}
+      {%- if section.settings.closing != blank -%}
+        <div class="house-terms__closing prose prose--quiet">{{ section.settings.closing }}</div>
+      {%- endif -%}
+      {%- if section.settings.contact_email != blank -%}
+        <p class="house-terms__contact">
+          <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+          {%- if section.settings.contact_note != blank -%}
+            <span>{{ section.settings.contact_note }}</span>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "House promises",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Plain terms"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What you can hold us to"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Written out here rather than buried in a policy page, because a promise you have to go looking for is not much of a promise.</p>"
+    },
+    {
+      "type": "text",
+      "id": "caveats_heading",
+      "label": "Caveats heading",
+      "default": "And, said plainly"
+    },
+    {
+      "type": "text",
+      "id": "reviewed",
+      "label": "Review line",
+      "default": "These terms were last read through on 18 November 2026.",
+      "info": "Update this whenever you change a figure above. A dated page is a trusted page."
+    },
+    {
+      "type": "richtext",
+      "id": "closing",
+      "label": "Closing note",
+      "default": "<p>Where this page and the policy pages ever disagree, the policy pages govern — and we would like to know, so we can fix the page.</p>"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "hello@ohbettyjaletti.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_note",
+      "label": "Note beside the email",
+      "default": "— write to the house about anything above. A person writes back."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "term",
+      "name": "Promise",
+      "settings": [
+        {
+          "type": "text",
+          "id": "term",
+          "label": "Promise",
+          "default": "Getting it to you"
+        },
+        {
+          "type": "textarea",
+          "id": "detail",
+          "label": "Detail"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "The shipping policy"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "caveat",
+      "name": "Said plainly",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Faux suede is faux suede. We will not call it leather."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 14,
+  "presets": [
+    {
+      "name": "House promises",
+      "blocks": [
+        {
+          "type": "term",
+          "settings": {
+            "term": "Getting it to you",
+            "detail": "Within the United States. In-stock pieces generally ship within 2–3 business days, packed by hand before they go to the post, and tracking follows the parcel out of the door. Rates and any free-shipping threshold are confirmed at checkout.",
+            "link_label": "The shipping policy",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        {
+          "type": "term",
+          "settings": {
+            "term": "Changing your mind",
+            "detail": "30 days from delivery, for anything unworn, unused and in its original packaging. Write to us first so the return is expected. No reason required — on a change of mind the return postage is yours, and we recommend a tracked service.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        {
+          "type": "term",
+          "settings": {
+            "term": "If it arrives damaged or wrong",
+            "detail": "Write within 14 days of delivery with a photograph. You get a replacement or a full refund including the original shipping, and the house covers the return postage. That one is our fault, so it is our cost.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        {
+          "type": "term",
+          "settings": {
+            "term": "Getting your money back",
+            "detail": "To the original payment method, within 5–10 business days of the parcel reaching us. Banks sometimes take a few days more to show it. Original shipping comes back only where the fault was ours.",
+            "link_label": "The returns policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        {
+          "type": "term",
+          "settings": {
+            "term": "If you preorder",
+            "detail": "We say it is a preorder before you commit, and payment is taken the day you order, not the day it ships. You may cancel any time before it ships for a full refund — one line in an email is enough. If an edition cannot be made at all, every preorder is refunded in full, unasked, and if we run past the promised window we write to you with a new date and the choice to accept it or cancel.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        {
+          "type": "term",
+          "settings": {
+            "term": "Your details",
+            "detail": "Your address stays with the house. We write when there is something worth telling you, and you can leave the list whenever you like without writing to ask.",
+            "link_label": "The privacy policy",
+            "link": "/policies/privacy-policy"
+          }
+        },
+        { "type": "caveat", "settings": { "text": "Faux suede is faux suede. We will not call it leather." } },
+        { "type": "caveat", "settings": { "text": "We ship within the United States only — not yet anywhere else." } },
+        { "type": "caveat", "settings": { "text": "No exchanges. Return it for a refund and place a new order: it is faster, and it keeps the numbering straight." } },
+        { "type": "caveat", "settings": { "text": "An opened bottle of fragrance cannot come back, because it cannot be resold. Unopened, within 30 days, of course it can — and if the bottle itself is faulty, write anyway." } },
+        { "type": "caveat", "settings": { "text": "“No. 1” is a piece's place in its edition, not a serial number on a limited run." } },
+        { "type": "caveat", "settings": { "text": "It is a small house. Pieces are made in considered quantities, which is why an edition is finished when it is right rather than when it is due." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.house-terms { background: var(--color-paper); border-bottom: 1px solid var(--line); }
+.house-terms__head { max-width: 46rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.house-terms__intro { color: var(--ink-soft); font-size: 1.05rem; }
+.house-terms__intro p:last-child { margin-bottom: 0; }
+
+.house-terms__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
+}
+@media (max-width: 820px) { .house-terms__grid { grid-template-columns: 1fr; } }
+.house-terms__item {
+  padding: clamp(1.5rem, 3vw, 2.2rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+.house-terms__item:nth-child(odd) { padding-right: clamp(1.5rem, 4vw, 3.5rem); }
+.house-terms__item:nth-child(even) { padding-left: clamp(1.5rem, 4vw, 3.5rem); border-left: 1px solid var(--line); }
+@media (max-width: 820px) {
+  .house-terms__item:nth-child(odd),
+  .house-terms__item:nth-child(even) { padding-inline: 0; border-left: 0; }
+}
+.house-terms__item dt {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+.house-terms__item dd { margin: 0; }
+.house-terms__item dd p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+}
+.house-terms__link {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.house-terms__plainly { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.house-terms__plainly-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  margin-bottom: 1.2rem;
+}
+.house-terms__caveats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 68rem;
+}
+@media (max-width: 820px) { .house-terms__caveats { grid-template-columns: 1fr; } }
+.house-terms__caveats li {
+  position: relative;
+  padding: 0.85rem 0 0.85rem 1.7rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+}
+.house-terms__caveats li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+.house-terms__foot {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
+  max-width: 46rem;
+}
+.house-terms__reviewed {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+.house-terms__closing { font-style: italic; }
+.house-terms__closing p:last-child { margin-bottom: 0; }
+.house-terms__contact {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+.house-terms__contact a { color: var(--color-accent); }
+.house-terms__contact span { margin-left: 0.35rem; color: var(--ink-soft); font-size: 0.97rem; font-style: italic; }
+{% endstylesheet %}

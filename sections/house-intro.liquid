@@ -1,0 +1,231 @@
+{%- comment -%}
+  The opening of the trust page: who the house is, in one breath, with the
+  four facts a first-time buyer actually wants before they read anything
+  else — where we are, who answers, when a parcel moves, and what happens
+  if they change their mind.
+
+  Every fact is a setting. Nothing here is hardcoded truth, because these
+  are the first things to go stale.
+{%- endcomment -%}
+
+<section class="house-intro">
+  {%- if section.settings.image != blank -%}
+    <div class="house-intro__media">
+      {{ section.settings.image | image_url: width: 1800 | image_tag:
+         widths: '800, 1200, 1800',
+         sizes: '100vw',
+         alt: section.settings.image_alt,
+         fetchpriority: 'high' }}
+    </div>
+  {%- elsif section.settings.show_fallback_image -%}
+    <div class="house-intro__media">
+      <img
+        src="{{ 'obj-hero-atelier.jpg' | asset_url }}"
+        alt="{{ section.settings.image_alt | escape }}"
+        width="1800" height="675"
+        fetchpriority="high">
+    </div>
+  {%- endif -%}
+
+  <div class="page-width house-intro__inner">
+    <div class="house-intro__words">
+      <span class="eyebrow eyebrow--accent">{{ section.settings.eyebrow }}</span>
+      <h1>{{ section.settings.heading }}</h1>
+
+      {%- if section.settings.standfirst != blank -%}
+        <div class="house-intro__standfirst prose">{{ section.settings.standfirst }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+        <div class="house-intro__actions">
+          {%- if section.settings.primary_label != blank -%}
+            <a class="btn btn--solid" href="{{ section.settings.primary_link | default: '#' }}">{{ section.settings.primary_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a class="link-arrow" href="{{ section.settings.secondary_link | default: '#' }}">{{ section.settings.secondary_label }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <dl class="house-intro__signals">
+        {%- for block in section.blocks -%}
+          <div class="house-intro__signal" {{ block.shopify_attributes }}>
+            <dt>{{ block.settings.label }}</dt>
+            <dd>{{ block.settings.value }}</dd>
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "House intro",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photograph"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_fallback_image",
+      "label": "Use the theme's atelier photograph if none is chosen",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "image_alt",
+      "label": "Photograph description",
+      "default": "The Oh Betty Jaletti worktable: concept sketches beside linen, poplin and bookcloth swatches, with the house monogram and the words unreasonably pretty things, made with intention.",
+      "info": "Read aloud to anyone using a screen reader. Describe what is in the picture."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The house, plainly"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Who we are, why we bother, and what you can hold us to"
+    },
+    {
+      "type": "richtext",
+      "id": "standfirst",
+      "label": "Standfirst",
+      "default": "<p>Oh Betty Jaletti is an American maison for the ones who take the slow way: small, useful, unreasonably pretty things, made with intention and released in considered quantities.</p><p>It is a small house, not a factory. This page says who is behind it, how a piece comes to exist, and exactly what the house promises — in plain words, with the terms written out rather than hidden behind a link.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Read our why"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary link label",
+      "default": "See what is for sale today"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "signal",
+      "name": "Fact",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Where we are"
+        },
+        {
+          "type": "textarea",
+          "id": "value",
+          "label": "Value",
+          "default": "An American house, based in Virginia."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "House intro",
+      "blocks": [
+        { "type": "signal", "settings": { "label": "Where we are", "value": "An American house, based in Virginia. We ship within the United States." } },
+        { "type": "signal", "settings": { "label": "Who answers", "value": "hello@ohbettyjaletti.com. A person writes back — not a ticket number." } },
+        { "type": "signal", "settings": { "label": "When a parcel moves", "value": "In-stock pieces generally ship within 2–3 business days, packed by hand." } },
+        { "type": "signal", "settings": { "label": "If you change your mind", "value": "30 days from delivery, unworn and in its packaging. No reason required." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.house-intro {
+  background: var(--color-paper);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.house-intro__media {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.house-intro__media img {
+  width: 100%;
+  height: clamp(16rem, 38vw, 30rem);
+  object-fit: cover;
+  object-position: center 40%;
+}
+.house-intro__inner { padding-top: clamp(2.5rem, 5vw, 4.5rem); }
+.house-intro__words { max-width: 46rem; }
+.house-intro__words h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  margin-bottom: 1.2rem;
+  text-wrap: balance;
+}
+.house-intro__standfirst { font-size: 1.1rem; }
+.house-intro__standfirst p:last-child { margin-bottom: 0; }
+.house-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: 2rem;
+}
+.house-intro__signals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 900px) { .house-intro__signals { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .house-intro__signals { grid-template-columns: 1fr; } }
+.house-intro__signal {
+  padding: clamp(1.4rem, 2.5vw, 1.9rem) clamp(1.2rem, 2vw, 1.8rem);
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+.house-intro__signal:last-child { border-right: 0; }
+@media (max-width: 900px) {
+  .house-intro__signal:nth-child(2n) { border-right: 0; }
+}
+@media (max-width: 520px) {
+  .house-intro__signal { border-right: 0; }
+}
+.house-intro__signal dt {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.6rem;
+}
+.house-intro__signal dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+{% endstylesheet %}
